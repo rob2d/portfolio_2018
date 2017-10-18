@@ -1,0 +1,9 @@
+.idea
+.idea/**/*.*
+node_modules/**
+node_modules
+dist/dev/*.js
+dist/prod/*.js
+dist/prod/**
+builds/**
+builds/**/*.*
