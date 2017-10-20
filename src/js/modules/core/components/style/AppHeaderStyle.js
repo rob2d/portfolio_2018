@@ -1,24 +1,11 @@
-const styleSheet = (theme) =>
-({
+import theme from 'app-root/baseTheme'
+
+const styleSheet = 
+{
     appBar :
     {
         backgroundColor : theme.palette.text.primary,
         position        : 'relative',
-    },
-    contactButtonContainer :
-    {
-        display : 'inline-flex',
-        justifyContent : 'center',
-        flexDirection  : 'column'
-    },
-    contactButtonIcon :
-    {
-        position   : 'relative',
-        margin     : '0 auto',
-        textAlign  : 'center',
-        display    : 'inline-block',
-        textIndent : '0',
-        fontSize   : '16pt'
     },
     rightContainer :
     {
@@ -31,6 +18,7 @@ const styleSheet = (theme) =>
     },
     leftIconsWrapper :
     {
+        position       : 'relative',
         width          : '240px',
         height         : '100%',
         color          : '#FFFFFF',
@@ -63,10 +51,7 @@ const styleSheet = (theme) =>
         display    : 'block',
         color      : "#FFFFFF"
     },
-    '@media (max-width: 400px)':
-    {
-        contactButton : { minWidth : '68px' }
-    },
-});
+
+};
 
 export default styleSheet

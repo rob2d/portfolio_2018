@@ -39,6 +39,7 @@ const reducer = (state={...initialState}, action)=>
         case REFRESH_WINDOW_DIMENSIONS :
             let viewportWidth  = getViewportWidth(),
                 viewportHeight = getViewportHeight();
+                console.log('refreshing window dimensions ->', viewportWidth);
 
             if(state.viewportWidth != viewportWidth || state.viewportHeight != viewportHeight)
             {
