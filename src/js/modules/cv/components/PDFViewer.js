@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react'
+import injectSheet from 'react-jss'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
-import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button'
 import { cv as strings } from 'strings'
 import PDF from 'react-pdf-js';
-import Tooltip   from 'react-tooltip'
+import Tooltip   from 'material-ui/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
 
-const styleSheet = (theme) =>
-({
+const styleSheet =
+{
     container :
     {
         position       : 'relative',
@@ -60,13 +60,19 @@ const styleSheet = (theme) =>
         position : 'fixed',
         bottom   : '48px',
         right    : '48px',
+    },
+    // TODO : use constant to make
+    //        tooltip style DRY
+    tooltip : {
+        fontSize : '11pt',
+        padding  : '4px 8px',
+        minHeight: '20px',
+        lineHeight: '20px'
     }
-});
+};
 
-class PDFViewer extends PureComponent
-{
-    constructor(props)
-    {
+class PDFViewer extends PureComponent {
+    constructor(props) {
         super(props);
         this.state = { pageNumber : 1, pageCount : 0 };
     }
@@ -88,13 +94,11 @@ class PDFViewer extends PureComponent
     };
 
     handleNextPage = ()=> {
-        if(this.state.pageNumber < this.state.pageCount)
-        {
+        if(this.state.pageNumber < this.state.pageCount) {
             this.setState({ pageNumber: this.state.pageNumber + 1 });
         }
     };
-    render ()
-    {
+    render () {
         const { classes, fileURL } = this.props;
         const { pageNumber, pageCount } = this.state;
         return (
@@ -113,16 +117,21 @@ class PDFViewer extends PureComponent
                     (
                         <Tooltip
                             id={`resume-pdf-download-tooltip`}
-                            delayShow={700}
-                            place="top"
-                        ><span>Download this PDF</span>
+                            enterDelay={400} 
+                            placement="left"
+                            title="Download this PDF"
+                            disableTriggerFocus={!shouldShowHoverContent}
+                            disableTriggerHover={!shouldShowHoverContent}
+                            disableTriggerTouch={!shouldShowHoverContent}
+                            classes={{ tooltip : classes.tooltip }}
+                        >
+                            <Button
+                                fab color="accent"
+                                data-tip data-for={`resume-pdf-download-tooltip`}
+                            ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
+                            </Button>
                         </Tooltip>
                     )}
-                    <Button
-                        fab color="accent"
-                        data-tip data-for={`resume-pdf-download-tooltip`}
-                    ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
-                    </Button>
                 </a>
                 <PDFViewerNav
                     pageNumber={pageNumber}
@@ -135,4 +144,4 @@ class PDFViewer extends PureComponent
     }
 }
 
-export default pure(withStyles(styleSheet)(PDFViewer));
+export default pure(injectSheet(styleSheet)(PDFViewer));

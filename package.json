@@ -1,7 +1,7 @@
 {
   "name": "rob-portfolio-2017",
   "displayName": "awesome-portfolio",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Web App Portfolio of Robert Concepcion III",
   "main": "app.js",
   "scripts": {
@@ -51,7 +51,6 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^5.0.0-alpha.6",
-    "react-tooltip": "^3.3.0",
     "reactify": "^1.1.1",
     "recompose": "^0.24.0",
     "redux": "^3.7.0",
