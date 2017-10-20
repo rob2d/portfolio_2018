@@ -39,9 +39,9 @@ const styleSheet = {
         transform : 'translateX(-50%)',
         opacity : 1,
         transition : 'left 0.65s ease-out 0.25s, opacity 0.4s, ' +
-                     'border-color 0.35s linear, border-left 0.35s linear, ' + 
-                     'border-right 0.35s linear, border-bottom 0.35s linear, ' + 
-                     'bottom 0.35s linear'
+                     'border-color 0.30s linear, border-left 0.30s linear, ' + 
+                     'border-right 0.30s linear, border-bottom 0.30s linear, ' + 
+                     'bottom 0.30s linear'
     },
     '@media (max-width:400px)' : {
         // MUIButton switches between 88/68px on mobile, so considering
