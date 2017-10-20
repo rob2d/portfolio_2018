@@ -6,7 +6,7 @@ const styleSheet =
 {
     container : {
         opacity: ({isShown}) => (isShown ? '1' : '0'),
-        display: 'block',
+        display: ({ onScreen })=>(onScreen ? 'block' : 'none'),
         position: ({ hasAbsolutePosition })=>(
             hasAbsolutePosition ? 'absolute' : 'relative'
         ),

@@ -159,9 +159,9 @@ class ProjectCard extends PureComponent
         //      |  dynamic with new simpler 
         // TODO | "statefulProps" HOC
 
-        return onScreen && 
-        (
+        return (
             <ProjectCardLayout
+                onScreen={onScreen}
                 controllerComponent={ this }
                 offsetX={ offsetX }
                 offsetY={ offsetY }
