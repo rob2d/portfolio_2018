@@ -30,12 +30,12 @@ const styleSheet = (theme) =>
         padding  : 0,
         margin   : 0,
         // resize pdf height according to 8.5x11
-        '@media (max-width: 800px)':
+        '@media (max-width: 900px)':
         {
             maxWidth : '100%',
             height : 'auto !important'
         },
-        '@media (min-width: 800px)':
+        '@media (min-width: 900px)':
         {
             width    : '100%',
             maxWidth : '800px',

@@ -13,7 +13,7 @@ const styleSheet =
     {
         marginLeft     : 'auto',
         marginRight    : 'auto',
-        maxWidth       : '600px',
+        maxWidth       : '700px',
         flexGrow       : 1,
         display        : 'flex',
         flexDirection  : 'column',
@@ -84,6 +84,24 @@ const styleSheet =
         pText : {
             marginTop : '8px',
             marginBottom : '8px'
+        }
+    },
+    // make certain things larger on non-mobile devices
+    '@media (min-width:901px)' : {
+        avatar : {
+            width : '180px !important',
+            height: '180px !important'
+        },
+        mainContainer : {
+            maxWidth : '800px !important'
+        },
+        pText : {
+            paddingLeft  : '32px !important',
+            paddingRight : '32px !important',
+            fontSize     : '14pt !important'
+        },
+        wipNote : {
+            fontSize : '12pt !important'
         }
     }
 };
