@@ -68,7 +68,7 @@ class AppHeader extends PureComponent {
 
     componentDidMount () {
         // needed to initially trigger re-grab of coordinates for dynamic header tabs
-        this.updateButtonXOffsets();
+        this.updateButtonXPositions();
         
         // since the AppHeader is the only globally available component
         // down to within the context of redux, use it as an opportunity
@@ -91,13 +91,20 @@ class AppHeader extends PureComponent {
         // if the path index or viewport width changed, use it as the opportunity
         // to re-grab coordinates of buttons for the section highlighter
         if((prevState.pathIndex != this.state.pathIndex) || (this.props.viewportWidth != prevProps.viewportWidth)) {
-            this.updateButtonXOffsets();
+            this.updateButtonXPositions();
         }
     }
 
-    updateButtonXOffsets = ()=> {
+    updateButtonXPositions = ()=> {
         setTimeout(()=> {
-            this.setState({ buttonXOffsets : this.R.buttonDivRefs.map((b)=>(b.offsetLeft)) });
+            const sampleButton = this.R.buttonDivRefs[0];
+            const buttonWidth = sampleButton && sampleButton.offsetWidth;
+            const buttonTopOffset = sampleButton && sampleButton.offsetTop;
+            this.setState({ 
+                buttonXPositions : this.R.buttonDivRefs.map((b)=>(b.offsetLeft + buttonWidth/2)),
+                buttonWidth,
+                buttonTopOffset 
+            });
         }, 0);  // need a timeout to get around functional component refs; a bit of hack
                 // but this is all to get around temp JSS glitch with media queries
     };
@@ -148,7 +155,9 @@ class AppHeader extends PureComponent {
                         <SectionHighlighter 
                             lastKnownIndex={lastMatchedIndex} 
                             index={pathIndex} 
-                            buttonXOffsets={this.state.buttonXOffsets}
+                            buttonXPositions={this.state.buttonXPositions}
+                            buttonWidth={this.state.buttonWidth}
+                            buttonTopOffset={this.state.buttonTopOffset} // needed for browser issues
                         />
                     </div>
                     <div className={ classes.centerPadder } />
