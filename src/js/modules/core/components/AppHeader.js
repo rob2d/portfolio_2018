@@ -133,7 +133,7 @@ class AppHeader extends PureComponent {
     };
 
     render () {
-        const { classes } = this.props;
+        const { classes, viewportWidth } = this.props;
         const { pathIndex, lastMatchedIndex } = this.state;
 
         return (
@@ -155,6 +155,7 @@ class AppHeader extends PureComponent {
                         <SectionHighlighter 
                             lastKnownIndex={lastMatchedIndex} 
                             index={pathIndex} 
+                            viewportWidth={viewportWidth}
                             buttonXPositions={this.state.buttonXPositions}
                             buttonWidth={this.state.buttonWidth}
                             buttonTopOffset={this.state.buttonTopOffset} // needed for browser issues

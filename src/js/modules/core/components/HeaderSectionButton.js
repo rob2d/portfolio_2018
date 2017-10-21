@@ -7,6 +7,9 @@ import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 
 const styleSheet = 
 {
+    container : {
+        display : 'block'
+    },
     button :
     {
         display    : 'block',
@@ -44,33 +47,30 @@ const HeaderSectionButton = pure(injectSheet(styleSheet)(({
     iconClass, tooltipText, 
     classes, buttonDivRef, disabled
 })=>(
-        <div ref={buttonDivRef}>
-            {shouldShowHoverContent &&
-            (
-                <Tooltip
-                    id={`header-menu-${name}-tooltip`}
-                    enterDelay={400}
-                    place="bottom"
-                    title={tooltipText}
-                    disableTriggerFocus={!shouldShowHoverContent}
-                    disableTriggerHover={!shouldShowHoverContent}
-                    disableTriggerTouch={!shouldShowHoverContent}
-                    classes={{ tooltip : classes.tooltip }}
-                    >
-                    <Button className={ classes.button }
-                        disabled={ disabled }
-                        data-tip data-for={ `header-menu-${name}-tooltip` }
-                        id={ domId }
-                        onClick={ onClick }
-                    >
-                        <div className={ classes.buttonIconWrapper }>
-                            <i className={`${iconClass} ${
-                                classes.buttonIcon
-                            }`}/>
-                        </div>
-                    </Button>
-                </Tooltip>
-            )}
+        <div ref={buttonDivRef} className={classes.container}>
+            <Tooltip
+                id={`header-menu-${name}-tooltip`}
+                enterDelay={400}
+                place="bottom"
+                title={tooltipText}
+                disableTriggerFocus={!shouldShowHoverContent}
+                disableTriggerHover={!shouldShowHoverContent}
+                disableTriggerTouch={!shouldShowHoverContent}
+                classes={{ tooltip : classes.tooltip }}
+                >
+                <Button className={ classes.button }
+                    disabled={ disabled }
+                    data-tip data-for={ `header-menu-${name}-tooltip` }
+                    id={ domId }
+                    onClick={ onClick }
+                >
+                    <div className={ classes.buttonIconWrapper }>
+                        <i className={`${iconClass} ${
+                            classes.buttonIcon
+                        }`}/>
+                    </div>
+                </Button>
+            </Tooltip>
         </div>
     )
 ));

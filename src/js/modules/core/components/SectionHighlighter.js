@@ -25,10 +25,12 @@ const styleSheet = {
 
         // we also offset based on whether a project
         // is selected (currently, if index == -1 or not)
-        bottom : ({ index, buttonTopOffset })=>(
-            typeof buttonTopOffset != 'undefined' && 
-                `${(index!=-1?0:8)+(Math.floor(buttonTopOffset-10))}px`
-        ),
+        bottom : ({ index, buttonTopOffset, viewportWidth })=>{
+        const gutterOffset = viewportWidth <= 600 ? 4 : 0;
+            return typeof buttonTopOffset != 'undefined' && 
+                `${(index!=-1?0:8)+
+                        (Math.floor(buttonTopOffset-10+gutterOffset))}px`
+        },
         // shift the left position towards the last active
         // known button (+4px) when that is available
         left : ({ lastKnownIndex, buttonXPositions })=>(
@@ -38,17 +40,10 @@ const styleSheet = {
         ),
         transform : 'translateX(-50%)',
         opacity : 1,
-        transition : 'left 0.65s ease-out 0.25s, opacity 0.4s, ' +
-                     'border-color 0.30s linear, border-left 0.30s linear, ' + 
-                     'border-right 0.30s linear, border-bottom 0.30s linear, ' + 
-                     'bottom 0.30s linear'
-    },
-    '@media (max-width:400px)' : {
-        // MUIButton switches between 88/68px on mobile, so considering
-        // we adjust to things to (buttonWidth-8px)
-        sectionHighlighter : {
-            bottom : '2px' // seems height also adjusts slightly
-        }
+        transition : 'left 0.55s ease-out 0.25s, opacity 0.4s, ' +
+                     'border-color 0.27s linear, border-left 0.27s linear, ' + 
+                     'border-right 0.27s linear, border-bottom 0.27s linear, ' + 
+                     'bottom 0.27s linear'
     }
 }
 function SectionHighlighter ({ buttonXPositions, index, lastKnownIndex, classes }) {
