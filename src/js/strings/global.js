@@ -9,5 +9,9 @@ export default
     {
         en : 'English',
         ja : '日本語'
+    },
+    translationIsWIP : {
+        en : '',
+        ja : '申し訳ございません.このウェブサイトの日本語は準備中です'
     }
 };

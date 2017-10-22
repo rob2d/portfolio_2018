@@ -10,6 +10,8 @@ import store from '../store'
 import injectSheet from 'react-jss'
 import pure from 'tools/pureWithDisplayName'
 
+import AppWarningNotice from './core/components/AppWarningNotice'
+
 import AppHeader     from './core/components/AppHeader'
 import AppFooter     from './core/components/AppFooter'
 import ProjectsPanel from './projects/components/ProjectsPanel'
@@ -58,7 +60,8 @@ const RoutingApp = injectSheet(styles)(({ classes })=>(
         <ConnectedRouter history={ appHistory }>
             <div className={ classes.appWrapper }>
                 <div className={classes.routeViewWrapper}>
-                    <AppHeader/>
+                    <AppHeader />
+                    <AppWarningNotice />
                     {
                     <Switch>
                         <Route exact path='(/about|/)' component={ About }/>

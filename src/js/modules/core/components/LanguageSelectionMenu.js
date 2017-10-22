@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import {Tabs, Tab} from 'material-ui/Tabs'
 import Menu, {MenuItem}from 'material-ui/Menu'
 import IconButton      from 'material-ui/IconButton'
 import strings,{menus}  from 'strings'

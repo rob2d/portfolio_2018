@@ -6,7 +6,8 @@ const styleSheet =
     {
         backgroundColor : theme.palette.text.primary,
         position        : 'relative',
-    },
+        minHeight       : '56px' // needed to prevent gutters 
+    },                           // from resizing
     rightContainer :
     {
         textAlign      : 'right',

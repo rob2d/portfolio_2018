@@ -28,19 +28,25 @@ export default
             id      : 'npm-repos',
             title   : 'Development Tools',
             context : 'NPM',
+            role : 'developer/designer',
             shortDescription : 'Wide array of open-source development ' +
-            'tools including a React/Redux Project Generator, ' +
-            'Node/Express Route Mapper, MySQL Prettifier, and others; ' +
-            'created to help build larger projects',
+                'tools including a React/Redux Project Generator, ' +
+                'Node/Express Route Mapper, MySQL Prettifier, and many others',
             description      : '',
-            thumbnail        : 'img/projects/bamf_thumb.png',
+            platforms        : ['web'],
             screenshots      :
             [
                 {
                     url  : '',
                     desc : ''
                 }
-            ]
+            ],
+            links : 
+            [ 
+                {
+                url  : 'https://www.npmjs.com/~robftw',
+                desc : 'Visit the NPM repos'
+            }]
         },
         {
             id           : 'bamf',
@@ -163,8 +169,9 @@ export default
             id      : 'sonicphysics',
             title   : 'Sonic 3 Physics',
             context : 'Independent',
-            shortDescription : 'A pixel perfect rendition of the physics found in SEGA\'s ' +
-            '\"Sonic the Hedgehog\" series. ',
+            shortDescription : 'セガのソニック・ザ・ヘッジホッグシリーズで' +
+                               'キャプチャーしたキャラクターの' +
+                               '動きのピクセルパーフェクト・レンディション',
             description      : '',
             screenshots      :
             [

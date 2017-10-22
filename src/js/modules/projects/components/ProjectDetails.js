@@ -25,7 +25,9 @@ const styleSheet = (theme) =>(
     },
     contentContainer :
     {
-        margin : '16px 0px'
+        margin : '16px 0px',
+        paddingLeft : '16px',
+        paddingRight : '16px'
     },
     title :
     {
@@ -34,7 +36,7 @@ const styleSheet = (theme) =>(
     },
     description :
     {
-        fontSize   : '16pt',
+        fontSize   : '14pt',
         textAlign  : 'left',
         paddingTop : '16px'
     },
@@ -63,13 +65,13 @@ const styleSheet = (theme) =>(
     },
     disclaimer :
     {
+        display    : 'flex',
         maxWidth   : '600px',
-        margin     : '16px auto 48px',
+        margin     : '16px auto 16px',
         padding    : '8px 16px',
-        color      : '#BB4433',
         textAlign  : 'justify',
         alignItems : 'center',
-        justifyContent : 'center'
+        justifyContent : 'flex-start'
     },
     disclaimerNote : 
     {
@@ -79,21 +81,25 @@ const styleSheet = (theme) =>(
         textAlign : 'justify'
     },
     disclaimerIcon : {
-        fontSize : '24pt'
+        fontSize : '22pt'
     },
     disclaimerIconContainer : {
         display        : 'flex',
         alignItems     : 'center',
         justifyContent : 'center',
-        margin         : '16px'
+        margin         : '16px',
+        color          : '#0000CC',
     },
     returnToProjects :
     {
-        cursor     : 'pointer',
-        color      : '#0000CC',
-        marginLeft : '64px',
-        marginTop  : '0px',
-        fontSize   : '14pt'
+        display      : 'inline-block',
+        cursor       : 'pointer',
+        color        : '#0000CC',
+        marginLeft   : '16px',
+        marginTop    : '0px',
+        marginBottom : '0px',
+        fontSize     : '14pt',
+        textAlign    : 'left'
     },
     section : {
         marginBottom : '16px'
@@ -114,23 +120,6 @@ const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
         const project = findProject(projectId);
         return (
             <div className={ classes.mainContainer }>
-                               <Paper className={ classes.disclaimer }>
-                    <div className={classes.disclaimerNote}>
-                        <div className={classes.disclaimerIconContainer}>
-                            <i className={`mdi mdi-alert ${classes.disclaimerIcon}`}/>
-                        </div>
-                        <p>
-                            This section is a work in progress and
-                            does not yet contain all relevant content.
-                            Check back soon for updates!
-                        </p>
-                    </div>
-                    <p
-                        className={ classes.returnToProjects }
-                        onClick={ ()=> appHistory.goTo(`/projects`) }
-                    >Click Here to return to the Projects page.
-                    </p>
-                </Paper>
                 <div className={classes.contentContainer}>
                     <p className={classes.description}>
                         {project.description || project.shortDescription}
@@ -199,6 +188,18 @@ const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
                             </p>
                         </div>
                     )}
+
+                    <div className={ classes.disclaimer } onClick={ ()=> appHistory.goTo(`/projects`) }>
+                    <div className={classes.disclaimerIcon}>
+                        <div className={classes.disclaimerIconContainer}>
+                            <i className="mdi mdi-arrow-left-box"/>
+                        </div>
+                    </div>
+                    <p
+                        className={ classes.returnToProjects }
+                    >Click Here to return to the Projects page.
+                    </p>
+                    </div>
                 </div>
             </div>
         )

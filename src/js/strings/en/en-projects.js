@@ -49,7 +49,7 @@ export default
             links : 
             [ 
                 {
-                url  : 'http://npmjs.com/rob2d',
+                url  : 'https://www.npmjs.com/~robftw',
                 desc : 'Visit the NPM repos'
             }]
         },
