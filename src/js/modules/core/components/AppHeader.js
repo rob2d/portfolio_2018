@@ -6,7 +6,7 @@ import AppBar                   from 'material-ui/AppBar'
 import Toolbar                  from 'material-ui/Toolbar'
 import { menus }                from 'strings'
 import styleSheet               from './style/AppHeaderStyle'
-import LanguageSelectionMenu    from './LanguageSelectionMenu'
+import LanguageMenu             from './LanguageMenu'
 import { connect }              from 'react-redux'
 import appHistory               from 'tools/appHistory'
 import HeaderSectionButton      from './HeaderSectionButton'
@@ -169,7 +169,7 @@ class AppHeader extends PureComponent {
                         <Typography className={`md-maximum ${classes.myNameText}`}>
                             Robert Concepción III
                         </Typography>
-                        <LanguageSelectionMenu />
+                        <LanguageMenu />
                     </div>
                 </Toolbar>
             </AppBar>

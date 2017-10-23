@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import injectSheet              from 'react-jss'
 import Menu, { MenuItem }       from 'material-ui/Menu'
-import IconButton               from 'material-ui/IconButton'
+import Button                   from 'material-ui/Button'
 import strings,{ menus }        from 'strings'
 import styleSheet               from './style/LanguageMenuStyle'
 import { setLanguage }          from '../actions'
@@ -10,7 +10,10 @@ import { connect }              from 'react-redux'
 class LanguageMenu extends PureComponent {
     constructor (props, context) {
         super(props, context);
-        this.state = { anchorEl : undefined, open : false }
+        this.state = { 
+            anchorEl : undefined, 
+            open     : false 
+        };
     }
     onMenuClick = (event)=> {
         this.setState({ 
@@ -25,14 +28,14 @@ class LanguageMenu extends PureComponent {
         const { onLanguageSelected, classes } = this.props;
         
         return (
-            <div className={classes.languageContainer} onClick={this.onMenuClick}>
+            <Button className={classes.languageContainer} onClick={this.onMenuClick}>
                 <span className={classes.languageTextSpan}>
                     {menus.main.languageAbbr}&nbsp;
                 </span>
-                <IconButton
+                <div
                     className={classes.languageButtonContainer}
                 ><i className={`mdi mdi-menu-down ${classes.languageButtonIcon}`}/>
-                </IconButton>
+                </div>
                 <Menu
                     id={'languageMenu'}
                     anchorEl={this.state.anchorEl}
@@ -51,15 +54,12 @@ class LanguageMenu extends PureComponent {
                         </MenuItem>
                     ))}
                 </Menu>
-            </div>);
+            </Button>);
     }
 }
-LanguageMenu.displayName = 'LanguageMenu';
 
 let VisibleLanguageMenu = connect(
-    (state,ownProps)=> ({
-        language : state.core.language
-    }),
+    (state,ownProps)=> ({ language : state.core.language }),
     (dispatch)=> ({ onLanguageSelected : (language)=>
     {
         dispatch(setLanguage(language));

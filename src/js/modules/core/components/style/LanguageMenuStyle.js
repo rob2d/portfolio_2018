@@ -6,14 +6,16 @@ const styleSheet = {
         display       : 'flex',
         alignItems    : 'center',
         flexDirection : 'row',
-        color         : '#FFFFFF'
+        color         : '#FFFFFF',
+        padding       : '0px'
     },
     languageButtonIcon :
     {
         width    : '32px',
         position : 'relative',
         left     : '-12px',
-        color    : '#FFFFFF'
+        color    : '#FFFFFF',
+        fontSize : '18pt'
     },
     languageButtonContainer :
     {
@@ -22,7 +24,8 @@ const styleSheet = {
     },
     languageTextSpan :
     {
-        fontWeight : 900
+        fontWeight : 700,
+        fontSize : '12pt'
     }
 };
 
