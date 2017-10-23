@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import injectSheet              from 'react-jss'
 import IconButton               from 'material-ui/IconButton'
-import Paper                    from 'material-ui/Paper'
 import strings, {menus}         from 'strings'
 import { connect }              from 'react-redux'
 import appHistory from 'tools/appHistory'
@@ -23,14 +22,14 @@ const styleSheet = {
         alignItems : 'center',
         justifyContent : 'center',
         overflow       : 'hidden',
-        margin         : ({ message })=>( message ? '32px auto 0px' : '0' ),
-        maxHeight      : ({ message })=>( message ? '500px' : '0px' ),
         opacity        : ({ message })=>( message ? 1 : 0 ),
+        margin         : ({ message })=>( message ? '32px auto 0px' : '0px auto 0px' ),
+        maxHeight      : ({ message })=>( message ? '200px' : '0px' ),
         transition     : 'max-height 0.75s, width 0.75s, opacity 0.75s, margin 0.75s'
     },
     disclaimer :
     {
-        padding        : ({ message })=>(message ? '8px 16px' : '0px'),
+        padding        : ({ message })=>(message ? '8px 16px' : '0px 16px'),
         color          : '#BB4433',
         textAlign      : 'center',
         alignItems     : 'center',
@@ -40,15 +39,19 @@ const styleSheet = {
     disclaimerNote : 
     {
         display    : 'flex',
+        overflow   : 'hidden',
         flexAlign  : 'row',
-        fontSize   : ({ message })=>( message ? '12pt':'0' ),
+        fontSize   : '12pt',
         textAlign  : 'justify',
         margin     : '0px',
-        transition : 'font-size 0.75s'
+        maxHeight  : ({ message })=>( message ? '200px' : '0px' ),
+        transition : 'max-height 0.75s linear 0.25s, height 0.75s linear 0.25s'
     },
     disclaimerIcon : {
-        fontSize : ({ message })=>( message ? '18pt':'0' ),
-        transition : 'font-size 0.75s'
+        overflow   : 'hidden',
+        fontSize   : '18pt',
+        maxHeight  : ({ message })=>( message ? '200px' : '0px' ),
+        transition : 'max-height 0.75s linear 0.25s, height 0.75s linear 0.25s'
     },
     disclaimerIconContainer : {
         display        : 'flex',
@@ -77,7 +80,7 @@ const AppWarningBox = injectSheet(styleSheet)(
             const { classes, message, location } = this.props;
             return (
                 <div className={classes.container}>
-                    <Paper className={ classes.disclaimer }>
+                    <div className={ classes.disclaimer }>
                         <p className={classes.disclaimerNote}>
                             <div className={classes.disclaimerIconContainer}>
                                 <i className={`mdi mdi-alert ${classes.disclaimerIcon}`}/>
@@ -86,7 +89,7 @@ const AppWarningBox = injectSheet(styleSheet)(
                                 { this.state.messageDisplayed }
                             </p> 
                         </p>
-                    </Paper>
+                    </div>
                 </div>
             );
         }

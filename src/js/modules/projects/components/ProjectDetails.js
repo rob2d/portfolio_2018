@@ -3,7 +3,6 @@ import pure from 'recompose/pure'
 import { withStyles } from 'material-ui/styles'
 import strings, { projects } from 'strings'
 import connect from 'react-redux/lib/connect/connect'
-import Paper   from 'material-ui/Paper'
 import appHistory from 'tools/appHistory'
 import withFadeTransitions from 'tools/withFadeTransitions'
 
@@ -67,8 +66,7 @@ const styleSheet = (theme) =>(
     {
         display    : 'flex',
         maxWidth   : '600px',
-        margin     : '16px auto 16px',
-        padding    : '8px 16px',
+        padding    : '8px 0px',
         textAlign  : 'justify',
         alignItems : 'center',
         justifyContent : 'flex-start'
@@ -87,8 +85,8 @@ const styleSheet = (theme) =>(
         display        : 'flex',
         alignItems     : 'center',
         justifyContent : 'center',
-        margin         : '16px',
-        color          : '#0000CC',
+        margin         : '16px 0px',
+        color          : '#0000CC'
     },
     returnToProjects :
     {
@@ -153,7 +151,7 @@ const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
                                     <p className={classes.sectionHeader}>Videos</p>
                                     <p className={classes.sectionContent}>
                                     <iframe 
-                                        width="300" 
+                                        width="280" 
                                         height="220" 
                                         src={video.url}
                                         frameborder="0" 
