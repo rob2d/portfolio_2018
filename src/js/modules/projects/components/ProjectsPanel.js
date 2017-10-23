@@ -71,7 +71,7 @@ class ProjectsPanel extends PureComponent
                 selectedProjectId, 
                 displayState : DisplayStates.PROJECT_FADE_TO
             };
-            if(selectedProjectId && visitedViaRootPath) {
+            if(selectedProjectId && !prevProps.isAtProjectURL) {
                 stateUpdates.wasSelectionViaUI = true;
             }
 

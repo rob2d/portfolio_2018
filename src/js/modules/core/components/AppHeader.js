@@ -4,18 +4,21 @@ import injectSheet              from 'react-jss'
 import Typography               from 'material-ui/Typography'
 import AppBar                   from 'material-ui/AppBar'
 import Toolbar                  from 'material-ui/Toolbar'
-import {menus}                  from 'strings'
+import { menus }                from 'strings'
 import styleSheet               from './style/AppHeaderStyle'
 import LanguageSelectionMenu    from './LanguageSelectionMenu'
 import { connect }              from 'react-redux'
 import appHistory               from 'tools/appHistory'
 import HeaderSectionButton      from './HeaderSectionButton'
 import SectionHighlighter       from './SectionHighlighter'
+import AppSectionIndexes        from 'constants/AppSectionIndexes'
 import { refreshWindowDimensions } from './../actions'
 
-// TODO : normalize/centralize pathname lookup
 
 const goToHeaderLink = (url)=> (appHistory.goTo(url) );
+
+// meta data which corresponds to SectionIndexes.js
+// TODO : normalize/centralize pathname lookup
 const Sections =
 [
     {
@@ -49,7 +52,7 @@ class AppHeader extends PureComponent {
 
         this.state = { 
             pathIndex,
-            lastMatchedIndex : pathIndex != -1 ? pathIndex : 0
+            lastMatchedIndex : pathIndex != -1 ? pathIndex : AppSectionIndexes.PROJECTS
         };
 
         // stores our references
@@ -119,11 +122,11 @@ class AppHeader extends PureComponent {
         let match = true;
         switch(pathname) {
             case '/':
-                return 0;
+                return AppSectionIndexes.WELCOME;
             case '/projects':
-                return 1;
+                return AppSectionIndexes.PROJECTS;
             case '/cv':
-                return 2;
+                return AppSectionIndexes.RESUME;
             default : 
                 match = false;
                 return -1;
