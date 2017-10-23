@@ -1,7 +1,7 @@
-const styleSheet = (theme) =>
-({
+const styleSheet = {
     languageContainer :
     {
+        cursor        : 'pointer',
         marginLeft    : '12pt',
         display       : 'flex',
         alignItems    : 'center',
@@ -24,6 +24,6 @@ const styleSheet = (theme) =>
     {
         fontWeight : 900
     }
-});
+};
 
 export default styleSheet

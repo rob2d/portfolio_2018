@@ -169,7 +169,7 @@ const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
                             </p>
                             <p className={classes.sectionContent}>
                                 {project.links.map((l)=>(
-                                    <p><a href={l.url}>{l.desc}</a></p>)
+                                    <p><a href={l.url} target="_new">{l.desc}</a></p>)
                                 )}
                             </p>
                         </div>
@@ -193,9 +193,8 @@ const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
                             <i className="mdi mdi-arrow-left-box"/>
                         </div>
                     </div>
-                    <p
-                        className={ classes.returnToProjects }
-                    >Click Here to return to the Projects page.
+                    <p className={ classes.returnToProjects }>
+                        Return to the Projects page.
                     </p>
                     </div>
                 </div>

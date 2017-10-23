@@ -26,6 +26,9 @@ const styleSheet =
         marginBottom : '32px',
         textAlign    : 'left',
         cursor       : 'pointer',
+        // actively moving cards should be forced above existing relatively
+        // placed content
+        zIndex       : ({ hasAbsolutePosition })=>(hasAbsolutePosition? 1 : 0),
         pointerEvents : ({ viewAsTitle })=> (!viewAsTitle ? 'all':'none')
     },
     '@media (min-width: 800px)': {

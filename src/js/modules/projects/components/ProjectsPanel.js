@@ -114,15 +114,11 @@ class ProjectsPanel extends PureComponent
         const { selectedProjectId, displayState, wasSelectionViaUI } = this.state;
         const  { PROJECT_VIEW } = DisplayStates;
 
-        console.log('RENDER.THISSTATE ->', this.state);
-
-
         this.R.projects = [];   //reset projects currently in references
 
         const areAllProjectsOnScreen = (
-            (typeof selectedProjectId != 'undefined' && 
-            (displayState != PROJECT_VIEW) && wasSelectionViaUI) || 
-            (!wasSelectionViaUI && typeof selectedProjectId != 'undefined')
+            (typeof selectedProjectId != 'undefined' &&             // selection made &&
+                wasSelectionViaUI && displayState != PROJECT_VIEW) // not via UI & projectSelected
         ) || (typeof selectedProjectId == 'undefined');
 
         return (
@@ -132,6 +128,8 @@ class ProjectsPanel extends PureComponent
                     {
                         const isSelected = (p.id == selectedProjectId);
                         const onScreen = areAllProjectsOnScreen || isSelected;
+                        console.log(`${p.id}.isSelected=>${isSelected}`);
+                        console.log(`${p.id}.onScreen=>${onScreen}`);
                         
                         return (
                             <ProjectCard
