@@ -126,7 +126,7 @@ class AppHeader extends PureComponent {
             case '/projects':
                 return AppSectionIndexes.PROJECTS;
             case '/cv':
-                return AppSectionIndexes.RESUME;
+                return AppSectionIndexes.CV;
             default : 
                 match = false;
                 return -1;
