@@ -128,8 +128,6 @@ class ProjectsPanel extends PureComponent
                     {
                         const isSelected = (p.id == selectedProjectId);
                         const onScreen = areAllProjectsOnScreen || isSelected;
-                        console.log(`${p.id}.isSelected=>${isSelected}`);
-                        console.log(`${p.id}.onScreen=>${onScreen}`);
                         
                         return (
                             <ProjectCard

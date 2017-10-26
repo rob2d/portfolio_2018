@@ -1,17 +1,17 @@
 import React, { PureComponent } from 'react'
+import injectSheet from 'react-jss'
 import pure from 'recompose/pure'
-import { withStyles } from 'material-ui/styles'
 import strings, { projects } from 'strings'
 import connect from 'react-redux/lib/connect/connect'
 import appHistory from 'tools/appHistory'
 import withFadeTransitions from 'tools/withFadeTransitions'
+import MediaReel from './MediaReel'
+import projectsData from 'app-root/data/projectsData'
 
 const findProject = (projectId)=>projects.projectData.find((p)=>(p.id==projectId));
 
-const styleSheet = (theme) =>(
-{
-    mainContainer :
-    {
+const styleSheet = {
+    mainContainer : {
         flexGrow     : 1,
         margin       : '0 auto',
         textAlign    : 'center',
@@ -22,32 +22,29 @@ const styleSheet = (theme) =>(
         paddingBottom : '16px',
         marginBottom  : '16px'
     },
-    contentContainer :
-    {
+    contentContainer : {
         margin : '16px 0px',
         paddingLeft : '16px',
         paddingRight : '16px'
     },
-    title :
-    {
+    title : {
         fontSize : '22pt',
         textAlign : 'left'
     },
-    description :
-    {
-        fontSize   : '14pt',
-        textAlign  : 'left',
-        paddingTop : '16px'
+    description : {
+        fontSize     : '13pt',
+        textAlign    : 'justify',
+        paddingTop   : '16px',
+        paddingLeft  : '16px',
+        paddingRight : '16px'
     },
-    screenshotsHeader :
-    {
+    screenshotsHeader : {
         textPadding : '16px',
         textAlign : 'left',
         fontSize : '16pt',
         marginBottom : '0px'
     },
-    screenshots :
-    {
+    screenshots : {
         display : 'inline-block',
         width  : 'calc(100vw-64px)',
         height : 'auto',
@@ -55,15 +52,13 @@ const styleSheet = (theme) =>(
         borderTop    : '#000000 2px solid',
         borderBottom : '#000000 2px solid'
     },
-    screenshot :
-    {
+    screenshot : {
         minWidth : '56px',
         width  : 'auto',
         height : '56px',
         margin : '16px 8px'
     },
-    disclaimer :
-    {
+    disclaimer : {
         display    : 'flex',
         maxWidth   : '600px',
         padding    : '8px 0px',
@@ -71,15 +66,20 @@ const styleSheet = (theme) =>(
         alignItems : 'center',
         justifyContent : 'flex-start'
     },
-    disclaimerNote : 
-    {
+    disclaimerNote :  {
         display   : 'flex',
         flexAlign : 'row',
         fontSize  : '14pt',
         textAlign : 'justify'
     },
     disclaimerIcon : {
-        fontSize : '22pt'
+        fontSize : '22pt',
+    },
+    '@media (max-width: 400px)': {
+        disclaimerIconContainer : {
+            display : 'none !important',
+            opacity : '0'
+        }
     },
     disclaimerIconContainer : {
         display        : 'flex',
@@ -88,8 +88,7 @@ const styleSheet = (theme) =>(
         margin         : '16px 0px',
         color          : '#0000CC'
     },
-    returnToProjects :
-    {
+    returnToProjects : {
         display      : 'inline-block',
         cursor       : 'pointer',
         color        : '#0000CC',
@@ -103,19 +102,22 @@ const styleSheet = (theme) =>(
         marginBottom : '16px'
     },
     sectionHeader : {
-        textTransform : 'uppercase',
-        fontSize : '20pt'
+        fontSize : '20pt',
+        fontWeight : 700,
+        textAlign : 'left'
     },
     sectionContent : {
-        fontSize  : '16pt',
-        textAlign : 'center'
+        fontSize     : '13pt',
+        textAlign    : 'justify',
+        paddingLeft  : '16px',
+        paddingRight : '16px'
     }
-});
+};
 
-const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
-    function ProjectDetails({ classes, match, projectId })
-    { 
+const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
+    function ProjectDetails({ classes, match, projectId, viewportWidth }) { 
         const project = findProject(projectId);
+        const pData = projectsData[projectId];
         return (
             <div className={ classes.mainContainer }>
                 <div className={classes.contentContainer}>
@@ -132,36 +134,22 @@ const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
                             </p>
                         </div>
                     )}
-                    {/*
-                        <div className={classes.contentContainer}>
+                    { 
+                        <div className={classes.section}>
                             <p className={classes.sectionHeader}>
-                                Screenshots
+                                Media
                             </p>
                             <p className={classes.sectionContent}>
-                                - no images available -
+                                <MediaReel 
+                                    maxWidth={ 800 }
+                                    width={ Math.round(viewportWidth * 0.80) }
+                                    aspectRatio={ pData.mediaAspectRatio }
+                                    projectId={projectId}
+                                    media={pData.media}
+                                />
                             </p>
                         </div>
-                    */}
-                    {
-                        project.videos && project.videos.map((video)=>{
-                    
-                        if(video.embed) {
-                            return (
-                                <div className={classes.section}>
-                                    <p className={classes.sectionHeader}>Videos</p>
-                                    <p className={classes.sectionContent}>
-                                    <iframe 
-                                        width="280" 
-                                        height="220" 
-                                        src={video.url}
-                                        frameborder="0" 
-                                        allowfullscreen 
-                                    />
-                                    </p>
-                                </div>
-                            );
-                        } else { return (<div style={{display : 'none'}} />) }
-                    })}
+                    }
                     { project.links && (
                         <div className={classes.section}>
                             <p className={classes.sectionHeader}>
@@ -204,8 +192,11 @@ const ProjectDetails = withFadeTransitions(withStyles(styleSheet)(
 );
 
 let VisibleProjectView = connect(
-    (state,ownProps)=> ({ language : state.core.language }),
+    (state,ownProps)=> ({ 
+        language : state.core.language,
+        viewportWidth : state.core.viewportWidth 
+    }),
     (dispatch)=>       ({})
 )(ProjectDetails);
 
-export default VisibleProjectView;
+export default VisibleProjectView

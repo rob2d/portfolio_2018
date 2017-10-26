@@ -1,6 +1,7 @@
 /**
- * TODO : use MongoDB instead of shoving crap in here
- * TODO | (works for now though)
+ * TODO  use MongoDB instead of shoving crap in here
+ * TODO  (works for the small amount of content for now 
+ * TODO   though)
  *
  * TODO : SHORT DESCRIPTIONS -> for the projects overview
  */
@@ -20,7 +21,7 @@ export default
             'to map and survey equipment and power systems within buildings',
             description      : 'Feature-rich web app designed for electrical engineers ' +
             'to map and survey equipment and power systems within buildings. ',
-            platforms        : ['web']
+            platforms        : [ 'web' ]
         },
         {
             id      : 'npm-repos',
@@ -31,7 +32,7 @@ export default
                 'tools including a React/Redux Project Generator, ' +
                 'Node/Express Route Mapper, MySQL Prettifier, and many others',
             description      : '',
-            platforms        : ['web'],
+            platforms        : [ 'web' ],
             linkDescriptions : [ 'Visit the NPM repos' ]
         },
         {
@@ -48,7 +49,7 @@ export default
                 'It is efficient, simple, consistent, extensible and supports all modern browsers.',
             technologies :  'HTML5, JavaScript (+require.js, three.js), WebGL',
             platforms    :  ['web'],
-            platformtxt  : ['Web (Chrome, Firefox, IE)'],
+            platformtxt  : [ 'Web (Chrome, Firefox, IE)' ],
             imageCaptions : [
                 'early 3D app tech demo',
                 'general API structure overview',
@@ -74,11 +75,11 @@ export default
             title: 'Color Shafted',
             context      : 'Whateversoft',
             role : 'design, development, music and sound effects creation',
-            platforms: ['android', 'gtv'],
+            platforms: [ 'android', 'gtv' ],
             shortDescription : `A colorful interactive futuristic puzzle game with a game 
                     engine built from scratch written using the Android SDK (Java)
                     and currently being ported to Unity/C#`,
-            description: 'An interactive original 2D game for Android with a 100% custom built ' +
+            description: 'An interactive original 2D game for Android with a 100% custom built ' +
             'Android 2D Game API. It features a optimized user experience for GoogleTV ' +
             'users, many customizable options, 2 modes of gameplay, an interactive tutorial ' +
             ' and an online competitive high score mode. ',
@@ -90,30 +91,17 @@ export default
                 'High Score Mode',
                 'Breaking things down in Tutorial Mode'
             ],
-            sourceCodeDescriptions : ['GitHub (early pre-release version)'],
-            videos:
-            [
-                {
-                    url: 'https://www.youtube.com/embed/6iOen-STr4k',
-                    desc: 'See it on Youtube',
-                    embed : true
-                }
-            ],
-            links :
-            [
-                {
-                    desc: 'GTV Friends Article',
-                    url: 'http://gtvfriends.com/color-shafted-for-google-tv/'
-                }
-            ]
+            sourceCodeDescriptions : [ 'GitHub (early pre-release version)' ],
+            videoDescriptions: [ 'See it on Youtube', ],
+            linkDescriptions : [ 'GTV Friends Article (Archived @ WayBackMachine)' ]
         },
         {
             id      : 'sonicphysics',
             title   : 'Sonic 3 Physics',
             context : 'Independent',
-            role    : 'programmer, planner & artist',
-            shortDescription : 'A pixel perfect rendition of the physics found in SEGA\'s ' +
-                               '\"Sonic the Hedgehog\" series. ',
+            roles    : 'programmer, planner & artist',
+            shortDescription : `A pixel perfect rendition of the physics found in SEGA's
+                               "Sonic the Hedgehog" series. `,
             description      : '',
             screenshots      :
             [
@@ -127,15 +115,14 @@ export default
                 {
                     url: 'https://www.youtube.com/embed/zRZOLzTaJq4',
                     desc: 'See it on Youtube',
-                    embed : true
                 }
             ],
         },
         {
-            id      : 'chinesepoker',
-            title   : 'Chinese Poker Online',
-            context : 'Undergraduate Seminar Project',
-            role    : 'programmer and designer',
+            id       : 'chinesepoker',
+            title    : 'Chinese Poker Online',
+            context  : 'Undergraduate Seminar Project',
+            roles    : 'Programming, Planning & Design',
             shortDescription : 'An interactive and animated rendition of "Big Two" card game for Android. ' +
             'Features real-time online play, intuitive touch screen interface and beautiful graphics',
             description      : '',
@@ -146,14 +133,7 @@ export default
                     desc : ''
                 }
             ],
-            videos:
-            [
-                {
-                    url: 'https://www.youtube.com/embed/F91K9oWimSg',
-                    desc: 'See it on Youtube',
-                    embed : true
-                }
-            ],
+            videoDescriptions: [ 'Promotional Video when game was released' ],
         }
     ],
 }
