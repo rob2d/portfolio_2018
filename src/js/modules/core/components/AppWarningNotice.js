@@ -53,6 +53,12 @@ const styleSheet = {
         maxHeight  : ({ message })=>( message ? '200px' : '0px' ),
         transition : 'max-height 0.75s linear 0.25s, height 0.75s linear 0.25s'
     },
+    '@media (max-width: 400px)': {
+        disclaimerIconContainer : {
+            display : 'none !important',
+            opacity : '0'
+        }
+    },
     disclaimerIconContainer : {
         display        : 'flex',
         alignItems     : 'center',
@@ -81,14 +87,14 @@ const AppWarningBox = injectSheet(styleSheet)(
             return (
                 <div className={classes.container}>
                     <div className={ classes.disclaimer }>
-                        <p className={classes.disclaimerNote}>
+                        <div className={classes.disclaimerNote}>
                             <div className={classes.disclaimerIconContainer}>
                                 <i className={`mdi mdi-alert ${classes.disclaimerIcon}`}/>
                             </div>
-                            <p className={classes.disclaimerText}>
+                            <div className={classes.disclaimerText}>
                                 { this.state.messageDisplayed }
-                            </p> 
-                        </p>
+                            </div> 
+                        </div>
                     </div>
                 </div>
             );
@@ -98,34 +104,6 @@ const AppWarningBox = injectSheet(styleSheet)(
 
     
 class AppWarningNotice extends PureComponent {
-    constructor (props) {
-        super(props);
-        this.state = { isAtProjectLocation : false };
-    }
-
-    componentDidMount () {
-        this.checkForProjectWarning();
-    }
-
-    componentDidUpdate (prevProps, prevState) {
-        this.checkForProjectWarning();
-    }
-
-    checkForProjectWarning = ()=> {
-        if(!this.state.isAtProjectLocation && this.isAtProjectLocation()) {
-            setTimeout(()=> {
-                this.setState({ isAtProjectLocation : true });
-            }, 2000);
-        } else if(this.state.isAtProjectLocation && !this.isAtProjectLocation()) {
-            this.setState({ isAtProjectLocation : false });
-        }
-    };
-
-    isAtProjectLocation = ()=> {
-        const { pathname } = this.props;
-        return pathname != '/projects' && (pathname.indexOf('/projects') != -1);
-    };
-
     render () {
         const { classes, language } = this.props;
         
@@ -133,13 +111,6 @@ class AppWarningNotice extends PureComponent {
             <div className={classes.container} >
                 {/* Notice to let users know Japanese translation is WIP */}
                 <AppWarningBox message={strings.global.translationIsWIP[language]} />
-                
-                {/* Notice to let users know Project Details are WIP */}
-                <AppWarningBox message={this.state.isAtProjectLocation &&  (
-                            `This section is a work in progress and
-                            does not yet contain all relevant content.
-                            Check back soon for updates!`
-                )} />
             </div>
         );
     }

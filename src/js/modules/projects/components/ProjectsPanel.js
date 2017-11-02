@@ -3,6 +3,7 @@ import pure from 'recompose/pure'
 import { connect } from 'react-redux'
 import appHistory    from 'tools/appHistory'
 import strings from 'strings'
+import projectsData from 'app-root/data/projectsData'
 import styleSheet from './style/ProjectsPanelStyle'
 import { withStyles } from 'material-ui/styles'
 import ProjectCard from './ProjectCard'
@@ -33,23 +34,19 @@ const getProjectIdAt = (location)=>(
 
 const wait = (time)=>
 {
-    return new Promise((resolve,reject)=>
-    {
+    return new Promise((resolve,reject)=> {
         setTimeout(()=>resolve(), time);
     });
 };
 
-class ProjectsPanel extends PureComponent
-{
-    constructor(props)
-    {
+class ProjectsPanel extends PureComponent {
+    constructor(props) {
         super(props);
 
         const isAtProjectURL = (typeof getProjectIdAt(props.location) != 'undefined');
         const { VIEW_ALL_PROJECTS, PROJECT_VIEW } = DisplayStates;
 
-        this.state =
-        {
+        this.state = {
             displayState    : (!isAtProjectURL ? VIEW_ALL_PROJECTS : PROJECT_VIEW),
             selectedProjectId : getProjectIdAt(props.location),
             // if a user bookmarks a page and visits a project via that method,
@@ -60,8 +57,7 @@ class ProjectsPanel extends PureComponent
 
         this.R = { projects : [] };
     }
-    componentDidUpdate (prevProps, prevState)
-    {
+    componentDidUpdate (prevProps, prevState) {
         const prevSelectedProjectId =  getProjectIdAt(prevProps.location);
         const selectedProjectId = getProjectIdAt(this.props.location);
         const { visitedViaRootPath } = this.state;
@@ -108,8 +104,7 @@ class ProjectsPanel extends PureComponent
             }
         }
     }
-    render ()
-    {
+    render () {
         const { language, classes, location, match } = this.props;
         const { selectedProjectId, displayState, wasSelectionViaUI } = this.state;
         const  { PROJECT_VIEW } = DisplayStates;
@@ -134,6 +129,7 @@ class ProjectsPanel extends PureComponent
                                 ref={ (c)=> this.R.projects[p.id] = c }
                                 key={`ProjectCard${p.id}`}
                                 data={p}
+                                pData={projectsData[p.id]}
                                 language={language}
                                 onClick={ ()=>appHistory.goTo(`/projects/${p.id}`) }
                                 isShown={ (!selectedProjectId) || (selectedProjectId == p.id) }

@@ -1,5 +1,7 @@
 import MediaTypes from 'constants/MediaTypes'
 
+// simple function to quickly generate
+// new rows of images
 function generateMediaImages(projectId, mediaCount) {
     let mediaImages = [];
 
@@ -15,46 +17,73 @@ function generateMediaImages(projectId, mediaCount) {
 }
 
 export default { 
+    'smartwalk' : {
+        year : '2014 - 2017',
+        media : generateMediaImages('smartwalk', 5),
+        mediaAspectRatio : 1.79,
+        links : [ 
+            'https://smartwalk.tech/',
+            'https://app.smartwalk.tech/'
+        ]
+    },
     'npm-repos' : {
+        year : '2014 - 2017',
         links : [ 'https://www.npmjs.com/~robftw' ]
     },
     'chinesepoker' : {
-        media : [],
-        videos : [{
-            src   : 'https://www.youtube.com/embed/F91K9oWimSg',
-            embed : true
-        }]
+        year : '2011',
+        media : [
+            {
+                type : MediaTypes.VIDEO,
+                videoId   : 'F91K9oWimSg'
+            }, 
+            ...generateMediaImages('chinesepoker', 4)
+        ],
+        mediaAspectRatio : 1.662337662337662,
+        sourceCode : ['https://github.com/rob2d/cpo_android']
     },
     'sonicphysics' : {
-        media : generateMediaImages('sonicphysics', 4),
-        mediaAspectRatio : 1.203
+        year : '2009',
+        media : [
+            {
+                type : MediaTypes.VIDEO,
+                videoId : 'zRZOLzTaJq4'    
+            },
+            ...generateMediaImages('sonicphysics', 4) 
+        ],
+        mediaAspectRatio : 1.203,
+        sourceCode :    [ 'https://github.com/rob2d/sonic_gml' ],
+        downloads  :    [ 'http://robftwcom.appspot.com/downloads/sonic360_demo.exe' ],
+        documentation : [ 'http://corruptedchaos.blogspot.com/' ]
     },
     'colorshafted' : {
+        year : '2012',
         media : [
             {
                 type  : MediaTypes.VIDEO,
-                src   : 'https://www.youtube.com/embed/6iOen-STr4k',
-                embed : true
+                videoId    : '6iOen-STr4k'
             },
-            ...generateMediaImages('colorshafted',4)
+            ...generateMediaImages('colorshafted',5)
         ],
         mediaAspectRatio : 1.662337662337662,
-        videos : [{
-            src   : 'https://www.youtube.com/embed/6iOen-STr4k',
-            embed : true
-        }],
-        links : [{
-            url :  'http://gtvfriends.com/color-shafted-for-google-tv/'
-        }]
+        sourceCode : ['https://github.com/rob2d/color-shafted'],
+        links : [
+            'http://web.archive.org/web/20120817025020/http://gtvfriends.com:80/color-shafted-for-google-tv/',
+            'http://robftwcom.appspot.com/links/cs_web_preview/webview/achievements.html'
+        ]
     },
     'bamf' : { 
+        year : '2012',
         media : [...generateMediaImages('bamf', 4)],
         mediaAspectRatio : 1.7777,
         sourceCode : [ 'https://github.com/rob2d/bamf' ],
         documentation : [ 
-            'doc/bamf_midterm_presentation.ppt', 
-            'doc/bamf_final_presentation.pptx' 
+            'http://robftwcom.appspot.com/doc/bamf_midterm_presentation.ppt', 
+            'http://robftwcom.appspot.com/doc/bamf_final_presentation.pptx' 
         ],
-        links : [ 'http://whateversoftweb.appspot.com/demo/cs3d/web/cs3d.html' ] 
+        links : [ 
+            'http://whateversoftweb.appspot.com/demo/cs3d/web/cs3d.html',
+            'http://bamfapi.appspot.com/wip_versions/v2/editor/web/sprite_editor.html'
+         ] 
     }
 };

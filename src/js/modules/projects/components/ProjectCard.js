@@ -14,7 +14,8 @@ import strings from 'strings'
 import { DisplayStates } from './ProjectsPanel'
 
 const ProjectCardLayout = injectSheet(styleSheet)(({
-    data,
+    data,   // strings; TODO: rename to projectStrings
+    pData,  // data; TODO : rename to projectData
     classes,
     onClick,
     isShown,
@@ -40,7 +41,7 @@ const ProjectCardLayout = injectSheet(styleSheet)(({
                         {data.title}
                     </p>
                     <p className={classes.projectSubtitle}>
-                        {data.context}
+                        {data.context} ({pData.year})
                     </p>
                     <div className={classes.moreInfoButton}>
                         <i className={'mdi mdi-information-outline'}/>

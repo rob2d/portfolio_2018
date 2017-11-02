@@ -124,7 +124,7 @@ function About ({ classes }) {
                         {strings.thisIsWIP}
                     </p>
                     <p className={`${classes.pText} ${classes.sig}`}>
-                        - Rob
+                        {strings.sig}
                     </p>
                     </div>
         </div>

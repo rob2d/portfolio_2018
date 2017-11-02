@@ -5,10 +5,10 @@ import strings, { projects } from 'strings'
 import connect from 'react-redux/lib/connect/connect'
 import appHistory from 'tools/appHistory'
 import withFadeTransitions from 'tools/withFadeTransitions'
-import MediaReel from './MediaReel'
+import MediaReel from './media-reel/MediaReel'
 import projectsData from 'app-root/data/projectsData'
 
-const findProject = (projectId)=>projects.projectData.find((p)=>(p.id==projectId));
+const findProjectStrings = (projectId)=>projects.projectData.find((p)=>(p.id==projectId));
 
 const styleSheet = {
     mainContainer : {
@@ -33,10 +33,18 @@ const styleSheet = {
     },
     description : {
         fontSize     : '13pt',
-        textAlign    : 'justify',
+        textAlign    : 'left',
         paddingTop   : '16px',
         paddingLeft  : '16px',
         paddingRight : '16px'
+    },
+    // only on tablet sized device+ or certain
+    // large screens in landscape should we
+    // begin to justify text
+    '@media (min-width:800px)' : {
+        description : {
+            textAlign : 'justify !important'
+        }
     },
     screenshotsHeader : {
         textPadding : '16px',
@@ -70,16 +78,10 @@ const styleSheet = {
         display   : 'flex',
         flexAlign : 'row',
         fontSize  : '14pt',
-        textAlign : 'justify'
+        textAlign : 'left'
     },
     disclaimerIcon : {
         fontSize : '22pt',
-    },
-    '@media (max-width: 400px)': {
-        disclaimerIconContainer : {
-            display : 'none !important',
-            opacity : '0'
-        }
     },
     disclaimerIconContainer : {
         display        : 'flex',
@@ -108,22 +110,70 @@ const styleSheet = {
     },
     sectionContent : {
         fontSize     : '13pt',
-        textAlign    : 'justify',
+        textAlign    : 'left',
         paddingLeft  : '16px',
+        paddingRight : '16px'
+    },
+    sectionStandalone : {
+        fontSize : '14pt',
+        paddingRight : '16px',
+        fontWeight : 'bold',
+        textAlign : 'left'
+    },
+    bulletItemContainer : {
+        display : 'flex',
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'flex-start'
+    },
+    bulletLink : {
+        width : '100%'
+    },
+    bulletIcon : {
         paddingRight : '16px'
     }
 };
 
 const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
     function ProjectDetails({ classes, match, projectId, viewportWidth }) { 
-        const project = findProject(projectId);
+        const project = findProjectStrings(projectId);
         const pData = projectsData[projectId];
+
+        // TODO : use redux to hydrate media data
+        let media = (()=>{
+            if(pData && pData.media && pData.media.length > 0) {
+                // if media captions exist in project strings,
+                // concat those to our media
+                if(project.mediaCaptions && project.mediaCaptions.length > 0) {
+                    return pData.media.map((item,i)=>({
+                        ...item,
+                        caption : project.mediaCaptions[i]
+                    })); 
+                }
+                else return pData.media;
+            }
+        })();
+        
         return (
             <div className={ classes.mainContainer }>
                 <div className={classes.contentContainer}>
-                    <p className={classes.description}>
-                        {project.description || project.shortDescription}
-                    </p>
+                    { project && (
+                            <div className={classes.section}>
+                                <p className={classes.sectionStandalone}>
+                                  {project.roles}
+                                </p>
+                            </div>
+                        )}
+                    {project.description && Array.isArray(project.description) ? 
+                        project.description.map((d)=>(
+                            <p className={classes.description}>
+                             {d}
+                            </p>
+                        )) : (  
+                        <p className={classes.description}>
+                            {project.description || project.shortDescription}
+                        </p>)
+                    }
                     {project.technologies && (
                         <div className={classes.section}>
                             <p className={classes.sectionHeader}>
@@ -134,7 +184,8 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             </p>
                         </div>
                     )}
-                    { 
+                    { pData && pData.media && pData.media.length > 0 && 
+                    (
                         <div className={classes.section}>
                             <p className={classes.sectionHeader}>
                                 Media
@@ -145,31 +196,83 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                                     width={ Math.round(viewportWidth * 0.80) }
                                     aspectRatio={ pData.mediaAspectRatio }
                                     projectId={projectId}
-                                    media={pData.media}
+                                    media={media}
                                 />
                             </p>
                         </div>
-                    }
-                    { project.links && (
-                        <div className={classes.section}>
-                            <p className={classes.sectionHeader}>
-                                Links
-                            </p>
-                            <p className={classes.sectionContent}>
-                                {project.links.map((l)=>(
-                                    <p><a href={l.url} target="_new">{l.desc}</a></p>)
-                                )}
-                            </p>
-                        </div>
                     )}
-                    { project.source && (
+                    { pData && pData.sourceCode && (
                         <div className={classes.section}>
                             <p className={classes.sectionHeader}>
                                 Source Code
                             </p>
                             <p className={classes.sectionContent}>
-                                {project.source.map((l)=>(
-                                    <p><a href={l.url}>{l.desc}</a></p>)
+                                {pData.sourceCode.map((link,i)=>(
+                                <a href={link} target="_new">
+                                    <div className={classes.bulletItemContainer}>
+                                            <i className={`mdi mdi-code-tags ${classes.bulletIcon}`}/>
+                                            <p className={classes.bulletTextContainer}>
+                                                {project.sourceCodeDescriptions[i]}
+                                            </p>
+                                    </div>
+                                </a>)
+                                )}
+                            </p>
+                        </div>
+                    )}
+                    { pData && pData.documentation && (
+                        <div className={classes.section}>
+                            <p className={classes.sectionHeader}>
+                                Documentation
+                            </p>
+                            <p className={classes.sectionContent}>
+                                {pData.documentation.map((link, i)=>(
+                                <a href={link} target="_new">
+                                    <div className={classes.bulletItemContainer}>
+                                        <i className={`mdi mdi-note-outline ${classes.bulletIcon}`}/>
+                                        <p className={classes.bulletTextContainer}>
+                                            {project.documentationDescriptions[i]}
+                                        </p>
+                                    </div>    
+                                </a>
+                                ))}
+                            </p>
+                        </div>
+                    )}
+                    { pData && pData.downloads && (
+                    <div className={classes.section}>
+                        <p className={classes.sectionHeader}>
+                            Downloads
+                        </p>
+                        <p className={classes.sectionContent}>
+                            {pData.downloads.map((link, i)=>(
+                            <a href={link} target="_new">
+                                <div className={classes.bulletItemContainer}>
+                                    <i className={`mdi mdi-download ${classes.bulletIcon}`}/>
+                                    <p className={classes.bulletTextContainer}>
+                                        {project.downloadDescriptions[i]}
+                                    </p>
+                                </div>    
+                            </a>
+                            ))}
+                        </p>
+                    </div>
+                )}
+                    { pData && pData.links && (
+                        <div className={classes.section}>
+                            <p className={classes.sectionHeader}>
+                                Links
+                            </p>
+                            <p className={classes.sectionContent}>
+                                {pData.links.map((link, i)=>(
+                                <a href={link} target="_new">
+                                    <div className={classes.bulletItemContainer}>
+                                            <i className={`mdi mdi-link ${classes.bulletIcon}`}/>
+                                            <p className={classes.bulletTextContainer}>
+                                                {project.linkDescriptions[i]}
+                                            </p>
+                                    </div>
+                                </a>)
                                 )}
                             </p>
                         </div>
@@ -182,7 +285,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                         </div>
                     </div>
                     <p className={ classes.returnToProjects }>
-                        Return to the Projects page.
+                        Back to Projects
                     </p>
                     </div>
                 </div>

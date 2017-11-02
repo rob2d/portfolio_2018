@@ -49,7 +49,6 @@ const HeaderSectionButton = pure(injectSheet(styleSheet)(({
 })=>(
         <div ref={buttonDivRef} className={classes.container}>
             <Tooltip
-                id={`header-menu-${name}-tooltip`}
                 enterDelay={400}
                 place="bottom"
                 title={tooltipText}
