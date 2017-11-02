@@ -6,5 +6,6 @@ export default
    "source to this website ",
    linkClickHere : "on GitHub",
    thisIsWIP : "Note : This site is W.I.P. as it takes the back burner to " +
-                "professional work and other projects. Thanks for the understanding 🙂✌"
+                "professional work and other projects. Thanks for the understanding 🙂✌",
+   sig       : '- Rob'
 }

@@ -7,6 +7,9 @@ import styleSheet               from './style/LanguageMenuStyle'
 import { setLanguage }          from '../actions'
 import { connect }              from 'react-redux'
 
+// TODO : language should be based on language query parameter
+//        vs always defaulting to English
+
 class LanguageMenu extends PureComponent {
     constructor (props, context) {
         super(props, context);

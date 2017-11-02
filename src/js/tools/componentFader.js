@@ -35,8 +35,6 @@ const styleSheet =
 export const componentFader = (WrappedComponent)=>(injectSheet(styleSheet)(
 ({ classes, ...propsWOClasses })=>
 {
-    console.log('classes ->', classes);
-    console.log('isShown ->', propsWOClasses.isShown);
     return (
     <div className={classes.fadeContainer}>
         <WrappedComponent {...propsWOClasses} faderClasses={classes} />

@@ -7,7 +7,8 @@ const styleSheet = (theme) =>
         flexGrow       : 1,
         maxWidth       : '1100px',
         margin         : '0 auto',
-        top            : '0px'
+        top            : '0px',
+        overflowX      : 'hidden'
     },
     content :
     {
