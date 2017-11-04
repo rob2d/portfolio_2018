@@ -68,21 +68,39 @@ const styleSheet =
         padding  : '4px 8px',
         minHeight: '20px',
         lineHeight: '20px'
+    },
+    loadingContent : {
+        display : 'none'
     }
 };
 
 class PDFViewer extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { pageNumber : 1, pageCount : 0 };
+        this.state = { 
+            pageNumber : 1, 
+            pageCount : 0,
+            isLoaded  : false 
+        };
     }
+
+    componentDidMount () {
+        this.setState({ isLoaded : false });
+    }
+
+    componentWillUnmount () {
+        this.setState({ isLoaded : false });
+    }
+
     onDocumentComplete = (pageCount)=> {
-        console.log('onDocumentComplete ->', pageCount);
-        this.setState({ pageNumber : 1, pageCount });
+        this.setState({ 
+            pageNumber : 1, 
+            pageCount,
+            isLoaded : true 
+        });
     };
 
     onPageComplete = (pageNumber)=> {
-        console.log('onPageComplete ->', pageNumber);
         this.setState({ pageNumber });
     };
 
@@ -100,15 +118,17 @@ class PDFViewer extends PureComponent {
     };
     render () {
         const { classes, fileURL } = this.props;
-        const { pageNumber, pageCount } = this.state;
+        const { pageNumber, pageCount, isLoaded } = this.state;
         return (
-            <div className={classes.container}>
-                <PDF file={ fileURL }
-                     onDocumentComplete={this.onDocumentComplete}
-                     onPageComplete={this.onPageComplete}
-                     page={pageNumber}
-                     className={classes.pdfContent}
-                />
+            <div className={ classes.container }>
+                <div className={!isLoaded ? classes.loadingContent : ''}>
+                    <PDF file={ fileURL }
+                        onDocumentComplete={this.onDocumentComplete}
+                        onPageComplete={this.onPageComplete}
+                        page={pageNumber}
+                        className={classes.pdfContent}
+                    />
+                </div>
                 <a
                     href={fileURL}
                     download={'RobertConcepcionResume'}
@@ -138,6 +158,7 @@ class PDFViewer extends PureComponent {
                     pageCount={pageCount}
                     handleNextPage={this.handleNextPage}
                     handlePrevPage={this.handlePrevPage}
+                    isLoaded={isLoaded}
                 />
             </div>
         );

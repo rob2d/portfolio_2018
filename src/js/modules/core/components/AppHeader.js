@@ -1,48 +1,26 @@
-import React, { PureComponent } from 'react'
-import pure                     from 'recompose/pure'
-import injectSheet              from 'react-jss'
-import Typography               from 'material-ui/Typography'
-import AppBar                   from 'material-ui/AppBar'
-import Toolbar                  from 'material-ui/Toolbar'
-import { menus }                from 'strings'
-import styleSheet               from './style/AppHeaderStyle'
-import LanguageMenu             from './LanguageMenu'
-import { connect }              from 'react-redux'
-import appHistory               from 'tools/appHistory'
-import HeaderSectionButton      from './HeaderSectionButton'
-import SectionHighlighter       from './SectionHighlighter'
-import AppSectionIndexes        from 'constants/AppSectionIndexes'
+import React, { PureComponent }     from 'react'
+import pure                         from 'recompose/pure'
+import injectSheet                  from 'react-jss'
+import Typography                   from 'material-ui/Typography'
+import AppBar                       from 'material-ui/AppBar'
+import Toolbar                      from 'material-ui/Toolbar'
+import { menus }                    from 'strings'
+import styleSheet                   from './style/AppHeaderStyle'
+import LanguageMenu                 from './LanguageMenu'
+import { connect }                  from 'react-redux'
+import appHistory                   from 'tools/appHistory'
+import HeaderSectionButton          from './HeaderSectionButton'
+import SectionHighlighter           from './SectionHighlighter'
+import { SectionIndexes, Sections } from 'constants/AppSections'
 import { refreshWindowDimensions } from './../actions'
 
 
 const goToHeaderLink = (url)=> (appHistory.goTo(url) );
 
-// meta data which corresponds to SectionIndexes.js
-// TODO : normalize/centralize pathname lookup
-const Sections =
-[
-    {
-        name        : 'about',
-        iconClass   : 'mdi mdi-human-greeting',
-        tooltipText : menus.main.about,
-        onClick     : ()=>( goToHeaderLink('/') ),
-        basePath     : '/about'
-    },
-    {
-        name        : 'projects',
-        iconClass   : 'mdi mdi-briefcase',
-        tooltipText : menus.main.projects,
-        onClick     : ()=>( goToHeaderLink('/projects') ),
-        basePath     : '/projects'
-    },
-    {
-        name         : 'cv',
-        iconClass    : 'mdi mdi-file-document-box',
-        tooltipText  : menus.main.cv,
-        onClick      : ()=>( goToHeaderLink('/cv') ),
-        basePath     : '/cv'
-    }
-];
+// determine what to do when sections are clicked
+const SectionClickEvents = Sections.map((section, i)=>{
+   return ()=>{ goToHeaderLink(section.basePath); };
+});
 
 class AppHeader extends PureComponent {
     constructor(props) {
@@ -52,13 +30,12 @@ class AppHeader extends PureComponent {
 
         this.state = { 
             pathIndex,
-            lastMatchedIndex : pathIndex != -1 ? pathIndex : AppSectionIndexes.PROJECTS
+            lastMatchedIndex : (pathIndex != -1) ? 
+                                    pathIndex : SectionIndexes.PROJECTS
         };
 
         // stores our references
-        this.R = {
-            buttonDivRefs : []
-        };
+        this.R = { buttonDivRefs : [] };
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -85,8 +62,6 @@ class AppHeader extends PureComponent {
     }
 
     onWindowResize = ()=> {
-        console.log('refreshing window dimensions');
-        console.log('this.props ->', this.props);
         this.props.refreshWindowDimensions();
     };
 
@@ -103,11 +78,13 @@ class AppHeader extends PureComponent {
             const sampleButton = this.R.buttonDivRefs[0];
             const buttonWidth = sampleButton && sampleButton.offsetWidth;
             const buttonTopOffset = sampleButton && sampleButton.offsetTop;
+            
             this.setState({ 
                 buttonXPositions : this.R.buttonDivRefs.map((b)=>(b.offsetLeft + buttonWidth/2)),
                 buttonWidth,
                 buttonTopOffset 
             });
+
         }, 0);  // need a timeout to get around functional component refs; a bit of hack
                 // but this is all to get around temp JSS glitch with media queries
     };
@@ -121,15 +98,10 @@ class AppHeader extends PureComponent {
     getVisitedPathIndex = (pathname)=> {
         let match = true;
         switch(pathname) {
-            case '/':
-                return AppSectionIndexes.WELCOME;
-            case '/projects':
-                return AppSectionIndexes.PROJECTS;
-            case '/cv':
-                return AppSectionIndexes.CV;
-            default : 
-                match = false;
-                return -1;
+            case '/':         return SectionIndexes.WELCOME;
+            case '/projects': return SectionIndexes.PROJECTS;
+            case '/cv':       return SectionIndexes.CV;
+            default :  match = false; return -1;
         }
     
         return this.lastVisitedPathIndex;
@@ -151,7 +123,7 @@ class AppHeader extends PureComponent {
                                 disabled={ /*pathIndex == i*/ false } // TODO: contribute a fix to 
                                 iconClass={ s.iconClass }       // material-ui lib to allow disabling
                                 tooltipText={ s.tooltipText }   // without ruining click anim
-                                onClick={ s.onClick }
+                                onClick={ SectionClickEvents[i] }
                                 buttonDivRef={ el => this.R.buttonDivRefs[i]=el } // for the purpose of
                             />                                               // guided tabs
                         ))}

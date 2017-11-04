@@ -4,6 +4,7 @@ import pure from 'recompose/pure'
 import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button'
 import { cv as strings } from 'strings'
+import { CircularProgress } from 'material-ui/Progress'
 
 const styleSheet = (theme)=>
 ({
@@ -17,6 +18,10 @@ const styleSheet = (theme)=>
         width          : '100%',
         textAlign      : 'center',
         marginTop      : '16px'
+    },
+    progress : {
+        display : 'block',
+        height : 'auto'
     },
     buttonContainer :
     {
@@ -44,30 +49,41 @@ const PDFNav = pure(withStyles(styleSheet)(
 ({
     classes,
     pageNumber, pageCount,
-    handleNextPage, handlePrevPage
+    handleNextPage, handlePrevPage,
+    isLoaded
 })=>
 (
-    <div className={classes.container}>
-        <div className={`${classes.buttonContainer} ${classes.prevButton}`}>
-            <Button
-                className={classes.button}
-                disabled={ !(pageNumber > 1) }
-                onClick={ handlePrevPage }
-            ><i className={`mdi mdi-skip-previous`}/>
-            </Button>
+    isLoaded ? 
+    (
+        <div className={classes.container}>
+            <div className={`${classes.buttonContainer} ${classes.prevButton}`}>
+                <Button
+                    className={classes.button}
+                    disabled={ !(pageNumber > 1) }
+                    onClick={ handlePrevPage }
+                ><i className={`mdi mdi-skip-previous`}/>
+                </Button>
+            </div>
+            { 
+                ( pageCount > 0 ) &&
+                    (<div>{pageNumber}&nbsp;/&nbsp;{pageCount}</div>)
+            }
+            <div className={`${classes.buttonContainer} ${classes.nextButton}`}>
+                <Button
+                    className={classes.button}
+                    disabled={ !(pageNumber < pageCount) }
+                    onClick={ handleNextPage }
+                ><i className={`mdi mdi-skip-next`}/>
+                </Button>
+            </div>
         </div>
-        { ( pageCount > 0 ) &&
-            (<div>{pageNumber}&nbsp;/&nbsp;{pageCount}</div>)
-        }
-        <div className={`${classes.buttonContainer} ${classes.nextButton}`}>
-            <Button
-                className={classes.button}
-                disabled={ !(pageNumber < pageCount) }
-                onClick={ handleNextPage }
-            ><i className={`mdi mdi-skip-next`}/>
-            </Button>
+    ) : (
+        <div className={classes.container}>
+            <div className={classes.linearProgress}>
+                <CircularProgress color="accent" size={64} />
+            </div>
         </div>
-    </div>
-)));
+    )
+)));;;
 
 export default PDFNav
