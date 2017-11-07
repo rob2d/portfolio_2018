@@ -12,7 +12,7 @@ import appHistory                   from 'tools/appHistory'
 import HeaderSectionButton          from './HeaderSectionButton'
 import SectionHighlighter           from './SectionHighlighter'
 import { SectionIndexes, Sections } from 'constants/AppSections'
-import { refreshWindowDimensions } from './../actions'
+import { refreshWindowDimensions }  from './../actions'
 
 
 const goToHeaderLink = (url)=> (appHistory.goTo(url) );
@@ -121,8 +121,8 @@ class AppHeader extends PureComponent {
                                 key={ `headerSectionButton${s.name}` }
                                 name={ s.name }
                                 disabled={ /*pathIndex == i*/ false } // TODO: contribute a fix to 
-                                iconClass={ s.iconClass }       // material-ui lib to allow disabling
-                                tooltipText={ s.tooltipText }   // without ruining click anim
+                                iconClass={ s.iconClass }            // material-ui lib to allow disabling
+                                tooltipText={ s.getTooltipText() }   // without ruining click anim
                                 onClick={ SectionClickEvents[i] }
                                 buttonDivRef={ el => this.R.buttonDivRefs[i]=el } // for the purpose of
                             />                                               // guided tabs

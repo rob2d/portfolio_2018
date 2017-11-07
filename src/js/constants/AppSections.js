@@ -10,19 +10,19 @@ export default {
         {
             name         : 'About',
             iconClass    : 'mdi mdi-human-greeting',
-            tooltipText  : menus.main.about,
+            getTooltipText  : ()=>(menus.main.about),
             basePath     : '/'
         },
         {
             name         : 'Projects',
             iconClass    : 'mdi mdi-briefcase',
-            tooltipText  : menus.main.projects,
+            getTooltipText  : ()=>(menus.main.projects),
             basePath     : '/projects'
         },
         {
             name         : 'CV',
             iconClass    : 'mdi mdi-file-document-box',
-            tooltipText  : menus.main.cv,
+            getTooltipText  : ()=>(menus.main.cv),
             basePath     : '/cv'
         }
     ]

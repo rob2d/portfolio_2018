@@ -26,7 +26,7 @@ const styleSheet = {
         // we also offset based on whether a project
         // is selected (currently, if index == -1 or not)
         bottom : ({ index, buttonTopOffset, viewportWidth })=>{
-        const gutterOffset = viewportWidth <= 600 ? 4 : 0;
+            const gutterOffset = viewportWidth <= 600 ? 4 : 0;
             return typeof buttonTopOffset != 'undefined' && 
                 `${(index!=-1?0:8)+
                         (Math.floor(buttonTopOffset-10+gutterOffset))}px`
