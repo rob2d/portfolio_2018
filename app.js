@@ -1,14 +1,25 @@
 'use strict'
+
 /*
  *
- * command line arguments
+ * Possible command line arguments
  *
  * https    : whether to run in HTTPS mode
  * ssl_cert : location of ssl certificate file  (default: ./certs/key.pem)
  * ssl_key  : location of ssl key file          (default: ./certs/cert.pem)
  * ssl_ca   : location of ca file if using one  (default: ./certs/ca.pem)
  */
-//creating a globally viewable basepath (typically bad-practice)
+
+/*
+|--------------------------------------------------------------------------
+| Imports and Basic Setup
+|--------------------------------------------------------------------------
+|
+| Set up SSL, config a globally viewable basepath (__base), and 
+| require node modules
+|
+*/
+
 global.__base = __dirname + '/';
 
 let express   = require('express'),
@@ -70,12 +81,20 @@ app.engine('html', require('ejs').renderFile);
 app.use(express.static(path.join(__dirname, codeDir)));
 app.use(xDomainMiddleware);
 
-console.log(__dirname + '/' + codeDir);
+/*
+|--------------------------------------------------------------------------
+| Front End Routes
+|--------------------------------------------------------------------------
+|
+| Routes that should redirect to our main front end app
+| are listed in this section
+|
+*/
 
-const renderMainApp = (req,res)=>
+function renderMainApp (req,res)
 {
     res.render(__dirname + '/' + codeDir + '/index.html');
-};
+}
 
 app.get('/', renderMainApp);
 app.get('/about', renderMainApp);
@@ -83,10 +102,33 @@ app.get('/cv', renderMainApp);
 app.get('/projects', renderMainApp);
 app.get('/projects/:projectId', renderMainApp);
 
+/*
+|--------------------------------------------------------------------------
+| Errors
+|--------------------------------------------------------------------------
+|
+| Generic 404 code for resources that are not found
+|
+*/
+
 app.get('*', (req, res)=>
 {
-    res.send('<p>Sorry, the page you requested cannot be found. </p>');
+    res.status(404).send(
+        `<p>Sorry, the page you requested cannot be found. </p>
+         <p>You can return to the main site by <a href="/">clicking here</p>.
+         `
+    );
 });
+
+/*
+|--------------------------------------------------------------------------
+| Start up the Server
+|--------------------------------------------------------------------------
+|
+| Based on whether we're in SSL or not, launch a corresponding express server
+| and give some an informative prompt to the user.
+|
+*/
 
 let startServer = ((server)=>
 {
