@@ -5,6 +5,7 @@ import
     OPEN_APP_MENU,
     CLOSE_APP_MENU
 } from './actionTypes'
+import getUrlParam from 'tools/getUrlParam'
 
 // getWindowWidth & getWindowHeight was
 // adapted from http://stackoverflow.com/a/8876069/1291659
@@ -21,7 +22,7 @@ var getViewportHeight = function()
 
 const initialState =
 {
-    language       : 'en',
+    language       : getUrlParam('language') || 'en',
     viewportWidth  : getViewportWidth(),
     viewportHeight : getViewportHeight(),
     appMenuOpen    : false  // for mobile views
@@ -39,7 +40,6 @@ const reducer = (state={...initialState}, action)=>
         case REFRESH_WINDOW_DIMENSIONS :
             let viewportWidth  = getViewportWidth(),
                 viewportHeight = getViewportHeight();
-                console.log('refreshing window dimensions ->', viewportWidth);
 
             if(state.viewportWidth != viewportWidth || state.viewportHeight != viewportHeight)
             {
