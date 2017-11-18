@@ -3,7 +3,12 @@
 node_modules/**
 node_modules
 dist/dev/*.js
+dist/dev/apidoc/**
 dist/prod/*.js
 dist/prod/**
 builds/**
 builds/**/*.*
+apidoc/**
+apidoc/**/*.*
+data/**
+data/**/*.*

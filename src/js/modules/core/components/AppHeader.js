@@ -14,7 +14,6 @@ import SectionHighlighter           from './SectionHighlighter'
 import { SectionIndexes, Sections } from 'constants/AppSections'
 import { refreshWindowDimensions }  from './../actions'
 
-
 const goToHeaderLink = (url)=> (appHistory.goTo(url) );
 
 // determine what to do when sections are clicked
