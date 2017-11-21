@@ -143,8 +143,7 @@ let startServer = ((server)=>
     console.log('%s '.white + '[v%s] %s', appName, version, argv.dev ? '(DEV MODE)' : '');
     console.log('-> currently running at ' + protocol.blue.bold + '://%s:%s'.blue.bold +
                 ' in HTTP %s mode', host, port, SSL.HTTPS ? 'Secure' : 'Insecure');
-    if(!SSL.HTTPS)
-    {
+    if(!SSL.HTTPS) {
         console.log('(to enable HTTPS, run app with the flags "https", "ssl_cert" and "ssl_key")');
     }
 
@@ -152,18 +151,15 @@ let startServer = ((server)=>
 });
 
 
-let server = (()=>
-{
+let server = (()=>{
     let server;
-    if(SSL.HTTPS)
-    {
-        server =  https.createServer(SSL.options, app).listen(RUNTIME.PORT, ()=>
-        {
+    if(SSL.HTTPS) {
+        server =  https.createServer(SSL.options, app).listen(RUNTIME.PORT, ()=> {
             startServer(server);
         });
     }
-    else
-    {
-        server =  http.createServer(app).listen(RUNTIME.PORT, ()=>{ startServer(server); });
+    else {
+        server =  http.createServer(app)
+                        .listen(RUNTIME.PORT, ()=>{ startServer(server); });
     }
 })();

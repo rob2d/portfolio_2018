@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import injectSheet              from 'react-jss'
 import Menu, { MenuItem }       from 'material-ui/Menu'
 import Button                   from 'material-ui/Button'
+import appHistory               from 'tools/appHistory'
 import strings,{ menus }        from 'strings'
 import styleSheet               from './style/LanguageMenuStyle'
 import { setLanguage }          from '../actions'
@@ -21,11 +22,17 @@ class LanguageMenu extends PureComponent {
     onMenuClick = (event)=> {
         this.setState({ 
             anchorEl : event.currentTarget,
-            open : true  
+            open     : true  
         });
     };
     onRequestClose = ()=> {
         this.setState({ open : false });
+    };
+    onLanguageSelected = (language)=> {
+        const { pathname } = this.props;
+        const search = (language != 'en' ? `language=${language}` : '');
+        
+        appHistory.push({ pathname, search });
     };
     render () {
         const { onLanguageSelected, classes } = this.props;
@@ -50,7 +57,7 @@ class LanguageMenu extends PureComponent {
                             key={`LanguageMenuItem${language}`}
                             onClick={(e)=>
                             {
-                                onLanguageSelected(language);
+                                this.onLanguageSelected(language);
                                 this.onRequestClose();
                             }}>
                             {strings.global.languages[language]}
@@ -62,11 +69,10 @@ class LanguageMenu extends PureComponent {
 }
 
 let VisibleLanguageMenu = connect(
-    (state,ownProps)=> ({ language : state.core.language }),
-    (dispatch)=> ({ onLanguageSelected : (language)=>
-    {
-        dispatch(setLanguage(language));
-    }})
+    (state,ownProps)=> ({ 
+        language : state.core.language,
+        pathname : state.router.location.pathname
+    }),
 )(injectSheet(styleSheet)(LanguageMenu));
 
 export default VisibleLanguageMenu
