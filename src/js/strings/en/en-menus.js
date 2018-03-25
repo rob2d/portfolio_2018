@@ -5,6 +5,7 @@ export default
         about        : 'About',
         cv           : 'CV',
         projects     : 'Projects',
+        misc         : 'Misc.',
         languageAbbr : 'EN'
     }
 }

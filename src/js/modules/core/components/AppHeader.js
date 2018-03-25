@@ -93,13 +93,16 @@ class AppHeader extends PureComponent {
      * to the last known path which
      * matches one of the navigation
      * buttons' positions
+     * 
+     * TODO : NORMALIZE THIS WITH APP SECTION HEADER DATA
      */
     getVisitedPathIndex = (pathname)=> {
         let match = true;
         switch(pathname) {
-            case '/':         return SectionIndexes.WELCOME;
-            case '/projects': return SectionIndexes.PROJECTS;
-            case '/cv':       return SectionIndexes.CV;
+            case Sections[0].basePath:         return SectionIndexes.WELCOME;
+            case Sections[1].basePath:         return SectionIndexes.PROJECTS;
+            case Sections[2].basePath:         return SectionIndexes.CV;
+            case Sections[3].basePath:         return SectionIndexes.MISC;
             default :  match = false; return -1;
         }
     

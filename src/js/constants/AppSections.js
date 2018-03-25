@@ -4,7 +4,8 @@ export default {
     SectionIndexes : {
         WELCOME  : 0,
         PROJECTS : 1,
-        CV       : 2
+        CV       : 2,
+        MISC     : 3
     },
     Sections : [
         {
@@ -24,6 +25,12 @@ export default {
             iconClass    : 'mdi mdi-file-document-box',
             getTooltipText  : ()=>(menus.main.cv),
             basePath     : '/cv'
+        },
+        {
+            name         : 'More',
+            iconClass    : 'mdi mdi-dice-multiple',
+            getTooltipText : ()=>(menus.main.misc),
+            basePath       : '/misc'
         }
     ]
 };

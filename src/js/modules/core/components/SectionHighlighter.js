@@ -33,11 +33,13 @@ const styleSheet = {
         },
         // shift the left position towards the last active
         // known button (+4px) when that is available
-        left : ({ lastKnownIndex, buttonXPositions })=>(
+        left : ({ lastKnownIndex, buttonXPositions })=>{
+            console.log('lastKnownIndex ->', lastKnownIndex);
+            return (
             buttonXPositions && 
                 buttonXPositions.hasOwnProperty(lastKnownIndex) && 
                         ((buttonXPositions[lastKnownIndex])+'px')
-        ),
+        )},
         transform : 'translateX(-50%)',
         opacity : 1,
         transition : 'left 0.55s ease-out 0.25s, opacity 0.4s, ' +

@@ -5,25 +5,25 @@ import injectSheet    from 'react-jss'
 import Tooltip   from 'material-ui/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 
+const BUTTON_WIDTH_PX = 60;
+
 const styleSheet = 
 {
     container : {
         display : 'block'
     },
-    button :
-    {
+    button : {
         display    : 'block',
         color      : '#FFFFFF',
         height     : 'auto',
         lineHeight : '24px',
         padding    : '8px',
+        minWidth   : '60px'
     },
-    buttonIconWrapper :
-    {
+    buttonIconWrapper : {
         display : 'block'
     },
-    buttonIcon :
-    {
+    buttonIcon : {
         fontSize : '18pt',
         position : 'relative',
         top      : '2px'
@@ -36,8 +36,7 @@ const styleSheet =
         minHeight: '20px',
         lineHeight: '20px'
     },
-    '@media (max-width: 400px)':
-    {
+    '@media (max-width: 400px)': {
         button : { minWidth : '68px' }
     }
 };

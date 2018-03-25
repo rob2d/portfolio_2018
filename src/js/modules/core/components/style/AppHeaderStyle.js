@@ -1,4 +1,8 @@
 import theme from 'app-root/baseTheme'
+import { Sections } from 'constants/AppSections'
+
+const SECTION_COUNT = Sections.length,
+      BUTTON_WIDTH_PX = 60;
 
 const styleSheet = 
 {
@@ -20,7 +24,7 @@ const styleSheet =
     leftIconsWrapper :
     {
         position       : 'relative',
-        width          : '240px',
+        width          : `${SECTION_COUNT * BUTTON_WIDTH_PX}px`,
         height         : '100%',
         color          : '#FFFFFF',
         justifyContent : 'center',
