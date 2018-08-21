@@ -1,38 +1,31 @@
 import React from 'react'
-import {
-    withStyles
-} from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button'
 import pure from 'recompose/pure'
 
-const contactButtonStyle = (theme)=>
-({
-    contactButton :
-    {
+const contactButtonStyle = (theme)=> ({
+    contactButton : {
         display        : 'inline-flex',
         justifyContent : 'center',
         flexDirection  : 'column',
     },
-    '@media (max-width: 400px)':
-    {
+    '@media (max-width: 400px)': {
         contactButton : { minWidth : '68px' }
     },
-    icon :
-    {
+    icon : {
         fontSize : '18pt',
         color    : '#455A64'
     }
 });
 
 const ContactButton = pure(withStyles(contactButtonStyle)
-(({ url, classes, iconClass })=>
-    (
-        <Button
-            className={ classes.contactButton }
-            onClick={()=>{ location.href = url }}
-        ><i className={`${iconClass} ${classes.icon}`}/>
-        </Button>
-    )));
+(({ url, classes, iconClass })=> (
+    <Button
+        className={ classes.contactButton }
+        onClick={()=>{ location.href = url }}
+    ><i className={`${iconClass} ${classes.icon}`}/>
+    </Button>
+)));
 ContactButton.displayName = 'ContactButton';
 
 

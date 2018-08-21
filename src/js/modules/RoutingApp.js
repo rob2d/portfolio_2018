@@ -22,22 +22,19 @@ import withFadeTransitions from 'tools/withFadeTransitions'
 
 const styles =
 {
-    appWrapper :
-    {
+    appWrapper : {
         minHeight       : '100%',
         margin          : '0px auto',
         display         : 'flex',
         flexDirection   : 'row',
         textAlign       : 'center'
     },
-    routeViewWrapper :
-    {
+    routeViewWrapper : {
         display       : 'flex',
         width         : '100%',
         flexDirection : 'column'
     },
-    mainContent :
-    {
+    mainContent : {
         flexGrow : 1,
         display : 'flex',
         flexDirection : 'column'
@@ -69,7 +66,7 @@ const RoutingApp = injectSheet(styles)(({ classes })=>(
                         <Route path='(/projects|/projects/:projectId)' component={ ProjectsPanel }/>
                     </Switch>
                     }
-                    <AppFooter/>
+                    <AppFooter />
                 </div>
             </div>
         </ConnectedRouter>
