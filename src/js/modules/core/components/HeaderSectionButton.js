@@ -7,8 +7,7 @@ import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 
 const BUTTON_WIDTH_PX = 60;
 
-const styleSheet = 
-{
+const styleSheet = {
     container : {
         display : 'block'
     },

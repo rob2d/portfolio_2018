@@ -9,10 +9,8 @@ import Tooltip   from 'material-ui/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
 
-const styleSheet =
-{
-    container :
-    {
+const styleSheet = {
+    container : {
         position       : 'relative',
         display        : 'flex',
         flexDirection  : 'column',
@@ -24,39 +22,32 @@ const styleSheet =
         paddingTop     : '16px',
         paddingBottom  : '16px'
     },
-    pdfContent :
-    {
+    pdfContent : {
         display  : 'inline-block',
         padding  : 0,
         margin   : 0,
         // resize pdf height according to 8.5x11
-        '@media (max-width: 900px)':
-        {
+        '@media (max-width: 900px)': {
             maxWidth : '100%',
             height : 'auto !important'
         },
-        '@media (min-width: 900px)':
-        {
+        '@media (min-width: 900px)': {
             width    : '100%',
             maxWidth : '800px',
             height   : 'auto !important'
         }
     },
-    downloadP :
-    {
+    downloadP : {
         paddingLeft: '12px',
         paddingBottom: '12px',
         paddingTop: '12px'
     },
-    downloadIcon :
-    {
+    downloadIcon : {
         fontSize : '28pt'
     },
-    downloadButton :
-    {
+    downloadButton : {
     },
-    downloadButtonContainer :
-    {
+    downloadButtonContainer : {
         position : 'fixed',
         bottom   : '48px',
         right    : '48px',

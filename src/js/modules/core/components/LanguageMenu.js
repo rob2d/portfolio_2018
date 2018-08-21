@@ -5,7 +5,6 @@ import Button                   from 'material-ui/Button'
 import appHistory               from 'tools/appHistory'
 import strings,{ menus }        from 'strings'
 import styleSheet               from './style/LanguageMenuStyle'
-import { setLanguage }          from '../actions'
 import { connect }              from 'react-redux'
 
 // TODO : language should be based on language query parameter

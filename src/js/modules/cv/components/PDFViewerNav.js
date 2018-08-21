@@ -6,10 +6,8 @@ import Button from 'material-ui/Button'
 import { cv as strings } from 'strings'
 import { CircularProgress } from 'material-ui/Progress'
 
-const styleSheet = (theme)=>
-({
-    container :
-    {
+const styleSheet = (theme)=> ({
+    container : {
         display        : 'flex',
         flexDirection  : 'row',
         justifyContent : 'center',
@@ -23,30 +21,25 @@ const styleSheet = (theme)=>
         display : 'block',
         height : 'auto'
     },
-    buttonContainer :
-    {
+    buttonContainer : {
         position       : 'relative',
         display        : 'inline-flex',
         justifyContent : 'center',
         height         : '100%'
     },
-    prevButton :
-    {
+    prevButton : {
         alignItems : 'flex-end'
     },
-    nextButton :
-    {
+    nextButton : {
         alignItems : 'flex-start'
     },
-    button :
-    {
+    button : {
         fontSize : '17pt',
         minWidth : '48px'
     }
 });
 
-const PDFNav = pure(withStyles(styleSheet)(
-({
+const PDFNav = pure(withStyles(styleSheet)(({
     classes,
     pageNumber, pageCount,
     handleNextPage, handlePrevPage,

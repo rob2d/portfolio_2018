@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react'
 import shallowEqual from  'shallowequal'
 import getDisplayName from 'recompose/getDisplayName'
 
-export const withStatefulProps = (WrappedComponent)=>
-{
+export const withStatefulProps = (WrappedComponent)=> {
     return class StatefulPropsProvider extends PureComponent {
         constructor (props) {
             super(props);

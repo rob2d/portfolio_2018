@@ -7,10 +7,8 @@ import Button from 'material-ui/Button'
 import { about as strings } from 'strings'
 import Avatar from 'material-ui/Avatar'
 
-const styleSheet = 
-{
-    mainContainer :
-    {
+const styleSheet = {
+    mainContainer : {
         marginLeft     : 'auto',
         marginRight    : 'auto',
         maxWidth       : '700px',
@@ -22,8 +20,7 @@ const styleSheet =
         alignItems     : 'center',
         boxSizing      : 'border-box' // for padding in landscape
     },
-    pText :
-    {
+    pText : {
         paddingLeft  : '16px',
         paddingRight : '16px',
         textAlign    : 'left'
@@ -67,7 +64,7 @@ const styleSheet =
         mainContainer : {
             flexDirection : 'row !important',
             boxSizing : 'border-box'
-        },
+        }
     },
     // for general mobile devices in landscape
     '@media (orientation:landscape) and (max-width:900px)': {
@@ -108,25 +105,25 @@ const styleSheet =
 
 function About ({ classes }) {
     return (
-            <div className={classes.mainContainer}>
-                <Avatar alt={'Rob'} src="img/about/robtalk.jpg" className={classes.avatar}/>
-                <div className={classes.textContent}>
-                    <p className={classes.pText}>
-                        {strings.aboutThisSite}
-                    </p>
-                    <p className={classes.pText}>
-                        {strings.toClickHere}
-                        <a href="http://www.github.com/rob2d/portfolio_2017">
-                            {strings.linkClickHere}
-                        </a>.
-                    </p>
-                    <p className={`${classes.pText} ${classes.wipNote}`}>
-                        {strings.thisIsWIP}
-                    </p>
-                    <p className={`${classes.pText} ${classes.sig}`}>
-                        {strings.sig}
-                    </p>
-                    </div>
+        <div className={classes.mainContainer}>
+            <Avatar alt={'Rob'} src="img/about/robtalk.jpg" className={classes.avatar}/>
+            <div className={classes.textContent}>
+                <p className={classes.pText}>
+                    {strings.aboutThisSite}
+                </p>
+                <p className={classes.pText}>
+                    {strings.toClickHere}
+                    <a href="http://www.github.com/rob2d/portfolio_2017">
+                        {strings.linkClickHere}
+                    </a>.
+                </p>
+                <p className={`${classes.pText} ${classes.wipNote}`}>
+                    {strings.thisIsWIP}
+                </p>
+                <p className={`${classes.pText} ${classes.sig}`}>
+                    {strings.sig}
+                </p>
+            </div>
         </div>
     );
 };

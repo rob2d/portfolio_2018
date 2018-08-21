@@ -1,7 +1,5 @@
-const styleSheet = (theme) =>
-({
-    container :
-    {
+const styleSheet = (theme) => ({
+    container : {
         display        : 'block',
         position       : 'relative',
         flexGrow       : 1,
@@ -10,8 +8,7 @@ const styleSheet = (theme) =>
         top            : '0px',
         overflowX      : 'hidden'
     },
-    content :
-    {
+    content : {
         display        : 'flex',
         alignItems     : 'center',
         justifyContent : 'center',
@@ -25,7 +22,7 @@ const styleSheet = (theme) =>
             padding : '32px',
         },
     },
-    '@media (max-height: 480px)':{
+    '@media (max-height: 480px)': {
         mainContainer : {
             paddingTop : '0px'
         }

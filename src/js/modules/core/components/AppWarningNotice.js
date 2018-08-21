@@ -27,8 +27,7 @@ const styleSheet = {
         maxHeight      : ({ message })=>( message ? '200px' : '0px' ),
         transition     : 'max-height 0.75s, width 0.75s, opacity 0.75s, margin 0.75s'
     },
-    disclaimer :
-    {
+    disclaimer : {
         padding        : ({ message })=>(message ? '8px 16px' : '0px 16px'),
         color          : '#BB4433',
         textAlign      : 'center',
@@ -36,8 +35,7 @@ const styleSheet = {
         justifyContent : 'center',
         transition     : 'padding 0.75s'
     },
-    disclaimerNote : 
-    {
+    disclaimerNote : {
         display    : 'flex',
         overflow   : 'hidden',
         flexAlign  : 'row',

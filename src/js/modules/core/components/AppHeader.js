@@ -17,7 +17,7 @@ import { refreshWindowDimensions }  from './../actions'
 const goToHeaderLink = (url)=> (appHistory.goTo(url) );
 
 // determine what to do when sections are clicked
-const SectionClickEvents = Sections.map((section, i)=>{
+const SectionClickEvents = Sections.map((section, i)=> {
    return ()=>{ goToHeaderLink(section.basePath); };
 });
 

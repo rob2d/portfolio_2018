@@ -2,8 +2,7 @@ import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 
 const ANIM_INTERVAL = '0.32';
 
-const styleSheet =
-{
+const styleSheet = {
     container : {
         opacity: ({isShown}) => (isShown ? '1' : '0'),
         display: ({ onScreen })=>(onScreen ? 'block' : 'none'),
@@ -49,8 +48,7 @@ const styleSheet =
             paddingRight: '8px'
         },
     },
-    cardMediaContent :
-    {
+    cardMediaContent : {
         position : 'relative',
         width    : '100%',
         opacity  : 1,
@@ -66,8 +64,7 @@ const styleSheet =
         overflow  : 'hidden',
         border : 0
     },
-    cardContainer :
-    {
+    cardContainer : {
         width         : ({ viewAsTitle })=>(!viewAsTitle?'300px':'400px'),
         height        : ({ viewAsTitle })=>(!viewAsTitle ?'300px':'80px'),
         padding       : '0px',
@@ -84,14 +81,12 @@ const styleSheet =
             width : '300px'
         }
     },
-    cardContent :
-    {
+    cardContent : {
         height     : '88px',
         transition : `all ${ANIM_INTERVAL}s ease-out`,
         opacity    : ({ highlightedOnPanel })=>((!highlightedOnPanel) ? 1 : 0)
     },
-    titleOverlay :
-    {
+    titleOverlay : {
         display         : 'flex',
         flexDirection   : 'column',
         justifyContent  : 'center',
@@ -103,8 +98,7 @@ const styleSheet =
         height          : ({viewAsTitle})=>(!viewAsTitle?'40%':'100%'),
         backgroundColor : ({viewAsTitle})=>(!viewAsTitle?'rgba(0,0,0,0.52)':'rgba(0,0,0,0)')
     },
-    projectTitle :
-    {
+    projectTitle : {
         display      : 'block',
         width        : '100%',
         minWidth     : ({viewAsTitle})=>(!viewAsTitle?'300px':'400px'),
@@ -119,8 +113,7 @@ const styleSheet =
         color        : ({ viewAsTitle })=>(!viewAsTitle?'#FFFFFF':'#000000'),
         transition   : `all ${ANIM_INTERVAL}s ease-in`
     },
-    projectSubtitle :
-    {
+    projectSubtitle : {
         display      : 'block',
         position     : 'relative',
         left         : ({ viewAsTitle })=>( !viewAsTitle ? '0px' : '16px' ),
@@ -135,8 +128,7 @@ const styleSheet =
         opacity      : ({ isHighlighted })=>(isHighlighted?1:0),
         transition   : `all ${ANIM_INTERVAL}s ease-in`,
     },
-    moreInfoButton :
-    {
+    moreInfoButton : {
         position   : 'absolute',
         right      : '16px',
         color      : '#FFFFFF',
@@ -144,16 +136,13 @@ const styleSheet =
         opacity    : ({ isHighlighted, viewAsTitle })=>(isHighlighted&&(!viewAsTitle)?1:0),
         transition : `all ${ANIM_INTERVAL}s ease-in`
     },
-    cardActions :
-    {
+    cardActions : {
         justifyContent : 'flex-end'
     },
-    cardActionButton :
-    {
+    cardActionButton : {
         fontFamily : 'roboto_medium'
     },
-    cardMediaImg :
-    {
+    cardMediaImg : {
         position      : 'relative',
         width         : ({viewAsTitle})=>(!viewAsTitle?'auto':'100%'),
         height        : '100%',

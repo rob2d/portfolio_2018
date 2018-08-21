@@ -7,10 +7,8 @@ import { cv as strings } from 'strings'
 import PDFViewer from './PDFViewer'
 const RESUME_URL = '/downloads/concepcion_resume_201709.pdf';
 
-const styleSheet = (theme) =>
-({
-    container :
-    {
+const styleSheet = (theme) => ({
+    container : {
         marginLeft     : 'auto',
         marginRight    : 'auto',
         width          : '100%',
@@ -20,16 +18,14 @@ const styleSheet = (theme) =>
         justifyContent : 'center',
     }
 });
-const CV = ({ classes })=>
-(
+const CV = ({ classes })=> (
     <div className={classes.container}>
         <PDFViewer fileURL={ RESUME_URL }/>
     </div>
 );
 
 let VisibleCV = pure(withStyles(styleSheet)(connect(
-    (state,ownProps)=> (
-    {
+    (state,ownProps)=> ({
         language : state.core.language,
         viewportWidth : state.core.viewportWidth,
         viewportHeight: state.core.viewportHeight
