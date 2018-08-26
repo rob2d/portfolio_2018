@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
-import { withStyles } from 'material-ui/styles'
-import Button from 'material-ui/Button'
-import { about as strings } from 'strings'
-import Avatar from 'material-ui/Avatar'
-import JSSTransitionExample from 'modules/projects/components/JSSTransitionExample'
+import { misc as strings } from 'strings'
 
 const styleSheet = {
     mainContainer : {
@@ -58,71 +54,73 @@ const styleSheet = {
     },
     '@media (orientation:landscape)': {
         avatar : {
-            margin : '16px 16px 8px !important',
+            margin      : '16px 16px 8px !important',
             marginLeft  : '16px',
             marginRight : '16px'
         },
         mainContainer : {
             flexDirection : 'row !important',
-            boxSizing : 'border-box'
+            boxSizing     : 'border-box'
         }
     },
     // for general mobile devices in landscape
     '@media (orientation:landscape) and (max-width:900px)': {
         avatar : {
-            width : '80px !important',
-            height: '80px !important',
+            width  : '80px !important',
+            height : '80px !important',
         },
         pText : {
             fontSize : '11pt'
         }
     },
+
     // again, for iPhone 5
+
     '@media (orientation:landscape) and (max-height:320px)': {
         pText : {
-            marginTop : '8px',
+            marginTop    : '8px',
             marginBottom : '8px'
         }
     },
+
     // make certain things larger on non-mobile devices
+    
     '@media (min-width:901px)' : {
+
         avatar : {
             width : '180px !important',
             height: '180px !important'
         },
+        
         mainContainer : {
             maxWidth : '800px !important'
         },
+        
         pText : {
             paddingLeft  : '32px !important',
             paddingRight : '32px !important',
             fontSize     : '14pt !important'
         },
+        
         wipNote : {
             fontSize : '12pt !important'
+        },
+        bodyContent : {
+            flexGrow : 1
         }
+
     }
 };
 
-function About ({ classes }) {
+function Miscellaneous ({ classes }) {
     return (
         <div className={classes.mainContainer}>
-            <Avatar alt={'Rob'} src="img/about/robtalk.jpg" className={classes.avatar}/>
-            <div className={classes.textContent}>
+            <p className={classes.pTitle}>
+                {strings.title}
+            </p>
+            <div className={classes.bodyContent}> 
                 <p className={classes.pText}>
-                    {strings.aboutThisSite}
-                </p>
-                <p className={classes.pText}>
-                    {strings.toClickHere}
-                    <a href="http://www.github.com/rob2d/portfolio_2017">
-                        {strings.linkClickHere}
-                    </a>.
-                </p>
-                <p className={`${classes.pText} ${classes.wipNote}`}>
-                    {strings.thisIsWIP}
-                </p>
-                <p className={`${classes.pText} ${classes.sig}`}>
-                    {strings.sig}
+                    {strings.description}
                 </p>
             </div>
         </div>
@@ -132,5 +130,5 @@ function About ({ classes }) {
 let VisibleAbout = pure(injectSheet(styleSheet)(connect(
     (state,ownProps)=> ({ language : state.core.language }),
     null
-)(About)));
+)(Miscellaneous)));
 export default VisibleAbout;

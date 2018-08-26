@@ -16,12 +16,11 @@ import AppHeader     from './core/components/AppHeader'
 import AppFooter     from './core/components/AppFooter'
 import ProjectsPanel from './projects/components/ProjectsPanel'
 import About         from './about/components/About'
+import Miscellaneous from './misc/components/Miscellaneous'
 import CV            from './cv/components/CV'
-
 import withFadeTransitions from 'tools/withFadeTransitions'
 
-const styles =
-{
+const styles = {
     appWrapper : {
         minHeight       : '100%',
         margin          : '0px auto',
@@ -61,9 +60,10 @@ const RoutingApp = injectSheet(styles)(({ classes })=>(
                     <AppWarningNotice />
                     {
                     <Switch>
-                        <Route exact path='(/about|/)' component={ About }/>
-                        <Route exact path='/cv' component={ CV }/>
-                        <Route path='(/projects|/projects/:projectId)' component={ ProjectsPanel }/>
+                        <Route exact path='(/about|/)' component={ About } />
+                        <Route exact path='/cv' component={ CV } />
+                        <Route path='(/projects|/projects/:projectId)' component={ ProjectsPanel } />
+                        <Route path='(/misc)' component={ Miscellaneous } />
                     </Switch>
                     }
                     <AppFooter />

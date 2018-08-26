@@ -126,26 +126,23 @@ class ProjectsPanel extends PureComponent {
                         
                         return (
                             <ProjectCard
-                                ref={ (c)=> this.R.projects[p.id] = c }
-                                key={`ProjectCard${p.id}`}
-                                data={p}
-                                pData={projectsData[p.id]}
-                                language={language}
-                                onClick={ ()=>appHistory.goTo(`/projects/${p.id}`) }
+                                ref={ (c) => this.R.projects[p.id] = c }
+                                key={ `ProjectCard${p.id}` }
+                                data={ p }
+                                pData={ projectsData[p.id] }
+                                language={ language }
+                                onClick={ ()=> appHistory.goTo(`/projects/${p.id}`) }
                                 isShown={ (!selectedProjectId) || (selectedProjectId == p.id) }
                                 onScreen={ onScreen }
                                 displayState={ displayState }
                                 isSelected={ isSelected }
-                                wasSelectionViaUI={ (this.state.wasSelectionViaUI) }
+                                wasSelectionViaUI={ this.state.wasSelectionViaUI }
                             />
                         )
                     })}
                     { typeof selectedProjectId != 'undefined' && 
                     (
-                        <ProjectDetails 
-                            projectId={selectedProjectId} 
-                            fadeInDelay={1000}
-                        />
+                        <ProjectDetails projectId={selectedProjectId} fadeInDelay={1000} />
                     )}
                 </div>
             </div>

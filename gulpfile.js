@@ -103,6 +103,7 @@ const BABELIFY_CONFIG =
             'transform-decorators-legacy',
             'add-module-exports',
             'react-hot-loader/babel',
+            'syntax-dynamic-import',
             ['module-alias', Aliases]
         ]
     };

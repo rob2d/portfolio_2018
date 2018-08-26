@@ -1,8 +1,5 @@
-import React, { PureComponet } from 'react'
-import shallowEqual from  'shallowequal'
-import withStatefulProps from './withStatefulProps'
-import hoistNonReactStatic from 'hoist-non-react-statics'
-import getDisplayName from 'recompose/getDisplayName'
+import React from 'react'
+import withStatefulProps from './react-stateful-props'
 
 let injectSheet;
 /**
@@ -12,34 +9,35 @@ let injectSheet;
  */
 export const jssTransitionConfig = {
     setInjector (injector) {
-        console.log('setInjector ->', injector);
         injectSheet = injector;
     }
 };
 
-const generateStyleSheet = ({ styleStates })=>{
+const generateStyleSheet = ({ styleStates })=> {
+    try {
+
     console.log('generateStyleSheet.styleStates ->', styleStates);
+
     /**
      * tracks rule->prop instances to conveniently
      * iterate through for custom behaviors;
      * format: rule->prop->[...statesUsingProp]
      **/
-    const rulePropTracker  = {};
+    const rulePropTracker = {};
 
     // iterate through all rules, then all props,
     // so that we can find the consistent ones
     // accross each styleState
 
-    Object.keys(styleStates).forEach((stateKey)=> {
+    Object.keys(styleStates).forEach( stateKey => {
+
         const stateStylesheet = styleStates[stateKey].styleSheet;
-        console.log('stateKey ->', stateKey);
-        Object.keys(stateStylesheet).forEach((ruleName)=> {
-            console.log('ruleName ->', ruleName);
+        Object.keys(stateStylesheet).forEach( ruleName=> {
             rulePropTracker[ruleName] = rulePropTracker[ruleName] || {};
             const rule = rulePropTracker[ruleName];
 
             Object.keys(stateStylesheet[ruleName]).forEach((propName)=>{
-                console.log(`${ruleName}::propName ->`, propName)
+                console.log(`${stateKey}::${ruleName} ->`, propName)
                 rule[propName] = rule[propName] || [];
                 rule[propName].push(stateKey);
             });
@@ -53,41 +51,46 @@ const generateStyleSheet = ({ styleStates })=>{
 
     const generatedSheet = {};
 
-    Object.keys(rulePropTracker).forEach((ruleKey)=> {
+    Object.keys(rulePropTracker).forEach( ruleKey => {
+
         // inject dynamic behavior with callback to additional
         // styleState checked against from function value
         // context props
 
         const rule = rulePropTracker[ruleKey];
 
-        Object.keys(rule).forEach((styleKey)=> {
-            const styleStates = rule[styleKey];
+        Object.keys(rule).forEach( styleKey => {
 
             // return the function value needed for the
             // specific rule's style property
 
             const stylePropBehavior = ()=> {
-                return ({ setStatefulProps, styleState, ...statefulProps })=> {
+                return ({ setStatefulProps, styleState='default', ...statefulProps }) => {
                     const activeStyleState = styleStates[styleState];
+
                     // when rendering, re-run prop behavior
-                    if(activeStyleState.behavior) {
-                        activeStyleState.behavior({
+                    if(activeStyleState && activeStyleState.behavior) {
+                        /*activeStyleState.behavior({
                             setStatefulProps,
                             statefulProps : { styleState, ...statefulProps }
-                        });
+                        });*/
                     }
 
-                    if(activeStyleState[ruleKey] && activeStyleState[ruleKey][styleKey]) {
-                        switch(typeof activeStyleState[ruleKey][styleKey]) {
+                    if(activeStyleState.styleSheet[ruleKey] && activeStyleState.styleSheet[ruleKey][styleKey]) {
+                        switch(typeof activeStyleState.styleSheet[ruleKey][styleKey]) {
                             case 'string':
                             case 'number':
-                                return activeStyleState[ruleKey][styleKey];
+                                return activeStyleState.styleSheet[ruleKey][styleKey];
                             case 'function':
-                                return activeStyleState[ruleKey][styleKey]({ setStatefulProps, ...statefulProps });
+                                return activeStyleState.styleSheet[ruleKey][styleKey]({ setStatefulProps, ...statefulProps });
+                            default : 
+                                console.log('rule and style not found ->', ruleKey + ':' + styleKey);
+                                break;
                         }
-                        if(typeof activeStyleState[ruleKey][styleKey])
-                        return styleStates[styleState];
-                    }else {
+                        if(typeof activeStyleState.styleSheet[ruleKey][styleKey] != 'undefined') {
+                            return styleStates[styleState];
+                        }
+                    } else {
                         throw new Error(
                             `JSSX : no style @ the state ${styleState} for ` +
                             `the rule ${ruleKey} at property ${styleKey}`
@@ -104,7 +107,7 @@ const generateStyleSheet = ({ styleStates })=>{
     // iterate through each style state
     Object.keys(styleStates).map((state)=>{
         //iterate through each style property
-        Object.keys(styleStates[state].styleSheet).map((ruleName)=>{
+        Object.keys(styleStates[state].styleSheet).map( ruleName => {
             switch(typeof styleStates[state][ruleName]) {
                 case 'string':
                 case 'number':
@@ -116,9 +119,12 @@ const generateStyleSheet = ({ styleStates })=>{
             }
         });
     });
-
-
     return generatedSheet;
+
+} catch( error ) {
+    console('WHATEVER :D ->', error);
+}
+
 };
 
 /**
@@ -126,16 +132,26 @@ const generateStyleSheet = ({ styleStates })=>{
  * @param p
  * @param p.styleStates
  * @param p.options
+ * 
  * @return new component which can receive classes
  *              generated by JSS & Transformer to provide
  */
 export const injectJSSBehavior = ({ styleStates, options = {}})=> {
     return (WrappedComponent)=> {
         const generatedStyleSheet = generateStyleSheet({ styleStates });
-
-        console.log('generatedStyleSheet ->', generatedStyleSheet);
+        const ComponentDisplayed = injectSheet(generatedStyleSheet)(WrappedComponent);
         //TODO : hoist non static vars w lib
-        return withStatefulProps(injectSheet(generatedStyleSheet)(WrappedComponent));
+        return withStatefulProps(ComponentDisplayed)({
+            onSetStatefulProps ({ statefulProps, props }) {
+                console.log('onSetStatefulProps ->', statefulProps, props);
+                const { styleState } = statefulProps;
+                if(styleState) {
+                    styleStates[styleState].behavior(props);
+                }
+            },
+            statefulProps : { styleState : 'default' },
+            component : ComponentDisplayed
+        });
     };
 };
 

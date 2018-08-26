@@ -101,6 +101,7 @@ app.get('/about', renderMainApp);
 app.get('/cv', renderMainApp);
 app.get('/projects', renderMainApp);
 app.get('/projects/:projectId', renderMainApp);
+app.get('/misc', renderMainApp);
 
 /*
 |--------------------------------------------------------------------------

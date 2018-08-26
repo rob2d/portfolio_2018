@@ -2,8 +2,10 @@ import React, { PureComponent } from 'react'
 import shallowEqual from  'shallowequal'
 import getDisplayName from 'recompose/getDisplayName'
 
-export const withStatefulProps = (WrappedComponent)=> {
-    return class StatefulPropsProvider extends PureComponent {
+export const withStatefulProps = ( WrappedComponent, asNonPure=false ) => {
+    const BaseComponent = asNonPure ? Component : PureComponent;
+
+    return class StatefulPropsProvider extends BaseComponent {
         constructor (props) {
             super(props);
             this.state = { keys : { ...props } };
@@ -28,13 +30,7 @@ export const withStatefulProps = (WrappedComponent)=> {
         componentWillMount () {
             this.processProps(this.props);
         }
-        componentDidMount () {
-            this.hasMounted = true;
-        }
-
-        componentWillUnmount () {
-            this.hasMounted = false;
-        }
+        
         render () {
             return (
                 <WrappedComponent
@@ -46,4 +42,4 @@ export const withStatefulProps = (WrappedComponent)=> {
     }
 };
 
-export default withStatefulProps;
+export default withStatefulProps

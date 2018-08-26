@@ -144,14 +144,14 @@ const styleSheet = {
     },
     cardMediaImg : {
         position      : 'relative',
-        width         : ({viewAsTitle})=>(!viewAsTitle?'auto':'100%'),
+        width         : ({ viewAsTitle }) => (!viewAsTitle?'auto':'100%'),
         height        : '100%',
         verticalAlign : 'middle',
         transition    : `all ${ANIM_INTERVAL}s ease-out`,
         margin        : '0 auto',
-        left          : ({ isHighlighted })=>(isHighlighted?'-25%':'0%'),
+        left          : ({ isHighlighted }) => (isHighlighted?'-25%':'0%'),
         top           : '0%',
-        opacity       : ({ viewAsTitle })=>(!viewAsTitle?1:0)
+        opacity       : ({ viewAsTitle }) => (!viewAsTitle?1:0)
     }
 };
 

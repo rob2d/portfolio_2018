@@ -4,11 +4,12 @@ import injectJSSBehavior, {
     jssTransitionConfig,
     withStatefulProps
 } from 'tools/react-jss-transitions'
+import pure from 'recompose/pure'
 
 jssTransitionConfig.setInjector(injectSheet);
 
 const wait = (timeInMs)=>{
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         setTimeout(()=>{ resolve(); }, timeInMs);
     });
 };
@@ -17,32 +18,65 @@ const styleStates = {
     default : {
         styleSheet: {
             container : {
-                display : ({ isShown })=>( isShown ? 'block' : 'none' )
+                display    : 'block',
+                color      : '#FFFFFF',
+                background : '#FFFFFF',
+                transition : 'background 0.5s'
             }
         },
-        behavior : ({ setStatefulProps, statefulProps })=>{
-            if(keys.isShown){
-                wait(500).then(()=>{
-                    setStatefulProps({ styleState : 'anotherStyleKey' });
-                });
-            }
+        behavior : ({ setStatefulProps, statefulProps }) => {
+            console.log('DEFAULT ENTERED');
+            wait(2000).then(()=> {
+                console.log('going from default->state2');
+                setStatefulProps({ styleState : 'state2' });
+            });
         }
     },
-    anotherStyleKey : {
+    state2 : {
         styleSheet : {
             container : {
                 background : '#000000',
-                color 	   : '#FFFFFF'
+                color 	   : '#FFFFFF',
+                display    : 'block',
+                transition : 'background 0.5s'
             }
+        },
+
+        behavior : ({ setStatefulProps, statefulProps }) => {
+            wait(2000).then(()=> {
+                setStatefulProps({ styleState : 'state3' });
+            })
+        }
+    },
+    state3 : {
+        styleSheet : {
+            container : {
+                background : '#FF0000',
+                color      : '#000000',
+                display    : 'block',
+                transition : 'background 0.5s'
+            }
+        },
+
+        behavior : ({ setStatefulProps, statefulProps }) => {
+            wait(2000).then(()=> {
+                console.log('BACK TO DEFAULT :D');
+                setStatefulProps({ styleState : 'default' })
+            })
         }
     }
 };
 
-export default injectJSSBehavior({ styleStates, defaultStyleState : 'default' })(({ classes })=>(
-    <div className={classes.container}>
-        I am a component to represent all of your JSS style dreams. In half second I will change
-    </div>
-));
+export default injectJSSBehavior({ styleStates, defaultStyleState : 'default' })(
+    function JSSTransitionedThing({ classes }){
+        return (
+            <div className={classes.container}>
+                I am a component to represent all of your JSS 
+                style dreams. Soon, I will change!
+            </div>
+        );
+    }
+);
 
 
 

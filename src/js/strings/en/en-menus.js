@@ -1,11 +1,10 @@
 export default
 {
-    main :
-    {
+    main : {
         about        : 'About',
         cv           : 'CV',
         projects     : 'Projects',
-        misc         : 'Misc.',
+        misc         : 'Miscellaneous',
         languageAbbr : 'EN'
     }
 }

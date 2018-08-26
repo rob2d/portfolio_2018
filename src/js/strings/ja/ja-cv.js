@@ -1,4 +1,3 @@
-export default
-{
+export default {
     downloadMessage : '下をクリックしてCVをダウンロード'
 }
