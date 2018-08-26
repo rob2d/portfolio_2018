@@ -99,19 +99,27 @@ class AppHeader extends PureComponent {
     getVisitedPathIndex = (pathname)=> {
         let match = true;
         switch(pathname) {
-            case Sections[0].basePath:         return SectionIndexes.WELCOME;
-            case Sections[1].basePath:         return SectionIndexes.PROJECTS;
-            case Sections[2].basePath:         return SectionIndexes.CV;
-            case Sections[3].basePath:         return SectionIndexes.MISC;
-            default :  match = false; return -1;
+            case Sections[0].basePath:  return SectionIndexes.WELCOME;
+            case Sections[1].basePath:  return SectionIndexes.PROJECTS;
+            case Sections[2].basePath:  return SectionIndexes.MISC;
+            case Sections[3].basePath:  return SectionIndexes.CV;
+            default :  
+                match = false; 
+                return -1;
         }
     
         return this.lastVisitedPathIndex;
     };
 
     render () {
-        const { classes, viewportWidth } = this.props;
-        const { pathIndex, lastMatchedIndex } = this.state;
+        const { 
+            classes, 
+            viewportWidth 
+        } = this.props;
+        const { 
+            pathIndex, 
+            lastMatchedIndex 
+        } = this.state;
 
         return (
             <AppBar className={ classes.appBar }>

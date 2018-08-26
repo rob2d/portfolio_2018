@@ -8,7 +8,6 @@ import appHistory from 'tools/appHistory'
 import ConnectedRouter from 'react-router-redux/ConnectedRouter'
 import store from '../store'
 import injectSheet from 'react-jss'
-import pure from 'tools/pureWithDisplayName'
 
 import AppWarningNotice from './core/components/AppWarningNotice'
 
@@ -18,7 +17,6 @@ import ProjectsPanel from './projects/components/ProjectsPanel'
 import About         from './about/components/About'
 import Miscellaneous from './misc/components/Miscellaneous'
 import CV            from './cv/components/CV'
-import withFadeTransitions from 'tools/withFadeTransitions'
 
 const styles = {
     appWrapper : {
@@ -39,16 +37,6 @@ const styles = {
         flexDirection : 'column'
     }
 };
-
-const TestFadeComponent = withFadeTransitions(
-    function TestFadeComponent() {
-        return (
-            <div id="fadeComponentTester" style={{ padding : '32px' }}>
-                testing testing
-            </div>
-        );
-    }
-);
 
 const RoutingApp = injectSheet(styles)(({ classes })=>(
     <Provider store={ store }>
