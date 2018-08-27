@@ -5,16 +5,16 @@ import pure from 'recompose/pure'
 
 const contactButtonStyle = (theme)=> ({
     contactButton : {
-        display        : 'inline-flex',
-        justifyContent : 'center',
-        flexDirection  : 'column',
+        display        : 'inline-flex !important',
+        justifyContent : 'center !important',
+        flexDirection  : 'column !important',
     },
     '@media (max-width: 400px)': {
-        contactButton : { minWidth : '68px' }
+        contactButton : { minWidth : '68px !important' }
     },
     icon : {
-        fontSize : '18pt',
-        color    : '#455A64'
+        fontSize : '18pt !important',
+        color    : '#455A64 !important'
     }
 });
 

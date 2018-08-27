@@ -51,7 +51,7 @@
     "react-hot-loader": "^4.3.5",
     "react-jss": "^8.6.1",
     "react-localization": "^1.0.10",
-    "react-pdf-js": "^4.0.0-alpha.6",
+    "react-pdf-js": "^3.0.8",
     "react-prevent-clickthrough": "0.0.3",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",

@@ -15,11 +15,7 @@ const HeaderSectionButton = pure(injectSheet(styleSheet)(function HeaderSectionB
         <div ref={buttonDivRef} className={classes.container}>
             <Tooltip
                 enterDelay={400}
-                place="bottom"
                 title={tooltipText}
-                disableTriggerFocus={!shouldShowHoverContent}
-                disableTriggerHover={!shouldShowHoverContent}
-                disableTriggerTouch={!shouldShowHoverContent}
                 classes={{ tooltip : classes.tooltip }}
                 >
                 <Button className={ classes.button }

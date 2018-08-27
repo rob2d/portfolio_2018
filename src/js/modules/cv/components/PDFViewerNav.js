@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import { cv as strings } from 'strings'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styleSheet = (theme)=> ({
@@ -73,7 +71,7 @@ const PDFNav = pure(withStyles(styleSheet)(({
     ) : (
         <div className={classes.container}>
             <div className={classes.linearProgress}>
-                <CircularProgress color="accent" size={64} />
+                <CircularProgress size={64} />
             </div>
         </div>
     )

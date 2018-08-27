@@ -43,14 +43,14 @@ const styleSheet =
         display : 'flex'
     },
     myNameText : {
-        textAlign   : 'right',
-        marginRight : '16px',
-        fontSize   : '16pt',
-        lineHeight : '17pt',
-        display    : 'block',
-        color      : "#FFFFFF"
+        textAlign   : 'right !important',
+        marginRight : '16px !important',
+        fontSize    : '16pt !important',
+        lineHeight  : '17pt !important',
+        display     : 'block',
+        color       : '#FFFFFF !important'
     },
-    
+
 };
 
 export default styleSheet

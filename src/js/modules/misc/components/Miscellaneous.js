@@ -154,9 +154,9 @@ function Miscellaneous ({ classes }) {
                     width="292" 
                     height="177" 
                     src="https://www.youtube.com/embed/v1uJjYYvEPw" 
-                    frameborder="0" 
+                    frameBorder="0" 
                     allow="autoplay; encrypted-media" 
-                    allowfullscreen >
+                    allowFullScreen >
                 </iframe><br />
                 <a href={'https://www.youtube.com/watch?v=v1uJjYYvEPw'}>
                 📺 JavaScript Styles in React : The Good Parts
@@ -173,9 +173,9 @@ function Miscellaneous ({ classes }) {
                     width="292" 
                     height="177" 
                     src="https://www.youtube.com/embed/4KnJOvw9tLk" 
-                    frameborder="0" 
+                    frameBorder="0" 
                     allow="autoplay; encrypted-media" 
-                    allowfullscreen
+                    allowFullScreen
                 ></iframe><br />
                 <p className={classes.rambling}>
                     One of the first pieces of software I ever completed in middleschool -- around 2000; 

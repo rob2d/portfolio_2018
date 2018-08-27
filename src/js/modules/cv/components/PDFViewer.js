@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react'
-import injectSheet from 'react-jss'
-import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import Button from '@material-ui/core/Button'
 import { cv as strings } from 'strings'
@@ -8,8 +6,11 @@ import PDF from 'react-pdf-js';
 import Tooltip   from '@material-ui/core/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
+import { withStyles } from '@material-ui/core/styles'
 
-const styleSheet = {
+const styleSheet = theme => { 
+    console.log('theme ->', theme);
+    return ({
     container : {
         position       : 'relative',
         display        : 'flex',
@@ -43,27 +44,36 @@ const styleSheet = {
         paddingTop: '12px'
     },
     downloadIcon : {
-        fontSize : '28pt'
-    },
-    downloadButton : {
+        fontSize : '28pt',
+        color : '#FFFFFF'
     },
     downloadButtonContainer : {
         position : 'fixed',
         bottom   : '48px',
-        right    : '48px',
+        right    : '48px'
+    },
+    downloadButton : {
+        backgroundColor : theme.palette.accent['400'],
+        '&:hover' : {
+            backgroundColor : theme.palette.accent['300']
+        },
+        '&:active' : {
+            backgroundColor : theme.palette.accent['400']
+        }
     },
     // TODO : use constant to make
     //        tooltip style DRY
     tooltip : {
-        fontSize : '11pt',
-        padding  : '4px 8px',
-        minHeight: '20px',
-        lineHeight: '20px'
+        fontSize : '11pt !important',
+        padding  : '4px 8px !important',
+        minHeight: '20px !important',
+        lineHeight: '20px !important'
     },
     loadingContent : {
         display : 'none'
     }
-};
+
+})};
 
 class PDFViewer extends PureComponent {
     constructor(props) {
@@ -96,8 +106,7 @@ class PDFViewer extends PureComponent {
     };
 
     handlePrevPage = ()=> {
-        if(this.state.pageNumber > 1)
-        {
+        if(this.state.pageNumber > 1) {
             this.setState({ pageNumber: this.state.pageNumber - 1 });
         }
     };
@@ -109,10 +118,15 @@ class PDFViewer extends PureComponent {
     };
     render () {
         const { classes, fileURL } = this.props;
-        const { pageNumber, pageCount, isLoaded } = this.state;
+        const { 
+            pageNumber, 
+            pageCount, 
+            isLoaded 
+        } = this.state;
+
         return (
             <div className={ classes.container }>
-                <div className={!isLoaded ? classes.loadingContent : ''}>
+                <div className={!isLoaded ? classes.loadingContent : undefined}>
                     <PDF file={ fileURL }
                         onDocumentComplete={this.onDocumentComplete}
                         onPageComplete={this.onPageComplete}
@@ -129,16 +143,13 @@ class PDFViewer extends PureComponent {
                         <Tooltip
                             id={`resume-pdf-download-tooltip`}
                             enterDelay={400} 
-                            placement="left"
-                            title="Download this PDF"
-                            disableTriggerFocus={!shouldShowHoverContent}
-                            disableTriggerHover={!shouldShowHoverContent}
-                            disableTriggerTouch={!shouldShowHoverContent}
+                            title='Download this PDF'
                             classes={{ tooltip : classes.tooltip }}
                         >
                             <Button
-                                fab color="accent"
+                                variant="fab"
                                 data-tip data-for={`resume-pdf-download-tooltip`}
+                                className={classes.downloadButton}
                             ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
                             </Button>
                         </Tooltip>
@@ -156,4 +167,4 @@ class PDFViewer extends PureComponent {
     }
 }
 
-export default pure(injectSheet(styleSheet)(PDFViewer));
+export default pure(withStyles(styleSheet)(PDFViewer));
