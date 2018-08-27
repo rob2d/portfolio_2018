@@ -6,7 +6,7 @@
 var _global = { DEV_MODE : false };
 
 var gulp          = require('gulp'),
-    uglify        = require('gulp-uglify'),
+    uglify        = require('gulp-uglify-es').default,
     pkg           = require('./package.json'),
     source        = require('vinyl-source-stream'),
     buffer        = require('vinyl-buffer'),

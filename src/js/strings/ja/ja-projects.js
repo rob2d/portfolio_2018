@@ -9,6 +9,23 @@ export default
     projectData :
     [
         {
+            id      : 'greedux',
+            title   : 'Greedux',
+            context : 'Independent',
+            roles   : 'Maintainer, Designer and Developer',
+            shortDescription : 'A modular, clean and scalable modern workflow template for React/Redux development.',
+            description : ['A modular, clean and scalable modern workflow template for React/Redux development ' + 
+                'which features Live Reloading, JSS, instantaneous and flexible production-level deployment and a few other neat things. ' + 
+                'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
+                'or other technologies which keep your team at the mercy of dependency hell as it just relies on Gulp and Babel. ',
+                'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
+                'installation parts up to date for React/redux apps. I have deployed well over 10 front-end projects since 2017 with it and it ' + 
+                'is now being used to launch several very high profile projects such as an engineering app to support most of the Fortune 500 company-' +
+                'housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US (http://www.stuyspec.com).'],
+            linkDescriptions : [ 'NPM Repo' ],
+            sourceCodeDescriptions : [ 'Github' ] 
+        },
+        {
             id      : 'smartwalk',
             title   : 'SmartWALK',
             context : 'PMC Technology',
@@ -32,7 +49,15 @@ export default
             shortDescription : 'Wide array of open-source development ' +
                 'tools including a React/Redux Project Generator, ' +
                 'Node/Express Route Mapper, MySQL Prettifier, and many others',
-            description      : '',
+            description      : ['Along the way of developing software professionally, ' + 
+            'there are several times where it has been advantageous to open-source some small ' +
+            'tools along the way which I also use for personal projects. The NPM repos are just a ' +
+            'quick collection of some packages which are downloaded up to hundreds of times daily ' +
+            'by other developers.',
+            'Many of these were created when I had first started developing in NodeJS but there are ' +
+            'some specific projects which probably deserve their own section such as a React-Redux application ' +
+            'generator which contains all of the benefits of gulp and creates fully production-ready versions ' +
+            'of applications in seconds (this portfolio is an example).'],
             platforms        : ['web'],
             screenshots      :
             [
@@ -187,10 +212,17 @@ export default
             context : 'Undergraduate Seminar Project',
             shortDescription : 'An interactive and animated rendition of "Big Two" card game for Android. ' +
             'Features real-time online play, intuitive touch screen interface and beautiful graphics',
-            description      : '',
-            screenshots      :
-            [
-                {
+            description : [
+                'Chinese Poker Online was a game which during the years it was released (2011) had very ' +
+                'bright colorful graphics and online play on a mobile platform which was rare for a card game. It was' +
+                'based on a game called "Big Two" which I often played in highschool at lunch',
+                'Although not my first application by a long shot, Chinese Poker Online was my first ' +
+                'truly large-scale application created in a professional programming language. Prior to it, ' +
+                'I had dabbled quite a lot in C and JavaScript but had not ever completed a large project with any of them. ',
+                'Chinese Poker Online was a very ambitious first-scalable project as it leveraged a custom game API I had been ' +
+                'building outside of my Programming 2 and Data Structures class.'
+            ],
+            screenshots : [{
                     url  : '',
                     desc : ''
                 }

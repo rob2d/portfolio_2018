@@ -24,7 +24,7 @@ export default
                 'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
                 'installation parts up to date for React/redux apps. I have deployed well over 10 front-end projects since 2017 with it and it ' + 
                 'is now being used to launch several very high profile projects such as an engineering app to support most of the Fortune 500 company-' +
-                'housed skyscrapers in NYC today as well as the official newspaper for a top Highschool in the US (http://www.stuyspec.com).'],
+                'housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US (http://www.stuyspec.com).'],
             linkDescriptions : [ 'NPM Repo' ],
             sourceCodeDescriptions : [ 'Github' ] 
         },
