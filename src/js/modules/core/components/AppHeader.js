@@ -1,9 +1,9 @@
 import React, { PureComponent }     from 'react'
 import pure                         from 'recompose/pure'
 import injectSheet                  from 'react-jss'
-import Typography                   from 'material-ui/Typography'
-import AppBar                       from 'material-ui/AppBar'
-import Toolbar                      from 'material-ui/Toolbar'
+import Typography                   from '@material-ui/core/Typography'
+import AppBar                       from '@material-ui/core/AppBar'
+import Toolbar                      from '@material-ui/core/Toolbar'
 import { menus }                    from 'strings'
 import styleSheet                   from './style/AppHeaderStyle'
 import LanguageMenu                 from './LanguageMenu'
@@ -34,7 +34,10 @@ class AppHeader extends PureComponent {
         };
 
         // stores our references
-        this.R = { buttonDivRefs : [] };
+        this.R = {
+            toolbarRef : undefined, 
+            buttonDivRefs : [] 
+        };
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -74,14 +77,22 @@ class AppHeader extends PureComponent {
 
     updateButtonXPositions = ()=> {
         setTimeout(()=> {
-            const sampleButton = this.R.buttonDivRefs[0];
-            const buttonWidth = sampleButton && sampleButton.offsetWidth;
-            const buttonTopOffset = sampleButton && sampleButton.offsetTop;
-            
+            const leftmostButton = this.R.buttonDivRefs[0];
+            const buttonWidth = leftmostButton && leftmostButton.offsetWidth;
+            const appBar = document.querySelector("div[class^=MuiToolbar]");            
+            const appBarHeight = appBar && appBar.clientHeight;
+
+            // supported in all browsers IE9+
+            const leftPadding = window.getComputedStyle(appBar, null)
+                                    .getPropertyValue('padding-left');
+
             this.setState({ 
-                buttonXPositions : this.R.buttonDivRefs.map((b)=>(b.offsetLeft + buttonWidth/2)),
+                buttonXPositions : this.R.buttonDivRefs.map( 
+                    b =>( b.offsetLeft + buttonWidth/2 )
+                ),
                 buttonWidth,
-                buttonTopOffset 
+                appBarHeight,
+                leftPadding,
             });
 
         }, 0);  // need a timeout to get around functional component refs; a bit of hack
@@ -116,14 +127,28 @@ class AppHeader extends PureComponent {
             classes, 
             viewportWidth 
         } = this.props;
+
         const { 
             pathIndex, 
-            lastMatchedIndex 
+            lastMatchedIndex,
+            appBarHeight,
+            buttonWidth,
+            leftPadding,
+            buttonXPositions
         } = this.state;
 
         return (
             <AppBar className={ classes.appBar }>
-                <Toolbar className={ classes.toolbar }>
+                <SectionHighlighter 
+                        lastKnownIndex={lastMatchedIndex} 
+                        index={pathIndex} 
+                        viewportWidth={viewportWidth}
+                        buttonXPositions={buttonXPositions}
+                        leftPadding={leftPadding}
+                        buttonWidth={buttonWidth}
+                        appBarHeight={appBarHeight} // needed for browser issues
+                />
+                <Toolbar className={ classes.toolbar } ref={ c => this.R.toolbarRef = c }>
                     <div className={ classes.leftIconsWrapper }>
                         { Sections.map((s, i)=>
                         (
@@ -137,14 +162,6 @@ class AppHeader extends PureComponent {
                                 buttonDivRef={ el => this.R.buttonDivRefs[i]=el } // for the purpose of
                             />                                               // guided tabs
                         ))}
-                        <SectionHighlighter 
-                            lastKnownIndex={lastMatchedIndex} 
-                            index={pathIndex} 
-                            viewportWidth={viewportWidth}
-                            buttonXPositions={this.state.buttonXPositions}
-                            buttonWidth={this.state.buttonWidth}
-                            buttonTopOffset={this.state.buttonTopOffset} // needed for browser issues
-                        />
                     </div>
                     <div className={ classes.centerPadder } />
                     <div className={ classes.rightContainer }>

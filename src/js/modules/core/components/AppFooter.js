@@ -1,6 +1,6 @@
 import React from 'react'
-import { withStyles } from 'material-ui/styles'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 import pure from 'recompose/pure'
 
 const contactButtonStyle = (theme)=> ({

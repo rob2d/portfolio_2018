@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import injectSheet              from 'react-jss'
-import IconButton               from 'material-ui/IconButton'
+import IconButton               from '@material-ui/core/IconButton'
 import strings, {menus}         from 'strings'
 import { connect }              from 'react-redux'
 import appHistory from 'tools/appHistory'

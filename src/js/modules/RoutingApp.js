@@ -1,6 +1,6 @@
 import Provider from 'react-redux/lib/components/Provider'
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
 import baseTheme     from 'app-root/baseTheme'

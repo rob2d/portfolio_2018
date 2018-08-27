@@ -1,7 +1,7 @@
 import React from 'react'
 import connect from 'react-redux/lib/connect/connect'
 import pure from 'recompose/pure'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 
 /**
  * usage : connectPureWithStyles(styleSheet)(connectParams)(component)

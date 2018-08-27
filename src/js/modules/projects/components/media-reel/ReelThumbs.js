@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import injectSheet from 'react-jss'
 import MediaTypes from 'constants/MediaTypes'
-import Tooltip from 'material-ui/Tooltip'
+import Tooltip from '@material-ui/core/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 
 const styleSheet = {

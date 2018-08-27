@@ -1,4 +1,4 @@
-import { createStyleSheet } from 'material-ui/styles'
+import { createStyleSheet } from '@material-ui/core/styles'
 
 const styleSheet = createStyleSheet('Project', (theme) => ({
     mainContainer : {

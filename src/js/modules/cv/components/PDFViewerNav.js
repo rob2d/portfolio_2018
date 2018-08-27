@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
-import { withStyles } from 'material-ui/styles'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 import { cv as strings } from 'strings'
-import { CircularProgress } from 'material-ui/Progress'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styleSheet = (theme)=> ({
     container : {

@@ -9,6 +9,10 @@ function calculateBorderEdge ({ index, buttonWidth }) {
     }
 }
 
+function getHeight (index) {
+    return (index!=-1)?4:6;
+}
+
 const styleSheet = {
     sectionHighlighter : {
         position : 'absolute',
@@ -17,7 +21,7 @@ const styleSheet = {
         borderLeft : calculateBorderEdge,
         borderRight : calculateBorderEdge,
         borderBottom : ({ index })=>(
-            `${(index!=-1)?4:6}px solid #c51162`
+            `${getHeight(index)}px solid #c51162`
         ),
         // we'll need to offset the button based on
         // its position because of discrepencies between
@@ -25,20 +29,16 @@ const styleSheet = {
 
         // we also offset based on whether a project
         // is selected (currently, if index == -1 or not)
-        bottom : ({ index, buttonTopOffset, viewportWidth })=>{
-            const gutterOffset = viewportWidth <= 600 ? 4 : 0;
-            return typeof buttonTopOffset != 'undefined' && 
-                `${(index!=-1?0:8)+
-                        (Math.floor(buttonTopOffset-10+gutterOffset))}px`
-        },
+        top : ({ appBarHeight, index })=>(
+            appBarHeight - getHeight(index)
+        ),
         // shift the left position towards the last active
         // known button (+4px) when that is available
-        left : ({ lastKnownIndex, buttonXPositions })=>{
-            console.log('lastKnownIndex ->', lastKnownIndex);
+        left : ({ lastKnownIndex, buttonXPositions, leftPadding=0 }) => {
             return (
-            buttonXPositions && 
+                (buttonXPositions && 
                 buttonXPositions.hasOwnProperty(lastKnownIndex) && 
-                        ((buttonXPositions[lastKnownIndex])+'px')
+                        ((buttonXPositions[lastKnownIndex] )+parseInt(leftPadding) )+'px')
         )},
         transform : 'translateX(-50%)',
         opacity : 1,

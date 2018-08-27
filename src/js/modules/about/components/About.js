@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
-import { withStyles } from 'material-ui/styles'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
 import { about as strings } from 'strings'
-import Avatar from 'material-ui/Avatar'
-import JSSTransitionExample from 'modules/projects/components/JSSTransitionExample'
+import Avatar from '@material-ui/core/Avatar'
 
 const styleSheet = {
     mainContainer : {

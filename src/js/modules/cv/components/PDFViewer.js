@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react'
 import injectSheet from 'react-jss'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
-import Button from 'material-ui/Button'
+import Button from '@material-ui/core/Button'
 import { cv as strings } from 'strings'
 import PDF from 'react-pdf-js';
-import Tooltip   from 'material-ui/Tooltip'
+import Tooltip   from '@material-ui/core/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
 

@@ -1,50 +1,17 @@
 import React          from 'react'
 import pure           from 'recompose/pure'
-import Button         from 'material-ui/Button'
+import Button         from '@material-ui/core/Button'
 import injectSheet    from 'react-jss'
-import Tooltip   from 'material-ui/Tooltip'
+import Tooltip   from '@material-ui/core/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
+import styleSheet from './style/HeaderSectionButtonStyle'
 
-const BUTTON_WIDTH_PX = 60;
-
-const styleSheet = {
-    container : {
-        display : 'block'
-    },
-    button : {
-        display    : 'block',
-        color      : '#FFFFFF',
-        height     : 'auto',
-        lineHeight : '24px',
-        padding    : '8px',
-        minWidth   : '60px'
-    },
-    buttonIconWrapper : {
-        display : 'block'
-    },
-    buttonIcon : {
-        fontSize : '18pt',
-        position : 'relative',
-        top      : '2px'
-    },
-    // TODO : use constant to make
-    //        tooltip style DRY
-    tooltip : {
-        fontSize : '11pt',
-        padding  : '4px 8px',
-        minHeight: '20px',
-        lineHeight: '20px'
-    },
-    '@media (max-width: 400px)': {
-        button : { minWidth : '68px' }
-    }
-};
-
-const HeaderSectionButton = pure(injectSheet(styleSheet)(({ 
+const HeaderSectionButton = pure(injectSheet(styleSheet)(function HeaderSectionButton({ 
     onClick, domId, name, 
     iconClass, tooltipText, 
     classes, buttonDivRef, disabled
-})=>(
+}){ 
+    return (
         <div ref={buttonDivRef} className={classes.container}>
             <Tooltip
                 enterDelay={400}
@@ -70,6 +37,6 @@ const HeaderSectionButton = pure(injectSheet(styleSheet)(({
             </Tooltip>
         </div>
     )
-));
+}));
 HeaderSectionButton.displayName='HeaderSectionButton';
 export default HeaderSectionButton;

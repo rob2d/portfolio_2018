@@ -5,7 +5,7 @@ import appHistory    from 'tools/appHistory'
 import strings from 'strings'
 import projectsData from 'app-root/data/projectsData'
 import styleSheet from './style/ProjectsPanelStyle'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
 

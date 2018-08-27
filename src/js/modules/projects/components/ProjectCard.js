@@ -1,30 +1,20 @@
 import React, { PureComponent } from 'react'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
-import Typography  from 'material-ui/Typography'
-import Button      from 'material-ui/Button'
-import Card,
-{
-    CardActions,
-    CardHeader, CardMedia,
-    CardContent
-} from 'material-ui/Card'
+import Typography  from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
 import styleSheet from './style/ProjectCardStyle'
-import strings from 'strings'
 import { DisplayStates } from './ProjectsPanel'
 
-const ProjectCardLayout = injectSheet(styleSheet)(({
-    data,   // strings; TODO: rename to projectStrings
-    pData,  // data; TODO : rename to projectData
+const ProjectCardLayout = injectSheet(styleSheet)(pure(({
+    data,
+    pData,
     classes,
     onClick,
-    isShown,
-    isSelected,
-    hasAbsolutePosition,
-    offsetX,
-    offsetY,
     controllerComponent
-})=>
+})=> 
 (
     <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
         <Card className={classes.cardContainer} onClick={onClick}>
@@ -55,7 +45,7 @@ const ProjectCardLayout = injectSheet(styleSheet)(({
             </CardContent>
         </Card>
     </div>
-));
+)));
 ProjectCardLayout.displayName = 'ProjectCardLayout';
 
 class ProjectCard extends PureComponent
