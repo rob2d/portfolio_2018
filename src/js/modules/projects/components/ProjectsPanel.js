@@ -80,7 +80,10 @@ class ProjectsPanel extends PureComponent {
                 this.setState({ displayState : DisplayStates.PROJECT_OFFSET_CALCULATION });
             });
         }else if(prevSelectedProjectId && !selectedProjectId) {
-            this.setState({ displayState : DisplayStates.VIEW_ALL_PROJECTS });
+            const stateUpdates = {};
+            stateUpdates.displayState      = DisplayStates.VIEW_ALL_PROJECTS;
+            stateUpdates.wasSelectionViaUI = true;
+            this.setState(stateUpdates);
         }else { // project selection has not changed
 
             if(this.state.displayState == DisplayStates.PROJECT_OFFSET_CALCULATION) {
@@ -123,7 +126,9 @@ class ProjectsPanel extends PureComponent {
                     {
                         const isSelected = (p.id == selectedProjectId);
                         const onScreen = areAllProjectsOnScreen || isSelected;
-                        
+                        if(p.id == 'greedux') {
+                            console.log('isSelected ->', isSelected);
+                        }                           
                         return (
                             <ProjectCard
                                 ref={ (c) => this.R.projects[p.id] = c }

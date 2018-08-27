@@ -17,6 +17,11 @@ function generateMediaImages(projectId, mediaCount) {
 }
 
 export default { 
+    'greedux' : {
+        year  : '2017-2018',
+        links : ['https://www.npmjs.com/packages/greedux'],
+        sourceCode : ['https://github.com/rob2d/greedux/']
+    },
     'smartwalk' : {
         year : '2014 - 2017',
         media : generateMediaImages('smartwalk', 5),

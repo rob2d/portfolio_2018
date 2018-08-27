@@ -8,45 +8,49 @@ import CardMedia from '@material-ui/core/CardMedia'
 import styleSheet from './style/ProjectCardStyle'
 import { DisplayStates } from './ProjectsPanel'
 
-const ProjectCardLayout = injectSheet(styleSheet)(pure(({
+const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
     data,
     pData,
     classes,
     onClick,
-    controllerComponent
-})=> 
-(
-    <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
-        <Card className={classes.cardContainer} onClick={onClick}>
-            <CardMedia className={classes.cardMediaContent}>
-                <img
-                    src={`/img/projects/${
-                        data.id}/${
-                        data.id}_thumb.png`
-                    }
-                    className={classes.cardMediaImg}
-                />
-                <div className={classes.titleOverlay}>
-                    <p className={classes.projectTitle}>
-                        {data.title}
-                    </p>
-                    <p className={classes.projectSubtitle}>
-                        {data.context} ({pData.year})
-                    </p>
-                    <div className={classes.moreInfoButton}>
-                        <i className={'mdi mdi-information-outline'}/>
+    controllerComponent,
+    isSelected,
+    viewAsTitle
+}) {
+
+    let containerClass = (!viewAsTitle) ? ' ' + classes.cardContainerAsBox : '';
+    return (
+        <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
+            <Card className={`${classes.cardContainer}${containerClass}`} onClick={onClick}>
+                <CardMedia className={classes.cardMediaContent}>
+                    <img
+                        src={`/img/projects/${
+                            data.id}/${
+                            data.id}_thumb.png`
+                        }
+                        className={classes.cardMediaImg}
+                    />
+                    <div className={classes.titleOverlay}>
+                        <p className={classes.projectTitle}>
+                            {data.title}
+                        </p>
+                        <p className={classes.projectSubtitle}>
+                            {data.context} ({pData.year})
+                        </p>
+                        <div className={classes.moreInfoButton}>
+                            <i className={'mdi mdi-information-outline'}/>
+                        </div>
                     </div>
-                </div>
-            </CardMedia>
-            <CardContent className={classes.cardContent}>
-                <Typography component="p">
-                    {data.shortDescription}
-                </Typography>
-            </CardContent>
-        </Card>
-    </div>
-)));
-ProjectCardLayout.displayName = 'ProjectCardLayout';
+                </CardMedia>
+                <CardContent className={classes.cardContent}>
+                    <Typography component="p">
+                        {data.shortDescription}
+                    </Typography>
+                </CardContent>
+            </Card>
+        </div>
+    )
+});
 
 class ProjectCard extends PureComponent
 {
@@ -100,9 +104,15 @@ class ProjectCard extends PureComponent
     {
         let stateUpdates = {};  // object to update state in one event
 
+        if(nextProps.data.id == 'greedux') {
+            console.log('greedux card props ->', nextProps);
+        }
+
         if(nextProps.isSelected) {
+
             // TODO : use an enum for DisplayStates so absolute_position
             //        can be simple integer check?
+
             switch(nextProps.displayState) {
                 case DisplayStates.VIEW_ALL_PROJECTS : 
                     stateUpdates.hasAbsolutePosition = false;
@@ -154,7 +164,7 @@ class ProjectCard extends PureComponent
             }
         }
 
-        if(Object.keys(stateUpdates).length > 0) {
+        if(Object.keys(stateUpdates).length) {
             this.setState(stateUpdates); // apply updates to state
         }
     }
@@ -197,6 +207,7 @@ class ProjectCard extends PureComponent
                 isBeingHovered={ isBeingHovered }
                 isHighlighted={ isBeingHovered || isSelected }
                 viewAsTitle={ viewAsTitle }
+                isSelected={ isSelected  }
                 { ...this.props }
             />
         );

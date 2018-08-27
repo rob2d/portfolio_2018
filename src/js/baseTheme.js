@@ -35,6 +35,15 @@ const theme = createMuiTheme({
             colorAccent : {
                 color : pink[400]
             }
+        },
+        MuiPaper : {
+            elevation1 : {
+                
+                // just needed to get around
+                // issue with card anims
+
+                boxShadow : 'none'
+            }
         }
     }
 });

@@ -122,7 +122,7 @@ const generateStyleSheet = ({ styleStates })=> {
     return generatedSheet;
 
 } catch( error ) {
-    console('WHATEVER :D ->', error);
+    console.log('error occured', error);
 }
 
 };

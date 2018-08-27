@@ -9,7 +9,7 @@ const styleSheet = {
         position: ({ hasAbsolutePosition })=>(
             hasAbsolutePosition ? 'absolute' : 'relative'
         ),
-        top: ({hasAbsolutePosition, offsetY})=>(
+        top: ({ hasAbsolutePosition, offsetY })=>(
             hasAbsolutePosition ? (offsetY - 32) : 'auto'
         ),
         left: ({hasAbsolutePosition, offsetX, data})=>(
@@ -64,18 +64,38 @@ const styleSheet = {
         overflow  : 'hidden',
         border : 0
     },
+    cardContainerAsBox : {
+        boxShadow :  '0px 1px 3px 0px rgba(0, 0, 0, 0.2), ' +
+        '0px 1px 1px 0px rgba(0, 0, 0, 0.14), ' + 
+        '0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important'
+    },
     cardContainer : {
-        width         : ({ viewAsTitle })=>(!viewAsTitle?'300px':'400px'),
-        height        : ({ viewAsTitle })=>(!viewAsTitle ?'300px':'80px'),
+        width         : ({ viewAsTitle })=>( !viewAsTitle ?
+            '300px !important' : 
+            '400px !important' 
+        ),
+        height        : ({ viewAsTitle })=>( 
+            !viewAsTitle ?
+                '300px' : 
+                '80px' 
+        ),
         padding       : '0px',
         display       : 'block',
         flexDirection : 'column',
         overflow      : 'hidden',
-        boxShadow     : ({ viewAsTitle })=>(viewAsTitle?'none':
-            '0px 1px 5px 0px rgba(0, 0, 0, 0.2), ' +    // need to override MUI here,
-            '0px 2px 2px 0px rgba(0, 0, 0, 0.14), '+    // no time to investigate why
-            '0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
-        ),
+        boxShadow     : ({ viewAsTitle, data })=>{
+            if(data.id == 'greedux') {
+                console.log('viewAsTitle ->', viewAsTitle);
+                
+            }
+
+            return ( viewAsTitle ? 
+                'none': (
+                    '0px 1px 3px 0px rgba(0, 0, 0, 0.2), ' +
+                    '0px 1px 1px 0px rgba(0, 0, 0, 0.14), ' + 
+                    '0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important'
+            ));
+        },
         transition    : `box-shadow ${ANIM_INTERVAL}s ease-out`,
         '@media (max-width: 400px)': {  // support for smaller devices
             width : '300px'

@@ -12,6 +12,23 @@ export default
     projectData :
     [
         {
+            id      : 'greedux',
+            title   : 'Greedux',
+            context : 'Independent',
+            roles   : 'Maintainer, Designer and Developer',
+            shortDescription : 'A modular, clean and scalable modern workflow template for React/Redux development.',
+            description : ['A modular, clean and scalable modern workflow template for React/Redux development ' + 
+                'which features Live Reloading, JSS, instantaneous and flexible production-level deployment and a few other neat things. ' + 
+                'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
+                'or other technologies which keep your team at the mercy of dependency hell as it just relies on Gulp and Babel. ',
+                'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
+                'installation parts up to date for React/redux apps. I have deployed well over 10 front-end projects since 2017 with it and it ' + 
+                'is now being used to launch several very high profile projects such as an engineering app to support most of the Fortune 500 company-' +
+                'housed skyscrapers in NYC today as well as the official newspaper for a top Highschool in the US (http://www.stuyspec.com).'],
+            linkDescriptions : [ 'NPM Repo' ],
+            sourceCodeDescriptions : [ 'Github' ] 
+        },
+        {
             id      : 'smartwalk',
             title   : 'SmartWALK',
             context : 'PMC Technology',
@@ -56,8 +73,8 @@ export default
                 context : 'NPM',
                 roles : 'Development and Design',
                 shortDescription : 'Wide array of open-source development ' +
-                    'tools including a React/Redux Project Generator, ' +
-                    'Node/Express Route Mapper, MySQL Prettifier, and many others',
+                    'tools  including a Node/Express Route Mapper, MySQL ' + 
+                    'Prettifier, and many others',
                 description      : [
                     'Along the way of developing software professionally, ' + 
                     'there are several times where it has been advantageous to open-source some small ' +
@@ -79,7 +96,7 @@ export default
                 roles        : 'Design, Development & Planning',
                 shortDescription : 'A 2D/3D browser framework including a ' +
                     'sprite editor which generates source code. Created to conveniently handle ' +
-                    'complex game logic natively on the web',
+                    'complex game logic natively on the web.',
                 description  : [
                     'The Browser-Based Application Multimedia Framework (or BAMF for short) ' +
                     ' was created to address the need for more open-source cohesive web APIs ' +
@@ -129,8 +146,8 @@ export default
                 roles   : 'Design, Development, Music and Sound Effects Creation',
                 platforms: [ 'android', 'gtv' ],
                 shortDescription : 
-                        `A colorful interactive futuristic puzzle game with a game 
-                        engine built from scratch written using the Android SDK (Java)
+                        `An interactive and futuristic puzzle game with a game 
+                        engine built from scratch written using the Android SDK
                         and currently being ported to Unity/C#`,
                 description: 
                 [
@@ -209,7 +226,7 @@ export default
             context  : 'Undergraduate Seminar',
             roles    : 'Programming, Planning & Design',
             shortDescription : 'An interactive and animated rendition of "Big Two" card game for Android. ' +
-            'Features real-time online play, intuitive touch screen interface and beautiful graphics',
+            'Real-time online play, intuitive touch screen interface and custom graphics.',
             description : [
                 'Chinese Poker Online was a game which during the years it was released (2011) had very ' +
                 'bright colorful graphics and online play on a mobile platform which was rare for a card game. It was' +
