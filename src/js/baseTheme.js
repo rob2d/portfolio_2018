@@ -31,6 +31,9 @@ const theme = createMuiTheme({
         MuiCircularProgress : {
             root : {
                 color : pink[400]
+            },
+            colorAccent : {
+                color : pink[400]
             }
         }
     }

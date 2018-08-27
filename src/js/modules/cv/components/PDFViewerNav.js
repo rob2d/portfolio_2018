@@ -71,7 +71,7 @@ const PDFNav = pure(withStyles(styleSheet)(({
     ) : (
         <div className={classes.container}>
             <div className={classes.linearProgress}>
-                <CircularProgress size={64} />
+                <CircularProgress size={64} color="accent" />
             </div>
         </div>
     )

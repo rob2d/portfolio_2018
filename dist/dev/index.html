@@ -33,97 +33,79 @@
 
         /* relative-pixel screen-width cutoff points */
 
-        @media (max-width : 900px)
-        {
-            .md-maximum
-            {
+        @media (max-width : 900px) {
+            .md-maximum {
                 display : none !important;
             }
         }
 
-        @media (min-width : 900px)
-        {
-            .md-minimum
-            {
+        @media (min-width : 900px) {
+            .md-minimum {
                 display : none !important;
             }
         }
 
 
-        @media (max-width : 600px)
-        {
-            .sm-maximum
-            {
+        @media (max-width : 600px) {
+            .sm-maximum {
                 display : none !important;
             }
         }
 
-        @media (min-width : 600px)
-        {
-            .sm-minimum
-            {
+        @media (min-width : 600px) {
+            .sm-minimum {
                 display : none !important;
             }
         }
 
-        @media (max-width : 360px)
-        {
-            .xs-maximum
-            {
+        @media (max-width : 360px) {
+            .xs-maximum {
                 display : none !important;
             }
         }
 
-        @media (min-width : 360px)
-        {
-            .xs-minimum
-            {
+        @media (min-width : 360px) {
+            .xs-minimum {
                 display : none !important;
             }
         }
 
         /* fix for auto-complete yellow bg */
-        input:-webkit-autofill
-        {
+        input:-webkit-autofill {
             -webkit-box-shadow : 0 0 0 1000px white inset !important;
             outline            : none;
         }
 
         /* support for Roboto font by default */
-        @font-face 
-        {
+        @font-face  {
             font-family: 'roboto_regular';
             src: url('../fonts/Roboto-Regular.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
-        @font-face 
-        {
+        @font-face {
             font-family: 'roboto_black';
             src: url('../fonts/Roboto-Black.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
-        @font-face 
-        {
+        @font-face {
             font-family: 'roboto_bold';
             src: url('../fonts/Roboto-Bold.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
-        @font-face 
-        {
+        @font-face {
             font-family: 'roboto_light';
             src: url('../fonts/Roboto-Light.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
-        @font-face 
-        {
+        @font-face {
             font-family: 'roboto_medium';
             src: url('../fonts/Roboto-Medium.ttf') format('truetype');
             font-weight: normal;
@@ -145,8 +127,7 @@
         }
 
         .rc3:before,
-        .rc3-set
-        {
+        .rc3-set {
             display: inline-block;
             font: normal normal normal 24px/1 "rob-icons";
             font-size: inherit;
@@ -165,9 +146,11 @@
             color : rgb(0, 0, 204);
             text-decoration : none;
         }
+
         a:active {
             color : rgb(95, 67, 253);
         }
+
         a:hover { 
             color : rgb(1, 148, 247);
         }
@@ -211,8 +194,8 @@
         }
 
         @-webkit-keyframes sk-stretchdelay {
-        0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-        20% { -webkit-transform: scaleY(1.0) }
+            0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+            20%           { -webkit-transform: scaleY(1.0) }
         }
 
         @keyframes sk-stretchdelay {
