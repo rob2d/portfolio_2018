@@ -17,14 +17,9 @@ const styleSheet = {
         alignItems     : 'center',
         boxSizing      : 'border-box' // for padding in landscape
     },
-    pText : {
-        paddingLeft  : '16px',
-        paddingRight : '16px',
-        textAlign    : 'left'
-    },
-    wipNote : {
-        fontStyle : 'italic',
-        fontSize : '10pt !important'
+    item : {
+        padding : '16px 0px',
+        margin  : '8px auto'
     },
     sig : {
         textAlign : 'right !important',
@@ -36,7 +31,10 @@ const styleSheet = {
         margin : '32px auto'
     },
     bodyContent : {
-        flexGrow : 1
+        flexGrow : 1,
+        display : 'flex',
+        flexDirection : 'row',
+        flexWrap : 'wrap'
     },
     articleImg : {
         width : '80%',
@@ -44,6 +42,13 @@ const styleSheet = {
         height : 'auto',
         margin : '0 auto'
     },
+    rambling : {
+        padding   : '8px',
+        width     : '292px',
+        textAlign : 'justify',
+        margin    : '0 auto'
+    },
+
     '@media (max-width: 700px) and (min-width : 341px) and (orientation:portrait)': {
         // don't want the avatar to dominate the 
         // mobile screen :)
@@ -73,18 +78,6 @@ const styleSheet = {
         avatar : {
             width  : '80px !important',
             height : '80px !important',
-        },
-        pText : {
-            fontSize : '11pt'
-        }
-    },
-
-    // again, for iPhone 5
-
-    '@media (orientation:landscape) and (max-height:320px)': {
-        pText : {
-            marginTop    : '8px',
-            marginBottom : '8px'
         }
     },
 
@@ -99,32 +92,7 @@ const styleSheet = {
         
         mainContainer : {
             maxWidth : '800px !important'
-        },
-        
-        pDisclaimer : {
-            paddingLeft  : '32px !important',
-            paddingRight : '32px !important',
-            paddingBottom : '8px',
-            paddingTop    : '8px',
-            fontSize     : '14pt !important',
-            fontStyle    : 'italic',
-            textAlign    : 'center',
-            color : 'rgba(255,255,255,1)',
-            backgroundColor : 'rgba(100,100,100)',
-            fontSize : '11pt'
-        },
-        
-        wipNote : {
-            fontSize : '12pt !important'
-        },
-
-        rambling : {
-            border   : '1px solid #000000',
-            padding  : '8px',
-            fontSize : '10pt',
-            backgroundColor : '#DFDFDF'
         }
-
     }
 };
 
@@ -132,10 +100,7 @@ function Miscellaneous ({ classes }) {
     return (
         <div className={classes.mainContainer}>
             <div className={classes.bodyContent}>
-                <p className={classes.pDisclaimer}>
-                ⚠ &nbsp;&nbsp;&nbsp;&nbsp;8/26 Note: this is super W.I.P. and yep... I agree, looks pretty terrible. 🙃 
-                </p><br />
-                <p>
+                <div className={classes.item}>
                     <a href="https://medium.com/@robftw/characteristics-of-an-ideal-react-architecture-883b9b92be0b">
                         <img src={ '/img/misc/rob_react_article_art.png' } className={ classes.articleImg }/>
                         <br />
@@ -148,55 +113,69 @@ function Miscellaneous ({ classes }) {
                         A lot of this could be equally applicable for other Component-based view libraries on the web.
                         [note: the title is actually not serious, React is not an architecture in itself!]
                     </p>
-                </p>
-                <hr /><br />
-                <iframe 
-                    width="292" 
-                    height="177" 
-                    src="https://www.youtube.com/embed/v1uJjYYvEPw" 
-                    frameBorder="0" 
-                    allow="autoplay; encrypted-media" 
-                    allowFullScreen >
-                </iframe><br />
-                <a href={'https://www.youtube.com/watch?v=v1uJjYYvEPw'}>
-                📺 JavaScript Styles in React : The Good Parts
-                </a>
-                <p className={classes.rambling}>
-                    When using React out of the box, we have two styling workflow solutions to choose from: traditional CSS 
-                    stylesheets and using inline-styles. This talk breaks down the issues with these approaches and presents a 
-                    more React-friendly abstraction for CSS styling known as JSS, and another called ReactJSS designed to take 
-                    that even further.
-                </p>
-                <br />
-                <br/><hr /><br />
-                <iframe 
-                    width="292" 
-                    height="177" 
-                    src="https://www.youtube.com/embed/4KnJOvw9tLk" 
-                    frameBorder="0" 
-                    allow="autoplay; encrypted-media" 
-                    allowFullScreen
-                ></iframe><br />
-                <p className={classes.rambling}>
-                    One of the first pieces of software I ever completed in middleschool -- around 2000; 
-                    Not proud of it in any objective sense for quality, but it was actually fun little 72 hour flurry and
-                    and became somewhat of a cult classic at the time on the internet :)
-                </p>
-                <br /><hr /><br />
-                <iframe 
-                    width="292" 
-                    height="100" 
-                    scrolling="no" 
-                    frameborder="no" 
-                    allow="autoplay" 
-                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/41838495&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-                </iframe><br />
-                🎵 ColorShafted: Highwires in Space
-                <p className={classes.rambling}>
-                    In college, I wrote a game engine and released a few Android apps on a budget. 
-                    Naturally you need music to go with a great game, and this became a small
-                    hobby of mine during the time :)
-                </p>
+                </div>
+                <div className={classes.item}>
+                    <iframe 
+                        width="292" 
+                        height="177" 
+                        src="https://www.youtube.com/embed/v1uJjYYvEPw" 
+                        frameBorder="0" 
+                        allow="autoplay; encrypted-media" 
+                        allowFullScreen >
+                    </iframe><br />
+                    <a href={'https://www.youtube.com/watch?v=v1uJjYYvEPw'}>
+                    📺 JavaScript Styles in React : The Good Parts
+                    </a>
+                    <p className={classes.rambling}>
+                        A talk given at Spotify for ReactNYC which includes a presentation that 
+                        was completely written in React/JavaScript over a few days. 
+                        <br /><br />
+                        Synopsis: 
+                        "<i>When using React out of the box, 
+                        we have two styling workflow solutions to choose from: traditional CSS 
+                        stylesheets and using inline-styles. This talk breaks down the issues 
+                        with these approaches and presents a more React-friendly abstraction for 
+                        CSS styling known as JSS, and another called ReactJSS designed to take 
+                        that even further.</i>"
+                    </p>
+                </div>
+                <div className={classes.item}>
+                    <iframe 
+                        width="292" 
+                        height="177" 
+                        src="https://www.youtube.com/embed/4KnJOvw9tLk" 
+                        frameBorder="0" 
+                        allow="autoplay; encrypted-media" 
+                        allowFullScreen
+                    ></iframe><br />
+                    <a href={'https://www.youtube.com/watch?v=4KnJOvw9tLk'}>
+                        📺 Crazy Cabbie Sonic
+                    </a>
+                    <p className={classes.rambling}>
+                        One of the first pieces of software I ever completed in middleschool -- around 2000; 
+                        Not proud of it for any objective sense of quality, but it was actually fun little 72 hour flurry and
+                        and became a bit popular online at the time.
+                    </p>
+                </div>
+                <div className={classes.item}>
+                    <iframe 
+                        width="292" 
+                        height="100" 
+                        scrolling="no" 
+                        frameborder="no" 
+                        allow="autoplay" 
+                        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/41838495&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+                    </iframe><br />
+                    <a href="https://soundcloud.com/rob2d/high-wires-in-space">🎵 ColorShafted: Highwires in Space</a>
+                    <p className={classes.rambling}>
+                        In college, I wrote a game engine as a reason to learn Java in depth without
+                        killing myself with boredem after learning C, and released
+                        a few Android apps on a budget. 
+                        Naturally you need music to go with any game, and this became a small
+                        hobby of mine that I shared with some friends during the time. 
+                        This was one of the results of that.
+                    </p>
+                </div>
             </div>
         </div>
     );

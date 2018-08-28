@@ -22,7 +22,8 @@ const styleSheet = {
     pText : {
         paddingLeft  : '16px',
         paddingRight : '16px',
-        textAlign    : 'left'
+        textAlign    : 'left',
+        fontFamily   : 'roboto_light'
     },
     wipNote : {
         fontStyle : 'italic',
