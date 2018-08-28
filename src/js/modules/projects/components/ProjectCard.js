@@ -14,14 +14,16 @@ const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
     classes,
     onClick,
     controllerComponent,
-    isSelected,
     viewAsTitle
 }) {
 
-    let containerClass = (!viewAsTitle) ? ' ' + classes.cardContainerAsBox : '';
+    let containerClass = ( viewAsTitle ? 
+                            classes.cardContainerAsTitle : 
+                            classes.cardContainer );
+
     return (
         <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
-            <Card className={`${classes.cardContainer}${containerClass}`} onClick={onClick}>
+            <Card className={containerClass} onClick={onClick}>
                 <CardMedia className={classes.cardMediaContent}>
                     <img
                         src={`/img/projects/${
@@ -52,13 +54,11 @@ const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
     )
 });
 
-class ProjectCard extends PureComponent
-{
+class ProjectCard extends PureComponent {
     constructor (props)
     {
         super(props);
-        this.state =
-        {
+        this.state = {
             hasAbsolutePosition : false,
             viewAsTitle         : false,
             onScreen            : true
@@ -67,41 +67,34 @@ class ProjectCard extends PureComponent
         this.offsetX = undefined;
         this.offsetY = undefined;
     }
-    componentWillMount()
-    {
+    componentWillMount() {
         this.componentWillReceiveProps(this.props);
     }
-    componentDidMount()
-    {
+    componentDidMount() {
         if(this.R.container) {
             this.R.container.addEventListener('mouseenter', this.onMouseEnter);
             this.R.container.addEventListener('mouseleave', this.onMouseLeave);
         }
     }
-    componentWillUnmount ()
-    {
+    componentWillUnmount () {
         if(this.R.container) {
             this.R.container.removeEventListener('mouseenter', this.onMouseEnter);
             this.R.container.removeEventListener('mouseleave', this.onMouseLeave);
         }
     }
-    componentWillUpdate ()
-    {
+    componentWillUpdate () {
         if(this.R.container) {
             this.offsetX = this.R.container.offsetLeft;
             this.offsetY = this.R.container.offsetTop;
         }
     }
-    onMouseEnter = ()=>
-    {
+    onMouseEnter = ()=> {
         this.setState({ isBeingHovered : true });
     };
-    onMouseLeave = ()=>
-    {
+    onMouseLeave = ()=> {
         this.setState({ isBeingHovered : false });
     };
-    componentWillReceiveProps(nextProps)
-    {
+    componentWillReceiveProps(nextProps) {
         let stateUpdates = {};  // object to update state in one event
 
         if(nextProps.data.id == 'greedux') {
@@ -117,9 +110,11 @@ class ProjectCard extends PureComponent
                 case DisplayStates.VIEW_ALL_PROJECTS : 
                     stateUpdates.hasAbsolutePosition = false;
                     break;
+
                 case DisplayStates.PROJECT_FADE_TO :
                     stateUpdates.hasAbsolutePosition = false;
                     break;
+
                 case DisplayStates.PROJECT_OFFSET_CALCULATION :
                     if(this.R.container) {
                         stateUpdates.offsetX = this.R.container.offsetLeft;
@@ -127,9 +122,11 @@ class ProjectCard extends PureComponent
                         stateUpdates.hasAbsolutePosition = false;
                     }
                     break;
+
                 case DisplayStates.AFTER_FADE_POSITIONING : 
                     stateUpdates.hasAbsolutePosition = true;
                     break;
+
                 case DisplayStates.PROJECT_SCROLL_TO_TOP :
                     if(nextProps.wasSelectionViaUI) {
                         stateUpdates.hasAbsolutePosition = true;                        
@@ -137,6 +134,7 @@ class ProjectCard extends PureComponent
                     stateUpdates.offsetX = 0;
                     stateUpdates.offsetY = 0;
                     break;
+                    
                 case DisplayStates.PROJECT_VIEW :
                     stateUpdates.viewAsTitle = true;
                     stateUpdates.isBeingHovered = false;
@@ -183,11 +181,15 @@ class ProjectCard extends PureComponent
                 });
         }
     }
-    render ()
-    {
-        const { isSelected, wasSelectionViaUI, onScreen } = this.props;
+    render () {
         const { 
-            offsetX, offsetY, 
+            isSelected, 
+            wasSelectionViaUI, 
+            onScreen 
+        } = this.props;
+        const { 
+            offsetX, 
+            offsetY, 
             hasAbsolutePosition, 
             viewAsTitle, 
             isBeingHovered,

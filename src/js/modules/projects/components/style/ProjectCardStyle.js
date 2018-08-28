@@ -2,6 +2,25 @@ import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 
 const ANIM_INTERVAL = '0.32';
 
+const base = {
+    cardContainer : {
+        width         : '300px !important',
+        height        : '300px !important',
+        padding       : '0px !important',
+        display       : 'block !important',
+        flexDirection : 'column !important',
+        overflow      : 'hidden !important',
+        boxShadow     : '0px 1px 3px 0px rgba(0, 0, 0, 0.2), ' +
+                        '0px 1px 1px 0px rgba(0, 0, 0, 0.14), ' + 
+                        '0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important', 
+        transition    : `box-shadow ${ANIM_INTERVAL}s ease-out, ` +
+                        `transform ${ANIM_INTERVAL*2}s cubic-bezier(0.25, 0.1, 0.5, 1) !important`,
+        '@media (max-width: 400px)': {  // support for smaller devices
+            width : '300px !important'
+        }
+    }
+};
+
 const styleSheet = {
     container : {
         opacity: ({isShown}) => (isShown ? '1' : '0'),
@@ -20,6 +39,7 @@ const styleSheet = {
                         `left ${ANIM_INTERVAL*1.5}s, top ${ANIM_INTERVAL*1.5}s`:
                         'left 0s, top 0s'}`
         ),
+        width        : ({ viewAsTitle })=> (viewAsTitle ? '400px' : '300px'),
         height       : '308px',
         marginTop    : '32px',
         marginBottom : '32px',
@@ -28,7 +48,8 @@ const styleSheet = {
         // actively moving cards should be forced above existing relatively
         // placed content
         zIndex       : ({ hasAbsolutePosition })=>(hasAbsolutePosition? 1 : 0),
-        pointerEvents : ({ viewAsTitle })=> (!viewAsTitle ? 'all':'none')
+        pointerEvents : ({ viewAsTitle })=> (!viewAsTitle ? 'all':'none'),
+        overflow : 'hidden'
     },
     '@media (min-width: 800px)': {
         container : {
@@ -60,47 +81,17 @@ const styleSheet = {
                 return '100px'; // width of content when title size
             }
         },
-        padding   : ({ isHighlighted })=>(isHighlighted?'0px':undefined),
+        padding   : ({ isHighlighted })=>( isHighlighted?'0px':undefined ),
         overflow  : 'hidden',
         border : 0
     },
-    cardContainerAsBox : {
-        boxShadow :  '0px 1px 3px 0px rgba(0, 0, 0, 0.2), ' +
-        '0px 1px 1px 0px rgba(0, 0, 0, 0.14), ' + 
-        '0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important'
-    },
-    cardContainer : {
-        width         : ({ viewAsTitle })=>( !viewAsTitle ?
-            '300px !important' : 
-            '400px !important' 
-        ),
-        height        : ({ viewAsTitle })=>( 
-            !viewAsTitle ?
-                '300px' : 
-                '80px' 
-        ),
-        padding       : '0px',
-        display       : 'block',
-        flexDirection : 'column',
-        overflow      : 'hidden',
-        boxShadow     : ({ viewAsTitle, data })=>{
-            if(data.id == 'greedux') {
-                console.log('viewAsTitle ->', viewAsTitle);
-                
-            }
-
-            return ( viewAsTitle ? 
-                'none': (
-                    '0px 1px 3px 0px rgba(0, 0, 0, 0.2), ' +
-                    '0px 1px 1px 0px rgba(0, 0, 0, 0.14), ' + 
-                    '0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important'
-            ));
-        },
-        transition    : `box-shadow ${ANIM_INTERVAL}s ease-out`,
-        '@media (max-width: 400px)': {  // support for smaller devices
-            width : '300px'
-        }
-    },
+    cardContainerAsTitle : Object.assign({}, base.cardContainer, {
+        boxShadow : 'none !important',
+        width     : '420px !important',
+        height    : '80px !important',
+        transform : 'rotateY(360deg) !important'
+    }),
+    cardContainer : Object.assign({}, base.cardContainer),
     cardContent : {
         height     : '88px',
         transition : `all ${ANIM_INTERVAL}s ease-out`,
