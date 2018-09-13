@@ -30,7 +30,7 @@ let express   = require('express'),
     https     = require('https'),
     argv      = require('yargs').argv,        //grabs our app arguments
     colors    = require('colors'),
-    Paths     = require('./build-config/paths'),
+    Paths     = require('./config/paths'),
     RUNTIME   = { PORT : argv.port || 3002 },
     codeDir   = argv.dev ? Paths.DEST_DEV : Paths.DEST_PROD,
     SSL       = (()=>

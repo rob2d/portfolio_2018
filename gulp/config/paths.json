@@ -18,7 +18,7 @@
         "!builds/**",
         "./app.js",
         "./package.json",
-        "**/build-config/paths.json"
+        "**/config/paths.json"
     ],
     "ENTRY_POINT"         : "./src/js/clientApp.js",
     "ENTRY_FOLDER"        : "src/js",
