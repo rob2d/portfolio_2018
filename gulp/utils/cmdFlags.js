@@ -1,4 +1,4 @@
-let argv = require('yargs').argv,
+const argv = require('yargs').argv;
 
 const cmdFlagDefs = {
     version_bump      : {

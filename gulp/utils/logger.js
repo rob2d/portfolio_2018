@@ -1,7 +1,8 @@
 let figlet   = require('figlet'),
     colors   = require('colors'),
-    pkg      = require('./package.json'),
-    Table    = require('cli-table'),
+    cliTable = require('cli-table'),
+    pkg      = require('./../../package.json'),
+    paths    = require('./../config/paths'),
     cmdFlags = require('./cmdFlags');
 
 /** various logging functions */
@@ -11,7 +12,7 @@ let logger = {
         files = files.map((file,i)=> {
             let dirNameIndex = file.toLowerCase().indexOf(__dirname.toLowerCase());
             return '['+(i+1)+'] '+((dirNameIndex!=-1) ?
-                    file.substr(dirNameIndex+__dirname.length+1+Paths.ENTRY_FOLDER.length) :
+                    file.substr(dirNameIndex+__dirname.length+1+paths.ENTRY_FOLDER.length) :
                     file).bold.magenta;
         });
         console.log('\nFile changes detected ->\n', files.join('\n'), '\n');
@@ -27,7 +28,7 @@ let logger = {
     },
     watchStarted () {
         console.log(`Getting ready to watching for file changes to build to 
-            [${Paths.DEST_PROD.bold}]\n`);
+            [${paths.DEST_PROD.bold}]\n`);
     },
     startNotice (mode) {
         let appPrintOut = '\n' + figlet.textSync(pkg.name, {
@@ -41,7 +42,7 @@ let logger = {
         console.log(`> Running in ${mode == 'build' ? 'Build':'Dev'} Mode\n`);
         console.log('[ gulp tasks: build \u2022 dev-server (default) \u2022 dev ]\n');
 
-        Log.listFlags();
+        logger.listFlags();
 
         if(mode != 'build') {
             console.log('Note : Initial build may take a bit of time on the first run before cache-ing...\n');
@@ -61,25 +62,30 @@ let logger = {
             }This may lead to errors\n`);
     },
     listFlags () {
-        let flagTable = new Table({
+        let flagTable = new cliTable({
             head : ['flag'.gray, 'status'.gray, 'description'.gray],
             colWidths: [20, 10, 60]
         });
 
+        console.log('cli-table ->', flagTable.toString());
+
         for(var flagName in cmdFlags) {
             let flagValue = cmdFlags[flagName],
-                flagDescription = Flags[flagName].description;
+                flagDescription = cmdFlags[flagName].description;
 
             if(flagValue) {
                 flagValue= flagValue.toString();
             }
             else {
-                flagValue = flagValue.toString();
+                flagValue = '';
             }
 
             flagTable.push([flagName, flagValue, flagDescription]);
+
+            
+            console.log(flagName, flagValue, flagDescription);
         }
-        console.log(flagTable.toString().gray);
+        //console.log(flagTable.toString().gray);
         console.log('\n');
     }
 };

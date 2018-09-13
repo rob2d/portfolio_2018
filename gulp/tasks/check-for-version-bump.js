@@ -1,4 +1,5 @@
 let gulp          = require('gulp'),
+    fs            = require('fs'),
     replace       = require('gulp-replace'),
     cmdFlags      = require('./../utils/cmdFlags'),
     paths         = require('./../config/paths'),

@@ -1,4 +1,7 @@
-let versionFileContent = fs.readFileSync(paths.VERSION_CONFIG_FILE, 'utf8');
+const fs    = require('fs'),
+      paths = require('./../config/paths');
+
+const versionFileContent = fs.readFileSync(paths.VERSION_CONFIG_FILE, 'utf8');
 
 /**
  * variables required to be in a shared

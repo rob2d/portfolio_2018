@@ -1,5 +1,4 @@
 const gulp               = require('gulp'),
-      versionNumber      = require('gulp-version-number'),
       paths              = require('./../config/paths.json'),
       getVersionFromFile = require('./../utils/getVersionFromFile');
 

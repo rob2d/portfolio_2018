@@ -8,8 +8,10 @@ let gulp           = require('gulp'),
     liveReactLoad  = require('livereactload'),
     SharedContext  = require('./../common/SharedContext'),
     babelifyConfig = require('./../config/babelify.json'),
+    watchifyConfig = require('./../config/watchify.json'),
     aliasesSrc     = require('./../config/aliases.json'),
-    logger         = require('./logger')
+    paths          = require('./../config/paths'),
+    logger         = require('./logger');
 
 // add aliasing support to builds
 
@@ -19,6 +21,45 @@ const aliases = Object.keys(aliasesSrc).reduce((aliases,a)=> (
 
 babelifyConfig.plugins = babelify.plugins || [];
 babelifyConfig.plugins.push(['module-alias', aliases]);
+
+let Events = {
+    codebaseUpdated (ms) {
+        /*
+        if(updateCount == 0) {   // fix for initial build
+            latestVersionBuilt = getLatestVersionStrInFile();
+            updateCount++;
+        }
+        if((latestVersionBuilt == getLatestVersionStrInFile()) && 
+            (successNoticeCount <= updateCount)) {
+            successNoticeCount += 1;
+            let version = getVersionFromFile().match(/([\d]+)[\.]([\d]+)[\.]([\d]+)/gi)[0];
+            let getMessage = osNotice => {
+                let seconds = ((parseInt(ms)/1000) + ''),
+                    printedVersion = version;
+
+                if(!osNotice) {
+                    seconds = seconds.yellow.bold;
+                    printedVersion = printedVersion.yellow.bold;
+                    return `Successfully compiled source files in ${seconds} seconds.${''+
+                    ' '}Build file now on version ${printedVersion}`;
+                }
+                else { return `v${printedVersion} (${seconds}s)`; }
+            };
+
+            Log.buildMessage(getMessage(false));
+            if(cmdFlags.success_notice) {
+                notifier.notify({ 
+                    title   : 'Successful build', 
+                    message : getMessage(true), 
+                    sound   : false 
+                });
+            }
+        }
+        */
+       // TODO : update this method
+    }
+};
+
 
 
 /**
