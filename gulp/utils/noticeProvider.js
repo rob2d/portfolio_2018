@@ -1,4 +1,6 @@
-let notifier = require('node-notifier');
+let notifier = require('node-notifier'),
+    cmdFlags = require('./cmdFlags'),
+    paths    = require('./../config/paths');
 
 /**
  * Simple interface for providing OS-level-notices
@@ -16,19 +18,19 @@ let noticeProvider = {
      * @param p.message
      */
     errorBuilding (p) {
-        if(FlagValues.error_notices) {
+        if(cmdFlags.error_notices) {
             notifier.notify({
                     title   : 'Error Building',
                     message : p.message,
-                    sound   : FlagValues.error_sound
+                    sound   : cmdFlags.error_sound
             });
         }
     },
     watchingFiles () {
         notifier.notify({
-            title   : 'Watching ' + Paths.DEST_DEV,
+            title   : 'Watching ' + paths.DEST_DEV,
             message : 'Ready to watch for file changes to ' +
-            'build into ' + Paths.DEST_PROD,
+            'build into ' + paths.DEST_PROD,
             sound   : false
         });
     }

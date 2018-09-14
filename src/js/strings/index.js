@@ -9,7 +9,7 @@ import ja from './ja'
 import global from './global'
 
 
-let strings = new LocalizedStrings({ en, /*es, */ja, /*ch*/ });
+let strings = new LocalizedStrings({ en, ja });
 strings.global = global;
 
 strings.languageCodes = [ 'en', 'ja' ];
@@ -18,6 +18,5 @@ const currentLanguage = getUrlParam('language') || 'en';
 
 // set initial language to either that of url params or english
 localizationSetter.setLanguage(currentLanguage);
-
 
 export default strings

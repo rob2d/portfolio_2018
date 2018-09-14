@@ -1,14 +1,17 @@
-let figlet   = require('figlet'),
-    colors   = require('colors'),
-    cliTable = require('cli-table'),
-    pkg      = require('./../../package.json'),
-    paths    = require('./../config/paths'),
-    cmdFlags = require('./cmdFlags');
+let figlet        = require('figlet'),
+    colors        = require('colors'),
+    cliTable      = require('cli-table'),
+    pkg           = require('./../../package.json'),
+    paths         = require('./../config/paths'),
+    cmdFlags      = require('./cmdFlags'),
+    getVersionFromFile = require('./getVersionFromFile'),
+    SharedContext = require('./../common/SharedContext');
 
 /** various logging functions */
 let logger = {
     updateBuild (files, updateCountShown) {
         if(!Array.isArray(files)) { files = Array.from([files]); }
+        
         files = files.map((file,i)=> {
             let dirNameIndex = file.toLowerCase().indexOf(__dirname.toLowerCase());
             return '['+(i+1)+'] '+((dirNameIndex!=-1) ?
@@ -22,8 +25,8 @@ let logger = {
 
         if(updateCountShown) {
             console.log(updatedAtDisplay + 'Updated source files ' +
-                (++updateCount + '').bold.magenta + ' time' +
-                ((updateCount == 1) ? '' : 's') + '. \n');
+                (++SharedContext.updateCount + '').bold.magenta + ' time' +
+                ((SharedContext.updateCount == 1) ? '' : 's') + '. \n');
         }
     },
     watchStarted () {
@@ -49,7 +52,7 @@ let logger = {
         }
     },
     buildMessage (message) {
-        if(latestVersionBuilt == getVersionFromFile()) {
+        if(SharedContext.latestVersionBuilt == getVersionFromFile()) {
             console.log(message + '\n');
         }
     },

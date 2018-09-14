@@ -1,6 +1,8 @@
 import { LOCATION_CHANGE } from 'react-router-redux/reducer'
-import { Sections } from 'constants/AppSections'
+import AppSections from 'constants/AppSections'
 import { projects } from 'strings'
+
+let { Sections } = AppSections;
 
 const SITE_NAME = `Rob's Portfolio`;
 

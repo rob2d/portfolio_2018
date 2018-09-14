@@ -11,8 +11,10 @@ import { connect }                  from 'react-redux'
 import appHistory                   from 'tools/appHistory'
 import HeaderSectionButton          from './HeaderSectionButton'
 import SectionHighlighter           from './SectionHighlighter'
-import { SectionIndexes, Sections } from 'constants/AppSections'
+import AppSections                  from 'constants/AppSections'
 import { refreshWindowDimensions }  from './../actions'
+
+let { SectionIndexes, Sections } = AppSections;
 
 const goToHeaderLink = (url)=> (appHistory.goTo(url) );
 
@@ -178,8 +180,8 @@ class AppHeader extends PureComponent {
 
 export default pure(connect(
     (state,ownProps)=>({ 
-        language : state.core.language,
-        pathname : state.router.location.pathname,
+        language      : state.core.language,
+        pathname      : state.router.location.pathname,
         viewportWidth : state.core.viewportWidth
     }),
     ({ refreshWindowDimensions })

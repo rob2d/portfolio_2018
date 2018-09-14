@@ -1,17 +1,21 @@
-let gulp           = require('gulp'),
-    runSequence    = require('run-sequence'),
-    babelify       = require('babelify'),
-    browserify     = require('browserify'),
-    watchify       = require('watchify'),
-    envify         = require('envify/custom'),
-    source         = require('vinyl-source-stream'),
-    liveReactLoad  = require('livereactload'),
-    SharedContext  = require('./../common/SharedContext'),
-    babelifyConfig = require('./../config/babelify.json'),
-    watchifyConfig = require('./../config/watchify.json'),
-    aliasesSrc     = require('./../config/aliases.json'),
-    paths          = require('./../config/paths'),
-    logger         = require('./logger');
+let gulp               = require('gulp'),
+    runSequence        = require('run-sequence'),
+    babelify           = require('babelify'),
+    browserify         = require('browserify'),
+    watchify           = require('watchify'),
+    envify             = require('envify/custom'),
+    source             = require('vinyl-source-stream'),
+    liveReactLoad      = require('livereactload'),
+    SharedContext      = require('./../common/SharedContext'),
+    babelifyConfig     = require('./../config/babelify.json'),
+    watchifyConfig     = require('./../config/watchify.json'),
+    aliasesSrc         = require('./../config/aliases.json'),
+    paths              = require('./../config/paths'),
+    getVersionFromFile = require('./getVersionFromFile'),
+    logger             = require('./logger'),
+    cmdFlags           = require('./cmdFlags'),
+    notifier           = require('node-notifier'),
+    noticeProvider     = require('./noticeProvider');
 
 // add aliasing support to builds
 
@@ -19,46 +23,42 @@ const aliases = Object.keys(aliasesSrc).reduce((aliases,a)=> (
     aliases.concat({ src:aliasesSrc[a], expose:a })
 ), []);
 
-babelifyConfig.plugins = babelify.plugins || [];
+babelifyConfig.plugins = babelifyConfig.plugins || [];
 babelifyConfig.plugins.push(['module-alias', aliases]);
 
-let Events = {
-    codebaseUpdated (ms) {
-        /*
-        if(updateCount == 0) {   // fix for initial build
-            latestVersionBuilt = getLatestVersionStrInFile();
-            updateCount++;
-        }
-        if((latestVersionBuilt == getLatestVersionStrInFile()) && 
-            (successNoticeCount <= updateCount)) {
-            successNoticeCount += 1;
-            let version = getVersionFromFile().match(/([\d]+)[\.]([\d]+)[\.]([\d]+)/gi)[0];
-            let getMessage = osNotice => {
-                let seconds = ((parseInt(ms)/1000) + ''),
-                    printedVersion = version;
-
-                if(!osNotice) {
-                    seconds = seconds.yellow.bold;
-                    printedVersion = printedVersion.yellow.bold;
-                    return `Successfully compiled source files in ${seconds} seconds.${''+
-                    ' '}Build file now on version ${printedVersion}`;
-                }
-                else { return `v${printedVersion} (${seconds}s)`; }
-            };
-
-            Log.buildMessage(getMessage(false));
-            if(cmdFlags.success_notice) {
-                notifier.notify({ 
-                    title   : 'Successful build', 
-                    message : getMessage(true), 
-                    sound   : false 
-                });
-            }
-        }
-        */
-       // TODO : update this method
+function onCodebaseUpdate (ms) {
+    if(SharedContext.updateCount == 0) {   // fix for initial build
+        SharedContext.latestVersionBuilt = getVersionFromFile();
+        SharedContext.updateCount++;
     }
-};
+
+    if((SharedContext.latestVersionBuilt == getVersionFromFile()) && 
+        (SharedContext.successNoticeCount <= SharedContext.updateCount)) {
+        SharedContext.successNoticeCount += 1;
+        let version = getVersionFromFile().match(/([\d]+)[\.]([\d]+)[\.]([\d]+)/gi)[0];
+        let getMessage = osNotice => {
+            let seconds = ((parseInt(ms)/1000) + ''),
+                printedVersion = version;
+
+            if(!osNotice) {
+                seconds = seconds.yellow.bold;
+                printedVersion = printedVersion.yellow.bold;
+                return `Successfully compiled source files in ${seconds} seconds.${''+
+                ' '}Build file now on version ${printedVersion}`;
+            }
+            else { return `v${printedVersion} (${seconds}s)`; }
+        };
+
+        logger.buildMessage(getMessage(false));
+        if(cmdFlags.success_notice) {
+            notifier.notify({ 
+                title   : 'Successful build', 
+                message : getMessage(true), 
+                sound   : false 
+            });
+        }
+    }
+}
 
 
 
@@ -88,23 +88,23 @@ function runBuildScripts(p) {
     if(watch) { b = watchify(b, watchifyConfig); }
 
     b.on('error', (err)=> {
-        if(watch) { Log.errorWhileRebuilding(err); }
-        else      { Log.errorWhileRebuilding(err);        }
-        Notices.errorBuilding({ message : err.message })
+        if(watch) { logger.errorWhileRebuilding(err); }
+        else      { logger.errorWhileRebuilding(err);        }
+        noticeProvider.errorBuilding({ message : err.message })
     });
 
     // add a timeout so that updated version registers
-    b.on('time',Events.codebaseUpdated);
+    b.on('time',onCodebaseUpdate);
 
     /**
      *  sets up the actual js file-bundling logic
      */
     let getBuildStream = function(rebuild) {
         var stream = b.bundle();
-        stream.on('error', (err)=> {
-            if(watch) { Log.errorWhileRebuilding(err); }
-            else      { Log.errorWhileRebuilding(err); }
-            Notices.errorBuilding({ message : err.message });
+        stream.on('error', err => {
+            if(watch) { logger.errorWhileRebuilding(err); }
+            else      { logger.errorWhileRebuilding(err); }
+            noticeProvider.errorBuilding({ message : err.message });
         });
 
         //bundle files into build.js
@@ -131,7 +131,7 @@ function runBuildScripts(p) {
                 return getBuildStream(true);
             }
             else {
-                runSequence('check-for-version-bump', ()=>(getBuildStream(updateCount === 0)));
+                runSequence('check-for-version-bump', ()=>(getBuildStream(SharedContext.updateCount === 0)));
             }
         });
     }
