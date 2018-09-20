@@ -5,6 +5,7 @@ import injectSheet from 'react-jss'
 import { withStyles } from '@material-ui/core/styles'
 import { about as strings } from 'strings'
 import Avatar from '@material-ui/core/Avatar'
+import ThreeBG from './ThreeBG'
 
 const styleSheet = {
     mainContainer : {
@@ -23,7 +24,7 @@ const styleSheet = {
         paddingLeft  : '16px',
         paddingRight : '16px',
         textAlign    : 'left',
-        fontFamily   : 'roboto_light'
+        fontFamily   : 'roboto_regular'
     },
     wipNote : {
         fontStyle : 'italic',
@@ -95,10 +96,17 @@ const styleSheet = {
         pText : {
             paddingLeft  : '32px !important',
             paddingRight : '32px !important',
-            fontSize     : '14pt !important'
+            fontSize     : '14pt !important',
+            fontFamily   : 'roboto_regular !important'
         },
         wipNote : {
             fontSize : '12pt !important'
+        },
+        aboutMe : {
+            display       : 'flex',
+            flexDirection : 'column', 
+            overflowY     : 'auto',
+            zIndex        : 5000
         }
     }
 };
@@ -106,22 +114,29 @@ const styleSheet = {
 function About ({ classes }) {
     return (
         <div className={classes.mainContainer}>
+            <ThreeBG />
             <Avatar alt={'Rob'} src="img/about/robtalk.jpg" className={classes.avatar}/>
-            <div className={classes.textContent}>
+            <div className={classes.aboutMe}>
                 <p className={classes.pText}>
-                    {strings.aboutThisSite}
+                    Hi and thank you for visiting my page 🙂 Here is where I try to collect a 
+                    few projects I have worked on (that are possible to show outside of work), and 
+                    other random things. This website was created by myself using React, Redux, 
+                    THREE.js, Node, Gulp and deployed using NginX. Not the most ideal thing I've 
+                    created -- "someday" I will have time to refine (and like they say: 
+                    "the road to someday leads to a town called nowhere"! <i>/endbadjoke</i>).
                 </p>
                 <p className={classes.pText}>
-                    {strings.toClickHere}
-                    <a href="http://www.github.com/rob2d/portfolio_2017">
-                        {strings.linkClickHere}
-                    </a>.
-                </p>
-                <p className={`${classes.pText} ${classes.wipNote}`}>
-                    {strings.thisIsWIP}
-                </p>
-                <p className={`${classes.pText} ${classes.sig}`}>
-                    {strings.sig}
+                    Anyway, a bit about me: I have been developing software as a hobby since I was 11 
+                    years old, and for the last few years after a brief stint in the military 
+                    and graduate school, I have been working professionally as a full-stack engineer. 
+                    Through this I have worked in a variety of capacities: from front-end to backend, to 
+                    database design, scaleable and widely used RESTful APIs, cohesive serverless 
+                    architectures, dev-ops and even UI/UX design. Throughout my experiences 
+                    thus far, I have been very fortunate to work with and learn from amazingly 
+                    smart people, and I am sure that this is a large reason why I have witnessed 
+                    exponential growth at every company in terms of product capabilities and 
+                    quality as well as my own skills and mindset. I enjoy learning, love what I do 
+                    and I don't plan to stop or slow down any time soon!
                 </p>
             </div>
         </div>

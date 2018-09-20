@@ -1,4 +1,4 @@
-import Provider from 'react-redux/lib/components/Provider'
+import { Provider } from 'react-redux'
 import React, { Component } from 'react'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import Route from 'react-router-dom/Route'

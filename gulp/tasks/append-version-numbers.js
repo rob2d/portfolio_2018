@@ -1,6 +1,7 @@
 const gulp               = require('gulp'),
       paths              = require('./../config/paths.json'),
-      getVersionFromFile = require('./../utils/getVersionFromFile');
+      getVersionFromFile = require('./../utils/getVersionFromFile'),
+      versionNumber      = require('gulp-version-number');
 
 const SEMVER_STR = getVersionFromFile()
                     .match(/([\d]+)[\.]([\d]+)[\.]([\d]+)/gi)[0]

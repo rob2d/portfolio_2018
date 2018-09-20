@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import injectSheet from 'react-jss'
 import MediaTypes from 'constants/MediaTypes'
 import ReelThumbs from './ReelThumbs'
-import connect from 'react-redux/lib/connect/connect'
+import { connect } from 'react-redux'
 import YouTube from 'react-youtube'
 
 // TODO : css related constants should be in

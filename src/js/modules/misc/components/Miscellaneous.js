@@ -40,6 +40,7 @@ const styleSheet = {
         width : '80%',
         maxWidth : '300px',
         height : 'auto',
+        minHeight : '190px',
         margin : '0 auto'
     },
     rambling : {

@@ -193,6 +193,14 @@
             animation-delay: -0.8s;
         }
 
+        /* hax needed for loading webfonts into 
+         * THREE.js util */
+        #font_preloader {
+            position : absolute;
+            font-family: 'roboto_bold';
+            visibility : hidden;
+        }
+
         @-webkit-keyframes sk-stretchdelay {
             0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
             20%           { -webkit-transform: scaleY(1.0) }
@@ -211,6 +219,7 @@
     </style>
     <script src="/build.js" async></script>
 </head>
+<div id="font_preloader" >.</div>
 <body>
     <div id="app">
         <div id="loading_notice">
