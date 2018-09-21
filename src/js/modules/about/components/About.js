@@ -1,11 +1,41 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
 import { withStyles } from '@material-ui/core/styles'
 import { about as strings } from 'strings'
+import appHistory from 'tools/appHistory'
 import Avatar from '@material-ui/core/Avatar'
-import ThreeBG from './ThreeBG'
+import SkillsOrbit from './SkillsOrbit'
+
+const linkSheet = {
+    listItem : {
+        listStyleType : 'none',
+        cursor        : 'pointer',
+        lineHeight    : '30px',
+        color         : '#c51162',
+        fontFamily    : 'roboto_bold'
+    },
+    icon : {
+        marginRight : '16px',
+        color       : '#000000'
+    }
+};
+
+let SectionLink = injectSheet(linkSheet)(
+    function SectionLinkLayout ({ url, name, mdiClass, classes }) {
+    return (
+        <Fragment>
+            <li 
+                className={classes.listItem} 
+                onClick={ ()=> appHistory.goTo(url) }
+            ><i 
+                className={`mdi mdi-${mdiClass} ${classes.icon}`}
+            />&nbsp;{name}
+            </li>
+        </Fragment>
+    );
+});
 
 const styleSheet = {
     mainContainer : {
@@ -21,10 +51,12 @@ const styleSheet = {
         boxSizing      : 'border-box' // for padding in landscape
     },
     pText : {
-        paddingLeft  : '16px',
-        paddingRight : '16px',
-        textAlign    : 'left',
-        fontFamily   : 'roboto_regular'
+        paddingLeft   : '16px',
+        paddingRight  : '16px',
+        paddingTop    : '0px',
+        paddingBottom : '0px',
+        textAlign     : 'left',
+        fontFamily    : 'roboto_light'
     },
     wipNote : {
         fontStyle : 'italic',
@@ -91,13 +123,13 @@ const styleSheet = {
             height: '180px !important'
         },
         mainContainer : {
-            maxWidth : '800px !important'
+            maxWidth : '1100px !important'
         },
         pText : {
             paddingLeft  : '32px !important',
             paddingRight : '32px !important',
             fontSize     : '14pt !important',
-            fontFamily   : 'roboto_regular !important'
+            fontFamily   : 'roboto_light !important'
         },
         wipNote : {
             fontSize : '12pt !important'
@@ -106,7 +138,14 @@ const styleSheet = {
             display       : 'flex',
             flexDirection : 'column', 
             overflowY     : 'auto',
-            zIndex        : 5000
+            zIndex        : 5000,
+            flexGrow : 1
+        },
+        skillsOrbit : {
+            display   : 'flex',
+            direction : 'column',
+            overflowY : 'auto',
+            flexGrow  : 1
         }
     }
 };
@@ -114,30 +153,45 @@ const styleSheet = {
 function About ({ classes }) {
     return (
         <div className={classes.mainContainer}>
-            <ThreeBG />
-            <Avatar alt={'Rob'} src="img/about/robtalk.jpg" className={classes.avatar}/>
+            
+            <Avatar 
+                alt={'Rob'} 
+                src="img/about/robtalk.jpg" 
+                className={classes.avatar}
+            />
+
             <div className={classes.aboutMe}>
-                <p className={classes.pText}>
-                    Hi and thank you for visiting my page 🙂 Here is where I try to collect a 
-                    few projects I have worked on (that are possible to show outside of work), and 
-                    other random things. This website was created by myself using React, Redux, 
-                    THREE.js, Node, Gulp and deployed using NginX. Not the most ideal thing I've 
-                    created -- "someday" I will have time to refine (and like they say: 
-                    "the road to someday leads to a town called nowhere"! <i>/endbadjoke</i>).
+                <p className={classes.pText}> 
+                    This website was created from the ground up using &nbsp;<b>React</b>,
+                    &nbsp; <b>Redux</b>, <b>THREE.js</b>, <b>Node</b>, <b>Gulp</b>&nbsp;
+                    and deployed using <b>NginX</b>. Not the most ideal -- "someday"
+                    I will have time to refine (and as the saying goes: "the road to 
+                    someday leads to a town called nowhere"! <i>/endbadjoke</i>). 
                 </p>
                 <p className={classes.pText}>
-                    Anyway, a bit about me: I have been developing software as a hobby since I was 11 
-                    years old, and for the last few years after a brief stint in the military 
-                    and graduate school, I have been working professionally as a full-stack engineer. 
-                    Through this I have worked in a variety of capacities: from front-end to backend, to 
-                    database design, scaleable and widely used RESTful APIs, cohesive serverless 
-                    architectures, dev-ops and even UI/UX design. Throughout my experiences 
-                    thus far, I have been very fortunate to work with and learn from amazingly 
-                    smart people, and I am sure that this is a large reason why I have witnessed 
-                    exponential growth at every company in terms of product capabilities and 
-                    quality as well as my own skills and mindset. I enjoy learning, love what I do 
-                    and I don't plan to stop or slow down any time soon!
+                    In the meantime, feel free to explore the other sections: 
+                    <ul>
+                    <SectionLink 
+                        name={'Projects'} 
+                        mdiClass='briefcase' 
+                        url={'/projects'} 
+                    />
+                    <SectionLink 
+                        name={'Miscellaneous'} 
+                        mdiClass='dice-multiple' 
+                        url={'/projects'} 
+                    /> 
+                    <SectionLink
+                        name={'CV'}
+                        mdiClass={'file-document-box'}
+                        url={'/cv'}
+                    />
+                </ul>
                 </p>
+            </div>
+
+            <div className={classes.skillOrbit}>
+                <SkillsOrbit />        
             </div>
         </div>
     );
