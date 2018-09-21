@@ -15,107 +15,95 @@ const OUTER_RADIUS      = 200,
       INNER_RADIUS      = 40,
       RADIUS_DIFFERENCE = OUTER_RADIUS - INNER_RADIUS;
 
+function getSkillSphereDiameter(value) {
+    return (40 * value)-6;
+}
 
-let skillPoints = [{
-        keyword : 'Front End',
-        value   : 1.00
-    },  {
-        keyword : 'Dev-Ops',
-        value   : 0.55
-    },  {
-        keyword : 'Back End',
-        value   : 0.92
-    }, {
-        keyword : 'UI/UX Design',
-        value   : 0.70
-    }, {
-        keyword : 'Architecture', 
-        value   : 0.95
-    },{
-        keyword : 'Graphics',
-        value   : 0.60
-    }, {
-        keyword : 'Communication',
-        value   : 1.0
-    },{
-        keyword : 'Leadership',
-        value   : 0.80
-    }
-];
-
-function generateVertex({ radianAngle, value=1 }) {
-
-    let xWidth = (Math.cos(radianAngle) * (value) * (RADIUS_DIFFERENCE)),
-        yWidth = (Math.sin(radianAngle) * (value) * (RADIUS_DIFFERENCE));
+function createSkillVertex({ radianAngle, value=1 }) {
+    let vRadius  = getSkillSphereDiameter(value)/2,
+        xWidth   = Math.cos(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius),
+        yWidth   = Math.sin(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius);
     
     return [x, y, z] = [
         Math.cos(radianAngle) * INNER_RADIUS + xWidth, 
         Math.sin(radianAngle) * INNER_RADIUS + yWidth, 
         0
     ];
-};
+}
 
+function createMesh (sources) {
+    const { geometry, material } = sources;
+    return new THREE.Mesh(geometry, material);
+}
+
+
+let skillPoints = [
+    { keyword : 'Front End',     value : 1.00 },  
+    { keyword : 'Dev-Ops',       value : 0.55 },  
+    { keyword : 'Back End',      value : 0.92 }, 
+    { keyword : 'UI/UX Design',  value : 0.70 }, 
+    { keyword : 'Architecture',  value : 0.95 },
+    { keyword : 'Graphics',      value : 0.60 }, 
+    { keyword : 'Communication', value : 1.00 },
+    { keyword : 'Leadership',    value : 0.80 }
+];
 
 const sources = {
     outerSphere : {
         type : 'sphere',
         geometry : new THREE.SphereGeometry( OUTER_RADIUS, 16, 16 ),
         material : new THREE.MeshBasicMaterial({ 
-            color       : 0xDEDEDE, 
-            transparent : true, 
-            opacity     : 0.40, 
+            color       : 0xDCDCDC, 
             wireframe   : true,
-            side        : THREE.DoubleSide
+            side        : THREE.DoubleSide,
+            opacity     : 0.4,
+            transparent : true,
+            depthWrite  : false
         })
     },
 
     innerSphere : {
         type : 'sphere',
-        geometry : new THREE.SphereGeometry( INNER_RADIUS, 8, 8 ),
+        geometry : new THREE.SphereGeometry( INNER_RADIUS, 5, 5 ),
         material : new THREE.MeshBasicMaterial({ 
             color       : 0xCDCDCD, 
-            transparent : true,
-            opacity     : 0.5, 
             wireframe   : true,
             side        : THREE.DoubleSide
         })
     },
 
     skillText : {
-        unmapped : true,
         type : 'text2d',
-        options : { 
+        unmapped : true,
+        generateParams : ({ value }) => ({
             align     : textAlign.center, 
-            font      : '40px roboto_bold', 
+            font      : `${6+Math.round(34*value)}px roboto_bold`, 
             fillStyle : '#333333',
             side      : THREE.DoubleSide,
             depthTest : false,
             antialias : true
-        }
+        })
     },
-    skillPoint : { 
+    skillPoint : {
+        type : 'sphere',
         unmapped : true,
         generateParams : ({ value }) => ({
             geometry   : new THREE.SphereGeometry( 
-                32 * value, 
-                3+Math.floor(4*value), 
-                3+Math.floor(4*value) 
+                getSkillSphereDiameter(value), 
+                4+Math.round(1.7*value), 
+                4+Math.round(1.7*value) 
             ),
             material   : new THREE.MeshBasicMaterial({ 
-                color       : 0xC51162, 
-                opacity     : (0.25*(value/2)),
-                transparent : true, 
-                wireframe   : true,
-                side        : THREE.DoubleSide
+                color        : 0xC51162,
+                wireframe    : true,
+                side         : THREE.DoubleSide,
+                transparent  : true,
+                opacity      : 0.1,
+                depthWrite   : false
             })
         })
     }
 };
-
-function createMesh (sources) {
-    const { geometry, material } = sources;
-    return new THREE.Mesh(geometry, material);
-}
 
 const styleSheet = {
     canvas3d : {
@@ -197,7 +185,7 @@ class SkillsOrbit extends Component {
         }
 
         this.O.outerSphere.rotation.y = Math.PI/2;
-        this.camera.position.set(0, 0, 500);
+        this.camera.position.set(0, 0, 550);
 
         this.O.textSprites = [];
         this.O.skillPoints = [];
@@ -206,29 +194,39 @@ class SkillsOrbit extends Component {
 
             let projectionAngle = (i/arr.length) * 1.0 * Math.PI*2;
 
-            let sprite = new SpriteText2D(
-                keyword, sources.skillText.options
+            let textSprite = new SpriteText2D(
+                keyword, sources.skillText.generateParams({ value })
             );
 
-            this.O.textSprites.push(sprite);
-            this.O.rotationOrigin.add(sprite);
+            this.O.textSprites.push(textSprite);
+            this.O.rotationOrigin.add(textSprite);
 
             // difference between outer and inner
             // circle radius
 
-            let skillPoint = [ x, y, z ] = generateVertex({ 
+            let skillVertex = [ x, y, z ] = createSkillVertex({ 
                 radianAngle : projectionAngle, 
                 value 
             });
+
             let skillPointObj = createMesh(
                 sources.skillPoint.generateParams({ value })
             );
+
             skillPointObj.position.set(x, y, z);
-            this.O.skillPoints.push(skillPointObj);
             
+            this.O.skillPoints.push(skillPointObj);
             this.O.rotationOrigin.add(skillPointObj);
 
-            sprite.position.set(x-16, y-16, z+50);
+            // offset text by 2.5% rotation so that
+            // it stays in view
+
+            let textVertex = [ textX, textY, textZ ] = createSkillVertex({
+                radianAngle : projectionAngle-(Math.PI*2*0.025),
+                value
+            });
+
+            textSprite.position.set(textX, textY, textZ);
         });
 
         this.O.rotationOrigin.add(this.O.skillShape);
