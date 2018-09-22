@@ -43,9 +43,7 @@ let skillPoints = [
     { keyword : 'Back End',      value : 0.92 }, 
     { keyword : 'UI/UX Design',  value : 0.70 }, 
     { keyword : 'Architecture',  value : 0.95 },
-    { keyword : 'Graphics',      value : 0.60 }, 
-    { keyword : 'Communication', value : 1.00 },
-    { keyword : 'Leadership',    value : 0.80 }
+    { keyword : 'Graphics',      value : 0.60 }
 ];
 
 const sources = {
@@ -126,7 +124,7 @@ class SkillsOrbit extends Component {
         this.O = {};
     }
     componentDidMount() {
-        this.instantiateOrbit();
+        this.instantiateScene();
     }
 
     componentWillReceiveProps(newProps, newState) {
@@ -160,14 +158,23 @@ class SkillsOrbit extends Component {
         this.renderer.setSize(SIZE, SIZE);
     };
 
-    instantiateOrbit = ()=> {
-
+    instantiateScene = ()=> {
         this.scene    = new THREE.Scene();
         this.camera   = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
         this.renderer = new THREE.WebGLRenderer({ alpha : true });
 
         this.refreshRendererSize();
-        
+        this.createOrbit();
+
+        document.getElementById('canvas3d')
+                    .appendChild( this.renderer.domElement );
+
+        this.animate();
+    };
+    
+    // TODO : remove previous instance
+    createOrbit = ()=> {
+
         // base object which will rotate
         this.O.rotationOrigin = new THREE.Object3D();
 
@@ -232,10 +239,6 @@ class SkillsOrbit extends Component {
         this.O.rotationOrigin.add(this.O.skillShape);
 
         this.scene.add(this.O.rotationOrigin);
-        document.getElementById('canvas3d')
-                    .appendChild( this.renderer.domElement );
-
-        this.animate();
     };
 
     animate = ()=> {
@@ -250,7 +253,7 @@ class SkillsOrbit extends Component {
         const { classes } = this.props;
 
         return (
-                <div id="canvas3d" className={classes.canvas3d}></div>
+            <div id="canvas3d" className={classes.canvas3d}></div>
         );
     }
 }

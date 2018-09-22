@@ -163,7 +163,7 @@ function About ({ classes }) {
             <div className={classes.aboutMe}>
                 <p className={classes.pText}> 
                     This website was created from the ground up using &nbsp;<b>React</b>,
-                    &nbsp; <b>Redux</b>, <b>THREE.js</b>, <b>Node</b>, <b>Gulp</b>&nbsp;
+                    &nbsp;<b>Redux</b>, <b>THREE.js</b>, <b>Node</b>, <b>Gulp</b>&nbsp;
                     and deployed using <b>NginX</b>. Not the most ideal -- "someday"
                     I will have time to refine (and as the saying goes: "the road to 
                     someday leads to a town called nowhere"! <i>/endbadjoke</i>). 
