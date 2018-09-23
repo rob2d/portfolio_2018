@@ -34,7 +34,6 @@ const styleSheet = {
     description : {
         fontSize     : '13pt',
         textAlign    : 'left',
-        paddingTop   : '16px',
         paddingLeft  : '16px',
         paddingRight : '16px'
     },
@@ -94,31 +93,39 @@ const styleSheet = {
         display      : 'inline-block',
         cursor       : 'pointer',
         color        : '#0000CC',
-        marginLeft   : '16px',
         marginTop    : '0px',
         marginBottom : '0px',
         fontSize     : '14pt',
-        textAlign    : 'left'
+        textAlign    : 'left',
+        color       : '#c51162',
+        fontFamily  : 'roboto_bold',
+        fontSize    : '12pt'
     },
     section : {
-        marginBottom : '16px'
+        margin : '16px 0px 32px'
     },
     sectionHeader : {
-        fontSize : '20pt',
+        fontFamily : 'roboto_bold',
+        fontSize   : '14pt',
         fontWeight : 700,
-        textAlign : 'left'
+        textAlign  : 'left',
+        margin     : '16px 0px'
     },
     sectionContent : {
         fontSize     : '13pt',
         textAlign    : 'left',
         paddingLeft  : '16px',
-        paddingRight : '16px'
-    },
-    sectionStandalone : {
-        fontSize : '14pt',
         paddingRight : '16px',
-        fontWeight : 'bold',
-        textAlign : 'left'
+        marginTop    : '0px'
+    },
+    sectionRole : {
+        fontSize     : '14pt',
+        paddingLeft  : '8px',
+        paddingRight : '16px',
+        paddingTop   : '8px',
+        fontWeight   : 'bold',
+        textAlign    : 'left',
+        fontFamily   : 'roboto_bold'
     },
     bulletItemContainer : {
         display : 'flex',
@@ -130,7 +137,17 @@ const styleSheet = {
         width : '100%'
     },
     bulletIcon : {
-        paddingRight : '16px'
+        paddingRight : '16px',
+        color        : '#000000'
+    },
+    // TODO : use a global style/theme for this,
+    //        
+    bulletTextContainer : {
+        margin      : '12px 0px',
+        padding     : '0px',
+        color       : '#c51162',
+        fontFamily  : 'roboto_bold',
+        fontSize    : '11pt'
     }
 };
 
@@ -159,11 +176,13 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                 <div className={classes.contentContainer}>
                     { project && (
                             <div className={classes.section}>
-                                <p className={classes.sectionStandalone}>
+                                <p className={classes.sectionRole}>
                                   {project.roles}
                                 </p>
                             </div>
-                        )}
+                        )
+                    }
+                  <div className={classes.section}>
                     {project.description && Array.isArray(project.description) ? 
                         project.description.map((d)=>(
                             <p className={classes.description}>
@@ -174,6 +193,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             {project.description || project.shortDescription}
                         </p>)
                     }
+                </div>
                     {project.technologies && (
                         <div className={classes.section}>
                             <p className={classes.sectionHeader}>
@@ -281,7 +301,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                     <div className={ classes.disclaimer } onClick={ ()=> appHistory.goTo(`/projects`) }>
                     <div className={classes.disclaimerIcon}>
                         <div className={classes.disclaimerIconContainer}>
-                            <i className="mdi mdi-arrow-left-box"/>
+                        <i className={`mdi mdi-arrow-left-box ${classes.bulletIcon}`}/>
                         </div>
                     </div>
                     <p className={ classes.returnToProjects }>

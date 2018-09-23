@@ -23,7 +23,7 @@ const base = {
 
 const styleSheet = {
     container : {
-        opacity: ({isShown}) => (isShown ? '1' : '0'),
+        opacity: ({ isShown }) => (isShown ? '1' : '0'),
         display: ({ onScreen })=>(onScreen ? 'block' : 'none'),
         position: ({ hasAbsolutePosition })=>(
             hasAbsolutePosition ? 'absolute' : 'relative'
@@ -117,7 +117,8 @@ const styleSheet = {
            fontSize : '20pt'              // devices such as iPhone5
         },
         paddingLeft  : '16px',
-        fontSize     : ({ viewAsTitle })=>( viewAsTitle ? '24pt' : '18pt' ),
+        fontFamily   : 'roboto_bold',
+        fontSize     : ({ viewAsTitle })=>( viewAsTitle ? '24pt' : '16pt' ),
         fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
         marginTop    : '0px',
         marginBottom : '0px',
@@ -130,12 +131,13 @@ const styleSheet = {
         left         : ({ viewAsTitle })=>( !viewAsTitle ? '0px' : '16px' ),
         width        : '100%',
         paddingLeft  : '16px',
-        fontSize     : '13pt',
+        fontSize     : '12.5pt',
+        fontFamily   : 'roboto_regular',
         fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
         color        :  ({ viewAsTitle })=>( !viewAsTitle? '#FFFFFF':'#000000' ),
         marginTop    : '0',
         marginBottom : '0px',
-        lineHeight   : ({ isHighlighted })=>(isHighlighted?'20px':'0px'),
+        lineHeight   : ({ isHighlighted })=>(isHighlighted?'24px':'0px'),
         opacity      : ({ isHighlighted })=>(isHighlighted?1:0),
         transition   : `all ${ANIM_INTERVAL}s ease-in`,
     },

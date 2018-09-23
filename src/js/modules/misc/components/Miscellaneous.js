@@ -155,7 +155,7 @@ function Miscellaneous ({ classes }) {
                     </iframe>
                     <a href={'https://www.youtube.com/watch?v=v1uJjYYvEPw'}>
                         <div className={classes.itemTitle}>
-                            <i className={`mdi mdi-youtube ${classes.itemTypeIcon}`} /> 
+                            <i className={`mdi mdi-message-video ${classes.itemTypeIcon}`} /> 
                             <p className={classes.itemTitleText}>
                                 JavaScript Styles in React : The Good Parts
                             </p>
@@ -186,7 +186,7 @@ function Miscellaneous ({ classes }) {
                     ></iframe><br />
                     <a href={'https://www.youtube.com/watch?v=4KnJOvw9tLk'}>
                         <div className={classes.itemTitle}>
-                            <i className={`mdi mdi-youtube ${classes.itemTypeIcon}`} /> 
+                            <i className={`mdi mdi-gamepad-variant ${classes.itemTypeIcon}`} /> 
                             <p className={classes.itemTitleText}>
                                 Crazy Cabbie Sonic
                             </p>

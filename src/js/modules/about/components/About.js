@@ -7,34 +7,46 @@ import { about as strings } from 'strings'
 import appHistory from 'tools/appHistory'
 import Avatar from '@material-ui/core/Avatar'
 import SkillsOrbit from './SkillsOrbit'
+import ButtonBase from '@material-ui/core/ButtonBase'
 
 const linkSheet = {
     listItem : {
         listStyleType : 'none',
         cursor        : 'pointer',
-        lineHeight    : '30px',
         color         : '#c51162',
-        fontFamily    : 'roboto_bold'
+        fontFamily    : 'roboto_bold',
+        fontSize      : '11pt',
+        minWidth      : '148px',
+        textAlign     : 'left'
     },
     icon : {
         marginRight : '16px',
         color       : '#000000'
+    },
+    itemButtonBase : {
+        display : 'block !important',
+        padding : '8px !important'
     }
 };
 
 let SectionLink = injectSheet(linkSheet)(
     function SectionLinkLayout ({ url, name, mdiClass, classes }) {
-    return (
-        <Fragment>
-            <li 
-                className={classes.listItem} 
-                onClick={ ()=> appHistory.goTo(url) }
-            ><i 
-                className={`mdi mdi-${mdiClass} ${classes.icon}`}
-            />&nbsp;{name}
-            </li>
-        </Fragment>
-    );
+
+        const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
+        
+        return (
+            <Fragment>
+                <ButtonBase 
+                    focusRipple 
+                    className={classes.itemButtonBase}
+                    onClick={ ()=> appHistory.goTo(url) }
+                >
+                <li className={classes.listItem}> 
+                    <i className={iconClass}/>&nbsp;{name}
+                </li>
+                </ButtonBase>
+            </Fragment>
+        );
 });
 
 const styleSheet = {
@@ -162,7 +174,7 @@ function About ({ classes }) {
 
             <div className={classes.aboutMe}>
                 <p className={classes.pText}> 
-                    This website was created from the ground up using &nbsp;<b>React</b>,
+                    This website was created from the ground up using&nbsp;<b>React</b>,
                     &nbsp;<b>Redux</b>, <b>THREE.js</b>, <b>Node</b>, <b>Gulp</b>&nbsp;
                     and deployed using <b>NginX</b>. Not the most ideal -- "someday"
                     I will have time to refine (and as the saying goes: "the road to 
@@ -179,7 +191,7 @@ function About ({ classes }) {
                     <SectionLink 
                         name={'Miscellaneous'} 
                         mdiClass='dice-multiple' 
-                        url={'/projects'} 
+                        url={'/misc'} 
                     /> 
                     <SectionLink
                         name={'CV'}
