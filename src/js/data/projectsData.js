@@ -17,10 +17,23 @@ function generateMediaImages(projectId, mediaCount) {
 }
 
 export default { 
-    'buildnwatch' : {
+    'buildandwatch' : {
         year : '2018',
-        links      : ['https://www.npmjs.com/package/build-and-watch'],
-        sourceCode : ['https://github.com/rob2d/build-and-watch#readme']
+        links      : [
+            'https://www.npmjs.com/package/build-and-watch',
+            'http://www.gmiller.net/2018/07/gameboy-color-fix-it-felix-jr',
+        ],
+        sourceCode : ['https://github.com/rob2d/build-and-watch#readme'],
+        media : [
+            {
+                type    : MediaTypes.VIDEO,
+                videoId : 'FrXLMEPN4ew'
+            },
+            {
+                type    : MediaTypes.VIDEO,
+                videoId : 'f58abL3nUgM'    
+            }
+        ],
     },
     'greedux' : {
         year  : '2017-2018',
@@ -36,7 +49,7 @@ export default {
             'https://app.smartwalk.tech/'
         ]
     },
-    'npm-repos' : {
+    'npm_repos' : {
         year : '2014 - 2017',
         links : [ 'https://www.npmjs.com/~robftw' ]
     },

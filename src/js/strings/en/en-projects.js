@@ -12,20 +12,33 @@ export default
     projectData :
     [
         {
-            id      : 'buildnwatch',
+            id      : 'buildandwatch',
             title   : 'Build & Watch',
             context : 'Independent',
             roles   : 'Maintainer, Designer and Developer',
-            shortDescription : 'Gameboy ROM development build and workflow tool which does all of the heavy lifting so you don\'t have to',
-            description : ['A modular, clean and scalable modern workflow template for React/Redux development ' + 
-                'which features Live Reloading, JSS, instantaneous and flexible production-level deployment and a few other neat things. ' + 
-                'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
-                'or other technologies which keep your team at the mercy of dependency hell as it just relies on Gulp and Babel. ',
-                'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
-                'installation parts up to date for React/redux apps. I have deployed well over 10 front-end projects since 2017 with it and it ' + 
-                'is now being used to launch several very high profile projects such as an engineering app to support most of the Fortune 500 company-' +
-                'housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US (http://www.stuyspec.com).'],
-            linkDescriptions : [ 'NPM Repo' ],
+            shortDescription : 'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
+                               'ROMs and live-reloads an emulator of your choice.',
+            description : [
+                'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
+                'ROMs and live-reloads an emulator of your choice. ',
+                'This project started from a bet between a co-worker among several of us that nobody could not create a Gameboy ' + 
+                'ROM within a few days outside of work. This seemed like a great opportunity to get back in touch with more ' + 
+                'fundamental computer science ideas that I don\'t normally work with so I jumped in. Along the way we ' + 
+                'crowdsourced a lot of information which was pretty tough to find with building Gameboy ROMs along with very ' + 
+                'specific hardware info in a slack channel. ',
+                'A talented friend and coworker of mine, Greg Miller(http://www.gmiller.net), ended up winning that bet, and I ' + 
+                'ended up so fascinated the technology/process and seeing how painful it was for him to build that, I created this tool. ' + 
+                'Using his colorful feedback as he built a larger scale game, I improved upon it over a few weekends and it became a little ' + 
+                'bit of a side hobby between us. This sort of code-ified what we had learned/painfully figured out about build ' + 
+                'processes so that we did not have to mess with very ancient build configurations anymore and could simply mess around ' + 
+                'with retro development (in the rare case where we\'d have time, at least). It also let me experiment with some ideas ' + 
+                'in NodeJS that sort of synergistically worked with and became extremely useful for my primary work.'
+            ],
+            linkDescriptions : [ 'NPM Repo', 'Wreck it Ralph Remake Project (@Greg\'s Site)' ],
+            mediaCaptions: [
+                'ROM Build running on a real Gameboy Color',
+                'Greg\'s Project Progress Video'
+            ],
             sourceCodeDescriptions : [ 'Github' ] 
         },
         {
@@ -85,7 +98,7 @@ export default
                 ],
             },
             {
-                id      : 'npm-repos',
+                id      : 'npm_repos',
                 title   : 'Development Tools',
                 context : 'NPM',
                 roles : 'Development and Design',

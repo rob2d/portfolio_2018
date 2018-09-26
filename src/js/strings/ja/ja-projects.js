@@ -9,6 +9,36 @@ export default
     projectData :
     [
         {
+            id      : 'buildandwatch',
+            title   : 'Build & Watch',
+            context : 'Independent',
+            roles   : 'Maintainer, Designer and Developer',
+            shortDescription : 'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
+                               'ROMs and live-reloads an emulator of your choice.',
+            description : [
+                'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
+                'ROMs and live-reloads an emulator of your choice. ',
+                'This project started from a bet between a co-worker among several of us that nobody could not create a Gameboy ' + 
+                'ROM within a few days outside of work. This seemed like a great opportunity to get back in touch with more ' + 
+                'fundamental computer science ideas that I don\'t normally work with so I jumped in. Along the way we ' + 
+                'crowdsourced a lot of information which was pretty tough to find with building Gameboy ROMs along with very ' + 
+                'specific hardware info in a slack channel. ',
+                'A talented friend and coworker of mine, Greg Miller(http://www.gmiller.net), ended up winning that bet, and I ' + 
+                'ended up so fascinated the technology/process and seeing how painful it was for him to build that, I created this tool. ' + 
+                'Using his colorful feedback as he built a larger scale game, I improved upon it over a few weekends and it became a little ' + 
+                'bit of a side hobby between us. This sort of code-ified what we had learned/painfully figured out about build ' + 
+                'processes so that we did not have to mess with very ancient build configurations anymore and could simply mess around ' + 
+                'with retro development (in the rare case where we\'d have time, at least). It also let me experiment with some ideas ' + 
+                'in NodeJS that sort of synergistically worked with and became extremely useful for my primary work.'
+            ],
+            linkDescriptions : [ 'NPM Repo', 'Wreck it Ralph Remake Project (@Greg\'s Site)' ],
+            mediaCaptions: [
+                'ROM Build running on a real Gameboy Color',
+                'Greg\'s Project Progress Video'
+            ],
+            sourceCodeDescriptions : [ 'Github' ] 
+        },
+        {
             id      : 'greedux',
             title   : 'Greedux',
             context : 'Independent',
@@ -65,7 +95,7 @@ export default
                 ],
             },
             {
-                id      : 'npm-repos',
+                id      : 'npm_repos',
                 title   : 'Development Tools',
                 context : 'NPM',
                 roles : 'Development and Design',
