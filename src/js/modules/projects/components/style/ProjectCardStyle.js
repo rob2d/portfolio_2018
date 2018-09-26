@@ -5,7 +5,7 @@ const ANIM_INTERVAL = '0.32';
 const base = {
     cardContainer : {
         width         : '300px !important',
-        height        : '300px !important',
+        height        : '320px !important',
         padding       : '0px !important',
         display       : 'block !important',
         flexDirection : 'column !important',
@@ -40,7 +40,7 @@ const styleSheet = {
                         'left 0s, top 0s'}`
         ),
         width        : ({ viewAsTitle })=> (viewAsTitle ? '400px' : '300px'),
-        height       : '308px',
+        height       : '324px',
         marginTop    : '32px',
         marginBottom : '32px',
         textAlign    : 'left',
@@ -59,9 +59,16 @@ const styleSheet = {
     },
     '@media (max-width: 800px)': {
         container : {
-            paddingLeft: '24px',
-            paddingRight: '24px'
-        },
+            paddingLeft  : '16px',
+            paddingRight : '16px',
+            marginTop    : '16px',
+            marginBottom : '16px',
+            '&:nth-of-type(1)' : {
+                paddingTop    : '8px' // TODO: the dynamic positioning should take
+                                      // new margin into account so mobile
+                                      // doesn't look janky
+            }
+        }
     },
     '@media (max-width: 400px)': {
         container : {
@@ -76,7 +83,7 @@ const styleSheet = {
         transition: `all ${ANIM_INTERVAL}s ease-out`,
         height    : ({ isHighlighted, viewAsTitle })=>{
             if(!viewAsTitle) {
-                return isHighlighted?'300px':'180px';                
+                return isHighlighted?'324px':'180px';                
             } else {
                 return '100px'; // width of content when title size
             }
@@ -148,12 +155,6 @@ const styleSheet = {
         fontSize   : '22pt',
         opacity    : ({ isHighlighted, viewAsTitle })=>(isHighlighted&&(!viewAsTitle)?1:0),
         transition : `all ${ANIM_INTERVAL}s ease-in`
-    },
-    cardActions : {
-        justifyContent : 'flex-end'
-    },
-    cardActionButton : {
-        fontFamily : 'roboto_medium'
     },
     cardMediaImg : {
         position      : 'relative',

@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { textAlign, SpriteText2D } from 'three-text2d'
 import injectSheet from 'react-jss'
 import { connect } from 'react-redux'
+import { about as strings} from 'strings'
 
 const { triangulateShape } = THREE.ShapeUtils;
 
@@ -38,35 +39,39 @@ function createMesh (sources) {
 
 
 let skillPoints = [
-    { keyword : 'Front End',     value : 1.00 },  
-    { keyword : 'Dev-Ops',       value : 0.55 },  
-    { keyword : 'Back End',      value : 0.92 }, 
-    { keyword : 'UI/UX Design',  value : 0.70 }, 
-    { keyword : 'Architecture',  value : 0.95 },
-    { keyword : 'Graphics',      value : 0.60 }
+    { namespace : 'frontend',     value : 1.00 },  
+    { namespace : 'devops',       value : 0.55 },  
+    { namespace : 'backend',      value : 0.92 }, 
+    { namespace : 'uiUxDesign',   value : 0.70 }, 
+    { namespace : 'architecture', value : 0.95 },
+    { namespace : 'graphics',     value : 0.60 }
 ];
 
 const sources = {
     outerSphere : {
-        type : 'sphere',
-        geometry : new THREE.SphereGeometry( OUTER_RADIUS, 16, 16 ),
+        type     : 'sphere',
+        geometry : new THREE.SphereGeometry( OUTER_RADIUS, 17, 17 ),
         material : new THREE.MeshBasicMaterial({ 
             color       : 0xDCDCDC, 
             wireframe   : true,
             side        : THREE.DoubleSide,
             opacity     : 0.4,
             transparent : true,
-            depthWrite  : false
+            depthWrite  : false,
+            antialias   : true
         })
     },
 
     innerSphere : {
-        type : 'sphere',
-        geometry : new THREE.SphereGeometry( INNER_RADIUS, 5, 5 ),
+        type     : 'sphere',
+        geometry : new THREE.SphereGeometry( INNER_RADIUS, 7, 7 ),
         material : new THREE.MeshBasicMaterial({ 
-            color       : 0xCDCDCD, 
+            color       : 0xCC288D, 
             wireframe   : true,
-            side        : THREE.DoubleSide
+            side        : THREE.DoubleSide,
+            opacity     : 0.2,
+            transparent : true,
+            antialias   : true
         })
     },
 
@@ -88,8 +93,8 @@ const sources = {
         generateParams : ({ value }) => ({
             geometry   : new THREE.SphereGeometry( 
                 getSkillSphereDiameter(value), 
-                4+Math.round(1.7*value), 
-                4+Math.round(1.7*value) 
+                6+Math.round(1.7*value), 
+                6+Math.round(1.7*value) 
             ),
             material   : new THREE.MeshBasicMaterial({ 
                 color        : 0xC51162,
@@ -97,7 +102,8 @@ const sources = {
                 side         : THREE.DoubleSide,
                 transparent  : true,
                 opacity      : 0.1,
-                depthWrite   : false
+                depthWrite   : false,
+                antialias    : true
             })
         })
     }
@@ -119,23 +125,47 @@ class SkillsOrbit extends Component {
     constructor (props, context) {
         super(props, context);
 
-        // namespace for Three.JS objects
-
+        /**
+         *  namespace for Three.JS objects
+         **/
         this.O = {};
+        this._hasInstantiated = false;
     }
+
     componentDidMount() {
         this.instantiateScene();
     }
 
-    componentWillReceiveProps(newProps, newState) {
-        // upon resize of window, recalculate the width of the renderer
+    componentWillUnmount() {
+        this.freeResources();
+    }
 
-        let maxDimension     = Math.max(this.props.viewportWidth,this.props.viewportHeight),
-            prevMaxDimension = Math.max(newProps.viewportWidth, newProps.viewportHeight);
+    componentDidUpdate(prevProps, prevState) {
+        // if language has changed, we should also change the 
+        // content of the sphere text
 
-        if(maxDimension != prevMaxDimension) {
-            this.refreshRendererSize();
-        }
+            if(prevProps.language != this.props.language) {
+                this.instantiateScene();
+            } else {
+
+                 // upon resize of window, recalculate the width of the renderer    
+
+                let maxDimension = Math.max(
+                        this.props.viewportWidth,
+                        this.props.viewportHeight
+                    ),
+                    prevMaxDimension = Math.max(
+                        prevProps.viewportWidth, 
+                        prevProps.viewportHeight
+                    );
+                    
+                if(maxDimension != prevMaxDimension) {
+                    this.refreshRendererSize();
+                }
+            }
+
+        // TODO : destroy previous scene or use more
+        //        limited scope of pruning
     }
 
     /**
@@ -155,25 +185,57 @@ class SkillsOrbit extends Component {
             }
         })();
 
-        this.renderer.setSize(SIZE, SIZE);
+        this.renderer.setSize(SIZE*3, SIZE*3);
+        
+        // THREE.js tends to re-assign sizes for the canvas element,
+        // so be sure to re-style with flexible definitions
+        let canvas = window.document.querySelector('#canvas3d canvas');
+        if(canvas) {
+            canvas.style.width="80%";
+            canvas.style.height="auto";
+        }
+    };
+
+    freeResources = () => {
+        
+        // TODO : look into whether this properly
+        // frees up memory
+
+        this.scene.remove(this.O.rotationOrigin);
+        this.O.rotationOrigin = undefined;
+        this.O.textSprites.length = 0;
+        this.O.skillPoints.length = 0;
+        this.O.outerSphere = undefined;
+        this.O.innerSphere = undefined;
     };
 
     instantiateScene = ()=> {
-        this.scene    = new THREE.Scene();
-        this.camera   = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
-        this.renderer = new THREE.WebGLRenderer({ alpha : true });
 
-        this.refreshRendererSize();
+        if(this.renderer) {
+            this.freeResources();
+        } else { 
+            // instantiate renderer, scene, camera
+            this.scene    = new THREE.Scene();
+            this.camera   = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
+            this.renderer = new THREE.WebGLRenderer({ alpha : true, antialias : true });
+        }
+
         this.createOrbit();
 
         document.getElementById('canvas3d')
                     .appendChild( this.renderer.domElement );
+        
+        this.refreshRendererSize();
 
-        this.animate();
+        if(!this._hasInstantiated) {
+            this._hasInstantiated = true;
+            this.animate();
+        }
     };
     
     // TODO : remove previous instance
     createOrbit = ()=> {
+        let skillStrings = strings.skills;
 
         // base object which will rotate
         this.O.rotationOrigin = new THREE.Object3D();
@@ -197,12 +259,12 @@ class SkillsOrbit extends Component {
         this.O.textSprites = [];
         this.O.skillPoints = [];
         
-        skillPoints.forEach( ({ keyword, value }, i, arr) => {
+        skillPoints.forEach( ({ namespace, value }, i, arr) => {
 
             let projectionAngle = (i/arr.length) * 1.0 * Math.PI*2;
 
             let textSprite = new SpriteText2D(
-                keyword, sources.skillText.generateParams({ value })
+                skillStrings[namespace], sources.skillText.generateParams({ value })
             );
 
             this.O.textSprites.push(textSprite);
@@ -242,18 +304,24 @@ class SkillsOrbit extends Component {
     };
 
     animate = ()=> {
-        this.O.rotationOrigin.rotation.x += 0.00505;
-        this.O.rotationOrigin.rotation.y += 0.00225;
+        if(this.O.rotationOrigin) {
+            this.O.rotationOrigin.rotation.x += 0.00505;
+            this.O.rotationOrigin.rotation.y += 0.00225;    
+        }
 
         requestAnimationFrame( this.animate );
+
         this.renderer.render( this.scene, this.camera );
     };
 
     render () {
         const { classes } = this.props;
 
+        console.log('this.props ->', this.props);
+
         return (
-            <div id="canvas3d" className={classes.canvas3d}></div>
+            <div id="canvas3d" className={classes.canvas3d}>
+            </div>
         );
     }
 }
@@ -261,7 +329,8 @@ class SkillsOrbit extends Component {
 export default injectSheet(styleSheet)(connect(
     (state,ownProps)=> ({ 
         viewportWidth  : state.core.viewportWidth,
-        viewportHeight : state.core.viewportHeight 
+        viewportHeight : state.core.viewportHeight,
+        language       : state.core.language
     }),
     null
 )(SkillsOrbit));

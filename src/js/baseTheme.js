@@ -10,6 +10,12 @@ const theme = createMuiTheme({
         error   : red
     },
     overrides : {
+        MuiTypography : {
+          body1 : {
+            fontFamily : 'roboto_light',
+            fontSize   : '0.95rem'
+          }
+        },
         MuiToolbar : {
             root : {
 

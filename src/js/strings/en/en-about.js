@@ -1,11 +1,18 @@
-export default
-{
-   aboutThisSite: "Here you'll find just a bit about some projects I've worked on (that I can share publicly) " +
-        " and various things related to my philosophy on software development and random creative interests.",
-   toClickHere : "If you're curious, feel free to check out the " +
-   "source to this website ",
-   linkClickHere : "on GitHub",
-   thisIsWIP : "Note : This site is W.I.P. as it takes the back burner to " +
-                "professional work and other projects. Thanks for the understanding 🙂✌",
-   sig       : '- Rob'
+export default {
+    hiAndThanks   : "Hi and thanks for visiting.",
+    thisSiteWas   : 'This website was created from the ground up using ',
+    aboutThisSite : "Here you'll find just a bit about some projects I've worked on (that I can share publicly) " +
+                    " and various things related to my philosophy on software development and random creative interests.",
+    andDeployedUsing : "and deployed using ",
+    fromScatch       : '',
+    comma            : ',',
+    period           : '.',
+    skills : {
+        frontend     : 'Front End',
+        devops       : 'Dev-Ops',
+        backend      : 'Back End',
+        uiUxDesign   : 'UI/UX Design',
+        architecture : 'Architecture',
+        graphics     : 'Graphics'
+    }
 }

@@ -103,12 +103,21 @@ const AppWarningBox = injectSheet(styleSheet)(
     
 class AppWarningNotice extends PureComponent {
     render () {
-        const { classes, language } = this.props;
+        const { 
+            classes, 
+            language,
+            pathname
+        } = this.props;
+
+        // only main page has been translated so far 100%
+        let isXlationWIP = pathname != '/';
         
         return (
             <div className={classes.container} >
                 {/* Notice to let users know Japanese translation is WIP */}
-                <AppWarningBox message={strings.global.translationIsWIP[language]} />
+                {
+                    isXlationWIP && <AppWarningBox message={strings.global.translationIsWIP[language]} />
+                }
             </div>
         );
     }

@@ -29,50 +29,63 @@ export default
             id      : 'smartwalk',
             title   : 'SmartWALK',
             context : 'PMC Technology',
-            shortDescription : `電気技術者が建物内の機器と電力システムをマップして調査するための、
-                                豊富な機能を備えたウェブアプリ`,
-            description      : '',
-            thumbnail        : 'img/projects/bamf_thumb.png',
-            screenshots      :
-            [
-                {
-                    url  : '',
-                    desc : ''
-                }
-            ]
-        },
-        {
-            id      : 'npm-repos',
-            title   : 'Development Tools',
-            context : 'NPM',
-            role : 'developer/designer',
-            shortDescription : 'Wide array of open-source development ' +
-                'tools including a React/Redux Project Generator, ' +
-                'Node/Express Route Mapper, MySQL Prettifier, and many others',
-            description      : ['Along the way of developing software professionally, ' + 
-            'there are several times where it has been advantageous to open-source some small ' +
-            'tools along the way which I also use for personal projects. The NPM repos are just a ' +
-            'quick collection of some packages which are downloaded up to hundreds of times daily ' +
-            'by other developers.',
-            'Many of these were created when I had first started developing in NodeJS but there are ' +
-            'some specific projects which probably deserve their own section such as a React-Redux application ' +
-            'generator which contains all of the benefits of gulp and creates fully production-ready versions ' +
-            'of applications in seconds (this portfolio is an example).'],
-            platforms        : ['web'],
-            screenshots      :
-            [
-                {
-                    url  : '',
-                    desc : ''
-                }
-            ],
-            links : 
-            [ 
-                {
-                url  : 'https://www.npmjs.com/~robftw',
-                desc : 'Visit the NPM repos'
-            }]
-        },
+            roles    : 'Senior Web Application Developer & UI/UX Designer',
+            shortDescription : 'Feature-rich web app designed for electrical engineers ' +
+                                'to map and survey equipment and power systems within buildings',
+            description      : [
+                'SmartWALK is an application designed to provide assistance for electrical ' +
+                'engineers who survey large skyscrapers and other facilities. Essentially, it allows them to track ' + 
+                'equipment, personnel, shifts and information about whether or not work was performed as well as ' +
+                'metrics which are critical to detect whether a power system or other electronics may malfunction.',
+            
+                'Because of the critical role of this application in several key pieces of infrastructure such as the ' +
+                'Empire State Building, JFK Airport and the new World Trade Center, a high emphasis was placed on ' +
+                'security and reliability.',
+
+                'When first working on this project in 2014, the company only had two software developers (myself included), ' + 
+                'no backend, and throughout there were no UI designers. I had taken it upon myself to begin work on a ' +
+                'database (which I modeled with concepts from a grad course found in the universal health care centralized database), ' +
+                'and researched to create a Node server as well as took the initiative to create a highly interactive ' +
+                'CMS for arranging building layouts which communicated with an Android backend. This first application, ' +
+                'built with NodeJS on the front end and YUI3 on the backend is somehow still running and ' +
+                'servicable today.', 
+
+                'A second iteration of the application was created to meet the demands of hightened security for new clients ' + 
+                'such as the New York Stock Exchange and Chase Bank; so I shifted my focus to the front-end and became proficient in ' +
+                'React and Flux. By the time I left PMC in 2017, we had expanded to 5 developers, of which one I was mentoring, and a small QA team ' +
+                'and this application is still being used today.'
+                ],
+                linkDescriptions : [ 'Marketing Website', 'Client Login to the CMS' ],
+                mediaCaptions: [
+                    'Intuitive media management and photo uploading for items',
+                    'Graphing out for multiple points of data in a scalable system',
+                    'Convenient User Account System with security features',
+                    'Internal document management within CMS for convenience and security',
+                    'Intuitive and interactive widgets for each part of the process'
+                ],
+            },
+            {
+                id      : 'npm-repos',
+                title   : 'Development Tools',
+                context : 'NPM',
+                roles : 'Development and Design',
+                shortDescription : 'Wide array of open-source development ' +
+                    'tools  including a Node/Express Route Mapper, MySQL ' + 
+                    'Prettifier, and many others',
+                description      : [
+                    'Along the way of developing software professionally, ' + 
+                    'there are several times where it has been advantageous to open-source some small ' +
+                    'tools along the way which I also use for personal projects. The NPM repos are just a ' +
+                    'quick collection of some packages which are downloaded up to hundreds of times daily ' +
+                    'by other developers.',
+                    'Many of these were created when I had first started developing in NodeJS but there are ' +
+                    'some specific projects which probably deserve their own section such as a React-Redux application ' +
+                    'generator which contains all of the benefits of gulp and creates fully production-ready versions ' +
+                    'of applications in seconds (this portfolio is an example).'
+                ],
+                platforms        : [ 'web' ],
+                linkDescriptions : [ 'Visit the NPM repos' ]
+            },
         {
             id           : 'bamf',
             title        : 'BAMF Web Framework',

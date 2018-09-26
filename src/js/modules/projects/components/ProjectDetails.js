@@ -5,16 +5,19 @@ import strings, { projects } from 'strings'
 import { connect } from 'react-redux'
 import appHistory from 'tools/appHistory'
 import withFadeTransitions from 'tools/withFadeTransitions'
+import ButtonLink from 'tools/components/ButtonLink'
 import MediaReel from './media-reel/MediaReel'
 import projectsData from 'app-root/data/projectsData'
 
-const findProjectStrings = (projectId)=>projects.projectData.find((p)=>(p.id==projectId));
+const findProjectStrings = (projectId)=> (
+    projects.projectData.find( p =>(p.id == projectId))
+);
 
 const styleSheet = {
     mainContainer : {
         flexGrow     : 1,
         margin       : '0 auto',
-        textAlign    : 'center',
+        textAlign    : 'left',
         maxWidth     : '1024px',
         marginTop    : '96px',
         paddingLeft  : '32px',
@@ -65,41 +68,41 @@ const styleSheet = {
         height : '56px',
         margin : '16px 8px'
     },
-    disclaimer : {
-        display    : 'flex',
-        maxWidth   : '600px',
-        padding    : '8px 0px',
-        textAlign  : 'justify',
-        alignItems : 'center',
-        justifyContent : 'flex-start'
+    returnContainer : {
+        display        : 'flex !important',
+        maxWidth       : '600px !important',
+        margin         : '40px 0px 16px !important',
+        padding        : '0px !important',
+        textAlign      : 'justify !important',
+        alignItems     : 'center !important',
+        justifyContent : 'flex-start !important',
+        '&:hover $returnText' : {
+            color : '#ff4081 !important'
+        },
+        '&:active $returnText' : {
+            color : '#00b8d4 !important'
+        }
     },
-    disclaimerNote :  {
-        display   : 'flex',
-        flexAlign : 'row',
-        fontSize  : '14pt',
-        textAlign : 'left'
-    },
-    disclaimerIcon : {
+    returnIcon : {
         fontSize : '22pt',
     },
-    disclaimerIconContainer : {
+    returnIconContainer : {
         display        : 'flex',
         alignItems     : 'center',
         justifyContent : 'center',
-        margin         : '16px 0px',
+        margin         : '0px',
         color          : '#0000CC'
     },
-    returnToProjects : {
+    returnText : {
         display      : 'inline-block',
         cursor       : 'pointer',
-        color        : '#0000CC',
         marginTop    : '0px',
         marginBottom : '0px',
         fontSize     : '14pt',
         textAlign    : 'left',
-        color       : '#c51162',
-        fontFamily  : 'roboto_bold',
-        fontSize    : '12pt'
+        color        : '#c51162',
+        fontFamily   : 'roboto_bold',
+        fontSize     : '12pt'
     },
     section : {
         margin : '16px 0px 32px'
@@ -127,22 +130,28 @@ const styleSheet = {
         textAlign    : 'left',
         fontFamily   : 'roboto_bold'
     },
-    bulletItemContainer : {
-        display : 'flex',
-        flexDirection : 'row',
-        alignItems : 'center',
-        justifyContent : 'flex-start'
+    linkContainer : {
+        display : 'flex !important',
+        flexDirection : 'row !important',
+        alignItems : 'center !important',
+        justifyContent : 'flex-start !important',
+        '&:hover $linkText' : {
+            color : '#ff4081 !important'
+        },
+        '&:active $linkText' : {
+            color : '#00b8d4 !important'
+        }
     },
     bulletLink : {
         width : '100%'
     },
-    bulletIcon : {
+    linkIcon : {
         paddingRight : '16px',
         color        : '#000000'
     },
     // TODO : use a global style/theme for this,
     //        
-    bulletTextContainer : {
+    linkText : {
         margin      : '12px 0px',
         padding     : '0px',
         color       : '#c51162',
@@ -228,15 +237,16 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             </p>
                             <p className={classes.sectionContent}>
                                 {pData.sourceCode.map((link,i)=>(
-                                <a href={link} target="_new">
-                                    <div className={classes.bulletItemContainer}>
-                                            <i className={`mdi mdi-code-tags ${classes.bulletIcon}`}/>
-                                            <p className={classes.bulletTextContainer}>
-                                                {project.sourceCodeDescriptions[i]}
-                                            </p>
-                                    </div>
-                                </a>)
-                                )}
+                                <ButtonLink
+                                    url={link}
+                                    containerClass={classes.linkContainer}
+                                >
+                                    <i className={`mdi mdi-code-tags ${classes.linkIcon}`} />
+                                    <p className={classes.linkText}>
+                                        {project.sourceCodeDescriptions[i]}
+                                    </p>
+                                </ButtonLink>
+                                ))}
                             </p>
                         </div>
                     )}
@@ -247,14 +257,15 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             </p>
                             <p className={classes.sectionContent}>
                                 {pData.documentation.map((link, i)=>(
-                                <a href={link} target="_new">
-                                    <div className={classes.bulletItemContainer}>
-                                        <i className={`mdi mdi-note-outline ${classes.bulletIcon}`}/>
-                                        <p className={classes.bulletTextContainer}>
-                                            {project.documentationDescriptions[i]}
-                                        </p>
-                                    </div>    
-                                </a>
+                                <ButtonLink 
+                                    url={link}
+                                    containerClass={classes.linkContainer}
+                                >
+                                    <i className={`mdi mdi-note-outline ${classes.linkIcon}`} />
+                                    <p className={classes.linkText}>
+                                        {project.documentationDescriptions[i]}
+                                    </p>
+                                </ButtonLink>
                                 ))}
                             </p>
                         </div>
@@ -266,14 +277,12 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                         </p>
                         <p className={classes.sectionContent}>
                             {pData.downloads.map((link, i)=>(
-                            <a href={link} target="_new">
-                                <div className={classes.bulletItemContainer}>
-                                    <i className={`mdi mdi-download ${classes.bulletIcon}`}/>
-                                    <p className={classes.bulletTextContainer}>
-                                        {project.downloadDescriptions[i]}
-                                    </p>
-                                </div>    
-                            </a>
+                            <ButtonLink url={link} containerClass={classes.linkContainer}>
+                                <i className={`mdi mdi-download ${classes.linkIcon}`} />
+                                <p className={classes.linkText}>
+                                    {project.downloadDescriptions[i]}
+                                </p>
+                            </ButtonLink>
                             ))}
                         </p>
                     </div>
@@ -285,29 +294,27 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             </p>
                             <p className={classes.sectionContent}>
                                 {pData.links.map((link, i)=>(
-                                <a href={link} target="_new">
-                                    <div className={classes.bulletItemContainer}>
-                                            <i className={`mdi mdi-link ${classes.bulletIcon}`}/>
-                                            <p className={classes.bulletTextContainer}>
+                                <ButtonLink url={link} containerClass={classes.linkContainer}>
+                                            <i className={`mdi mdi-link ${classes.linkIcon}`} />
+                                            <p className={classes.linkText}>
                                                 {project.linkDescriptions[i]}
                                             </p>
-                                    </div>
-                                </a>)
-                                )}
+                                </ButtonLink>
+                                ))}
                             </p>
                         </div>
                     )}
 
-                    <div className={ classes.disclaimer } onClick={ ()=> appHistory.goTo(`/projects`) }>
-                    <div className={classes.disclaimerIcon}>
-                        <div className={classes.disclaimerIconContainer}>
-                        <i className={`mdi mdi-arrow-left-box ${classes.bulletIcon}`}/>
+                    <ButtonLink containerClass={ classes.returnContainer } url={`/projects`}>
+                        <div className={classes.returnIcon}>
+                            <div className={classes.returnIconContainer}>
+                            <i className={`mdi mdi-arrow-left-box ${classes.linkIcon}`} />
+                            </div>
                         </div>
-                    </div>
-                    <p className={ classes.returnToProjects }>
-                        Back to Projects
-                    </p>
-                    </div>
+                        <p className={ classes.returnText }>
+                            Back to Projects
+                        </p>
+                    </ButtonLink>
                 </div>
             </div>
         )
@@ -319,7 +326,7 @@ let VisibleProjectView = connect(
         language : state.core.language,
         viewportWidth : state.core.viewportWidth 
     }),
-    (dispatch)=>       ({})
+    (dispatch)=>({})
 )(ProjectDetails);
 
 export default VisibleProjectView

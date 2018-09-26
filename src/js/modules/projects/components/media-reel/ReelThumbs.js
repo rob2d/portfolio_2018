@@ -65,7 +65,7 @@ const ReelThumb = injectSheet(styleSheet)(
                     (<img className={`${classes.reelThumbImg}`} src={item.thumb}/>)
                 }
                 { (item.type == MediaTypes.VIDEO) && 
-                    (<i className={`mdi mdi-youtube-play ${classes.youtubeThumbIcon}`}/>)
+                    (<i className={`mdi mdi-youtube ${classes.youtubeThumbIcon}`}/>)
                 }
                 </div>
         );

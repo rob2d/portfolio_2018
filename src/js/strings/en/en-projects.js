@@ -12,6 +12,23 @@ export default
     projectData :
     [
         {
+            id      : 'buildnwatch',
+            title   : 'Build & Watch',
+            context : 'Independent',
+            roles   : 'Maintainer, Designer and Developer',
+            shortDescription : 'Gameboy ROM development build and workflow tool which does all of the heavy lifting so you don\'t have to',
+            description : ['A modular, clean and scalable modern workflow template for React/Redux development ' + 
+                'which features Live Reloading, JSS, instantaneous and flexible production-level deployment and a few other neat things. ' + 
+                'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
+                'or other technologies which keep your team at the mercy of dependency hell as it just relies on Gulp and Babel. ',
+                'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
+                'installation parts up to date for React/redux apps. I have deployed well over 10 front-end projects since 2017 with it and it ' + 
+                'is now being used to launch several very high profile projects such as an engineering app to support most of the Fortune 500 company-' +
+                'housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US (http://www.stuyspec.com).'],
+            linkDescriptions : [ 'NPM Repo' ],
+            sourceCodeDescriptions : [ 'Github' ] 
+        },
+        {
             id      : 'greedux',
             title   : 'Greedux',
             context : 'Independent',

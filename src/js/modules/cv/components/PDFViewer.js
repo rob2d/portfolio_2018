@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import pure from 'recompose/pure'
 import Button from '@material-ui/core/Button'
 import { cv as strings } from 'strings'
-import PDF from 'react-pdf-js';
+import PDF from 'react-pdf-js'
 import Tooltip   from '@material-ui/core/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'

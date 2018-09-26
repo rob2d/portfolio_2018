@@ -17,6 +17,11 @@ function generateMediaImages(projectId, mediaCount) {
 }
 
 export default { 
+    'buildnwatch' : {
+        year : '2018',
+        links      : ['https://www.npmjs.com/package/build-and-watch'],
+        sourceCode : ['https://github.com/rob2d/build-and-watch#readme']
+    },
     'greedux' : {
         year  : '2017-2018',
         links : ['https://www.npmjs.com/package/generator-greedux'],

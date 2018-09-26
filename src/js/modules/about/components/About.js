@@ -2,52 +2,15 @@ import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
-import { withStyles } from '@material-ui/core/styles'
-import { about as strings } from 'strings'
+import { 
+    about as strings, 
+    menus as menuStrings 
+} from 'strings'
 import appHistory from 'tools/appHistory'
 import Avatar from '@material-ui/core/Avatar'
+import ButtonLink from 'tools/components/ButtonLink'
+import SectionLink from './SectionLink'
 import SkillsOrbit from './SkillsOrbit'
-import ButtonBase from '@material-ui/core/ButtonBase'
-
-const linkSheet = {
-    listItem : {
-        listStyleType : 'none',
-        cursor        : 'pointer',
-        color         : '#c51162',
-        fontFamily    : 'roboto_bold',
-        fontSize      : '11pt',
-        minWidth      : '148px',
-        textAlign     : 'left'
-    },
-    icon : {
-        marginRight : '16px',
-        color       : '#000000'
-    },
-    itemButtonBase : {
-        display : 'block !important',
-        padding : '8px !important'
-    }
-};
-
-let SectionLink = injectSheet(linkSheet)(
-    function SectionLinkLayout ({ url, name, mdiClass, classes }) {
-
-        const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
-        
-        return (
-            <Fragment>
-                <ButtonBase 
-                    focusRipple 
-                    className={classes.itemButtonBase}
-                    onClick={ ()=> appHistory.goTo(url) }
-                >
-                <li className={classes.listItem}> 
-                    <i className={iconClass}/>&nbsp;{name}
-                </li>
-                </ButtonBase>
-            </Fragment>
-        );
-});
 
 const styleSheet = {
     mainContainer : {
@@ -68,15 +31,15 @@ const styleSheet = {
         paddingTop    : '0px',
         paddingBottom : '0px',
         textAlign     : 'left',
+        fontSize      : '12pt',
         fontFamily    : 'roboto_light'
     },
-    wipNote : {
-        fontStyle : 'italic',
-        fontSize : '10pt !important'
-    },
-    sig : {
-        textAlign : 'right !important',
-        marginRight : '72px !important'
+    sectionList : {
+        paddingLeft   : '16px',
+        paddingRight  : '16px',
+        paddingTop    : '8px',
+        paddingBottom : '0px',
+        textAlign     : 'left'
     },
     avatar : {
         width  : '128px',
@@ -85,7 +48,7 @@ const styleSheet = {
     },
     '@media (max-width: 700px) and (min-width : 341px) and (orientation:portrait)': {
         // don't want the avatar to dominate the 
-        // mobile screen :)
+        // mobile screen :
         avatar : {
             margin : '24px auto 16px !important',
             width : '116px !important',
@@ -107,6 +70,7 @@ const styleSheet = {
             marginRight : '16px'
         },
         mainContainer : {
+            padding        : '16px 32px',
             flexDirection : 'row !important',
             boxSizing : 'border-box'
         }
@@ -143,9 +107,6 @@ const styleSheet = {
             fontSize     : '14pt !important',
             fontFamily   : 'roboto_light !important'
         },
-        wipNote : {
-            fontSize : '12pt !important'
-        },
         aboutMe : {
             display       : 'flex',
             flexDirection : 'column', 
@@ -158,51 +119,91 @@ const styleSheet = {
             direction : 'column',
             overflowY : 'auto',
             flexGrow  : 1
+        },
+        sectionList : {
+            paddingLeft : '64px'
         }
     }
 };
 
+
+let Tech = injectSheet({
+    container : {
+        display    : 'inline-block',
+        fontFamily : 'roboto_regular',
+        color      : '#000000',
+        '&:active': {
+            color      : '#00b8d4'
+        },
+        verticalAlign : 'top !important',
+        fontSize : '12pt'
+    },
+    '@media (min-width:901px)' : {
+        container : {
+            fontSize : '14pt !important'
+        }
+    },
+     // for general mobile devices in landscape
+     '@media (orientation:landscape) and (max-width:900px)' : {
+         container : {
+            fontSize : '11pt'
+         }
+     }
+})(function Tech ({ children, classes, url }) {
+    return (
+        <ButtonLink containerClass={ classes.container } url={ url }>
+            { children }
+        </ButtonLink>
+    );
+});
+
 function About ({ classes }) {
+    let { period, comma } = strings;
+
     return (
         <div className={classes.mainContainer}>
             
             <Avatar 
                 alt={'Rob'} 
-                src="img/about/robtalk.jpg" 
+                src="img/about/me.jpg" 
                 className={classes.avatar}
             />
 
             <div className={classes.aboutMe}>
-                <p className={classes.pText}> 
-                    This website was created from the ground up using&nbsp;<b>React</b>,
-                    &nbsp;<b>Redux</b>, <b>THREE.js</b>, <b>Node</b>, <b>Gulp</b>&nbsp;
-                    and deployed using <b>NginX</b>. Not the most ideal -- "someday"
-                    I will have time to refine (and as the saying goes: "the road to 
-                    someday leads to a town called nowhere"! <i>/endbadjoke</i>). 
-                </p>
                 <p className={classes.pText}>
-                    In the meantime, feel free to explore the other sections: 
-                    <ul>
+                    {strings.hiAndThanks}
+                </p> 
+                <p className={classes.pText}> 
+                    {strings.thisSiteWas}
+                    <Tech url={'https://reactjs.com'}>React</Tech>{comma}&nbsp;
+                    <Tech url={'https://redux.js.org'}>Redux</Tech>{comma}&nbsp;
+                    <Tech url={'https://threejs.org'}>THREE.js</Tech>{comma}&nbsp; 
+                    <Tech url={'https://nodejs.org'}>Node</Tech>{comma}&nbsp; 
+                    <Tech url={'https://gulpjs.com'}>Gulp</Tech>{comma}&nbsp;
+                    {strings.andDeployedUsing}
+                    <Tech url={'http://nginx.org'}>NginX</Tech>{strings.fromScatch}
+                    {period}
+                </p>
+                <ul className={classes.sectionList}>
                     <SectionLink 
-                        name={'Projects'} 
-                        mdiClass='briefcase' 
+                        name={menuStrings.main.projects} 
+                        mdiClass={'briefcase'} 
                         url={'/projects'} 
                     />
                     <SectionLink 
-                        name={'Miscellaneous'} 
-                        mdiClass='dice-multiple' 
+                        name={menuStrings.main.misc} 
+                        mdiClass={'dice-multiple'} 
                         url={'/misc'} 
                     /> 
                     <SectionLink
-                        name={'CV'}
+                        name={menuStrings.main.cv}
                         mdiClass={'file-document-box'}
                         url={'/cv'}
                     />
                 </ul>
-                </p>
             </div>
 
-            <div className={classes.skillOrbit}>
+            <div className={classes.skillsOrbit}>
                 <SkillsOrbit />        
             </div>
         </div>

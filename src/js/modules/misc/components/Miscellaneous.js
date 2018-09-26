@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
+import ButtonLink from 'tools/components/ButtonLink'
 import { misc as strings } from 'strings'
 
 const styleSheet = {
@@ -48,14 +49,22 @@ const styleSheet = {
     rambling : {
         padding   : '8px 0px',
         width     : '292px',
-        textAlign : 'justify',
+        textAlign : 'left',
         margin    : '0 auto'
     },
     itemTitle : {
-        display      : 'flex',
-        direction    : 'row',
-        paddingLeft  : '8px',
-        paddingRight : '8px'
+        display      : 'flex !important',
+        direction    : 'row !important',
+        paddingLeft  : '8px !important',
+        paddingRight : '8px !important',
+        fontSize     : '12pt !important',
+        transition   : 'color 0.2s !important',
+        '&:hover $itemTitleText' : {
+            color : '#ff4081 !important'
+        },
+        '&:active $itemTitleText' : {
+            color : '#00b8d4 !important'
+        }
     },
     itemTitleText : {
         flexGrow     : 1,
@@ -124,15 +133,21 @@ function Miscellaneous ({ classes }) {
         <div className={classes.mainContainer}>
             <div className={classes.bodyContent}>
                 <div className={classes.item}>
-                    <a href="https://medium.com/@robftw/characteristics-of-an-ideal-react-architecture-883b9b92be0b">
-                        <img src={ '/img/misc/rob_react_article_art.png' } className={ classes.articleImg } />
-                        <div className={classes.itemTitle}>
-                            <i className={`mdi mdi-note ${classes.itemTypeIcon}`} /> 
-                            <p className={classes.itemTitleText}>
-                                Characteristics of an Ideal React Architecture
-                            </p>
-                        </div>
-                    </a>
+                    <ButtonLink
+                        url={'https://medium.com/@robftw/characteristics-of-an-ideal-react-architecture-883b9b92be0b'}
+                     >  <img 
+                            src={ '/img/misc/rob_react_article_art.png' } 
+                            className={ classes.articleImg } 
+                        />
+                    </ButtonLink>
+                    <ButtonLink 
+                        url={'https://medium.com/@robftw/characteristics-of-an-ideal-react-architecture-883b9b92be0b'}
+                        containerClass={classes.itemTitle}
+                    ><i className={`mdi mdi-note ${classes.itemTypeIcon}`} /> 
+                    <p className={classes.itemTitleText}>
+                        Characteristics of an Ideal React Architecture
+                    </p>
+                    </ButtonLink>
                     <p className={classes.rambling}>
                         In this write-up, I clarify some misconceptions about React and identify central 
                         characteristics that define a good use of React that large teams could adopt for easy 
@@ -153,14 +168,15 @@ function Miscellaneous ({ classes }) {
                         allow="autoplay; encrypted-media" 
                         allowFullScreen >
                     </iframe>
-                    <a href={'https://www.youtube.com/watch?v=v1uJjYYvEPw'}>
-                        <div className={classes.itemTitle}>
+                        <ButtonLink 
+                            containerClass={classes.itemTitle}
+                            url={'https://www.youtube.com/watch?v=v1uJjYYvEPw'}
+                        >
                             <i className={`mdi mdi-message-video ${classes.itemTypeIcon}`} /> 
                             <p className={classes.itemTitleText}>
                                 JavaScript Styles in React : The Good Parts
                             </p>
-                        </div>
-                    </a>
+                        </ButtonLink>
                     <p className={classes.rambling}>
                         A talk given at Spotify for ReactNYC which includes a presentation that 
                         was completely written in React/JavaScript over a few days. 
@@ -184,14 +200,14 @@ function Miscellaneous ({ classes }) {
                         allow="autoplay; encrypted-media" 
                         allowFullScreen
                     ></iframe><br />
-                    <a href={'https://www.youtube.com/watch?v=4KnJOvw9tLk'}>
-                        <div className={classes.itemTitle}>
-                            <i className={`mdi mdi-gamepad-variant ${classes.itemTypeIcon}`} /> 
+                        <ButtonLink 
+                            containerClass={classes.itemTitle}
+                            url={'https://www.youtube.com/watch?v=4KnJOvw9tLk'}
+                        >   <i className={`mdi mdi-gamepad-variant ${classes.itemTypeIcon}`} /> 
                             <p className={classes.itemTitleText}>
                                 Crazy Cabbie Sonic
                             </p>
-                        </div>
-                    </a>
+                        </ButtonLink>
                     <p className={classes.rambling}>
                         One of the first pieces of software I ever completed in middleschool -- around 2000; 
                         Not proud of it for any objective sense of quality, but it was actually fun little 72 hour flurry and
@@ -207,14 +223,15 @@ function Miscellaneous ({ classes }) {
                         allow="autoplay" 
                         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/41838495&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
                     </iframe><br />
-                    <a href="https://soundcloud.com/rob2d/high-wires-in-space">
-                        <div className={classes.itemTitle}>
-                            <i className={`mdi mdi-music ${classes.itemTypeIcon}`} />
-                            <p className={classes.itemTitleText}>
-                                ColorShafted: Highwires in Space
-                            </p>
-                        </div>
-                    </a>
+                    <ButtonLink 
+                        url={'https://soundcloud.com/rob2d/high-wires-in-space'} 
+                        containerClass={classes.itemTitle}
+                    >
+                        <i className={`mdi mdi-music ${classes.itemTypeIcon}`} />
+                        <p className={classes.itemTitleText}>
+                            ColorShafted: Highwires in Space
+                        </p>
+                    </ButtonLink>
 
                     <p className={classes.rambling}>
                         In college, I wrote a game engine as a reason to learn Java in depth without

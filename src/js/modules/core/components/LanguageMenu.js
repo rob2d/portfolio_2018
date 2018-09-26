@@ -25,7 +25,6 @@ class LanguageMenu extends PureComponent {
     };
 
     onRequestClose = ()=> {
-        console.log('onRequest close :D');
         this.setState({ anchorEl: undefined });
     };
 
