@@ -19,12 +19,12 @@ export default
                 'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
                 'ROMs and live-reloads an emulator of your choice. ',
                 'This project started from a bet between a co-worker among several of us that nobody could not create a Gameboy ' + 
-                'ROM within a few days outside of work. This seemed like a great opportunity to get back in touch with more ' + 
-                'fundamental computer science ideas that I don\'t normally work with so I jumped in. Along the way we ' + 
+                'ROM within a few days outside of work.It seemed like a great opportunity to get back in touch with certain aspects ' + 
+                'of computer science that I don\'t normally work with so I jumped in. Along the way we, ' + 
                 'crowdsourced a lot of information which was pretty tough to find with building Gameboy ROMs along with very ' + 
                 'specific hardware info in a slack channel. ',
                 'A talented friend and coworker of mine, Greg Miller(http://www.gmiller.net), ended up winning that bet, and I ' + 
-                'ended up so fascinated the technology/process and seeing how painful it was for him to build that, I created this tool. ' + 
+                'ended up so fascinated by the technology/process, and noticing how painful it was for him to build that, I created this tool. ' + 
                 'Using his colorful feedback as he built a larger scale game, I improved upon it over a few weekends and it became a little ' + 
                 'bit of a side hobby between us. This sort of code-ified what we had learned/painfully figured out about build ' + 
                 'processes so that we did not have to mess with very ancient build configurations anymore and could simply mess around ' + 

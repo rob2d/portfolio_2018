@@ -40,9 +40,11 @@ const styleSheet = {
         paddingLeft  : '16px',
         paddingRight : '16px'
     },
+
     // only on tablet sized device+ or certain
     // large screens in landscape should we
     // begin to justify text
+    
     '@media (min-width:800px)' : {
         description : {
             textAlign : 'justify !important'
@@ -150,13 +152,13 @@ const styleSheet = {
         color        : '#000000'
     },
     // TODO : use a global style/theme for this,
-    //        
     linkText : {
         margin      : '12px 0px',
         padding     : '0px',
         color       : '#c51162',
         fontFamily  : 'roboto_bold',
-        fontSize    : '11pt'
+        fontSize    : '11pt',
+        textAlign   : 'left'
     }
 };
 
@@ -193,12 +195,12 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                     }
                   <div className={classes.section}>
                     {project.description && Array.isArray(project.description) ? 
-                        project.description.map((d)=>(
-                            <p className={classes.description}>
+                        project.description.map((d, i)=>(
+                            <p className={classes.description} key={`project_description_${i}`}>
                              {d}
                             </p>
                         )) : (  
-                        <p className={classes.description}>
+                        <p className={classes.description} key={`project_description_${i}`}>
                             {project.description || project.shortDescription}
                         </p>)
                     }
@@ -240,6 +242,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                                 <ButtonLink
                                     url={link}
                                     containerClass={classes.linkContainer}
+                                    key={`project_sourcecode_${i}`}
                                 >
                                     <i className={`mdi mdi-code-tags ${classes.linkIcon}`} />
                                     <p className={classes.linkText}>
@@ -260,6 +263,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                                 <ButtonLink 
                                     url={link}
                                     containerClass={classes.linkContainer}
+                                    key={`project_doclink_${i}`}
                                 >
                                     <i className={`mdi mdi-note-outline ${classes.linkIcon}`} />
                                     <p className={classes.linkText}>
@@ -277,7 +281,11 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                         </p>
                         <p className={classes.sectionContent}>
                             {pData.downloads.map((link, i)=>(
-                            <ButtonLink url={link} containerClass={classes.linkContainer}>
+                            <ButtonLink 
+                                url={link} 
+                                containerClass={classes.linkContainer}
+                                key={`project_downloads_${i}`}
+                            >
                                 <i className={`mdi mdi-download ${classes.linkIcon}`} />
                                 <p className={classes.linkText}>
                                     {project.downloadDescriptions[i]}
@@ -294,7 +302,11 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             </p>
                             <p className={classes.sectionContent}>
                                 {pData.links.map((link, i)=>(
-                                <ButtonLink url={link} containerClass={classes.linkContainer}>
+                                <ButtonLink 
+                                    url={link} 
+                                    containerClass={classes.linkContainer}
+                                    key={`project_links_${i}`}
+                                >
                                             <i className={`mdi mdi-link ${classes.linkIcon}`} />
                                             <p className={classes.linkText}>
                                                 {project.linkDescriptions[i]}

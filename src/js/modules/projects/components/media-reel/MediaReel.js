@@ -158,7 +158,6 @@ class MediaReel extends PureComponent {
         this.setState({ autoplayTimer, isReelAutoplaying : true});
     };
     autoplayToNextItem = () => {
-        console.log('autoplay to next item ->', (this.state.selectedIndex + 1) % this.props.media.length);
         if(!this.state.isVideoPlaying) {
             const selectedIndex = (this.state.selectedIndex + 1) % this.props.media.length;
             this.setState({ selectedIndex });

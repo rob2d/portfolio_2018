@@ -134,6 +134,7 @@ class SkillsOrbit extends Component {
 
     componentDidMount() {
         this.instantiateScene();
+        this.lastAnimated = performance.now();
     }
 
     componentWillUnmount() {
@@ -163,9 +164,6 @@ class SkillsOrbit extends Component {
                     this.refreshRendererSize();
                 }
             }
-
-        // TODO : destroy previous scene or use more
-        //        limited scope of pruning
     }
 
     /**
@@ -229,7 +227,7 @@ class SkillsOrbit extends Component {
 
         if(!this._hasInstantiated) {
             this._hasInstantiated = true;
-            this.animate();
+            window.requestAnimationFrame(this.animate);
         }
     };
     
@@ -303,25 +301,29 @@ class SkillsOrbit extends Component {
         this.scene.add(this.O.rotationOrigin);
     };
 
-    animate = ()=> {
+    animate = (timestamp)=> {
+        let timeDelta = !this.lastAnimated ? 0 : timestamp - this.lastAnimated;
+        console.log('deltaTime ->', timeDelta);
+        
+        this.lastAnimated = timestamp;
+
         if(this.O.rotationOrigin) {
-            this.O.rotationOrigin.rotation.x += 0.00505;
-            this.O.rotationOrigin.rotation.y += 0.00225;    
+            this.O.rotationOrigin.rotation.x += (0.0003125 * timeDelta);
+            this.O.rotationOrigin.rotation.y += (0.000140625 * timeDelta);    
         }
 
         requestAnimationFrame( this.animate );
-
         this.renderer.render( this.scene, this.camera );
     };
 
     render () {
         const { classes } = this.props;
 
-        console.log('this.props ->', this.props);
-
         return (
-            <div id="canvas3d" className={classes.canvas3d}>
-            </div>
+            <div 
+                id="canvas3d" 
+                className={classes.canvas3d}
+            ></div>
         );
     }
 }
