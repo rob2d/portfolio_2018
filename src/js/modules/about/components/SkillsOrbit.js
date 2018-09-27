@@ -302,8 +302,8 @@ class SkillsOrbit extends Component {
     };
 
     animate = (timestamp)=> {
-        let timeDelta = !this.lastAnimated ? 0 : timestamp - this.lastAnimated;
-        console.log('deltaTime ->', timeDelta);
+        let timeDelta = !this.lastAnimated ? 
+                            0 : timestamp - this.lastAnimated;
         
         this.lastAnimated = timestamp;
 
@@ -320,10 +320,7 @@ class SkillsOrbit extends Component {
         const { classes } = this.props;
 
         return (
-            <div 
-                id="canvas3d" 
-                className={classes.canvas3d}
-            ></div>
+            <div id="canvas3d" className={classes.canvas3d}></div>
         );
     }
 }
