@@ -130,40 +130,88 @@ class SkillsOrbit extends Component {
          **/
         this.O = {};
         this._hasInstantiated = false;
+        /**
+         * 
+         * variables related to rotation
+         * via device; on Desktop, this
+         * would be via mouse and on
+         * touch-oriented devices, it would
+         * be via gyroscope
+         * 
+         */
+        this.axis = {
+            x : 0,
+            y : 0,
+            timeProcessed : performance.now()
+        };
+
+        this.rotationOffset = {
+            x : 0,
+            y : 0,
+            z : 0
+        }
+
+        this.R = { 
+            canvas : undefined
+        };
     }
 
     componentDidMount() {
         this.instantiateScene();
         this.lastAnimated = performance.now();
+        window.addEventListener('mousemove', this.onMouseMove);
     }
 
     componentWillUnmount() {
         this.freeResources();
     }
 
+    onMouseMove = (e) => {
+        const { clientX, clientY } = e;
+        const timeDelta = performance.now() - this.axis.timeProcessed; 
+
+        if(timeDelta > 32 && this.R.canvas) {
+            this.axis.timeProcessed = performance.now();
+            let { canvas } = this.R;
+            let rect    = canvas.getBoundingClientRect(),
+                centerX = rect.left + (rect.width/2),
+                centerY = rect.top  + (rect.height/2);
+
+            let relX = centerX/window.innerWidth,
+                relY = centerY/window.innerHeight;
+
+            let mouseRelX = clientX / window.innerWidth,
+                mouseRelY = clientY / window.innerHeight;
+
+            this.axis.x = relX - mouseRelX;
+            this.axis.y = relY - mouseRelY;
+        }
+    };
+
+
     componentDidUpdate(prevProps, prevState) {
         // if language has changed, we should also change the 
         // content of the sphere text
 
-            if(prevProps.language != this.props.language) {
-                this.instantiateScene();
-            } else {
+        if(prevProps.language != this.props.language) {
+            this.instantiateScene();
+        } else {
 
-                 // upon resize of window, recalculate the width of the renderer    
+                // upon resize of window, recalculate the width of the renderer    
 
-                let maxDimension = Math.max(
-                        this.props.viewportWidth,
-                        this.props.viewportHeight
-                    ),
-                    prevMaxDimension = Math.max(
-                        prevProps.viewportWidth, 
-                        prevProps.viewportHeight
-                    );
-                    
-                if(maxDimension != prevMaxDimension) {
-                    this.refreshRendererSize();
-                }
+            let maxDimension = Math.max(
+                    this.props.viewportWidth,
+                    this.props.viewportHeight
+                ),
+                prevMaxDimension = Math.max(
+                    prevProps.viewportWidth, 
+                    prevProps.viewportHeight
+                );
+                
+            if(maxDimension != prevMaxDimension) {
+                this.refreshRendererSize();
             }
+        }
     }
 
     /**
@@ -186,12 +234,18 @@ class SkillsOrbit extends Component {
         this.renderer.setSize(SIZE*3, SIZE*3);
         
         // THREE.js tends to re-assign sizes for the canvas element,
-        // so be sure to re-style with flexible definitions
+        // (as well as is a bit funky with destroying/instantiating that),
+        // so be sure to re-style with flexible definitions with guaranteed
+        // new reference
+
         let canvas = window.document.querySelector('#canvas3d canvas');
         if(canvas) {
             canvas.style.width="80%";
             canvas.style.height="auto";
         }
+
+        // re-assign as Three.JS is a bit funny 
+        this.R.canvas = window.document.querySelector('#canvas3d canvas');
     };
 
     freeResources = () => {
@@ -308,8 +362,16 @@ class SkillsOrbit extends Component {
         this.lastAnimated = timestamp;
 
         if(this.O.rotationOrigin) {
-            this.O.rotationOrigin.rotation.x += (0.0003125 * timeDelta);
-            this.O.rotationOrigin.rotation.y += (0.000140625 * timeDelta);    
+            this.rotationOffset.x += timeDelta * 0.0001625;
+            this.rotationOffset.y += timeDelta * 0.000070625;
+
+            // allow the user to rotate view frustrum for
+            // 1/8 of a possible full rotation
+
+            let axisXLean = -(this.axis.x) * Math.PI * 0.25;
+            let axisYLean = -(this.axis.y) * Math.PI * 0.25;
+            this.O.rotationOrigin.rotation.x = axisYLean + this.rotationOffset.x;
+            this.O.rotationOrigin.rotation.y = axisXLean + this.rotationOffset.y;    
         }
 
         requestAnimationFrame( this.animate );
