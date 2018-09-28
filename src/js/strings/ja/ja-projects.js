@@ -43,15 +43,22 @@ export default
             title   : 'Greedux',
             context : 'Independent',
             roles   : 'Maintainer, Designer and Developer',
-            shortDescription : 'A modular, clean and scalable modern workflow template for React/Redux development.',
-            description : ['A modular, clean and scalable modern workflow template for React/Redux development ' + 
-                'which features Live Reloading, JSS, instantaneous and flexible production-level deployment and a few other neat things. ' + 
+            shortDescription : 'A modular, clean and scalable modern workflow template to get a jumpstart to your own React/Redux application.',
+            description : ['A modular, clean and scalable modern workflow template for React/Redux applications ' + 
+                'which features live reloading, JSS, cache-busting, instantaneous and flexible production-level deployment and a few other neat ' + 
+                'things or what you would otherwise expect in your web build systems. ' + 
                 'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
                 'or other technologies which keep your team at the mercy of dependency hell as it just relies on Gulp and Babel. ',
                 'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
-                'installation parts up to date for React/redux apps. I have deployed well over 10 front-end projects since 2017 with it and it ' + 
-                'is now being used to launch several very high profile projects such as an engineering app to support most of the Fortune 500 company-' +
-                'housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US (http://www.stuyspec.com).'],
+                'installation parts up to date for React/Redux apps. I also tend to have used Gulp a lot for other deployment processes ' + 
+                '(such as minimal packaging for quick AWS serverless deployment, processing files, etc. so it has definitely been simpler ' +
+                'for my own purposes not to use a YAT (yet another thing) for my teams that we would need to maintain/learn so far.',
+                
+                'I have deployed well over 10 front-end projects since late 2016 with it. It was used to create a decent starting point for ' + 
+                'several very high profile projects that I am aware of, such as an engineering app to support most of the Fortune 500 ' + 
+                'company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in ' + 
+                'the US (http://www.stuyspec.com).'
+            ],
             linkDescriptions : [ 'NPM Repo' ],
             sourceCodeDescriptions : [ 'Github' ] 
         },
@@ -82,7 +89,7 @@ export default
 
                 'A second iteration of the application was created to meet the demands of hightened security for new clients ' + 
                 'such as the New York Stock Exchange and Chase Bank; so I shifted my focus to the front-end and became proficient in ' +
-                'React and Flux. By the time I left PMC in 2017, we had expanded to 5 developers, of which one I was mentoring, and a small QA team ' +
+                'React and Flux. By the time I left PMC in 2017, we had expanded to 6 developers, of which one I was mentoring, and a small QA team ' +
                 'and this application is still being used today.'
                 ],
                 linkDescriptions : [ 'Marketing Website', 'Client Login to the CMS' ],
