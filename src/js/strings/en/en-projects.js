@@ -1,13 +1,6 @@
-/**
- * TODO  use MongoDB instead of shoving crap in here
- * TODO  (works for the small amount of content for now 
- * TODO   though)
- *
- * TODO : SHORT DESCRIPTIONS -> for the projects overview
- */
+import React from 'react'
 
-export default
-{
+export default {
     moreInfo : 'More Info',
     projectData :
     [
@@ -18,20 +11,23 @@ export default
             roles   : 'Maintainer, Designer and Developer',
             shortDescription : 'A simple retro-Gameboy ROM development workflow tool built using NodeJS',
             description : [
-                'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
-                'ROMs and live-reloads an emulator of your choice. ',
-                'This project started from a bet between a co-worker among several of us that nobody could not create a Gameboy ' + 
-                'ROM within a few days outside of work.It seemed like a great opportunity to get back in touch with certain aspects ' + 
-                'of computer science that I don\'t normally work with so I jumped in. Along the way we, ' + 
-                'crowdsourced a lot of information which was pretty tough to find with building Gameboy ROMs along with very ' + 
-                'specific hardware info in a slack channel. ',
-                'A talented friend and coworker of mine, Greg Miller(http://www.gmiller.net), ended up winning that bet, and I ' + 
-                'ended up so fascinated by the technology/process, and noticing how painful it was for him to build that, I created this tool. ' + 
-                'Using his colorful feedback as he built a larger scale game, I improved upon it over a few weekends and it became a little ' + 
-                'bit of a side hobby between us. This sort of code-ified what we had learned/painfully figured out about build ' + 
-                'processes so that we did not have to mess with very ancient build configurations anymore and could simply mess around ' + 
-                'with retro development (in the rare case where we\'d have time, at least). It also let me experiment with some ideas ' + 
-                'in NodeJS that sort of synergistically worked with and became extremely useful for my primary work.'
+                
+                'This project started from a bet between a co-worker among several of us that nobody was capable of creating a Gameboy ' + 
+                'ROM within a few days outside of work. It seemed like a great opportunity to get back in touch with certain aspects ' + 
+                'of computer science that I don\'t normally work with, so I jumped in! ',
+                
+                (<span>Along the way, we crowdsourced a lot of information which was pretty tough to find along with very specific hardware 
+                info. A talented friend and coworker of mine, <a href={'http://www.gmiller.net'} target="_new">Greg Miller</a>, ended up winning
+                that bet. I was preoccupied with re-learning C at the time to worry about building games, and ended up so 
+                fascinated by the technology/process (and noticing how painful it was for him), that I created this tool. Using his colorful 
+                feedback as he built a large scale game, I improved upon this build system over a few weekends and it became a little bit 
+                of a side hobby between us. </span>),
+
+                'This sort of code-ified and automated what we had learned/painfully figured out so that we did not have to mess ' + 
+                'with very ancient build configurations anymore and could simply mess around with retro development and instantly spin up ' +
+                'prototype projects. It was also just a fun and practical way to dive deep into low level C and let me ' + 
+                'experiment with some ideas in NodeJS in regards to process management and libraries that synergistically ' + 
+                'became extremely useful for my primary work at the time.'
             ],
             linkDescriptions : [ 'NPM Repo', 'Wreck it Ralph Remake Project (@Greg\'s Site)' ],
             mediaCaptions: [
@@ -46,22 +42,28 @@ export default
             context : 'Independent',
             roles   : 'Maintainer, Designer and Developer',
             shortDescription : 'Simple workflow template to get a jumpstart on React/Redux applications.',
-            description : ['A simple workflow template for React/Redux applications ' + 
-                'which features live reloading, JSS, cache-busting, instantaneous and flexible production-level deployment and a few other neat ' + 
-                'things or what you would otherwise expect in your web build systems. ' + 
+            description : [
+                'A simple workflow template for React/Redux applications ' + 
+                'which features live reloading, JSS, cache-busting, optimization/compression, instantaneous ' + 
+                'and flexible production-level deployment and a few other neat things or what you would otherwise ' + 
+                'expect in your web build systems. ' + 
                 'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
-                'or other technologies which keep your team at the mercy of dependency hell as it just relies on Gulp and Babel. ',
-                'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
-                'installation parts up to date for React/Redux apps. I also tend to have used Gulp a lot for other deployment processes ' + 
-                '(such as minimal packaging for quick AWS serverless deployment, processing files, etc.) so it has been ' + 
-                'convenient on small teams when we didn\'t quite have the resources to spin up a full deployment system from ' +
-                'scratch (Create React App and other alternatives I\'ve found have not provided too much in terms of production ' + 
+                'or other technologies when you have little time -- it just relies on Gulp and Babel and the ' + 
+                'code is all very transparent and simple to read/modify (caveat: I have recently massively refactored the build ' + 
+                'code on recent projects such as this portfolio and this is not quite yet in the repo 😅). ',
+
+                'I developed this as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
+                'installation parts up to date for React/Redux apps. I also tend to have used Gulp a lot for other ' + 
+                'deployment processes (such as minimal packaging for quick AWS serverless deployment, processing files, etc.), ' + 
+                'so it has been convenient on small teams when we didn\'t quite have the resources to spin up a full deployment ' + 
+                'system from scratch (CRA and other alternatives I\'ve found have not provided too much in terms of production ' + 
                 'ready tools).',
                 
-                'I have deployed 8 front-end projects since late 2016 with it. It was used to create a decent starting point for ' + 
-                'several very high profile projects that I am aware of, such as an engineering app to ' + 
-                'support most of the Fortune 500 company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in ' + 
-                'the US (http://www.stuyspec.com).'
+                (<span>I have deployed 8 front-end projects since late 2016 with it. It was used to create a decent starting point for 
+                several very high profile projects that I am aware of, such as <a href={'/projects/smartwalk'}>an engineering app</a> to support most of the Fortune 500 
+                company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US 
+                (<a href={'http://www.stuyspec.com'} target='_new'>http://www.stuyspec.com</a>). It was also used to spin up much less 
+                high profile/ground-shaking projects -- such as this portfolio!</span>)
             ],
             linkDescriptions : [ 'NPM Repo' ],
             sourceCodeDescriptions : [ 'Github' ] 
@@ -83,45 +85,51 @@ export default
                 'Empire State Building, JFK Airport and the new World Trade Center, a high emphasis was placed on ' +
                 'security and reliability.',
 
-                'When first working on this project in 2014, the company only had two software developers (myself included), ' + 
-                'no backend, and throughout there were no UI designers. I had taken it upon myself to begin work on a ' +
-                'database (which I modeled with concepts from a grad course found in the universal health care centralized database), ' +
-                'and researched to create a Node server as well as took the initiative to create a highly interactive ' +
-                'CMS for arranging building layouts which communicated with an Android backend. This first application, ' +
-                'built with NodeJS on the front end and YUI3 on the backend is somehow still running and ' +
-                'servicable today.', 
+                'When first working on this project in 2014, the company was fully bootstrapped and had two software ' + 
+                'developers (myself included) and a third person who was familiar with the business who also doubled as dev-ops. ' + 
+                'We took it upon ourselves to set an agreed upon standard for UI, development process, scrum, etc. ', 
+                'My primary responsibility was initially to create the database (which I modeled many concepts from a grad ' + 
+                'course found in the universal health care centralized database), and researched technologies and independently ' + 
+                'created a Node server as well as a highly interactive CMS for arranging building layouts which communicated with an ' +
+                'Android app. This first application was built with NodeJS on the backend and YUI3 on the frontend and ' +
+                ' somehow still running and servicable today in JFK airport (uses intranet and has a different license agreement).', 
 
                 'A second iteration of the application was created to meet the demands of hightened security for new clients ' + 
-                'such as the New York Stock Exchange and Chase Bank; so I shifted my focus to the front-end and became proficient in ' +
-                'React and Flux. By the time I left PMC in 2017, we had expanded to 6 developers, of which one I was mentoring, and a small QA team ' +
-                'and this application is still being used today.'
-                ],
-                linkDescriptions : [ 'Marketing Website', 'Client Login to the CMS' ],
-                mediaCaptions: [
-                    'Intuitive media management and photo uploading for items',
-                    'Graphing out for multiple points of data in a scalable system',
-                    'Convenient User Account System with security features',
-                    'Internal document management within CMS for convenience and security',
-                    'Intuitive and interactive widgets for each part of the process'
-                ],
-            },
+                'such as the New York Stock Exchange and Chase Bank as well as cloud based centralization of the API. I shifted my focus ' + 
+                'to the front-end and became proficient in React and Flux to meed the needs of the new app. ' + 
+                'By the time I left PMC in 2017, we had expanded to 6 developers, of which one I was mentoring, a project ' +
+                'manager above us, and a small QA team. This application is still being used and expanded upon today.',
+
+                (<i>Sidenote: In some screens on the top right, there are a ton of UI Icons instead of an intuitive menu.  
+                This was extremely temporary as we were working on a major new client deal and as a UI/UX designer can concede 
+                definitely hideous (PMC was nice enough to let me post this and it would be unethical to include something I was 
+                not involved in afterwards).</i>)
+            ],
+            linkDescriptions : [ 
+                'Marketing Website', 'Client Login to the CMS' 
+            ],
+            mediaCaptions: [
+                'Intuitive media management and photo uploading for items',
+                'Graphing out for multiple points of data in a scalable system',
+                'Convenient User Account System with security features',
+                'Internal document management within CMS for convenience and security',
+                'Intuitive and interactive widgets for each part of the process'
+            ]},
             {
                 id      : 'npm_repos',
                 title   : 'NPM Dev Tools',
                 context : 'NPM',
-                roles : 'Development and Design',
-                shortDescription : 'Wide array of open-source development ' +
-                    'tools',
+                roles   : 'Development and Design',
+                shortDescription : 'Wide array of open-source development tools',
                 description      : [
                     'Along the way of developing software professionally, ' + 
                     'there are several times where it has been advantageous to open-source some small ' +
                     'tools along the way which I also use for personal projects. The NPM repos are just a ' +
                     'quick collection of some packages which are downloaded up to hundreds of times daily ' +
-                    'by other developers.',
-                    'Many of these were created when I had first started developing in NodeJS but there are ' +
-                    'some specific projects which probably deserve their own section such as a React-Redux application ' +
-                    'generator which contains all of the benefits of gulp and creates fully production-ready versions ' +
-                    'of applications in seconds (this portfolio is an example).'
+                    'by other developers. They range in quality and completeness but in these cases it was better to ' + 
+                    'open source or provide via a public resource than to house things internally. In most cases, it was simply ' + 
+                    'because I was exploring an idea on my own time that ended up useful at work (or maybe didn\'t except to someone ' + 
+                    'on the internet 🙂'
                 ],
                 platforms        : [ 'web' ],
                 linkDescriptions : [ 'Visit the NPM repos' ]

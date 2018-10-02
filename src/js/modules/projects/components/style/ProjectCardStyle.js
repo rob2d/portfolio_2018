@@ -131,7 +131,7 @@ const styleSheet = {
         width        : '100%',
         minWidth     : ({viewAsTitle})=>(!viewAsTitle?'300px':'400px'),
           '@media (max-width: 400px)': {  // adding support for smaller
-           fontSize : '20pt'              // devices such as iPhone5
+           fontSize : ({ viewAsTitle })=>(!viewAsTitle? '16pt' : '20pt !important')              // devices such as iPhone5
         },
         paddingLeft  : '16px',
         fontFamily   : 'roboto_bold',

@@ -174,14 +174,14 @@ function About ({ classes }) {
                 </p> 
                 <p className={classes.pText}> 
                     {strings.thisSiteWas}
-                    <Tech url={'https://reactjs.com'}>React</Tech>{comma}&nbsp;
-                    <Tech url={'https://redux.js.org'}>Redux</Tech>{comma}&nbsp;
-                    <Tech url={'https://threejs.org'}>THREE.js</Tech>{comma}&nbsp; 
-                    <Tech url={'https://nodejs.org'}>Node</Tech>{comma}&nbsp; 
-                    <Tech url={'https://gulpjs.com'}>Gulp</Tech>{comma}&nbsp;
+                    <Tech url={'https://reactjs.com'}>React</Tech>,&nbsp;
+                    <Tech url={'https://redux.js.org'}>Redux</Tech>,&nbsp;
+                    <Tech url={'https://threejs.org'}>THREE.js</Tech>,&nbsp; 
+                    <Tech url={'https://nodejs.org'}>Node</Tech>,&nbsp; 
+                    <Tech url={'https://gulpjs.com'}>Gulp</Tech>,&nbsp;
                     {strings.andDeployedUsing}
-                    <Tech url={'http://nginx.org'}>NginX</Tech>{strings.fromScatch}
-                    {period}
+                    <Tech url={'http://nginx.org'}>NginX</Tech> and&nbsp; 
+                    <Tech url={'http://pm2.keymetrics.io/'}>PM2</Tech>.
                 </p>
                 <ul className={classes.sectionList}>
                     <SectionLink 
