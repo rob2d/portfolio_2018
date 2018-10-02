@@ -51,7 +51,11 @@ const styleSheet = theme => {
         downloadButtonContainer : {
             position : 'fixed',
             bottom   : '48px',
-            right    : '48px'
+            right    : '48px',
+            '@media (max-width: 800px)': {
+                bottom   : '24px !important',
+                right    : '24px !important',
+            }
         },
         downloadButton : {
             backgroundColor : theme.palette.secondary['400'],
@@ -162,7 +166,7 @@ class PDFViewer extends Component {
                     href={fileURL}
                     download={'RobertConcepcionResume'}
                     className={classes.downloadButtonContainer}>
-                    {shouldShowHoverContent && 
+                    {shouldShowHoverContent ? 
                     (
                         <Tooltip
                             id={`resume-pdf-download-tooltip`}
@@ -177,6 +181,12 @@ class PDFViewer extends Component {
                             ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
                             </Button>
                         </Tooltip>
+                    ) : (<Button
+                            variant="fab"
+                            data-tip data-for={`resume-pdf-download-tooltip`}
+                            className={classes.downloadButton}
+                        ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
+                    </Button>
                     )}
                 </a>
                 <PDFViewerNav

@@ -45,7 +45,11 @@ const styleSheet = {
         height    : 'auto',
         minHeight : '190px',
         margin    : '0 auto',
-        display   : 'block'
+        display   : 'block',
+        filter    : ({ theme }) => (((theme == Themes.LIGHT)) ? 
+            'invert(0%)' : 'invert(100%)'
+        ),
+        transition : 'filter 0.32s'
     },
     rambling : {
         padding   : '8px 0px',
