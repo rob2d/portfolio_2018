@@ -129,7 +129,7 @@ export default {
                     'by other developers. They range in quality and completeness but in these cases it was better to ' + 
                     'open source or provide via a public resource than to house things internally. In most cases, it was simply ' + 
                     'because I was exploring an idea on my own time that ended up useful at work (or maybe didn\'t except to someone ' + 
-                    'on the internet 🙂'
+                    'on the internet 🙂)'
                 ],
                 platforms        : [ 'web' ],
                 linkDescriptions : [ 'Visit the NPM repos' ]
