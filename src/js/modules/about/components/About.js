@@ -210,7 +210,7 @@ function About ({ classes }) {
 };
 
 let VisibleAbout = pure(withStyles(styleSheet)(connect(
-    (state,ownProps)=> ({ language : state.core.language }),
+    (state,ownProps)=> ({ theme : state.core.theme }),
     null
 )(About)));
 export default VisibleAbout;

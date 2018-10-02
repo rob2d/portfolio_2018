@@ -179,9 +179,12 @@ class SkillsOrbit extends Component {
         this.instantiateScene();
         this.lastAnimated = performance.now();
         window.addEventListener('mousemove', this.onMouseMove);
+        window.addEventListener('touchmove', this.onTouchMove);
     }
 
     componentWillUnmount () {
+        window.removeEventListener('mousemove', this.onMouseMove);
+        window.removeEventListener('touchmove', this.onTouchMove);
         this.freeResources();
         if(DEBUG_3D) {
             this.R.debugText = undefined;
@@ -192,7 +195,7 @@ class SkillsOrbit extends Component {
         const { clientX, clientY } = e;
         const timeDelta = performance.now() - this.tilt.timeProcessed; 
 
-        if(timeDelta > 32 && this.R.canvas) {
+        if(timeDelta > 64 && this.R.canvas) {
             this.tilt.timeProcessed = performance.now();
             let { canvas } = this.R;
             let rect    = canvas.getBoundingClientRect(),
@@ -208,6 +211,14 @@ class SkillsOrbit extends Component {
             this.tilt.y = (mouseRelX-0.5)*2;
             this.tilt.x = (mouseRelY-0.5)*2;
         }
+    };
+
+    onTouchMove = (e) => {
+        // touch events always fire before mouse events,
+        // so this is perfect for simply disabling our
+        // touch events as we only run them within the
+        // time threshhold for launching events
+        this.timeProcessed = performance.now();
     };
 
 

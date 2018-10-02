@@ -117,7 +117,7 @@ class PDFViewer extends PureComponent {
         }
     };
     render () {
-        const { classes, fileURL } = this.props;
+        const { classes, fileURL, theme } = this.props;
         const { 
             pageNumber, 
             pageCount, 
@@ -132,6 +132,7 @@ class PDFViewer extends PureComponent {
                         onPageComplete={this.onPageComplete}
                         page={pageNumber}
                         className={classes.pdfContent}
+                        theme={theme}
                     />
                 </div>
                 <a

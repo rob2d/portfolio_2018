@@ -1,22 +1,19 @@
-import React, { 
-    Fragment, 
-    PureComponent 
-} from 'react'
-import { connect }        from 'react-redux'
-import injectSheet        from 'react-jss'
-import { setTheme }       from 'modules/core/actions'
-import Themes             from 'constants/Themes'
-import Tooltip            from '@material-ui/core/Tooltip'
-import Button             from '@material-ui/core/Button'
+import React, { PureComponent } from 'react'
+import { connect }  from 'react-redux'
+import injectSheet  from 'react-jss'
+import { setTheme } from 'modules/core/actions'
+import Themes       from 'constants/Themes'
+import Tooltip      from '@material-ui/core/Tooltip'
+import Button       from '@material-ui/core/Button'
 
-let themes = {
+let themeTargets = {
     [Themes.LIGHT] : {
-        name      : 'Light',
-        iconClass : 'mdi mdi-weather-sunny'
-    }, 
-    [Themes.DARK] : {
         name      : 'Dark',
         iconClass : 'mdi mdi-weather-night'
+    }, 
+    [Themes.DARK] : {
+        name      : 'Light',
+        iconClass : 'mdi mdi-weather-sunny'
     }
 };
 
@@ -56,7 +53,7 @@ class ThemeButton extends PureComponent {
                 setTheme((theme == Themes.LIGHT) ?  Themes.DARK : Themes.LIGHT);
                 this._isToggling = false;
     
-            },0);
+            },300);
         }
     };
 
@@ -66,13 +63,13 @@ class ThemeButton extends PureComponent {
         return (
             <Tooltip
                 enterDelay={400}
-                title={ <span>Switch to the <b>{theme == Themes.LIGHT ? 'Dark' : 'Light'}</b> theme</span> }
+                title={ <span>Switch to the <b>{themeTargets[theme].name}</b> theme</span> }
                 classes={{ tooltip : classes.tooltip }}
             >
                 <Button 
                     onClick={ this.onClick }
                     className={ classes.languageContainer } 
-                >   <i className={`${themes[theme].iconClass} ${classes.icon}`} />
+                >   <i className={`${themeTargets[theme].iconClass} ${classes.icon}`} />
                 </Button>
             </Tooltip>
         );

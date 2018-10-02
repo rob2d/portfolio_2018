@@ -19,13 +19,13 @@ const styleSheet = (theme) => ({
 });
 const CV = ({ classes, theme })=> (
     <div className={classes.container}>
-        <PDFViewer fileURL={ RESUME_URL } theme={ theme }/>
+        <PDFViewer fileURL={ RESUME_URL } theme={ theme } />
     </div>
 );
 
 let VisibleCV = pure(withStyles(styleSheet)(connect(
     (state, ownProps)=> ({
-        theme : state.core.theme,
+        theme         : state.core.theme,
         viewportWidth : state.core.viewportWidth,
         viewportHeight: state.core.viewportHeight
     }),
