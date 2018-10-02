@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
 import ButtonLink from 'tools/components/ButtonLink'
+import Themes from 'constants/Themes'
 import { misc as strings } from 'strings'
 
 const styleSheet = {
@@ -50,7 +51,11 @@ const styleSheet = {
         padding   : '8px 0px',
         width     : '292px',
         textAlign : 'left',
-        margin    : '0 auto'
+        margin    : '0 auto',
+        color     : ({ theme }) => ((theme == Themes.LIGHT) ? 
+                        '#000000' : '#FFFFFF'
+        ),
+        transition : 'all 0.32s'
     },
     itemTitle : {
         display      : 'flex !important',
@@ -76,9 +81,12 @@ const styleSheet = {
         display        : 'flex',
         maxWidth       : '32px',
         marginRight    : '16px',
-        color          : '#000000',
+        color          : ({ theme }) => ((theme == Themes.LIGHT) ? 
+            '#000000' : '#FFFFFF'
+        ),
         alignItems     : 'center',
-        justifyContent : 'center'
+        justifyContent : 'center',
+        transition : 'all 0.32s'
     },
 
     '@media (max-width: 700px) and (min-width : 341px) and (orientation:portrait)': {
@@ -128,7 +136,7 @@ const styleSheet = {
     }
 };
 
-function Miscellaneous ({ classes }) {
+function Miscellaneous ({ classes, theme }) {
     return (
         <div className={classes.mainContainer}>
             <div className={classes.bodyContent}>
@@ -219,7 +227,7 @@ function Miscellaneous ({ classes }) {
                         width="292" 
                         height="100" 
                         scrolling="no" 
-                        frameborder="no" 
+                        frameBorder="no" 
                         allow="autoplay" 
                         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/41838495&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
                     </iframe><br />
@@ -247,9 +255,8 @@ function Miscellaneous ({ classes }) {
     );
 };
 
-let VisibleMisc = pure(injectSheet(styleSheet)(connect(
-    (state,ownProps)=> ({ language : state.core.language }),
-    null
-)(Miscellaneous)));
+let VisibleMisc = pure(connect(
+    (state,ownProps)=> ({ theme : state.core.theme })
+)(injectSheet(styleSheet)(Miscellaneous)));
 
 export default VisibleMisc

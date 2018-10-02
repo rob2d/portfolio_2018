@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { pure } from 'recompose'
 import injectSheet from 'react-jss'
 import MediaTypes from 'constants/MediaTypes'
 import ReelThumbs from './ReelThumbs'
@@ -91,9 +92,11 @@ const styleSheet = {
     '@media (max-width:400px)' : {
         statusBoxIcon : {
             fontSize : '6pt !important'
-        },
+        }
+    },
+    '@media (max-width:700px)' : {
         mediaCaption : {
-            fontSize : '11pt'
+            fontSize :'8pt !important'
         }
     },
     mediaButton :  {
@@ -102,8 +105,8 @@ const styleSheet = {
     },
     fullScreenButton : {
         position : 'absolute',
-        right : '16px',
-        bottom : '16px'
+        right    : '16px',
+        bottom   : '16px'
     }
 };
 
@@ -241,4 +244,11 @@ class MediaReel extends PureComponent {
     }
 }
 
-export default injectSheet(styleSheet)(MediaReel)
+export default injectSheet(styleSheet)(connect(
+    (state, ownProps)=> ({ 
+        theme          : state.core.theme,
+        viewportWidth  : state.core.viewportWidth,
+        viewportHeight : state.core.viewportHeight
+    }),
+    null
+)(MediaReel))

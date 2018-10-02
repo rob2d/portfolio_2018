@@ -9,71 +9,71 @@ import PDFViewerNav from './PDFViewerNav'
 import { withStyles } from '@material-ui/core/styles'
 
 const styleSheet = theme => { 
-    console.log('theme ->', theme);
     return ({
-    container : {
-        position       : 'relative',
-        display        : 'flex',
-        flexDirection  : 'column',
-        width          : '100%',
-        height         : 'auto',
-        minHeight      : '60px',
-        alignItems     : 'center',
-        justifyContent : 'center',
-        paddingTop     : '16px',
-        paddingBottom  : '16px'
-    },
-    pdfContent : {
-        display  : 'inline-block',
-        padding  : 0,
-        margin   : 0,
-        // resize pdf height according to 8.5x11
-        '@media (max-width: 900px)': {
-            maxWidth : '100%',
-            height : 'auto !important'
+        container : {
+            position       : 'relative',
+            display        : 'flex',
+            flexDirection  : 'column',
+            width          : '100%',
+            height         : 'auto',
+            minHeight      : '60px',
+            alignItems     : 'center',
+            justifyContent : 'center',
+            paddingTop     : '32px',
+            paddingBottom  : '16px'
         },
-        '@media (min-width: 900px)': {
-            width    : '100%',
-            maxWidth : '800px',
-            height   : 'auto !important'
-        }
-    },
-    downloadP : {
-        paddingLeft: '12px',
-        paddingBottom: '12px',
-        paddingTop: '12px'
-    },
-    downloadIcon : {
-        fontSize : '28pt',
-        color : '#FFFFFF'
-    },
-    downloadButtonContainer : {
-        position : 'fixed',
-        bottom   : '48px',
-        right    : '48px'
-    },
-    downloadButton : {
-        backgroundColor : theme.palette.accent['400'],
-        '&:hover' : {
-            backgroundColor : theme.palette.accent['300']
+        pdfContent : {
+            display  : 'inline-block',
+            padding  : 0,
+            margin   : 0,
+            // resize pdf height according to 8.5x11
+            '@media (max-width: 900px)': {
+                maxWidth : '100%',
+                height : 'auto !important'
+            },
+            '@media (min-width: 900px)': {
+                width    : '100%',
+                maxWidth : '800px',
+                height   : 'auto !important'
+            }
         },
-        '&:active' : {
-            backgroundColor : theme.palette.accent['400']
+        downloadP : {
+            paddingLeft: '12px',
+            paddingBottom: '12px',
+            paddingTop: '12px'
+        },
+        downloadIcon : {
+            fontSize : '28pt',
+            color : theme.rc3.secondaryContrastText
+        },
+        downloadButtonContainer : {
+            position : 'fixed',
+            bottom   : '48px',
+            right    : '48px'
+        },
+        downloadButton : {
+            backgroundColor : theme.palette.secondary['400'],
+            '&:hover' : {
+                backgroundColor : theme.palette.secondary['300']
+            },
+            '&:active' : {
+                backgroundColor : theme.palette.secondary['400']
+            }
+        },
+        // TODO : use constant to make
+        //        tooltip style DRY
+        tooltip : {
+            fontSize : '11pt !important',
+            padding  : '4px 8px !important',
+            minHeight: '20px !important',
+            lineHeight: '20px !important'
+        },
+        loadingContent : {
+            display : 'none'
         }
-    },
-    // TODO : use constant to make
-    //        tooltip style DRY
-    tooltip : {
-        fontSize : '11pt !important',
-        padding  : '4px 8px !important',
-        minHeight: '20px !important',
-        lineHeight: '20px !important'
-    },
-    loadingContent : {
-        display : 'none'
-    }
 
-})};
+    }
+)};
 
 class PDFViewer extends PureComponent {
     constructor(props) {

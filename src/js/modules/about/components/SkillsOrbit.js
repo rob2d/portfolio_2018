@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import * as THREE from 'three'
-import { textAlign, SpriteText2D } from 'three-text2d'
-import injectSheet from 'react-jss'
-import { connect } from 'react-redux'
+import { 
+    textAlign, 
+    SpriteText2D 
+} from 'three-text2d'
+import injectSheet         from 'react-jss'
+import { connect }         from 'react-redux'
 import { about as strings} from 'strings'
+import Themes              from 'constants/Themes'
+import DEBUG_3D            from 'constants/env/DEBUG_3D'
 
 const { triangulateShape } = THREE.ShapeUtils;
-
-// TODOs
 
 // (1) destroy instance and free up some
 // RAM when component unmounts
@@ -47,6 +50,13 @@ let skillPoints = [
     { namespace : 'graphics',     value : 0.60 }
 ];
 
+/**
+ * cache distance->opacity mappings
+ * as they are calculated as this
+ * greatly speeds things up here
+ */
+let distanceOpacityMap = new Map();
+
 const sources = {
     outerSphere : {
         type     : 'sphere',
@@ -57,9 +67,9 @@ const sources = {
             side        : THREE.DoubleSide,
             opacity     : 0.4,
             transparent : true,
-            depthWrite  : false,
-            antialias   : true
-        })
+            depthWrite  : false
+        }),
+        cursor : 'pointer'
     },
 
     innerSphere : {
@@ -71,26 +81,24 @@ const sources = {
             side        : THREE.DoubleSide,
             opacity     : 0.2,
             transparent : true,
-            antialias   : true
         })
     },
 
     skillText : {
         type : 'text2d',
         unmapped : true,
-        generateParams : ({ value }) => ({
+        generateParams : ({ value, theme }) => ({
             align     : textAlign.center, 
             font      : `${6+Math.round(34*value)}px roboto_bold`, 
-            fillStyle : '#333333',
+            fillStyle : (theme == Themes.LIGHT) ? '#333333' : '#FFFFFF',
             side      : THREE.DoubleSide,
-            depthTest : false,
-            antialias : true
+            depthTest : false
         })
     },
     skillPoint : {
         type : 'sphere',
         unmapped : true,
-        generateParams : ({ value }) => ({
+        generateParams : ({ value, theme }) => ({
             geometry   : new THREE.SphereGeometry( 
                 getSkillSphereDiameter(value), 
                 6+Math.round(1.7*value), 
@@ -101,9 +109,8 @@ const sources = {
                 wireframe    : true,
                 side         : THREE.DoubleSide,
                 transparent  : true,
-                opacity      : 0.1,
-                depthWrite   : false,
-                antialias    : true
+                opacity      : theme == Themes.LIGHT ? 0.1 : 0.2,
+                depthWrite   : false
             })
         })
     }
@@ -118,6 +125,11 @@ const styleSheet = {
         alignItems     : 'center',
         flexAlign      : 'center',
         pointerEvents  : 'none'
+    },
+    meta3d : {
+        maxWidth  : '200px',
+        maxheight : '200px',
+        overflow  : 'auto'
     }
 };
 
@@ -139,39 +151,49 @@ class SkillsOrbit extends Component {
          * be via gyroscope
          * 
          */
-        this.axis = {
-            x : 0,
-            y : 0,
+        this.tilt = {
+            x : 0.08, 
+            y : 0.12,
             timeProcessed : performance.now()
         };
 
-        this.rotationOffset = {
+        this.rotationSpeed = {
             x : 0,
             y : 0,
             z : 0
-        }
+        };
+
+        this.targetRotation = {
+            x : Math.PI/60,
+            y : Math.PI/60,
+            z : 0
+        };
 
         this.R = { 
-            canvas : undefined
+            canvas : undefined,
+            debugText  : undefined
         };
     }
 
-    componentDidMount() {
+    componentDidMount () {
         this.instantiateScene();
         this.lastAnimated = performance.now();
         window.addEventListener('mousemove', this.onMouseMove);
     }
 
-    componentWillUnmount() {
+    componentWillUnmount () {
         this.freeResources();
+        if(DEBUG_3D) {
+            this.R.debugText = undefined;
+        }
     }
 
     onMouseMove = (e) => {
         const { clientX, clientY } = e;
-        const timeDelta = performance.now() - this.axis.timeProcessed; 
+        const timeDelta = performance.now() - this.tilt.timeProcessed; 
 
         if(timeDelta > 32 && this.R.canvas) {
-            this.axis.timeProcessed = performance.now();
+            this.tilt.timeProcessed = performance.now();
             let { canvas } = this.R;
             let rect    = canvas.getBoundingClientRect(),
                 centerX = rect.left + (rect.width/2),
@@ -183,8 +205,8 @@ class SkillsOrbit extends Component {
             let mouseRelX = clientX / window.innerWidth,
                 mouseRelY = clientY / window.innerHeight;
 
-            this.axis.x = relX - mouseRelX;
-            this.axis.y = relY - mouseRelY;
+            this.tilt.y = (mouseRelX-0.5)*2;
+            this.tilt.x = (mouseRelY-0.5)*2;
         }
     };
 
@@ -193,11 +215,11 @@ class SkillsOrbit extends Component {
         // if language has changed, we should also change the 
         // content of the sphere text
 
-        if(prevProps.language != this.props.language) {
+        if(prevProps.theme != this.props.theme) {
             this.instantiateScene();
         } else {
 
-                // upon resize of window, recalculate the width of the renderer    
+            // upon resize of window, recalculate the width of the renderer    
 
             let maxDimension = Math.max(
                     this.props.viewportWidth,
@@ -285,12 +307,18 @@ class SkillsOrbit extends Component {
         }
     };
     
-    // TODO : remove previous instance
     createOrbit = ()=> {
+        const { theme } = this.props;
         let skillStrings = strings.skills;
 
         // base object which will rotate
         this.O.rotationOrigin = new THREE.Object3D();
+
+        // needed for new API; must provide target vector,
+        // or we get warnings. Luckily, we can just create 
+        // one re-useable vector to satisfy the beast's needs
+
+        this.wpTargetVector = new THREE.Vector3();
 
         // sphere creation/assignment 
 
@@ -310,13 +338,20 @@ class SkillsOrbit extends Component {
 
         this.O.textSprites = [];
         this.O.skillPoints = [];
+        this.skillAngles   = []; // much more efficient to
+                                 // track angle differences
+                                 // vs polar coordinates 
+                                 // for transparency effect with
+                                 // distance
         
         skillPoints.forEach( ({ namespace, value }, i, arr) => {
 
             let projectionAngle = (i/arr.length) * 1.0 * Math.PI*2;
+            this.skillAngles.push(projectionAngle);
 
             let textSprite = new SpriteText2D(
-                skillStrings[namespace], sources.skillText.generateParams({ value })
+                skillStrings[namespace], 
+                sources.skillText.generateParams({ value, theme })
             );
 
             this.O.textSprites.push(textSprite);
@@ -331,7 +366,7 @@ class SkillsOrbit extends Component {
             });
 
             let skillPointObj = createMesh(
-                sources.skillPoint.generateParams({ value })
+                sources.skillPoint.generateParams({ value, theme })
             );
 
             skillPointObj.position.set(x, y, z);
@@ -342,8 +377,8 @@ class SkillsOrbit extends Component {
             // offset text by 2.5% rotation so that
             // it stays in view
 
-            let textVertex = [ textX, textY, textZ ] = createSkillVertex({
-                radianAngle : projectionAngle-(Math.PI*2*0.025),
+            let [ textX, textY, textZ ] = createSkillVertex({
+                radianAngle : projectionAngle - (Math.PI*2*0.025),
                 value
             });
 
@@ -362,28 +397,98 @@ class SkillsOrbit extends Component {
         this.lastAnimated = timestamp;
 
         if(this.O.rotationOrigin) {
-            this.rotationOffset.x += timeDelta * 0.0001625;
-            this.rotationOffset.y += timeDelta * 0.000070625;
 
-            // allow the user to rotate view frustrum for
-            // 1/8 of a possible full rotation
+            if(this.rotationSpeed.x < this.tilt.x) {
+                this.rotationSpeed.x += 0.0075;
+            }
 
-            let axisXLean = -(this.axis.x) * Math.PI * 0.25;
-            let axisYLean = -(this.axis.y) * Math.PI * 0.25;
-            this.O.rotationOrigin.rotation.x = axisYLean + this.rotationOffset.x;
-            this.O.rotationOrigin.rotation.y = axisXLean + this.rotationOffset.y;    
+            if(this.rotationSpeed.x > this.tilt.x) {
+                this.rotationSpeed.x -= 0.0075;
+            }
+
+            if(this.rotationSpeed.y < this.tilt.y) {
+                this.rotationSpeed.y += 0.0075;
+            }
+
+            
+            if(this.rotationSpeed.y > this.tilt.y) {
+                this.rotationSpeed.y -= 0.0075;
+            }
+
+            this.O.rotationOrigin.rotation.x += this.rotationSpeed.x / 60;
+
+            while(this.O.rotationOrigin.rotation.x < 0) {
+                this.O.rotationOrigin.rotation.x += Math.PI * 2;
+            }
+
+            this.O.rotationOrigin.rotation.x %= Math.PI * 2;
+
+            this.O.rotationOrigin.rotation.y += this.rotationSpeed.y / 60;
+            
+            while(this.O.rotationOrigin.rotation.y < 0) {
+                this.O.rotationOrigin.rotation.y += Math.PI * 2;
+            }
+
+            this.O.rotationOrigin.rotation.y %= Math.PI * 2;     
+
         }
 
-        requestAnimationFrame( this.animate );
+        // only process sprite alpha updates once per 100 ms max as
+        // this is pretty intense on CPU
+
+        if(!this.lastSpriteUpdate || (performance.now() - this.lastSpriteUpdate > 200)) {
+            this.lastSpriteUpdate = performance.now();
+
+            let cameraPosition = this.camera.position;
+            
+            this.O.textSprites.forEach( sprite => {
+                let distance = Math.round(cameraPosition.distanceTo(
+                    sprite.getWorldPosition(this.wpTargetVector)
+                ));
+
+                let opacity;
+
+                if(distanceOpacityMap.has(distance)) {
+                    opacity = distanceOpacityMap.get(distance);
+                } else {
+                    opacity = Math.min(0.85, Math.max(0.15, (700-distance)/200));
+                    distanceOpacityMap.set(distance, opacity);
+                }
+    
+                // darker theme requires less transparency
+                
+                sprite.material.opacity = opacity;
+            });
+        }
+
+        if(DEBUG_3D && this.R.debugText) {
+            let { 
+                x:xR, 
+                y:yR, 
+                z:zR 
+            } = this.O.rotationOrigin.rotation;
+
+            this.R.debugText.innerHTML = `${
+                Math.round(xR*100)
+            }, <br/>${Math.round(yR*100)} <br/>${zR}`;
+        }
+
         this.renderer.render( this.scene, this.camera );
+        requestAnimationFrame( this.animate );
     };
 
     render () {
         const { classes } = this.props;
 
         return (
-            <div id="canvas3d" className={classes.canvas3d}></div>
-        );
+            <Fragment>
+                { DEBUG_3D && <pre 
+                    id="meta3d" 
+                    className={classes.meta3d}
+                    ref={ c => this.R.debugText = c }>[debug vars]</pre> }
+                <div id="canvas3d" className={classes.canvas3d}></div>
+            </Fragment>
+            );
     }
 }
 
@@ -391,7 +496,7 @@ export default injectSheet(styleSheet)(connect(
     (state,ownProps)=> ({ 
         viewportWidth  : state.core.viewportWidth,
         viewportHeight : state.core.viewportHeight,
-        language       : state.core.language
+        theme          : state.core.theme
     }),
     null
 )(SkillsOrbit));

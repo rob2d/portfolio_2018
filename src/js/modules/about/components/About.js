@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
+import { withStyles } from '@material-ui/core/styles'
 import { 
     about as strings, 
     menus as menuStrings 
@@ -11,8 +11,9 @@ import Avatar from '@material-ui/core/Avatar'
 import ButtonLink from 'tools/components/ButtonLink'
 import SectionLink from './SectionLink'
 import SkillsOrbit from './SkillsOrbit'
+import DEBUG_3D from 'constants/env/DEBUG_3D'
 
-const styleSheet = {
+const styleSheet = theme => ({
     mainContainer : {
         marginLeft     : 'auto',
         marginRight    : 'auto',
@@ -32,7 +33,8 @@ const styleSheet = {
         paddingBottom : '0px',
         textAlign     : 'left',
         fontSize      : '12pt',
-        fontFamily    : 'roboto_light'
+        fontFamily    : 'roboto_light',
+        color         : theme.rc3.text
     },
     sectionList : {
         paddingLeft   : '16px',
@@ -115,28 +117,25 @@ const styleSheet = {
             flexGrow : 1
         },
         skillsOrbit : {
-            display   : 'flex',
-            direction : 'column',
-            overflowY : 'auto',
-            flexGrow  : 1
+            display       : 'flex',
+            flexDirection : 'column',
+            overflowY     : 'auto',
+            flexGrow      : 1
         },
         sectionList : {
             paddingLeft : '64px'
         }
     }
-};
+});
 
 
-let Tech = injectSheet({
+let Tech = withStyles( theme => ({
     container : {
-        display    : 'inline-block',
-        fontFamily : 'roboto_regular',
-        color      : '#000000',
-        '&:active': {
-            color      : '#00b8d4'
-        },
+        display       : 'inline-block',
+        fontFamily    : 'roboto_regular',
+        color         : theme.rc3.text,
         verticalAlign : 'top !important',
-        fontSize : '12pt'
+        fontSize      : '12pt'
     },
     '@media (min-width:901px)' : {
         container : {
@@ -149,7 +148,7 @@ let Tech = injectSheet({
             fontSize : '11pt'
          }
      }
-})(function Tech ({ children, classes, url }) {
+}))(function Tech ({ children, classes, url }) {
     return (
         <ButtonLink containerClass={ classes.container } url={ url }>
             { children }
@@ -204,13 +203,13 @@ function About ({ classes }) {
             </div>
 
             <div className={classes.skillsOrbit}>
-                <SkillsOrbit />        
+                <SkillsOrbit />
             </div>
         </div>
     );
 };
 
-let VisibleAbout = pure(injectSheet(styleSheet)(connect(
+let VisibleAbout = pure(withStyles(styleSheet)(connect(
     (state,ownProps)=> ({ language : state.core.language }),
     null
 )(About)));

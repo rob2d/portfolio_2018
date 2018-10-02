@@ -1,13 +1,11 @@
-import theme from 'app-root/baseTheme'
+import theme from 'app-root/getTheme'
 import { Sections } from 'constants/AppSections'
 
 const SECTION_COUNT   = Sections.length,
       BUTTON_WIDTH_PX = 60;
 
-const styleSheet = 
-{
+const styleSheet = {
     appBar : {
-        backgroundColor : theme.palette.text.primary,
         position        : 'relative',
         minHeight       : '56px' // needed to prevent gutters 
     },                           // from resizing

@@ -43,7 +43,7 @@ export default
             title   : 'Greedux',
             context : 'Independent',
             roles   : 'Maintainer, Designer and Developer',
-            shortDescription : 'A modular, clean and scalable modern workflow template to get a jumpstart to your own React/Redux application.',
+            shortDescription : 'A modular, clean and scalable modern workflow template to get a jumpstart on React/Redux applications.',
             description : ['A modular, clean and scalable modern workflow template for React/Redux applications ' + 
                 'which features live reloading, JSS, cache-busting, instantaneous and flexible production-level deployment and a few other neat ' + 
                 'things or what you would otherwise expect in your web build systems. ' + 

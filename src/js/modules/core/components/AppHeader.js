@@ -6,7 +6,7 @@ import AppBar                       from '@material-ui/core/AppBar'
 import Toolbar                      from '@material-ui/core/Toolbar'
 import { menus }                    from 'strings'
 import styleSheet                   from './style/AppHeaderStyle'
-import LanguageMenu                 from './LanguageMenu'
+import ThemeButton                  from './ThemeButton'
 import { connect }                  from 'react-redux'
 import appHistory                   from 'tools/appHistory'
 import HeaderSectionButton          from './HeaderSectionButton'
@@ -110,25 +110,19 @@ class AppHeader extends PureComponent {
      * TODO : NORMALIZE THIS WITH APP SECTION HEADER DATA
      */
     getVisitedPathIndex = (pathname)=> {
-        let match = true;
         switch(pathname) {
             case Sections[0].basePath:  return SectionIndexes.WELCOME;
             case Sections[1].basePath:  return SectionIndexes.PROJECTS;
             case Sections[2].basePath:  return SectionIndexes.MISC;
             case Sections[3].basePath:  return SectionIndexes.CV;
             default :  
-                match = false; 
+
                 return -1;
         }
-    
-        return this.lastVisitedPathIndex;
     };
 
     render () {
-        const { 
-            classes, 
-            viewportWidth 
-        } = this.props;
+        const { classes, viewportWidth } = this.props;
 
         const { 
             pathIndex, 
@@ -170,7 +164,7 @@ class AppHeader extends PureComponent {
                         <Typography className={`md-maximum ${classes.myNameText}`}>
                             Robert Concepción III
                         </Typography>
-                        <LanguageMenu />
+                        <ThemeButton />
                     </div>
                 </Toolbar>
             </AppBar>
@@ -180,7 +174,6 @@ class AppHeader extends PureComponent {
 
 export default pure(connect(
     (state,ownProps)=>({ 
-        language      : state.core.language,
         pathname      : state.router.location.pathname,
         viewportWidth : state.core.viewportWidth
     }),

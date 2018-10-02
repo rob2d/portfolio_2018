@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const styleSheet = (theme)=> ({
+const styleSheet = theme => ({
     container : {
         display        : 'flex',
         flexDirection  : 'row',
@@ -13,7 +13,8 @@ const styleSheet = (theme)=> ({
         fontSize       : '13pt',
         width          : '100%',
         textAlign      : 'center',
-        marginTop      : '16px'
+        marginTop      : '16px',
+        color          : theme.rc3.text
     },
     progress : {
         display : 'block',

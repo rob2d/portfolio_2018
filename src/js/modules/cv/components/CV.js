@@ -17,15 +17,15 @@ const styleSheet = (theme) => ({
         justifyContent : 'center',
     }
 });
-const CV = ({ classes })=> (
+const CV = ({ classes, theme })=> (
     <div className={classes.container}>
-        <PDFViewer fileURL={ RESUME_URL }/>
+        <PDFViewer fileURL={ RESUME_URL } theme={ theme }/>
     </div>
 );
 
 let VisibleCV = pure(withStyles(styleSheet)(connect(
     (state, ownProps)=> ({
-        language : state.core.language,
+        theme : state.core.theme,
         viewportWidth : state.core.viewportWidth,
         viewportHeight: state.core.viewportHeight
     }),

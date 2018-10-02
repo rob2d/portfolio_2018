@@ -1,3 +1,4 @@
+import Themes from 'constants/Themes'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 
 const ANIM_INTERVAL = '0.32';
@@ -10,16 +11,32 @@ const base = {
         display       : 'block !important',
         flexDirection : 'column !important',
         overflow      : 'hidden !important',
-        boxShadow     : '0px 1px 3px 0px rgba(0, 0, 0, 0.2), ' +
-                        '0px 1px 1px 0px rgba(0, 0, 0, 0.14), ' + 
-                        '0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important', 
-        transition    : `box-shadow ${ANIM_INTERVAL}s ease-out, ` +
-                        `transform ${ANIM_INTERVAL*2}s cubic-bezier(0.25, 0.1, 0.5, 1) !important`,
+        boxShadow     : ({ theme }) => {
+            let rgbColor = (theme == Themes.LIGHT)? 
+                                '0,0,0' : '255,255,255';
+
+            let shadowStrength = (theme == Themes.LIGHT) ? 
+                                    1 : 2;
+
+            return (`0px 1px 3px 0px rgba(${rgbColor}, ${0.2*shadowStrength}), ` +
+                    `0px 1px 1px 0px rgba(${rgbColor}, ${0.14*shadowStrength}), ` + 
+                    `0px 2px 1px -1px rgba(${rgbColor}, ${0.12*shadowStrength})`
+            );
+        }, 
+        transition : `box-shadow ${ANIM_INTERVAL}s ease-out, ` +
+                        `transform ${ANIM_INTERVAL*2}s ` + 
+                        `cubic-bezier(0.25, 0.1, 0.5, 1), ` + 
+                        `background-color ${ANIM_INTERVAL}s !important`,
         '@media (max-width: 400px)': {  // support for smaller devices
             width : '300px !important'
         }
     }
 };
+
+function getTopMargin (viewportWidth) {
+    console.log('viewportWidth ->', viewportWidth);
+    return viewportWidth > 800 ? 32 : 16;
+}
 
 const styleSheet = {
     container : {
@@ -28,10 +45,10 @@ const styleSheet = {
         position: ({ hasAbsolutePosition })=>(
             hasAbsolutePosition ? 'absolute' : 'relative'
         ),
-        top: ({ hasAbsolutePosition, offsetY })=>(
-            hasAbsolutePosition ? (offsetY - 32) : 'auto'
+        top: ({ hasAbsolutePosition, offsetY, viewportWidth }) => (
+            hasAbsolutePosition ? (offsetY - getTopMargin(viewportWidth)) : 'auto'
         ),
-        left: ({hasAbsolutePosition, offsetX, data})=>(
+        left: ({hasAbsolutePosition, offsetX, data }) => (
             hasAbsolutePosition ? offsetX : 'auto'
         ),
         transition: ({ hasAbsolutePosition })=>(
@@ -41,7 +58,7 @@ const styleSheet = {
         ),
         width        : ({ viewAsTitle })=> (viewAsTitle ? '400px' : '300px'),
         height       : '324px',
-        marginTop    : '32px',
+        marginTop    : ({ viewportWidth }) => (getTopMargin(viewportWidth) + 'px'),
         marginBottom : '32px',
         textAlign    : 'left',
         cursor       : 'pointer',
@@ -60,14 +77,7 @@ const styleSheet = {
     '@media (max-width: 800px)': {
         container : {
             paddingLeft  : '16px',
-            paddingRight : '16px',
-            marginTop    : '16px',
-            marginBottom : '16px',
-            '&:nth-of-type(1)' : {
-                paddingTop    : '8px' // TODO: the dynamic positioning should take
-                                      // new margin into account so mobile
-                                      // doesn't look janky
-            }
+            paddingRight : '16px'
         }
     },
     '@media (max-width: 400px)': {
@@ -129,7 +139,9 @@ const styleSheet = {
         fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
         marginTop    : '0px',
         marginBottom : '0px',
-        color        : ({ viewAsTitle })=>(!viewAsTitle?'#FFFFFF':'#000000'),
+        color        : ({ viewAsTitle, theme })=> (theme == (Themes.LIGHT)) ? 
+                            (!viewAsTitle?'#FFFFFF':'#000000') : 
+                            '#FFFFFF',
         transition   : `all ${ANIM_INTERVAL}s ease-in`
     },
     projectSubtitle : {
@@ -141,7 +153,10 @@ const styleSheet = {
         fontSize     : '12.5pt',
         fontFamily   : 'roboto_regular',
         fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
-        color        :  ({ viewAsTitle })=>( !viewAsTitle? '#FFFFFF':'#000000' ),
+        color        :  ({ viewAsTitle, theme }) => ((theme == (Themes.LIGHT)) ? 
+                            ( !viewAsTitle? '#FFFFFF':'#000000' ) : 
+                            '#FFFFFF'
+        ),
         marginTop    : '0',
         marginBottom : '0px',
         lineHeight   : ({ isHighlighted })=>(isHighlighted?'24px':'0px'),

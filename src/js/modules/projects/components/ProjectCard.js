@@ -13,6 +13,7 @@ const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
     pData,
     classes,
     onClick,
+    theme,
     controllerComponent,
     viewAsTitle
 }) {
@@ -96,10 +97,6 @@ class ProjectCard extends PureComponent {
     };
     componentWillReceiveProps(nextProps) {
         let stateUpdates = {};  // object to update state in one event
-
-        if(nextProps.data.id == 'greedux') {
-            console.log('greedux card props ->', nextProps);
-        }
 
         if(nextProps.isSelected) {
 

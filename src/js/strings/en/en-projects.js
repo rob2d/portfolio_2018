@@ -16,8 +16,7 @@ export default
             title   : 'Build & Watch',
             context : 'Independent',
             roles   : 'Maintainer, Designer and Developer',
-            shortDescription : 'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
-                               'ROMs and live-reloads an emulator of your choice.',
+            shortDescription : 'A simple retro-Gameboy ROM development workflow tool built using NodeJS',
             description : [
                 'A simple retro-Gameboy ROM development workflow tool built using NodeJS: auto-compiles your ' +
                 'ROMs and live-reloads an emulator of your choice. ',
@@ -46,18 +45,20 @@ export default
             title   : 'Greedux',
             context : 'Independent',
             roles   : 'Maintainer, Designer and Developer',
-            shortDescription : 'A modular, clean and scalable modern workflow template to get a jumpstart to your own React/Redux application.',
-            description : ['A modular, clean and scalable modern workflow template for React/Redux applications ' + 
+            shortDescription : 'Simple workflow template to get a jumpstart on React/Redux applications.',
+            description : ['A simple workflow template for React/Redux applications ' + 
                 'which features live reloading, JSS, cache-busting, instantaneous and flexible production-level deployment and a few other neat ' + 
                 'things or what you would otherwise expect in your web build systems. ' + 
                 'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
                 'or other technologies which keep your team at the mercy of dependency hell as it just relies on Gulp and Babel. ',
                 'I developed this sort of as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
                 'installation parts up to date for React/Redux apps. I also tend to have used Gulp a lot for other deployment processes ' + 
-                '(such as minimal packaging for quick AWS serverless deployment, processing files, etc. so it has definitely been simpler ' +
-                'for my own purposes not to use a YAT (yet another thing) for my teams that we would need to maintain/learn so far.',
+                '(such as minimal packaging for quick AWS serverless deployment, processing files, etc.) so it has been ' + 
+                'convenient on small teams when we didn\'t quite have the resources to spin up a full deployment system from ' +
+                'scratch (Create React App and other alternatives I\'ve found have not provided too much in terms of production ' + 
+                'ready tools).',
                 
-                'I have deployed well over 10 front-end projects since late 2016 with it. It was used to create a decent starting point for ' + 
+                'I have deployed 8 front-end projects since late 2016 with it. It was used to create a decent starting point for ' + 
                 'several very high profile projects that I am aware of, such as an engineering app to ' + 
                 'support most of the Fortune 500 company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in ' + 
                 'the US (http://www.stuyspec.com).'
@@ -106,12 +107,11 @@ export default
             },
             {
                 id      : 'npm_repos',
-                title   : 'Development Tools',
+                title   : 'NPM Dev Tools',
                 context : 'NPM',
                 roles : 'Development and Design',
                 shortDescription : 'Wide array of open-source development ' +
-                    'tools  including a Node/Express Route Mapper, MySQL ' + 
-                    'Prettifier, and many others',
+                    'tools',
                 description      : [
                     'Along the way of developing software professionally, ' + 
                     'there are several times where it has been advantageous to open-source some small ' +
@@ -132,8 +132,7 @@ export default
                 context      : 'Graduate Thesis',
                 roles        : 'Design, Development & Planning',
                 shortDescription : 'A 2D/3D browser framework including a ' +
-                    'sprite editor which generates source code. Created to conveniently handle ' +
-                    'complex game logic natively on the web.',
+                    'sprite editor which generates source code.',
                 description  : [
                     'The Browser-Based Application Multimedia Framework (or BAMF for short) ' +
                     ' was created to address the need for more open-source cohesive web APIs ' +
@@ -183,9 +182,8 @@ export default
                 roles   : 'Design, Development, Music and Sound Effects Creation',
                 platforms: [ 'android', 'gtv' ],
                 shortDescription : 
-                        `An interactive and futuristic puzzle game with a game 
-                        engine built from scratch written using the Android SDK
-                        and currently being ported to Unity/C#`,
+                        `An interactive and futuristic puzzle game with the engine ` + 
+                        `built from scratch written using the Android SDK`,
                 description: 
                 [
                     'An interactive original 2D game for Android with a 100% custom built ' +
@@ -244,6 +242,8 @@ export default
             ],
             mediaCaptions : [
                 'Play-test video',
+                '2005 Promo (provided direction / animation help but most grunt work on this video was done by a talented friend ' + 
+                'named Cinos)',
                 'Pushing against spikes underwater',
                 'Speed!',
                 'Customizing Controller config',
@@ -262,8 +262,7 @@ export default
             title    : 'Chinese Poker Online',
             context  : 'Undergraduate Seminar',
             roles    : 'Programming, Planning & Design',
-            shortDescription : 'An interactive and animated rendition of "Big Two" card game for Android. ' +
-            'Real-time online play, intuitive touch screen interface and custom graphics.',
+            shortDescription : 'An interactive rendition of "Big Two" card game for Android featuring realtime online gameplay',
             description : [
                 'Chinese Poker Online was a game which during the years it was released (2011) had very ' +
                 'bright colorful graphics and online play on a mobile platform which was rare for a card game. It was' +

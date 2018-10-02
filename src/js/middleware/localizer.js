@@ -1,5 +1,5 @@
 import localizationSetter from 'tools/localizationSetter'
-import { SET_LANGUAGE } from 'modules/core/actionTypes'
+import { SET_LANGUAGE } from 'modules/core/actions'
 import { LOCATION_CHANGE } from 'react-router-redux/reducer'
 import queryString from 'query-string'
 

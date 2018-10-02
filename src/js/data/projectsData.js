@@ -66,11 +66,15 @@ export default {
         sourceCode : ['https://github.com/rob2d/cpo_android']
     },
     'sonicphysics' : {
-        year : '2009',
+        year : '2005, 2009',
         media : [
             {
                 type : MediaTypes.VIDEO,
                 videoId : 'zRZOLzTaJq4'    
+            },
+            {
+                type   : MediaTypes.VIDEO,
+                videoId : 'HWJy0uLVfjU'
             },
             ...generateMediaImages('sonicphysics', 4) 
         ],

@@ -8,9 +8,14 @@ import withFadeTransitions from 'tools/withFadeTransitions'
 import ButtonLink from 'tools/components/ButtonLink'
 import MediaReel from './media-reel/MediaReel'
 import projectsData from 'app-root/data/projectsData'
+import Themes from 'constants/Themes'
 
 const findProjectStrings = (projectId)=> (
     projects.projectData.find( p =>(p.id == projectId))
+);
+
+const getTextColor = ({ theme }) => ((theme == Themes.LIGHT) ? 
+    '#000000' : '#FFFFFF'
 );
 
 const styleSheet = {
@@ -38,7 +43,8 @@ const styleSheet = {
         fontSize     : '13pt',
         textAlign    : 'left',
         paddingLeft  : '16px',
-        paddingRight : '16px'
+        paddingRight : '16px',
+        color : getTextColor
     },
 
     // only on tablet sized device+ or certain
@@ -107,7 +113,8 @@ const styleSheet = {
         fontSize     : '12pt'
     },
     section : {
-        margin : '16px 0px 32px'
+        margin : '16px 0px 32px',
+        color : getTextColor
     },
     sectionHeader : {
         fontFamily : 'roboto_bold',
@@ -149,7 +156,9 @@ const styleSheet = {
     },
     linkIcon : {
         paddingRight : '16px',
-        color        : '#000000'
+        color        : ({ theme }) => ((theme == Themes.LIGHT) ? 
+                            '#000000' : '#FFFFFF'
+        )
     },
     // TODO : use a global style/theme for this,
     linkText : {
@@ -163,7 +172,7 @@ const styleSheet = {
 };
 
 const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
-    function ProjectDetails({ classes, match, projectId, viewportWidth }) { 
+    function ProjectDetails({ classes, match, projectId, viewportWidth, theme }) { 
         const project = findProjectStrings(projectId);
         const pData = projectsData[projectId];
 
@@ -335,7 +344,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
 
 let VisibleProjectView = connect(
     (state,ownProps)=> ({ 
-        language : state.core.language,
+        theme : state.core.theme,
         viewportWidth : state.core.viewportWidth 
     }),
     (dispatch)=>({})

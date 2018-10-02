@@ -40,6 +40,7 @@ const styleSheet = {
     },
     youtubeThumbIcon : {
         color : '#DD0000',
+        backgroundColor : '#FFFFFF',
         fontSize  : '28pt',
         width : '100%',
         height : '100%',

@@ -1,9 +1,9 @@
 import React from 'react'
 import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
+import withStyles from '@material-ui/core/styles/withStyles'
 import ButtonLink from 'tools/components/ButtonLink'
 
-const linkSheet = {
+const styles = theme => ({
     listItem : {
         listStyleType : 'none',
         cursor        : 'pointer',
@@ -16,7 +16,8 @@ const linkSheet = {
     },
     icon : {
         marginRight : '16px',
-        color       : '#000000'
+        fontSize    : '13pt',
+        color       : theme.rc3.text
     },
     container : {
         display : 'block !important',
@@ -27,21 +28,19 @@ const linkSheet = {
         '&:active $listItem' : {
             color : '#00b8d4'
         }
-    },
-};
+    }
+});
 
 
-let SectionLink = pure(injectSheet(linkSheet)(
+let SectionLink = pure(withStyles(styles)(
     function SectionLinkLayout ({ url, name, mdiClass, classes }) {
-
         const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
 
         return (
             <ButtonLink 
                 url={url}
                 containerClass={classes.container}
-            >
-                <li className={classes.listItem}> 
+            >   <li className={classes.listItem}> 
                     <i className={iconClass}/>&nbsp;{name}
                 </li>
             </ButtonLink>

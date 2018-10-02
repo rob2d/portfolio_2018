@@ -108,7 +108,15 @@ class ProjectsPanel extends PureComponent {
         }
     }
     render () {
-        const { language, classes, location, match } = this.props;
+        const { 
+            language,
+            theme, 
+            classes, 
+            viewportWidth,
+            location, 
+            match 
+        } = this.props;
+
         const { selectedProjectId, displayState, wasSelectionViaUI } = this.state;
         const  { PROJECT_VIEW } = DisplayStates;
 
@@ -141,7 +149,9 @@ class ProjectsPanel extends PureComponent {
                                 onScreen={ onScreen }
                                 displayState={ displayState }
                                 isSelected={ isSelected }
+                                theme={ theme } 
                                 wasSelectionViaUI={ this.state.wasSelectionViaUI }
+                                viewportWidth={viewportWidth}
                             />
                         )
                     })}
@@ -156,7 +166,10 @@ class ProjectsPanel extends PureComponent {
 }
 
 const VisibleProjectsPanel = pure(withStyles(styleSheet)(connect(
-    (state,ownProps)=> ({ language : state.core.language }), null
+    ({ core })=> ({ 
+        theme : core.theme,
+        viewportWidth : core.viewportWidth 
+    })
 )(ProjectsPanel)));
 
 export default VisibleProjectsPanel
