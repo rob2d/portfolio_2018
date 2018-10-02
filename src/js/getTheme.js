@@ -13,14 +13,13 @@ let themes = {};
  * corresponding to the theme entered
  */
 const getTheme = theme => {
-    console.log('theme ->', theme);
     if(!themes[theme]) {
         themes[theme] = createMuiTheme({
             // MUI goes a bit far with defaults;
             // this is a simpler alternative
             // until there is a need for more
             // complex theming
-
+            theme : theme, // allows lookup of theme value
             rc3 : {
                 text : (theme == Themes.LIGHT) ? 
                             '#000000' : '#FFFFFF',

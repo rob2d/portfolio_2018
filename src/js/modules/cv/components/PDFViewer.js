@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Component } from 'react'
 import pure from 'recompose/pure'
 import Button from '@material-ui/core/Button'
 import { cv as strings } from 'strings'
@@ -7,6 +7,7 @@ import Tooltip   from '@material-ui/core/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
 import { withStyles } from '@material-ui/core/styles'
+import Themes from 'constants/Themes'
 
 const styleSheet = theme => { 
     return ({
@@ -26,6 +27,7 @@ const styleSheet = theme => {
             display  : 'inline-block',
             padding  : 0,
             margin   : 0,
+            filter : (theme.theme == Themes.LIGHT) ? 'none' : 'invert(100%)',
             // resize pdf height according to 8.5x11
             '@media (max-width: 900px)': {
                 maxWidth : '100%',
@@ -75,13 +77,24 @@ const styleSheet = theme => {
     }
 )};
 
-class PDFViewer extends PureComponent {
+class PDFViewer extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            pageNumber : 1, 
-            pageCount : 0,
-            isLoaded  : false 
+            pageNumber         : 1, 
+            pageCount          : 0,
+            isLoaded           : false,
+
+            // to solve a glitch with PDF viewer
+            // re-quiring re-renders, we simulate
+            // re-loading file URL by using this
+            // simple variable when a prop has
+            // loaded -- this acts as a switch
+            // for providing fileURL as blank
+            // (luckily this is very easy with
+            // React's new setState callback)
+            isRetriggering : false,
+            fileURL        : undefined
         };
     }
 
@@ -116,18 +129,28 @@ class PDFViewer extends PureComponent {
             this.setState({ pageNumber: this.state.pageNumber + 1 });
         }
     };
+
+    componentDidUpdate (prevProps) {
+        if(this.props.theme != prevProps.theme) {
+            this.setState({ isRetriggering : true }, () => {
+                this.setState({ isRetriggering : false });
+            });
+        }
+    }
+
     render () {
         const { classes, fileURL, theme } = this.props;
         const { 
             pageNumber, 
             pageCount, 
-            isLoaded 
+            isLoaded,
+            isRetriggering
         } = this.state;
 
         return (
             <div className={ classes.container }>
                 <div className={!isLoaded ? classes.loadingContent : undefined}>
-                    <PDF file={ fileURL }
+                    <PDF file={ !isRetriggering && fileURL }
                         onDocumentComplete={this.onDocumentComplete}
                         onPageComplete={this.onPageComplete}
                         page={pageNumber}
