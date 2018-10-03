@@ -5,6 +5,7 @@ import MediaTypes from 'constants/MediaTypes'
 import ReelThumbs from './ReelThumbs'
 import { connect } from 'react-redux'
 import YouTube from 'react-youtube'
+import ButtonLink from 'tools/components/ButtonLink'
 
 // TODO : css related constants should be in
 //        one place
@@ -41,11 +42,21 @@ const styleSheet = {
         margin          : 0,
         padding         : 0
     },
+    highlightedImageButton : {
+        '&:hover $highlightedMediaImage' : {
+            border : '2px solid #c51162'
+        },
+        '&:active $highlightedMediaImage' : {
+            border : '2px solid #00b8d4;'
+        }
+    },
     highlightedMediaImage : {
-        width : 'auto',
-        maxWidth : '100%',
-        height : 'auto',
-        maxHeight : '100%'
+        width      : 'auto',
+        maxWidth   : '100%',
+        height     : 'auto',
+        maxHeight  : '100%',
+        border     : '2px solid rgba(255,255,255,0)',
+        transition : 'border-color 0.24s ease-in'
     },
     highlightedMediaVideo : {
         width : '100%',
@@ -92,11 +103,14 @@ const styleSheet = {
     '@media (max-width:400px)' : {
         statusBoxIcon : {
             fontSize : '6pt !important'
+        },
+        mediaCaption : {
+            fontSize :'8pt !important'
         }
     },
     '@media (max-width:700px)' : {
         mediaCaption : {
-            fontSize :'8pt !important'
+            fontSize :'10pt'
         }
     },
     mediaButton :  {
@@ -189,10 +203,16 @@ class MediaReel extends PureComponent {
                     switch(highlightedMedia.type) {
                         case MediaTypes.IMAGE : 
                         return (
-                            <img 
-                                className={classes.highlightedMediaImage} 
-                                src={highlightedMedia.src}
-                            />
+                            <ButtonLink 
+                                url={`${location.protocol}//${location.host}${highlightedMedia.src}`}
+                                title={'Open full res image in new tab'}
+                                containerClass={classes.highlightedImageButton}
+                            >
+                                <img 
+                                    className={classes.highlightedMediaImage} 
+                                    src={highlightedMedia.src}
+                                />
+                            </ButtonLink>
                         );
                         case MediaTypes.VIDEO : 
                     return ( highlightedMedia && (

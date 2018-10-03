@@ -38,7 +38,10 @@ export default {
     'greedux' : {
         year  : '2017-2018',
         links : ['https://www.npmjs.com/package/generator-greedux'],
-        sourceCode : ['https://github.com/rob2d/greedux/']
+        sourceCode : ['https://github.com/rob2d/greedux/'],
+        media : [
+            ...generateMediaImages('greedux', 1)
+        ]
     },
     'smartwalk' : {
         year : '2014 - 2017',

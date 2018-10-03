@@ -72,9 +72,9 @@ const styleSheet = theme => ({
             marginRight : '16px'
         },
         mainContainer : {
-            padding        : '16px 32px',
+            padding       : '16px 32px',
             flexDirection : 'row !important',
-            boxSizing : 'border-box'
+            boxSizing     : 'border-box'
         }
     },
     // for general mobile devices in landscape

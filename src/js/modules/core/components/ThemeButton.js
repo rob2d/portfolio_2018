@@ -28,10 +28,10 @@ const styleSheet = {
         padding       : '0px !important'
     },
     tooltip : {
-        fontSize : '11pt !important',
-        padding  : '4px 8px !important',
-        minHeight: '20px !important',
-        lineHeight: '20px !important'
+        fontSize   : '11pt !important',
+        padding    : '4px 8px !important',
+        minHeight  : '20px !important',
+        lineHeight : '20px !important'
     },
     icon : {
         fontSize : '16pt'

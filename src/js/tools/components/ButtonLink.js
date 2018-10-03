@@ -5,12 +5,20 @@ import ButtonBase  from '@material-ui/core/ButtonBase'
 import Themes      from 'constants/Themes'
 import appHistory  from 'tools/appHistory'
 import injectSheet from 'react-jss'
+import Tooltip   from '@material-ui/core/Tooltip'
+
 
 const styleSheet = {
     touchRipple : {
         color : ({ theme }) => ((theme == Themes.LIGHT) ? 
             '#000000' : '#FFFFFF'
         )
+    },
+    tooltip : {
+        fontSize : '11pt !important',
+        padding  : '4px 8px !important',
+        minHeight: '20px !important',
+        lineHeight: '20px !important'
     }
 };
 
@@ -19,16 +27,17 @@ function ButtonLink ({
     classes,
     containerClass, 
     children, 
+    title=undefined,
     delay=250 
 }) {
     let isAbsoluteURL = url.indexOf('://') != -1;
 
-    const onClick = function(){
+    const onClick = function(){ 
         
         // provide a small timeout so 
         // that animation can be seen
         
-        setTimeout(function(){
+        setTimeout(function() {
             if(!isAbsoluteURL) {
                 // if protocol unspecified, 
                 // handle with local router
@@ -40,25 +49,27 @@ function ButtonLink ({
         }, delay);
     };
 
-    const title = (
-        isAbsoluteURL ? 
-            `open ${url} in new tab` : 
-            undefined
+    title = title || (
+        isAbsoluteURL ? `${url}` : undefined
     );
 
     return (
+        <Tooltip
+            enterDelay={ 600 }
+            title={ title }
+            classes={{ tooltip : classes.tooltip }}
+        >
         <ButtonBase 
             focusRipple 
             className={ containerClass }
             onClick={ onClick }
             title={ title }
             TouchRippleProps={{
-                classes : {
-                    ripple : classes.touchRipple
-                }
+                classes : { ripple : classes.touchRipple }
             }}
         >{ children }
         </ButtonBase>
+        </Tooltip>
     );
 }
 

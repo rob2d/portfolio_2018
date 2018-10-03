@@ -10,6 +10,12 @@ const styles = theme=> ({
         display        : 'inline-flex !important',
         justifyContent : 'center !important',
         flexDirection  : 'column !important',
+        '&:hover $icon': {
+            color : '#ff4081 !important'
+        },
+        '&:active $icon': {
+            color : '#00b8d4 !important'
+        }
     },
     '@media (max-width: 400px)': {
         contactButton : { minWidth : '68px !important' }
@@ -18,7 +24,8 @@ const styles = theme=> ({
         fontSize : '18pt !important',
         color    : ((theme == Themes.LIGHT) ? 
                         '#455A64' : 
-                        theme.palette.primary[700])+ ' !important'
+                        theme.palette.primary[700])+ ' !important',
+        transition : 'color 0.24s ease-in'
     },
     tooltip : {
         fontSize : '11pt !important',
@@ -31,9 +38,9 @@ const styles = theme=> ({
 const ContactButton = pure(withStyles(styles)
 (function ContactButton({ url, classes, iconClass, tooltipContent }){ return (
     <Tooltip
-    enterDelay={350}
-    title={tooltipContent}
-    classes={{ tooltip : classes.tooltip }}
+        enterDelay={350}
+        title={tooltipContent}
+        classes={{ tooltip : classes.tooltip }}
     >
         <Button
             className={ classes.contactButton }
@@ -61,13 +68,12 @@ const AppFooter = pure(function AppFooter() {
             />
             <ContactButton
                 iconClass={'mdi mdi-linkedin-box'}
-                url={'https://www.linkedin.com/in/' +
-                'robert-concepci%C3%B3n-iii-66bb7114/'}
+                url={'https://www.linkedin.com/in/robert-concepci%C3%B3n-iii-66bb7114/'}
                 tooltipContent={ <span>Connect with me on <b>LinkedIn</b> 🧐</span> }
             />
             <ContactButton
-                iconClass={'mdi mdi-gmail'}
-                url={'mailto:robert.concepcion.iii@gmail.com'}
+                iconClass={ 'mdi mdi-gmail' }
+                url={ 'mailto:robert.concepcion.iii@gmail.com' }
                 tooltipContent={ <span>Email me -- but no spam, please (❗)</span> }
             />
         </div>

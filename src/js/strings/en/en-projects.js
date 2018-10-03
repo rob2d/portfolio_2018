@@ -66,7 +66,10 @@ export default {
                 high profile/ground-shaking projects -- such as this portfolio!</span>)
             ],
             linkDescriptions : [ 'NPM Repo' ],
-            sourceCodeDescriptions : [ 'Github' ] 
+            sourceCodeDescriptions : [ 'Github' ],
+            mediaCaptions: [
+                (<i>"Look ma! No constantly checking terminal to see if builds failed!"</i>)
+            ]
         },
         {
             id      : 'smartwalk',
@@ -232,7 +235,7 @@ export default {
                 roles    : 'Programming, Planning and Artwork',
                 shortDescription : `A pixel perfect rendition of the physics found in SEGA's
                                 "Sonic the Hedgehog" series. `,
-                description      : [
+                description : [
                     'This physics engine was actually part of a game I was ' +
                     'developing called "Sonic: Corrupted Chaos" and was developed using a scripting language ' + 
                     'similar to JavaScript called GML. That game never came to fruition -- so I ' +
