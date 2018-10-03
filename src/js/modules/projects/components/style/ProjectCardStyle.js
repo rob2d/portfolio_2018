@@ -57,15 +57,15 @@ const styleSheet = {
                         'left 0s, top 0s'}`
         ),
         width        : ({ viewAsTitle })=> (viewAsTitle ? '400px' : '300px'),
-        height       : '324px',
+        height       : ({ viewAsTitle }) => (viewAsTitle ? '80px' : '324px'),
         marginTop    : ({ viewportWidth }) => (getTopMargin(viewportWidth) + 'px'),
-        marginBottom : '32px',
+        marginBottom : ({ viewAsTitle }) => (viewAsTitle ? '0px' : '32px'),
         textAlign    : 'left',
-        cursor       : 'pointer',
+        cursor       : ({ viewAsTitle  }) => viewAsTitle ? 'text' : 'pointer',
         // actively moving cards should be forced above existing relatively
         // placed content
         zIndex       : ({ hasAbsolutePosition })=>(hasAbsolutePosition? 1 : 0),
-        pointerEvents : ({ viewAsTitle })=> (!viewAsTitle ? 'all':'none'),
+        pointerEvents : ({ viewAsTitle })=> 'all',
         overflow : 'hidden'
     },
     '@media (min-width: 800px)': {
@@ -131,7 +131,7 @@ const styleSheet = {
         width        : '100%',
         minWidth     : ({viewAsTitle})=>(!viewAsTitle?'300px':'400px'),
           '@media (max-width: 400px)': {  // adding support for smaller
-           fontSize : ({ viewAsTitle })=>(!viewAsTitle? '16pt' : '20pt !important')              // devices such as iPhone5
+           fontSize : ({ viewAsTitle })=>(!viewAsTitle ? '16pt' : '22pt') // devices such as iPhone5
         },
         paddingLeft  : '16px',
         fontFamily   : 'roboto_bold',

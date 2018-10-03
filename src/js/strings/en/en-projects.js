@@ -16,8 +16,8 @@ export default {
                 'ROM within a few days outside of work. It seemed like a great opportunity to get back in touch with certain aspects ' + 
                 'of computer science that I don\'t normally work with, so I jumped in! ',
                 
-                (<span>Along the way, we crowdsourced a lot of information which was pretty tough to find along with very specific hardware 
-                info. A talented friend and coworker of mine, <a href={'http://www.gmiller.net'} target="_new">Greg Miller</a>, ended up winning
+                (<span>Along the way, we crowdsourced a lot of low-level information which was pretty tough to find. 
+                A talented friend and coworker of mine, <a href={'http://www.gmiller.net'} target="_new">Greg Miller</a>, ended up winning
                 that bet. I was preoccupied with re-learning C at the time to worry about building games, and ended up so 
                 fascinated by the technology/process (and noticing how painful it was for him), that I created this tool. Using his colorful 
                 feedback as he built a large scale game, I improved upon this build system over a few weekends and it became a little bit 
