@@ -13,7 +13,7 @@ const REEL_ANIM_SPEED = 40;
 
 /**
  * Retrieves the width for the entire media reel
- * (dependent on maxWidth, width props)
+ * (dependent on width, maxWidth props)
  */
 function getWidthUsed ( width, maxWidth ) {
     return maxWidth !== 'undefined' && 
@@ -60,7 +60,8 @@ const styleSheet = {
     },
     highlightedMediaVideo : {
         width : '100%',
-        height: '100%'
+        maxHeight : '100%',
+        backgroundColor : '#000000'
     },
     mediaCaption : {
         display : 'flex',
@@ -181,7 +182,15 @@ class MediaReel extends PureComponent {
         }
     };
     render () {
-        const { classes, media, projectId, width, maxWidth, aspectRatio } = this.props;
+        const { 
+            classes, 
+            media, 
+            projectId, 
+            width, 
+            maxWidth, 
+            aspectRatio 
+        } = this.props;
+
         const { selectedIndex, iterationIndex, advanceInitialThumbs } = this.state;
 
         const highlightedMedia = media && media[selectedIndex];
@@ -248,6 +257,7 @@ class MediaReel extends PureComponent {
                     <div className={classes.statusBoxes}>
                     {media.map((item, i)=>(
                          <div 
+                            key={i => (`mediaReelItem${i}`)}
                             className={classes.statusBox} 
                             onClick={()=>this.handleItemClick(i)}
                         >

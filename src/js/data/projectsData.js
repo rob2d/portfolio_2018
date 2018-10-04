@@ -24,6 +24,7 @@ export default {
             'http://www.gmiller.net/2018/07/gameboy-color-fix-it-felix-jr',
         ],
         sourceCode : ['https://github.com/rob2d/build-and-watch#readme'],
+        mediaAspectRatio : 1.36,
         media : [
             ...generateMediaImages('buildandwatch', 1),
             {
