@@ -25,6 +25,7 @@ export default {
         ],
         sourceCode : ['https://github.com/rob2d/build-and-watch#readme'],
         media : [
+            ...generateMediaImages('buildandwatch', 1),
             {
                 type    : MediaTypes.VIDEO,
                 videoId : 'FrXLMEPN4ew'

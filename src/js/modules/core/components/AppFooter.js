@@ -11,7 +11,7 @@ const styles = theme=> ({
         justifyContent : 'center !important',
         flexDirection  : 'column !important',
         '&:hover $icon': {
-            color : '#ff4081 !important'
+            color : `${theme.palette.primary[800]} !important`
         },
         '&:active $icon': {
             color : '#00b8d4 !important'

@@ -31,6 +31,7 @@ export default {
             ],
             linkDescriptions : [ 'NPM Repo', 'Wreck it Ralph Remake Project (@Greg\'s Site)' ],
             mediaCaptions: [
+                'Making build processes for things from your childhood almost tolerable',
                 'ROM Build running on a real Gameboy Color',
                 'Greg\'s Project Progress Video'
             ],
@@ -68,7 +69,7 @@ export default {
             linkDescriptions : [ 'NPM Repo' ],
             sourceCodeDescriptions : [ 'Github' ],
             mediaCaptions: [
-                (<i>"Look ma! No constantly checking terminal to see if builds failed!"</i>)
+                (<i>"Look ma, no console!"</i>)
             ]
         },
         {
