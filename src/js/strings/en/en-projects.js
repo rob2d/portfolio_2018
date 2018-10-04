@@ -38,41 +38,6 @@ export default {
             sourceCodeDescriptions : [ 'Github' ] 
         },
         {
-            id      : 'greedux',
-            title   : 'Greedux',
-            context : 'Independent',
-            roles   : 'Maintainer, Designer and Developer',
-            shortDescription : 'Simple workflow template to get a jumpstart on React/Redux applications.',
-            description : [
-                'A simple workflow template for React/Redux applications ' + 
-                'which features live reloading, JSS, cache-busting, optimization/compression, instantaneous ' + 
-                'and flexible production-level deployment and a few other neat things or what you would otherwise ' + 
-                'expect in your web build systems. ' + 
-                'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
-                'or other technologies when you have little time -- it just relies on Gulp and Babel and the ' + 
-                'code is all very transparent and simple to read/modify (caveat: I have recently massively refactored the build ' + 
-                'code on recent projects such as this portfolio and this is not quite yet in the repo 😅). ',
-
-                'I developed this as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
-                'installation parts up to date for React/Redux apps. I also tend to have used Gulp a lot for other ' + 
-                'deployment processes (such as minimal packaging for quick AWS serverless deployment, processing files, etc.), ' + 
-                'so it has been convenient on small teams when we didn\'t quite have the resources to spin up a full deployment ' + 
-                'system from scratch (CRA and other alternatives I\'ve found have not provided too much in terms of production ' + 
-                'ready tools).',
-                
-                (<span>I have deployed 8 front-end projects since late 2016 with it. It was used to create a decent starting point for 
-                several very high profile projects that I am aware of, such as <a href={'/projects/smartwalk'}>an engineering app</a> to support most of the Fortune 500 
-                company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US 
-                (<a href={'http://www.stuyspec.com'} target='_new'>http://www.stuyspec.com</a>). It was also used to spin up much less 
-                high profile/ground-shaking projects -- such as this portfolio!</span>)
-            ],
-            linkDescriptions : [ 'NPM Repo' ],
-            sourceCodeDescriptions : [ 'Github' ],
-            mediaCaptions: [
-                (<i>"Look ma, no console!"</i>)
-            ]
-        },
-        {
             id      : 'smartwalk',
             title   : 'SmartWALK',
             context : 'PMC Technology',
@@ -116,78 +81,11 @@ export default {
                 'Intuitive media management and photo uploading for items',
                 'Graphing out for multiple points of data in a scalable system',
                 'Convenient User Account System with security features',
-                'Internal document management within CMS for convenience and security',
-                'Intuitive and interactive widgets for each part of the process'
-            ]},
-            {
-                id      : 'npm_repos',
-                title   : 'NPM Dev Tools',
-                context : 'NPM',
-                roles   : 'Development and Design',
-                shortDescription : 'Wide array of open-source development tools',
-                description      : [
-                    'Along the way of developing software professionally, ' + 
-                    'there are several times where it has been advantageous to open-source some small ' +
-                    'tools along the way which I also use for personal projects. The NPM repos are just a ' +
-                    'quick collection of some packages which are downloaded up to hundreds of times daily ' +
-                    'by other developers. They range in quality and completeness but in these cases it was better to ' + 
-                    'open source or provide via a public resource than to house things internally. In most cases, it was simply ' + 
-                    'because I was exploring an idea on my own time that ended up useful at work (or maybe didn\'t except to someone ' + 
-                    'on the internet 🙂)'
-                ],
-                platforms        : [ 'web' ],
-                linkDescriptions : [ 'Visit the NPM repos' ]
-            },
-            {
-                id           : 'bamf',
-                title        : 'BAMF Web Framework',
-                context      : 'Graduate Thesis',
-                roles        : 'Design, Development & Planning',
-                shortDescription : 'A 2D/3D browser framework including a ' +
-                    'sprite editor which generates source code.',
-                description  : [
-                    'The Browser-Based Application Multimedia Framework (or BAMF for short) ' +
-                    ' was created to address the need for more open-source cohesive web APIs ' +
-                    'for dealing with multimedia. It was mainly an excuse for me to jump from ' +
-                    'native application development to web development in graduate school as I ' + 
-                    'already had a working Game API in Android and thought it would be great to ' +
-                    'port this to the web as at the time it was created, the HTML5 API and JavaScript ' +
-                    'were only beginning to become standardized. ',
-                    'It supports 2D, 3D (using a Three.js wrapper) and sound, ' +
-                    'and has a really convenient 2D sprite generator that even creates source code for you. ' +
-                    'It is efficient, simple, consistent, extensible and supports all modern browsers.'
-                ],
-                technologies :  'HTML5, JavaScript (+require.js, three.js), WebGL',
-                platforms    :  ['web'],
-                platformtxt  : [ 'Web (Chrome, Firefox, IE)' ],
-                mediaCaptions : [
-                    'early 3D app tech demo',
-                    'general API structure overview',
-                    'easy 2D apps (early prototype)',
-                    'An anim editor for framework apps'
-                ],
-                documentationDescriptions : [
-                    'Early Development (.ppt)',
-                    'Project Overview (.ppt)'
-                ],
-                sourceCodeDescriptions : [ 'Github' ],
-                linkDescriptions : [ 
-                    '3D Tech Demo Prototype',
-                    'Basic Sprite Editor written in YUI' 
-                ],
-                documentation:
-                [
-                    {
-                        url  : 'doc/bamf_midterm_presentation.ppt',
-                        desc : 'Early Dev (.ppt)'
-                    },
-                    {
-                        url  : 'doc/bamf_final_presentation.pptx',
-                        desc : 'Project Overview(.pptx)'
-                    }
-                ]
-            },
-            {
+                '2014-2015 version; created using jQuery and YUI3 on the front-end',
+                '2014-2015 server: first Node app; worked very well as we scaled and ' +
+                'fleshed out and scaled the product, but immediately you can tell that it is ' + 
+                'not RESTful at all 😢'
+            ]},  {
                 id      : 'colorshafted',
                 title   : 'Color Shafted',
                 context : 'Whateversoft',
@@ -293,6 +191,109 @@ export default {
                 'Managing a hand for a play'
             ],
             sourceCodeDescriptions : ['Github']
+        },
+        {
+            id      : 'greedux',
+            title   : 'Greedux',
+            context : 'Independent',
+            roles   : 'Maintainer, Designer and Developer',
+            shortDescription : 'Simple workflow template to get a jumpstart on React/Redux applications.',
+            description : [
+                'A simple workflow template for React/Redux applications ' + 
+                'which features live reloading, JSS, cache-busting, optimization/compression, instantaneous ' + 
+                'and flexible production-level deployment and a few other neat things or what you would otherwise ' + 
+                'expect in your web build systems. ' + 
+                'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' + 
+                'or other technologies when you have little time -- it just relies on Gulp and Babel and the ' + 
+                'code is all very transparent and simple to read/modify (caveat: I have recently massively refactored the build ' + 
+                'code on recent projects such as this portfolio and this is not quite yet in the repo 😅). ',
+
+                'I developed this as a need to scratch my own itch as it is always a hassle to keep all of your ' + 
+                'installation parts up to date for React/Redux apps. I also tend to have used Gulp a lot for other ' + 
+                'deployment processes (such as minimal packaging for quick AWS serverless deployment, processing files, etc.), ' + 
+                'so it has been convenient on small teams when we didn\'t quite have the resources to spin up a full deployment ' + 
+                'system from scratch (CRA and other alternatives I\'ve found have not provided too much in terms of production ' + 
+                'ready tools).',
+                
+                (<span>I have deployed 8 front-end projects since late 2016 with it. It was used to create a decent starting point for 
+                several very high profile projects that I am aware of, such as <a href={'/projects/smartwalk'}>an engineering app</a> to support most of the Fortune 500 
+                company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US 
+                (<a href={'http://www.stuyspec.com'} target='_new'>http://www.stuyspec.com</a>). It was also used to spin up much less 
+                high profile/ground-shaking projects -- such as this portfolio!</span>)
+            ],
+            linkDescriptions : [ 'NPM Repo' ],
+            sourceCodeDescriptions : [ 'Github' ],
+            mediaCaptions: [
+                (<i>"Look ma, no console!"</i>)
+            ]
+        },
+        {
+            id           : 'bamf',
+            title        : 'BAMF Web Framework',
+            context      : 'Graduate Thesis',
+            roles        : 'Design, Development & Planning',
+            shortDescription : 'A 2D/3D browser framework including a ' +
+                'sprite editor which generates source code.',
+            description  : [
+                'The Browser-Based Application Multimedia Framework (or BAMF for short) ' +
+                ' was created to address the need for more open-source cohesive web APIs ' +
+                'for dealing with multimedia. It was mainly an excuse for me to jump from ' +
+                'native application development to web development in graduate school as I ' + 
+                'already had a working Game API in Android and thought it would be great to ' +
+                'port this to the web as at the time it was created, the HTML5 API and JavaScript ' +
+                'were only beginning to become standardized. ',
+                'It supports 2D, 3D (using a Three.js wrapper) and sound, ' +
+                'and has a really convenient 2D sprite generator that even creates source code for you. ' +
+                'It is efficient, simple, consistent, extensible and supports all modern browsers.'
+            ],
+            technologies :  'HTML5, JavaScript (+require.js, three.js), WebGL',
+            platforms    :  ['web'],
+            platformtxt  : [ 'Web (Chrome, Firefox, IE)' ],
+            mediaCaptions : [
+                'early 3D app tech demo',
+                'general API structure overview',
+                'easy 2D apps (early prototype)',
+                'An anim editor for framework apps'
+            ],
+            documentationDescriptions : [
+                'Early Development (.ppt)',
+                'Project Overview (.ppt)'
+            ],
+            sourceCodeDescriptions : [ 'Github' ],
+            linkDescriptions : [ 
+                '3D Tech Demo Prototype',
+                'Basic Sprite Editor written in YUI' 
+            ],
+            documentation:
+            [
+                {
+                    url  : 'doc/bamf_midterm_presentation.ppt',
+                    desc : 'Early Dev (.ppt)'
+                },
+                {
+                    url  : 'doc/bamf_final_presentation.pptx',
+                    desc : 'Project Overview(.pptx)'
+                }
+            ]
+        },
+        {
+            id      : 'npm_repos',
+            title   : 'NPM Dev Tools',
+            context : 'NPM',
+            roles   : 'Development and Design',
+            shortDescription : 'Wide array of open-source development tools',
+            description      : [
+                'Along the way of developing software professionally, ' + 
+                'there are several times where it has been advantageous to open-source some small ' +
+                'tools along the way which I also use for personal projects. The NPM repos are just a ' +
+                'quick collection of some packages which are downloaded up to hundreds of times daily ' +
+                'by other developers. They range in quality and completeness but in these cases it was better to ' + 
+                'open source or provide via a public resource than to house things internally. In most cases, it was simply ' + 
+                'because I was exploring an idea on my own time that ended up useful at work (or maybe didn\'t except to someone ' + 
+                'on the internet 🙂)'
+            ],
+            platforms        : [ 'web' ],
+            linkDescriptions : [ 'Visit the NPM repos' ]
         }
     ]
 }
