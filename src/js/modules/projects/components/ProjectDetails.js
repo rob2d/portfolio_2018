@@ -7,9 +7,9 @@ import appHistory from 'tools/appHistory'
 import withFadeTransitions from 'tools/withFadeTransitions'
 import ButtonLink from 'tools/components/ButtonLink'
 import MediaReel from './media-reel/MediaReel'
+import ProjectTechnologies from './ProjectTechnologies'
 import projectsData from 'app-root/data/projectsData'
 import Themes from 'constants/Themes'
-import Technologies from 'constants/Technologies'
 
 const findProjectStrings = (projectId)=> (
     projects.projectData.find( p =>(p.id == projectId))
@@ -81,10 +81,11 @@ const styleSheet = {
         display        : 'flex !important',
         maxWidth       : '600px !important',
         margin         : '40px 0px 16px !important',
-        padding        : '0px !important',
+        padding        : '6px !important',
         textAlign      : 'justify !important',
         alignItems     : 'center !important',
         justifyContent : 'flex-start !important',
+        fontSize       : '13pt',
         '&:hover $returnText' : {
             color : '#ff4081 !important'
         },
@@ -158,8 +159,9 @@ const styleSheet = {
     linkIcon : {
         paddingRight : '16px',
         color        : ({ theme }) => ((theme == Themes.LIGHT) ? 
-                            '#000000' : '#FFFFFF'
-        )
+            '#000000' : '#FFFFFF'
+        ),
+        fontSize : '12pt'
     },
     // TODO : use a global style/theme for this,
     linkText : {
@@ -167,7 +169,7 @@ const styleSheet = {
         padding     : '0px',
         color       : '#c51162',
         fontFamily  : 'roboto_bold',
-        fontSize    : '11pt',
+        fontSize    : '12pt',
         textAlign   : 'left'
     }
 };
@@ -203,6 +205,13 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             </div>
                         )
                     }
+                    {project.technologySet && project.technologySet.size && (
+                    <div className={classes.section}>
+                        <p className={`${classes.sectionContent} ${classes.techSection}`}>
+                            <ProjectTechnologies technologySet={project.technologySet} />
+                        </p>
+                    </div>
+                    )}
                   <div className={classes.section}>
                     {project.description && Array.isArray(project.description) ? 
                         project.description.map((d, i)=>(
@@ -215,27 +224,6 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                         </p>)
                     }
                 </div>
-                    {project.technologySet && (
-                        <div className={classes.section}>
-                            <p className={classes.sectionHeader}>
-                                Technologies
-                            </p>
-                            <p className={classes.sectionContent}>
-                                {(()=> {
-                                    let technologies = '';
-                                    for(let techKey of project.technologySet) {
-                                        if(technologies.length) {
-                                            technologies += ', ';
-                                        }
-
-                                        technologies += Technologies[techKey].displayName;
-                                    }
-
-                                    return technologies;
-                                })()}
-                            </p>
-                        </div>
-                    )}
                     { pData && pData.media && pData.media.length > 0 && 
                     (
                         <div className={classes.section}>
@@ -355,11 +343,10 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
 );
 
 let VisibleProjectView = connect(
-    (state,ownProps)=> ({ 
-        theme : state.core.theme,
-        viewportWidth : state.core.viewportWidth 
-    }),
-    (dispatch)=>({})
+    ({ core })=> ({ 
+        theme         : core.theme,
+        viewportWidth : core.viewportWidth 
+    })
 )(ProjectDetails);
 
 export default VisibleProjectView

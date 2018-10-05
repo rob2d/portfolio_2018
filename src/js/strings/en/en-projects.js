@@ -24,7 +24,7 @@ export default {
                 of a side hobby between us. </span>),
 
                 'This sort of code-ified and automated what we had learned/painfully figured out so that we did not have to mess ' + 
-                'with very ancient build configurations anymore and could simply mess around with retro development and instantly spin up ' +
+                'with very ancient build configurations anymore and could simply experiment with retro development and instantly spin up ' +
                 'prototype projects. It was also just a fun and practical way to dive deep into low level C and let me ' + 
                 'experiment with some ideas in NodeJS in regards to process management and libraries that synergistically ' + 
                 'became extremely useful for my primary work at the time.'
@@ -173,7 +173,7 @@ export default {
             ],
             mediaCaptions : [
                 'Play-test video',
-                '2005 Promo (provided direction / animation help but most grunt work on this video was done by a talented friend ' + 
+                '2005 Promo (provided direction/animation help but most grunt work on this was done by a talented friend ' + 
                 'named Cinos)',
                 'Pushing against spikes underwater',
                 'Speed!',
@@ -212,7 +212,13 @@ export default {
                 'Start of a new game',
                 'Managing a hand for a play'
             ],
-            sourceCodeDescriptions : ['Github']
+            sourceCodeDescriptions : ['Github'],
+            technologySet : new Set([
+                'android_sdk',
+                'java',
+                'mysql',
+                'php'
+            ])
         },
         {
             id      : 'greedux',
@@ -246,8 +252,16 @@ export default {
             linkDescriptions : [ 'NPM Repo' ],
             sourceCodeDescriptions : [ 'Github' ],
             mediaCaptions: [
-                (<i>"Look ma, no console!"</i>)
-            ]
+                (<i>"Look ma, no peeking into console!"</i>)
+            ],
+            technologySet : new Set([
+                'javascript',
+                'nodejs',
+                'gulp',
+                'react',
+                'redux',
+                'yeoman'
+            ])
         },
         {
             id           : 'bamf',
