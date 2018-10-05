@@ -9,6 +9,7 @@ import ButtonLink from 'tools/components/ButtonLink'
 import MediaReel from './media-reel/MediaReel'
 import projectsData from 'app-root/data/projectsData'
 import Themes from 'constants/Themes'
+import Technologies from 'constants/Technologies'
 
 const findProjectStrings = (projectId)=> (
     projects.projectData.find( p =>(p.id == projectId))
@@ -214,13 +215,24 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                         </p>)
                     }
                 </div>
-                    {project.technologies && (
+                    {project.technologySet && (
                         <div className={classes.section}>
                             <p className={classes.sectionHeader}>
                                 Technologies
                             </p>
                             <p className={classes.sectionContent}>
-                                {project.technologies}
+                                {(()=> {
+                                    let technologies = '';
+                                    for(let techKey of project.technologySet) {
+                                        if(technologies.length) {
+                                            technologies += ', ';
+                                        }
+
+                                        technologies += Technologies[techKey].displayName;
+                                    }
+
+                                    return technologies;
+                                })()}
                             </p>
                         </div>
                     )}

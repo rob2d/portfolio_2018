@@ -35,7 +35,12 @@ export default {
                 'ROM Build running on a real Gameboy Color',
                 'Greg\'s Project Progress Video'
             ],
-            sourceCodeDescriptions : [ 'Github' ] 
+            sourceCodeDescriptions : [ 'Github' ],
+            technologySet : new Set([
+                'javascript',
+                'nodejs',
+                'c'
+            ])
         },
         {
             id      : 'smartwalk',
@@ -74,6 +79,15 @@ export default {
                 definitely hideous (PMC was nice enough to let me post this and it would be unethical to include something I was 
                 not involved in afterwards).</i>)
             ],
+            technologySet : new Set([
+               'javascript',
+               'react', 
+               'fbflux',
+               'nodejs', 
+               'mysql', 
+               'gulp', 
+               'yui3'
+            ]),
             linkDescriptions : [ 
                 'Marketing Website', 'Client Login to the CMS' 
             ],
@@ -83,7 +97,7 @@ export default {
                 'Convenient User Account System with security features',
                 '2014-2015 version; created using jQuery and YUI3 on the front-end',
                 '2014-2015 server: first Node app; worked very well as we scaled and ' +
-                'fleshed out and scaled the product, but immediately you can tell that it is ' + 
+                'fleshed out the product, but immediately you can tell that it is ' + 
                 'not RESTful at all 😢'
             ]},  {
                 id      : 'colorshafted',
@@ -111,7 +125,14 @@ export default {
                     'was started in Unity/C# and has significant work done which I would love to add here sometime ' + 
                     'when I have time outside of work to.'
                 ],
-                technologies: 'Android SDK, Java, XML, JSON, PHP, MySQL',
+                technologySet: new Set([
+                    'android_sdk',
+                    'java',
+                    'xml',
+                    'javascript',
+                    'jquery',
+                    'php'
+                ]),
                 platformTxt:  ['Android 2.2 and Higher', 'GoogleTV'],
                 mediaCaptions: [
                     'Promotional YouTube Video',
@@ -165,7 +186,8 @@ export default {
             downloadDescriptions : [
                 'Demo (Windows OS)'
             ],
-            documentationDescriptions : [ 'Blogger' ]
+            documentationDescriptions : [ 'Blogger' ],
+            technologySet : new Set(['gml'])
         },
         {
             id       : 'chinesepoker',
@@ -246,7 +268,12 @@ export default {
                 'and has a really convenient 2D sprite generator that even creates source code for you. ' +
                 'It is efficient, simple, consistent, extensible and supports all modern browsers.'
             ],
-            technologies :  'HTML5, JavaScript (+require.js, three.js), WebGL',
+            technologySet :  new Set([
+                'html',
+                'javascript',
+                'threejs',
+                'yui3'
+            ]),
             platforms    :  ['web'],
             platformtxt  : [ 'Web (Chrome, Firefox, IE)' ],
             mediaCaptions : [

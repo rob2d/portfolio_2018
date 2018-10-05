@@ -60,7 +60,7 @@ const styleSheet = {
     },
     highlightedMediaVideo : {
         width : '100%',
-        maxHeight : '100%',
+        height : '100%',
         backgroundColor : '#000000'
     },
     mediaCaption : {
@@ -257,7 +257,7 @@ class MediaReel extends PureComponent {
                     <div className={classes.statusBoxes}>
                     {media.map((item, i)=>(
                          <div 
-                            key={i => (`mediaReelItem${i}`)}
+                            key={`mediaReelItem${i}`}
                             className={classes.statusBox} 
                             onClick={()=>this.handleItemClick(i)}
                         >
