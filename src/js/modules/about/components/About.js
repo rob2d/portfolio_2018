@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import { withStyles } from '@material-ui/core/styles'
@@ -6,12 +6,10 @@ import {
     about as strings, 
     menus as menuStrings 
 } from 'strings'
-import appHistory from 'tools/appHistory'
 import Avatar from '@material-ui/core/Avatar'
 import ButtonLink from 'tools/components/ButtonLink'
 import SectionLink from './SectionLink'
 import SkillsOrbit from './SkillsOrbit'
-import DEBUG_3D from 'constants/env/DEBUG_3D'
 
 const styleSheet = theme => ({
     mainContainer : {

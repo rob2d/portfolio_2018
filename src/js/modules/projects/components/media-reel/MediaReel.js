@@ -6,10 +6,11 @@ import ReelThumbs from './ReelThumbs'
 import { connect } from 'react-redux'
 import YouTube from 'react-youtube'
 import ButtonLink from 'tools/components/ButtonLink'
+import PropTypes from 'prop-types'
 
 // TODO : css related constants should be in
 //        one place
-const REEL_ANIM_SPEED = 40;
+const REEL_ANIM_SPEED = 4000;
 
 /**
  * Retrieves the width for the entire media reel
@@ -172,7 +173,7 @@ class MediaReel extends PureComponent {
             (this.state.selectedIndex + 1) % this.props.media.length
         }
         clearInterval(this.state.autoplayTimer);
-        const autoplayTimer = setInterval(()=> { this.autoplayToNextItem(); }, 4000);
+        const autoplayTimer = setInterval(()=> { this.autoplayToNextItem(); }, REEL_ANIM_SPEED);
         this.setState({ autoplayTimer, isReelAutoplaying : true});
     };
     autoplayToNextItem = () => {
@@ -191,7 +192,9 @@ class MediaReel extends PureComponent {
             aspectRatio 
         } = this.props;
 
-        const { selectedIndex, iterationIndex, advanceInitialThumbs } = this.state;
+        const { 
+            selectedIndex 
+        } = this.state;
 
         const highlightedMedia = media && media[selectedIndex];
 
@@ -274,11 +277,26 @@ class MediaReel extends PureComponent {
     }
 }
 
+MediaReel.propTypes = {
+    theme          : PropTypes.string.isRequired,
+    viewportWidth  : PropTypes.number.isRequired,
+    viewportHeight : PropTypes.number.isRequired,
+    width          : PropTypes.number,
+    maxWidth       : PropTypes.number,
+    aspectRatio    : PropTypes.number.isRequired,
+    projectId      : PropTypes.string.isRequired,
+    media          : PropTypes.shape({
+        type    : PropTypes.string.isRequired,
+        src     : PropTypes.string,
+        thumb   : PropTypes.string,
+        videoId : PropTypes.string
+    })
+};
+
 export default injectSheet(styleSheet)(connect(
-    (state, ownProps)=> ({ 
-        theme          : state.core.theme,
-        viewportWidth  : state.core.viewportWidth,
-        viewportHeight : state.core.viewportHeight
-    }),
-    null
+    ({ core }, ownProps)=> ({ 
+        theme          : core.theme,
+        viewportWidth  : core.viewportWidth,
+        viewportHeight : core.viewportHeight
+    })
 )(MediaReel))
