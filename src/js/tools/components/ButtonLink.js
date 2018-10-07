@@ -63,7 +63,6 @@ function ButtonLink ({
             focusRipple 
             className={ containerClass }
             onClick={ onClick }
-            title={ title }
             TouchRippleProps={{
                 classes : { ripple : classes.touchRipple }
             }}

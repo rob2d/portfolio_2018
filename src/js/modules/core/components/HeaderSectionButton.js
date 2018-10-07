@@ -20,7 +20,6 @@ const HeaderSectionButton = pure(injectSheet(styleSheet)(function HeaderSectionB
                 >
                 <Button className={ classes.button }
                     disabled={ disabled }
-                    data-tip data-for={ `header-menu-${name}-tooltip` }
                     id={ domId }
                     onClick={ onClick }
                 >

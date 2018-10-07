@@ -176,7 +176,6 @@ class PDFViewer extends Component {
                         >
                             <Button
                                 variant="fab"
-                                data-tip data-for={`resume-pdf-download-tooltip`}
                                 className={classes.downloadButton}
                             ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
                             </Button>

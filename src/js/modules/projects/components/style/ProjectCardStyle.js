@@ -34,7 +34,6 @@ const base = {
 };
 
 function getTopMargin (viewportWidth) {
-    console.log('viewportWidth ->', viewportWidth);
     return viewportWidth > 800 ? 32 : 16;
 }
 
@@ -88,6 +87,7 @@ const styleSheet = {
     },
     cardMediaContent : {
         position : 'relative',
+        display: 'block',
         width    : '100%',
         opacity  : 1,
         transition: `all ${ANIM_INTERVAL}s ease-out`,

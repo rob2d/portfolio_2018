@@ -134,9 +134,7 @@ class ProjectsPanel extends PureComponent {
                     {
                         const isSelected = (p.id == selectedProjectId);
                         const onScreen = areAllProjectsOnScreen || isSelected;
-                        if(p.id == 'greedux') {
-                            console.log('isSelected ->', isSelected);
-                        }                           
+
                         return (
                             <ProjectCard
                                 ref={ (c) => this.R.projects[p.id] = c }

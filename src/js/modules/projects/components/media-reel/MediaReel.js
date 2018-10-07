@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react'
 import { pure } from 'recompose'
 import injectSheet from 'react-jss'
-import MediaTypes from 'constants/MediaTypes'
-import ReelThumbs from './ReelThumbs'
 import { connect } from 'react-redux'
-import YouTube from 'react-youtube'
-import ButtonLink from 'tools/components/ButtonLink'
+import MediaViewer from './MediaViewer'
+import ReelThumbs from './ReelThumbs'
 import PropTypes from 'prop-types'
 
 // TODO : css related constants should be in
@@ -16,7 +14,7 @@ const REEL_ANIM_SPEED = 4000;
  * Retrieves the width for the entire media reel
  * (dependent on width, maxWidth props)
  */
-function getWidthUsed ( width, maxWidth ) {
+function getReelWidth ( width, maxWidth ) {
     return maxWidth !== 'undefined' && 
         ((width > maxWidth) ? maxWidth : width);
 }
@@ -28,20 +26,11 @@ const styleSheet = {
         maxWidth : ({ maxWidth })=>(maxWidth),
         height : ({ width, maxWidth, aspectRatio })=>(
             // 25% diff to account for reel and status boxes
-            Math.round((getWidthUsed(width,maxWidth)/(aspectRatio)) * 0.75) + 'px'
+            Math.round(
+                (getReelWidth(width,maxWidth)/(aspectRatio)) * 0.75
+            ) + 'px'
         ),
         margin : '0 auto 56px'
-    },
-    highlightedMediaSection : {
-        display         : 'flex',
-        boxSizing       : 'border-box',
-        justifyContent  : 'center',
-        alignItems      : 'center',
-        position        : 'relative',
-        flexBasis       : '75%',
-        height          : '100%',
-        margin          : 0,
-        padding         : 0
     },
     highlightedImageButton : {
         '&:hover $highlightedMediaImage' : {
@@ -63,16 +52,6 @@ const styleSheet = {
         width : '100%',
         height : '100%',
         backgroundColor : '#000000'
-    },
-    mediaCaption : {
-        display : 'flex',
-        minHeight : '48px',
-        justifyContent : 'center',
-        alignItems : 'center',
-        width : '100%',
-        position : 'absolute',
-        bottom : '-48px',
-        textAlign : 'center',
     },
     reel : {
         flexBasis : '25%',
@@ -132,22 +111,39 @@ class MediaReel extends PureComponent {
         this.state = {
             selectedIndex : 0,
             isVideoPlaying : false,
-            autoplayTimer : null
+            autoplayTimer : null,
+            updateCount : 0
          };
     }
+
     handleItemClick = (selectedIndex)=> {
         this.startReelAutoplay(); // resets autoplay timer
                                   // and binds new interval
         this.setState({ selectedIndex });
     };
+
     handleVideoPlay = ()=> {
-        console.log('handleVideoPlay()');
         this.setState({ isVideoPlaying : true });
     };
+
     handleVideoStop = () => {
-        console.log('handleVideoStop()');
         this.setState({ isVideoPlaying : false });
     };
+
+    /**
+     * increments update for
+     * easily handling media
+     * loading (this is somewhat hax;
+     * no time to re-write ownership
+     * of cache handler for viewer or break
+     * down component types)
+     */
+    handlePropUpdate = () => {
+        this.setState({
+            updateCount : this.state.updateCount+1
+        });
+    };
+
     /**
      * detects when youtube state changes
      */
@@ -161,12 +157,14 @@ class MediaReel extends PureComponent {
             }
         }
     };
+
     componentDidMount () {
         this.startReelAutoplay();
     }
     componentWillUnmount() {
         clearInterval(this.state.autoplayTimer);
     }
+
     // also restarts autoplay
     startReelAutoplay = () => {
         if(this.state.autoplayTimer) {
@@ -178,7 +176,8 @@ class MediaReel extends PureComponent {
     };
     autoplayToNextItem = () => {
         if(!this.state.isVideoPlaying) {
-            const selectedIndex = (this.state.selectedIndex + 1) % this.props.media.length;
+            const selectedIndex = (this.state.selectedIndex + 1) % 
+                                    this.props.media.length;
             this.setState({ selectedIndex });
         }
     };
@@ -193,55 +192,23 @@ class MediaReel extends PureComponent {
         } = this.props;
 
         const { 
-            selectedIndex 
+            selectedIndex,
+            updateCount
         } = this.state;
-
+        
         const highlightedMedia = media && media[selectedIndex];
 
         return (
             <div className={classes.container}>
-                <div className={classes.highlightedMediaSection}>
-                {highlightedMedia && highlightedMedia.caption && (
-                    <div className={classes.mediaCaption}>
-                        {highlightedMedia.caption}
-                    </div>
-                )}
-                <div className={classes.highlightedMediaLowRes}></div>
-                {(()=> {
-                    if(!highlightedMedia) {
-                        return null;
-                    }
-
-                    switch(highlightedMedia.type) {
-                        case MediaTypes.IMAGE : 
-                        return (
-                            <ButtonLink 
-                                url={`${location.protocol}//${location.host}${highlightedMedia.src}`}
-                                title={'Open full res image in new tab'}
-                                containerClass={classes.highlightedImageButton}
-                            >
-                                <img 
-                                    className={classes.highlightedMediaImage} 
-                                    src={highlightedMedia.src}
-                                />
-                            </ButtonLink>
-                        );
-                        case MediaTypes.VIDEO : 
-                    return ( highlightedMedia && (
-                        <div className={classes.highlightedMediaVideo}>
-                            <YouTube
-                                videoId={highlightedMedia.videoId}
-                                className={classes.highlightedMediaVideo}
-                                onPlay={this.handleVideoPlay}
-                                onStop={this.handleVideoStop}
-                                onEnd={this.handleVideoStop}
-                                onStateChange={this.handleYTStateChange}
-                            />
-                        </div>
-                    ))
-                    }
-                })()}
-                </div>
+                <MediaViewer 
+                    {...highlightedMedia}
+                    onVideoPlay={this.handleVideoPlay}
+                    onVideoStop={this.handleVideoStop}
+                    onVideoPause={undefined} //do not want reel to resume
+                    onVideoEnd={this.handleVideoStop}
+                    onUpdate={this.handlePropUpdate}
+                    updateCount={updateCount}
+                />
                 <div className={classes.reel}>
                     <div className={classes.reelPadding}></div>
                     <ReelThumbs 
@@ -249,7 +216,7 @@ class MediaReel extends PureComponent {
                         selectedIndex={selectedIndex}
                         thumbHeight ={
                             Math.round((
-                                getWidthUsed(width,maxWidth)*0.25*0.75) / aspectRatio
+                                getReelWidth(width,maxWidth)*0.25*0.75) / aspectRatio
                             )
                         }
                         onThumbClicked={this.handleItemClick}
@@ -258,18 +225,19 @@ class MediaReel extends PureComponent {
                     <div className={classes.reelPadding}>
                     </div>
                     <div className={classes.statusBoxes}>
-                    {media.map((item, i)=>(
+                    {media.map((item, i)=>{
+                        return (
                          <div 
                             key={`mediaReelItem${i}`}
                             className={classes.statusBox} 
                             onClick={()=>this.handleItemClick(i)}
                         >
                             <i className={`mdi mdi-square${ 
-                                i!=selectedIndex ? '-outline':'' } ${
+                                (i!=selectedIndex) ? '-outline':'' } ${
                                 classes.statusBoxIcon}`} 
                             />
                          </div>
-                    ))}
+                    )})}
                 </div>       
                 </div>
             </div>

@@ -25,7 +25,7 @@ const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
     return (
         <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
             <Card className={containerClass} onClick={onClick}>
-                <CardMedia className={classes.cardMediaContent}>
+                <div className={classes.cardMediaContent}>
                     <img
                         src={`/img/projects/${
                             data.id}/${
@@ -44,7 +44,7 @@ const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
                             <i className={'mdi mdi-information-outline'}/>
                         </div>
                     </div>
-                </CardMedia>
+                </div>
                 <CardContent className={classes.cardContent}>
                     <Typography component="p">
                         {data.shortDescription}
