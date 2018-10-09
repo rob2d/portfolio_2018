@@ -81,11 +81,6 @@ const styleSheet = {
     statusBoxIcon : {
         fontSize : '10pt'
     },
-    '@media (max-width:400px)' : {
-        statusBoxIcon : {
-            fontSize : '6pt !important'
-        }
-    },
     fullScreenButton : {
         position : 'absolute',
         right    : '16px',
