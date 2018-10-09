@@ -78,8 +78,9 @@ class AppHeader extends PureComponent {
     }
 
     updateButtonXPositions = ()=> {
-        setTimeout(()=> {
-            const leftmostButton = this.R.buttonDivRefs[0];
+        let that = this;
+        setTimeout(function updateButtonXPositions() {
+            const leftmostButton = that.R.buttonDivRefs[0];
             const buttonWidth = leftmostButton && leftmostButton.offsetWidth;
             const appBar = document.querySelector("div[class^=MuiToolbar]");            
             const appBarHeight = appBar && appBar.clientHeight;
@@ -88,8 +89,8 @@ class AppHeader extends PureComponent {
             const leftPadding = window.getComputedStyle(appBar, null)
                                     .getPropertyValue('padding-left');
 
-            this.setState({ 
-                buttonXPositions : this.R.buttonDivRefs.map( 
+            that.setState({ 
+                buttonXPositions : that.R.buttonDivRefs.map( 
                     b =>( b.offsetLeft + buttonWidth/2 )
                 ),
                 buttonWidth,
