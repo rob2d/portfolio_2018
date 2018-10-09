@@ -33,26 +33,21 @@ let express   = require('express'),
     Paths     = require('./gulp/config/paths'),
     RUNTIME   = { PORT : argv.port || 3002 },
     codeDir   = argv.dev ? Paths.DEST_DEV : Paths.DEST_PROD,
-    SSL       = (()=>
-    {
-        if(argv.https)
-        {
+    SSL       = (()=> {
+        if(argv.https) {
             let certPath = argv.ssl_cert,
                 keyPath  = argv.ssl_key,
                 caPath   = argv.ssl_ca,
                 SSL      = { HTTPS   : true, options : {} };      
 
-                if(caPath)
-                {
+                if(caPath) {
                     SSL.options.ca = fs.readFileSync(caPath);
                 }
-                else if(keyPath && certPath)
-                {
+                else if(keyPath && certPath) {
                     SSL.options.key  = fs.readFileSync(keyPath);
                     SSL.options.cert = fs.readFileSync(certPath);
                 }
-                else 
-                {
+                else {
                     console.error('https flag requires "cert" and "key" or "ca" file parameters');
                     process.exit();
                 }
@@ -64,8 +59,7 @@ let express   = require('express'),
 
 
 //allow cross-domain data requests
-let xDomainMiddleware = (req, res, next)=>
-{
+let xDomainMiddleware = (req, res, next)=> {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -91,8 +85,7 @@ app.use(xDomainMiddleware);
 |
 */
 
-function renderMainApp (req,res)
-{
+function renderMainApp (req,res) {
     res.render(__dirname + '/' + codeDir + '/index.html');
 }
 
@@ -112,8 +105,7 @@ app.get('/misc', renderMainApp);
 |
 */
 
-app.get('*', (req, res)=>
-{
+app.get('*', (req, res)=> {
     res.status(404).send(
         `<p>Sorry, the page you requested cannot be found. </p>
          <p>You can return to the main site by <a href="/">clicking here</p>.
@@ -131,8 +123,7 @@ app.get('*', (req, res)=>
 |
 */
 
-let startServer = ((server)=>
-{
+let startServer = server => {
     let host    = server.address().address,
         port    = server.address().port,
         version = require('./package.json').version,
@@ -149,10 +140,10 @@ let startServer = ((server)=>
     }
 
     return server;
-});
+};
 
 
-let server = (()=>{
+let server = (()=> {
     let server;
     if(SSL.HTTPS) {
         server =  https.createServer(SSL.options, app).listen(RUNTIME.PORT, ()=> {
@@ -161,6 +152,8 @@ let server = (()=>{
     }
     else {
         server =  http.createServer(app)
-                        .listen(RUNTIME.PORT, ()=>{ startServer(server); });
+                        .listen(RUNTIME.PORT, ()=>{ 
+                            startServer(server); 
+                        });
     }
 })();
