@@ -173,9 +173,12 @@ class SkillsOrbit extends Component {
             canvas : undefined,
             debugText  : undefined
         };
+
+        this._isMounted = false;
     }
 
     componentDidMount () {
+        this._isMounted = true;
         this.instantiateScene();
         this.lastAnimated = performance.now();
         window.addEventListener('mousemove', this.onMouseMove);
@@ -189,6 +192,7 @@ class SkillsOrbit extends Component {
         if(DEBUG_3D) {
             this.R.debugText = undefined;
         }
+        this._isMounted = false;
     }
 
     onMouseMove = (e) => {
@@ -485,7 +489,10 @@ class SkillsOrbit extends Component {
         }
 
         this.renderer.render( this.scene, this.camera );
-        requestAnimationFrame( this.animate );
+
+        if(this._isMounted) {
+            requestAnimationFrame( this.animate );
+        }
     };
 
     render () {
