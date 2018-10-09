@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 // TODO : css related constants should be in
 //        one place
-const REEL_ANIM_SPEED = 4000;
+const REEL_ANIM_SPEED = 6500;
 
 /**
  * Retrieves the width for the entire media reel
@@ -84,19 +84,7 @@ const styleSheet = {
     '@media (max-width:400px)' : {
         statusBoxIcon : {
             fontSize : '6pt !important'
-        },
-        mediaCaption : {
-            fontSize :'8pt !important'
         }
-    },
-    '@media (max-width:700px)' : {
-        mediaCaption : {
-            fontSize :'10pt'
-        }
-    },
-    mediaButton :  {
-        color : '#FFFFFF',
-        fontSize : '24pt'
     },
     fullScreenButton : {
         position : 'absolute',
@@ -188,20 +176,24 @@ class MediaReel extends PureComponent {
             projectId, 
             width, 
             maxWidth, 
-            aspectRatio 
+            aspectRatio,
+            viewportWidth
         } = this.props;
 
         const { 
             selectedIndex,
             updateCount
         } = this.state;
-        
+
         const highlightedMedia = media && media[selectedIndex];
 
         return (
             <div className={classes.container}>
                 <MediaViewer 
                     {...highlightedMedia}
+                    width={ Math.floor(width*0.7) }
+                    aspectRatio={ aspectRatio }
+                    viewportWidth={viewportWidth}
                     onVideoPlay={this.handleVideoPlay}
                     onVideoStop={this.handleVideoStop}
                     onVideoPause={undefined} //do not want reel to resume
@@ -211,17 +203,20 @@ class MediaReel extends PureComponent {
                 />
                 <div className={classes.reel}>
                     <div className={classes.reelPadding}></div>
-                    <ReelThumbs 
-                        media={media}
-                        selectedIndex={selectedIndex}
-                        thumbHeight ={
-                            Math.round((
-                                getReelWidth(width,maxWidth)*0.25*0.75) / aspectRatio
-                            )
-                        }
-                        onThumbClicked={this.handleItemClick}
-                        width={width}
-                    />
+                    {
+                        viewportWidth > 740 && 
+                        <ReelThumbs 
+                            media={media}
+                            selectedIndex={selectedIndex}
+                            thumbHeight ={
+                                Math.round((
+                                    getReelWidth(width,maxWidth)*0.25*0.75) / aspectRatio
+                                )
+                            }
+                            onThumbClicked={this.handleItemClick}
+                            width={width}
+                        />
+                    }
                     <div className={classes.reelPadding}>
                     </div>
                     <div className={classes.statusBoxes}>

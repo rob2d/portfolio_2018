@@ -8,6 +8,10 @@ import CardMedia from '@material-ui/core/CardMedia'
 import styleSheet from './style/ProjectCardStyle'
 import { DisplayStates } from './ProjectsPanel'
 
+// TODO : use React 16's new lifecycle methods/guidelines
+//        for animation sequence (which coincidentally make 
+//        this much simpler)
+
 const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
     data,
     pData,

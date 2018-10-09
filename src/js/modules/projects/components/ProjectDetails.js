@@ -31,6 +31,21 @@ const styleSheet = {
         paddingBottom : '16px',
         marginBottom  : '16px'
     },
+
+    '@media (max-width:800px)' : {
+        mainContainer : {
+            paddingLeft : '16px',
+            paddingRight : '16px'
+        }
+    },
+
+    '@media (max-width:400px)' : {
+        mainContainer : {
+            paddingLeft  : '12px !important',
+            paddingRight : '12px !important'
+        }
+    },
+
     contentContainer : {
         margin : '16px 0px',
         paddingLeft : '16px',
@@ -233,7 +248,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                             <p className={classes.sectionContent}>
                                 <MediaReel 
                                     maxWidth={ 800 }
-                                    width={ Math.round(viewportWidth * 0.80) }
+                                    width={ Math.min(Math.round(viewportWidth * 0.80), 800) }
                                     aspectRatio={ pData.mediaAspectRatio }
                                     projectId={projectId}
                                     media={media}
