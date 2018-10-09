@@ -124,7 +124,7 @@ export default injectSheet({  reelThumbs : {
     display : 'flex',
     flexDirection : 'column',
     boxSizing : 'border-box',
-    flexBasis : '7%',
+    flexGrow  : 1,
     overflowY : 'scroll',
     overflowX : 'hidden',
     scrollBehavior : 'smooth', // works with polyfill
