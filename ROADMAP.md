@@ -1,4 +1,3 @@
-
 # ROADMAP #
 ## [Roadmap All the things] ##
 ------------------------------
@@ -11,8 +10,6 @@
 - go through components and determine `recompose/pure` usage to be sure the hierarchy is best for rendering efficiency.
 
 ## MediaReel
-
-- preload images and also provide medium sized image gallery versions to save bandwidth
 
 - cache instances of YouTube player while parent still mounted so that there's no need to reload iframe
 

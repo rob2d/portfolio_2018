@@ -1,4 +1,3 @@
-import theme from 'app-root/getTheme'
 import { Sections } from 'constants/AppSections'
 
 const SECTION_COUNT   = Sections.length,
@@ -47,7 +46,7 @@ const styleSheet = {
         lineHeight  : '17pt !important',
         display     : 'block',
         color       : '#FFFFFF !important'
-    },
+    }
 
 };
 

@@ -87,8 +87,9 @@ const getTheme = theme => {
                     root : {
                         color : pink[400]
                     },
-                    colorAccent : {
-                        color : pink[400]
+                    colorPrimary : {
+                        color : (theme == Themes.LIGHT) ? 
+                                    '#000000' : '#FFFFFF'
                     }
                 },
                 MuiPaper : {
@@ -127,4 +128,4 @@ const getTheme = theme => {
     return themes[theme];
 };
 
-export default getTheme;
+export default { themes, getTheme };

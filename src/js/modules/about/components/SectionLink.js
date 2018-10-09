@@ -41,7 +41,7 @@ let SectionLink = pure(withStyles(styles)(
                 url={url}
                 containerClass={classes.container}
             >   <li className={classes.listItem}> 
-                    <i className={iconClass}/>&nbsp;{name}
+                    <i className={iconClass} />&nbsp;{name}
                 </li>
             </ButtonLink>
         );
