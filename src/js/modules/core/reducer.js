@@ -26,7 +26,11 @@ const initialState = {
     viewportHeight : getViewportHeight()
 };
 
-const reducer = ( state = { ...initialState }, { type, payload } ) => {
+const reducer = ( state = { ...initialState }, action ) => {
+    if(!action) {
+        return state;
+    }
+    let { type, payload } = action;
     switch(type) {
         case SET_THEME : 
             return Object.assign(

@@ -143,17 +143,16 @@ let startServer = server => {
 };
 
 
-let server = (()=> {
-    let server;
-    if(SSL.HTTPS) {
-        server =  https.createServer(SSL.options, app).listen(RUNTIME.PORT, ()=> {
-            startServer(server);
-        });
-    }
-    else {
-        server =  http.createServer(app)
-                        .listen(RUNTIME.PORT, ()=>{ 
-                            startServer(server); 
-                        });
-    }
-})();
+let server;
+
+if(SSL.HTTPS) {
+    server =  https.createServer(SSL.options, app).listen(RUNTIME.PORT, ()=> {
+        startServer(server);
+    });
+}
+else {
+    server =  http.createServer(app)
+                    .listen(RUNTIME.PORT, ()=>{ 
+                        startServer(server); 
+                    });
+}

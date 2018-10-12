@@ -1,7 +1,7 @@
 const gulp        = require('gulp'),
       runSequence = require('run-sequence');
 
-gulp.task('build', function() {
+gulp.task('build', function () {
     return runSequence(
         'welcome-build-notice',
         'apply-prod-environment', [

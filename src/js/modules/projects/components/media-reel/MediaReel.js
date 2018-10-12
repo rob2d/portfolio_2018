@@ -21,16 +21,16 @@ function getReelWidth ( width, maxWidth ) {
 
 const styleSheet = {
     container : {
-        display : 'flex',
+        display  : 'flex',
         overflow : 'visible',
         maxWidth : ({ maxWidth })=>(maxWidth),
-        height : ({ width, maxWidth, aspectRatio })=>(
+        height   : ({ width, maxWidth, aspectRatio })=>(
             // 25% diff to account for reel and status boxes
             Math.round(
                 (getReelWidth(width,maxWidth)/(aspectRatio)) * 0.75
             ) + 'px'
         ),
-        margin : '0 auto 56px'
+        margin  : '0 auto 56px'
     },
     highlightedImageButton : {
         '&:hover $highlightedMediaImage' : {
@@ -49,27 +49,29 @@ const styleSheet = {
         transition : 'border-color 0.24s ease-in'
     },
     highlightedMediaVideo : {
-        width : '100%',
+        width  : '100%',
         height : '100%',
         backgroundColor : '#000000'
     },
     reel : {
         flexBasis : '25%',
         height    : '100%',
-        margin : 0,
-        padding : 0,
-        display : 'flex',
+        margin    : 0,
+        padding   : 0,
+        display       : 'flex',
         flexDirection :'row'
     },
-    reelPadding : { flexBasis : '10%' },
+    reelPadding : { 
+        flexBasis : '10%' 
+    },
     statusBoxes : {
-        flexBasis : '5%',
-        margin : 0,
-        padding : 0,
-        display : 'flex',
+        flexBasis  : '5%',
+        margin     : 0,
+        padding    : 0,
+        display    : 'flex',
         alignItems : 'center',
         justifyContent : 'center',
-        flexDirection : 'column'
+        flexDirection  : 'column'
     },
     statusBox : {
         flexGrow : 1,
@@ -205,7 +207,8 @@ class MediaReel extends PureComponent {
                             selectedIndex={selectedIndex}
                             thumbHeight ={
                                 Math.round((
-                                    getReelWidth(width,maxWidth)*0.25*0.75) / aspectRatio
+                                    getReelWidth(width,maxWidth)*0.25*0.75) / 
+                                    aspectRatio
                                 )
                             }
                             onThumbClicked={this.handleItemClick}

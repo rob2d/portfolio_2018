@@ -4,10 +4,10 @@ import MediaTypes from 'constants/MediaTypes'
 
 const styleSheet = {
     reelThumbImg : {        
-        display : 'block',
+        display   : 'block',
         boxSizing : 'border-box',
-        width : '100%',
-        height : 'auto'
+        width     : '100%',
+        height    : '100%'
     },
     reelThumbSelected : {
         border : '2px solid rgb(0,175,200) !important'
@@ -119,16 +119,18 @@ class ReelThumbs extends PureComponent {
     }
 }
 
-export default injectSheet({  reelThumbs : {
-    position : 'relative',
-    display : 'flex',
-    flexDirection : 'column',
-    boxSizing : 'border-box',
-    flexGrow  : 1,
-    overflowY : 'scroll',
-    overflowX : 'hidden',
-    scrollBehavior : 'smooth', // works with polyfill
-    '&::-webkit-scrollbar': {
-        display : 'none'
-    }
+export default injectSheet({  
+    reelThumbs : {
+        position       : 'relative',
+        display        : 'flex',
+        flexDirection  : 'column',
+        boxSizing      : 'border-box',
+        flexGrow       : 1,
+        overflowY      : 'scroll',
+        overflowX      : 'hidden',
+        scrollBehavior : 'smooth', // works with polyfill
+        flexBasis      : '80%',
+        '&::-webkit-scrollbar': {
+            display : 'none'
+        }
 }})(ReelThumbs)
