@@ -2,27 +2,39 @@ import { applyMiddleware } from 'redux'
 import { createStore } from 'redux'
 import thunk  from 'redux-thunk'
 import promise from 'redux-promise-middleware'
-import reducer from './reducers'
-import localizer from 'middleware/localizer'
+import rootReducer from './reducers'
 import routeTitleMapper from 'middleware/routeTitleMapper'
-import logger from 'redux-logger'
-import routerMiddleware from 'react-router-redux/middleware'
+import reduxLogger from 'redux-logger'
 import appHistory from 'tools/appHistory'
+import { 
+    connectRouter, 
+    routerMiddleware 
+} from 'connected-react-router'
 
-const middleware = process.env.NODE_ENV == 'production' ?
-                        applyMiddleware(
-                            promise(),
-                            thunk,
-                            localizer,
-                            routeTitleMapper,
-                            routerMiddleware(appHistory) //for intercepting navigation actions
-                        ) : applyMiddleware(
-                            promise(),
-                            thunk,
-                            logger,
-                            localizer,
-                            routeTitleMapper,
-                            routerMiddleware(appHistory)
-                        );
+/**
+ * sources for our middleware
+ */
+const middleware = [
+    promise(),
+    thunk,
+    routerMiddleware(appHistory),
+    routeTitleMapper
+];
 
-export default createStore(reducer, middleware)
+// redux-logger is not needed in prod
+
+if(process.NODE_ENV == 'production') {
+    middleware.push(reduxLogger)
+}
+
+/**
+ * new root reducer with router state
+ */
+let routedReducer = connectRouter(appHistory)(rootReducer);
+
+const store = createStore(
+    routedReducer, 
+    applyMiddleware(...middleware)
+);
+
+export default store

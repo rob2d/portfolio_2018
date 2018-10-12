@@ -10,8 +10,6 @@
 
 - go through components and determine `recompose/pure` usage to be sure the hierarchy is best for rendering efficiency.
 
-- react-redux-router is deprecated. Migrate to another library (completely does the job for now though w R16+Redux)
-
 ## MediaReel
 
 - cache instances of YouTube player while parent still mounted so that there's no need to reload iframe

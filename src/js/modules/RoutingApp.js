@@ -6,7 +6,7 @@ import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
 import { getTheme } from 'app-root/themeFactory'
 import appHistory from 'tools/appHistory'
-import ConnectedRouter from 'react-router-redux/ConnectedRouter'
+import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
 import { pure } from 'recompose'
 
@@ -19,29 +19,27 @@ import About         from './about/components/About'
 import Miscellaneous from './misc/components/Miscellaneous'
 import CV            from './cv/components/CV'
 
-const styles = theme => { 
-    return ({
-        appWrapper : {
-            minHeight       : '100%',
-            margin          : '0px auto',
-            display         : 'flex',
-            flexDirection   : 'row',
-            textAlign       : 'center',
-            backgroundColor : theme.rc3.background,
-            transition      : 'all 0.32s'
-        },
-        routeViewWrapper : {
-            display       : 'flex',
-            width         : '100%',
-            flexDirection : 'column'
-        },
-        mainContent : {
-            flexGrow : 1,
-            display : 'flex',
-            flexDirection : 'column'
-        }
-    })
-};
+const styles = theme => ({
+    appWrapper : {
+        minHeight       : '100%',
+        margin          : '0px auto',
+        display         : 'flex',
+        flexDirection   : 'row',
+        textAlign       : 'center',
+        backgroundColor : theme.rc3.background,
+        transition      : 'all 0.32s'
+    },
+    routeViewWrapper : {
+        display       : 'flex',
+        width         : '100%',
+        flexDirection : 'column'
+    },
+    mainContent : {
+        flexGrow : 1,
+        display : 'flex',
+        flexDirection : 'column'
+    }
+});
 
 const StyledContent = withStyles(styles)(
     function AppContent ({ classes }) {

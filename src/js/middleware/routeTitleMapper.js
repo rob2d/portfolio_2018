@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux/reducer'
+import { LOCATION_CHANGE } from 'connected-react-router/lib/actions'
 import AppSections from 'constants/AppSections'
 import { projects } from 'strings'
 
@@ -6,13 +6,12 @@ let { Sections } = AppSections;
 
 const SITE_NAME = `Rob's Portfolio`;
 
-const routeTitleMapper = store => next => action =>
-{   
+const routeTitleMapper = store => next => action => {   
     // if we detect an action of route changing,
     // label section appropriately
 
     if(action.type == LOCATION_CHANGE) {
-        const { pathname } = action.payload;
+        const { pathname } = action.payload.location;
         let pathIndex = Sections.findIndex((s)=>(s.basePath == pathname));
         if(pathIndex != -1) {
             window.document.title = `${SITE_NAME} -- ${Sections[pathIndex].name}`; 
