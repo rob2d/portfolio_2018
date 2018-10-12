@@ -28,6 +28,8 @@ let express   = require('express'),
     app       = express(),
     http      = require('http'),
     https     = require('https'),
+    cors      = require('cors'),
+    helmet    = require('helmet'),
     argv      = require('yargs').argv,        //grabs our app arguments
     colors    = require('colors'),
     Paths     = require('./gulp/config/paths'),
@@ -57,15 +59,6 @@ let express   = require('express'),
         else return { HTTPS : false };
     })();
 
-
-//allow cross-domain data requests
-let xDomainMiddleware = (req, res, next)=> {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-};
-
 // disable layout
 app.set("view options", {layout: false});
 app.set('view engine', 'html');
@@ -73,7 +66,8 @@ app.engine('html', require('ejs').renderFile);
 
 //attach middleware to server
 app.use(express.static(path.join(__dirname, codeDir)));
-app.use(xDomainMiddleware);
+app.use(helmet());
+app.use(cors());
 
 /*
 |--------------------------------------------------------------------------
