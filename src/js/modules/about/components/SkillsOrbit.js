@@ -20,7 +20,7 @@ const OUTER_RADIUS      = 200,
       RADIUS_DIFFERENCE = OUTER_RADIUS - INNER_RADIUS;
 
 function getSkillSphereDiameter(value) {
-    return (40 * value)-6;
+    return (40 * value) - 6;
 }
 
 function createSkillVertex({ radianAngle, value=1 }) {
@@ -124,7 +124,7 @@ const styleSheet = {
         justifyContent : 'center',
         alignItems     : 'center',
         flexAlign      : 'center',
-        pointerEvents  : 'none'
+        pointerEvents  : 'all'
     },
     meta3d : {
         maxWidth  : '200px',
@@ -142,6 +142,7 @@ class SkillsOrbit extends Component {
          **/
         this.O = {};
         this._hasInstantiated = false;
+
         /**
          * 
          * variables related to rotation
@@ -169,12 +170,16 @@ class SkillsOrbit extends Component {
             z : 0
         };
 
+        this.targetZCam = 2000;
+
         this.R = { 
-            canvas : undefined,
-            debugText  : undefined
+            canvas    : undefined,
+            container : undefined,
+            debugText : undefined
         };
 
         this._isMounted = false;
+        this.state = { isMouseOver : false };
     }
 
     componentDidMount () {
@@ -182,12 +187,11 @@ class SkillsOrbit extends Component {
         this.instantiateScene();
         this.lastAnimated = performance.now();
         window.addEventListener('mousemove', this.onMouseMove);
-        window.addEventListener('touchmove', this.onTouchMove);
     }
 
     componentWillUnmount () {
         window.removeEventListener('mousemove', this.onMouseMove);
-        window.removeEventListener('touchmove', this.onTouchMove);
+
         this.freeResources();
         if(DEBUG_3D) {
             this.R.debugText = undefined;
@@ -217,14 +221,17 @@ class SkillsOrbit extends Component {
         }
     };
 
-    onTouchMove = (e) => {
-        // touch events always fire before mouse events,
-        // so this is perfect for simply disabling our
-        // touch events as we only run them within the
-        // time threshhold for launching events
-        this.timeProcessed = performance.now();
+    onMouseEnter = e => {
+        if(!this.state.isMouseOver) {
+            this.setState({ isMouseOver : true });
+        }
     };
 
+    onMouseLeave = e => {
+        if(this.state.isMouseOver) {
+            this.setState({ isMouseOver : false });
+        }
+    };
 
     componentDidUpdate(prevProps, prevState) {
         // if language has changed, we should also change the 
@@ -282,7 +289,12 @@ class SkillsOrbit extends Component {
         }
 
         // re-assign as Three.JS is a bit funny 
+        this.R.container = window.document.querySelector('#canvas3d');
         this.R.canvas = window.document.querySelector('#canvas3d canvas');
+
+        // add event listener to newly created references
+        this.R.container.addEventListener('mouseenter', this.onMouseEnter);
+        this.R.container.addEventListener('mouseleave', this.onMouseLeave);  
     };
 
     freeResources = () => {
@@ -296,9 +308,15 @@ class SkillsOrbit extends Component {
         this.O.skillPoints.length = 0;
         this.O.outerSphere = undefined;
         this.O.innerSphere = undefined;
+
+        this.R.container.removeEventListener('mouseenter', this.onMouseEnter);        
+        this.R.container.removeEventListener('mouseleave', this.onMouseLeave);
+
+        this.R.container = undefined;
+        this.R.canvas = undefined;
     };
 
-    instantiateScene = ()=> {
+    instantiateScene = () => {
 
         if(this.renderer) {
             this.freeResources();
@@ -306,6 +324,8 @@ class SkillsOrbit extends Component {
             // instantiate renderer, scene, camera
             this.scene    = new THREE.Scene();
             this.camera   = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
+            this.camera.position.set(0, 0, 550);
+
             this.renderer = new THREE.WebGLRenderer({ alpha : true, antialias : true });
         }
 
@@ -349,7 +369,6 @@ class SkillsOrbit extends Component {
         }
 
         this.O.outerSphere.rotation.y = Math.PI/2;
-        this.camera.position.set(0, 0, 550);
 
         this.O.textSprites = [];
         this.O.skillPoints = [];
@@ -497,14 +516,19 @@ class SkillsOrbit extends Component {
 
     render () {
         const { classes } = this.props;
-
         return (
             <Fragment>
                 { DEBUG_3D && <pre 
                     id="meta3d" 
-                    className={classes.meta3d}
-                    ref={ c => this.R.debugText = c }>[debug vars]</pre> }
-                <div id="canvas3d" className={classes.canvas3d}></div>
+                    className={ classes.meta3d }
+                    ref={ c => this.R.debugText = c }>[debug vars]</pre> 
+                }
+                <div 
+                    id="canvas3d" 
+                    className={ classes.canvas3d }
+                    ref={ c => this.R.container = c }
+                >
+                </div>
             </Fragment>
             );
     }
