@@ -8,8 +8,10 @@ import injectSheet         from 'react-jss'
 import { connect }         from 'react-redux'
 import { about as strings} from 'strings'
 import Themes              from 'constants/Themes'
+import ShiftingValueMap    from 'tools/data-structs/ShiftingValueMap'
 import DEBUG_3D            from 'constants/env/DEBUG_3D'
 
+const { ValueEntry } = ShiftingValueMap.prototype;
 const { triangulateShape } = THREE.ShapeUtils;
 
 // (1) destroy instance and free up some
@@ -124,7 +126,8 @@ const styleSheet = {
         justifyContent : 'center',
         alignItems     : 'center',
         flexAlign      : 'center',
-        pointerEvents  : 'all'
+        pointerEvents  : 'all',
+        cursor         : 'help'
     },
     meta3d : {
         maxWidth  : '200px',
@@ -142,35 +145,8 @@ class SkillsOrbit extends Component {
          **/
         this.O = {};
         this._hasInstantiated = false;
-
-        /**
-         * 
-         * variables related to rotation
-         * via device; on Desktop, this
-         * would be via mouse and on
-         * touch-oriented devices, it would
-         * be via gyroscope
-         * 
-         */
-        this.tilt = {
-            x : 0.08, 
-            y : 0.12,
-            timeProcessed : performance.now()
-        };
-
-        this.rotationSpeed = {
-            x : 0,
-            y : 0,
-            z : 0
-        };
-
-        this.targetRotation = {
-            x : Math.PI/60,
-            y : Math.PI/60,
-            z : 0
-        };
-
-        this.targetZCam = 2000;
+        this.tiltTimeProcessed = performance.now();
+        this.shiftingValuesMap = new ShiftingValueMap();
 
         this.R = { 
             canvas    : undefined,
@@ -201,23 +177,33 @@ class SkillsOrbit extends Component {
 
     onMouseMove = (e) => {
         const { clientX, clientY } = e;
-        const timeDelta = performance.now() - this.tilt.timeProcessed; 
+        const timeDelta = performance.now() - this.tiltTimeProcessed; 
+        const valueMap = this.shiftingValuesMap;
 
         if(timeDelta > 64 && this.R.canvas) {
-            this.tilt.timeProcessed = performance.now();
+            this.tiltTimeProcessed = performance.now();
+            
             let { canvas } = this.R;
+            
             let rect    = canvas.getBoundingClientRect(),
                 centerX = rect.left + (rect.width/2),
                 centerY = rect.top  + (rect.height/2);
 
-            let relX = centerX/window.innerWidth,
-                relY = centerY/window.innerHeight;
+            let relX = centerX / window.innerWidth,
+                relY = centerY / window.innerHeight;
 
             let mouseRelX = clientX / window.innerWidth,
                 mouseRelY = clientY / window.innerHeight;
 
-            this.tilt.y = (mouseRelX-0.5)*2;
-            this.tilt.x = (mouseRelY-0.5)*2;
+            if(valueMap.has('rotYSpeed')) {
+                let valueEntry = valueMap.get('rotYSpeed');
+                valueEntry.target = (mouseRelX - 0.5) * 0.6;
+            }
+
+            if(valueMap.has('rotXSpeed')) {
+                let valueEntry = valueMap.get('rotXSpeed');
+                valueEntry.target = (mouseRelY - 0.5) * 0.6;
+            }
         }
     };
 
@@ -233,6 +219,13 @@ class SkillsOrbit extends Component {
         }
     };
 
+    /**
+     * TODO : re-organize to use new 
+     *        "deriveStateFromProps" lifecycle event
+     * 
+     * @param {*} prevProps 
+     * @param {*} prevState 
+     */
     componentDidUpdate(prevProps, prevState) {
         // if language has changed, we should also change the 
         // content of the sphere text
@@ -254,6 +247,36 @@ class SkillsOrbit extends Component {
                 
             if(maxDimension != prevMaxDimension) {
                 this.refreshRendererSize();
+            }
+        }
+
+        if(this.state.isMouseOver != prevState.isMouseOver && this.shiftingValuesMap) {
+            const map = this.shiftingValuesMap;
+            
+            if(map.has('camPosZ')) {
+                let camPosZ = map.get('camPosZ');
+                if(this.state.isMouseOver) {
+                    camPosZ.target = 800;
+                } else {
+                    camPosZ.target = 550;
+                }
+            }
+
+            if(map.has('camPosX')) {
+                let camPosX = map.get('camPosX');
+                if(this.state.isMouseOver) {
+                    camPosX.target = 150;
+                } else {
+                    camPosX.target = 0;
+                }
+            }
+
+            if(map.has('rotationX') && map.has('rotationY')) {
+                if(this.state.isMouseOver) {
+                    console.log('setting x & y targets');
+                    map.get('rotationX').target = 0;
+                    map.get('rotationY').target = 0;
+                }
             }
         }
     }
@@ -317,14 +340,37 @@ class SkillsOrbit extends Component {
     };
 
     instantiateScene = () => {
-
+    
         if(this.renderer) {
             this.freeResources();
         } else { 
             // instantiate renderer, scene, camera
             this.scene    = new THREE.Scene();
             this.camera   = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
-            this.camera.position.set(0, 0, 550);
+
+            this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({ 
+                value    : 1500,
+                target   : 550,
+                rate     : 500,
+                onChange : camPosZ => {
+                    const { position } = this.camera;
+                    const { x, y } = position;
+
+                    this.camera && (this.camera.position.set(x,y,camPosZ));
+                }
+            }));
+
+            this.shiftingValuesMap.set('camPosX', new ShiftingValueMap.ValueEntry({ 
+                value    : 0,
+                target   : 0,
+                rate     : 500,
+                onChange : camPosX => {
+                    const { position } = this.camera;
+                    const { y, z } = position;
+
+                    this.camera && (this.camera.position.set(camPosX,y,z))
+                }
+            }));
 
             this.renderer = new THREE.WebGLRenderer({ alpha : true, antialias : true });
         }
@@ -337,12 +383,13 @@ class SkillsOrbit extends Component {
         this.refreshRendererSize();
 
         if(!this._hasInstantiated) {
+            console.log('hasn\'t instantiated. animate!');
             this._hasInstantiated = true;
-            window.requestAnimationFrame(this.animate);
+            window.requestAnimationFrame( this.animate );
         }
     };
     
-    createOrbit = ()=> {
+    createOrbit = () => {
         const { theme } = this.props;
         let skillStrings = strings.skills;
 
@@ -422,49 +469,69 @@ class SkillsOrbit extends Component {
         this.O.rotationOrigin.add(this.O.skillShape);
 
         this.scene.add(this.O.rotationOrigin);
+
+        this.shiftingValuesMap.set('rotationX', new ShiftingValueMap.ValueEntry({
+            value  : 0,
+            target : 0,
+            rate   : (Math.PI * 2)/4,
+            onChange : rotationX => {
+                if(this.O.rotationOrigin) {
+                    this.O.rotationOrigin.rotation.x = rotationX;
+                }
+            }
+        }));
+
+        
+        this.shiftingValuesMap.set('rotationY', new ShiftingValueMap.ValueEntry({
+            value  : 0,
+            target : 0,
+            rate   : (Math.PI * 2)/4,
+            onChange : rotationY => {
+                if(this.O.rotationOrigin) {
+                    this.O.rotationOrigin.rotation.y = rotationY;
+                }
+            }
+        }));
+
+        this.shiftingValuesMap.set('rotXSpeed', new ShiftingValueMap.ValueEntry({ 
+            value    : 0,
+            target   : 0,
+            rate     : 1,
+            onChange : rotXSpeed => {}
+        }));
+
+        this.shiftingValuesMap.set('rotYSpeed', new ShiftingValueMap.ValueEntry({ 
+            value    : 0,
+            target   : 0,
+            rate     : 1,
+            onChange : rotSpeedY => {}
+        }));
     };
 
     animate = (timestamp)=> {
-        let timeDelta = !this.lastAnimated ? 
-                            0 : timestamp - this.lastAnimated;
+        const valueMap = this.shiftingValuesMap; //quick ref
         
+        // calculate time since last call
+        let deltaTime = !this.lastAnimated ? 
+                            0 : timestamp - this.lastAnimated;
+
+        valueMap.tick(deltaTime);
+
         this.lastAnimated = timestamp;
 
-        if(this.O.rotationOrigin) {
-
-            if(this.rotationSpeed.x < this.tilt.x) {
-                this.rotationSpeed.x += 0.0075;
+        if(this.O.rotationOrigin && !this.state.isMouseOver) {
+            if(valueMap.has('rotXSpeed')) {
+                let rotationX = valueMap.get('rotationX');
+                rotationX.target = rotationX.value + valueMap.get('rotXSpeed').value / deltaTime;
             }
 
-            if(this.rotationSpeed.x > this.tilt.x) {
-                this.rotationSpeed.x -= 0.0075;
+            if(valueMap.has('rotYSpeed')) {
+                let rotationY = valueMap.get('rotationY');
+                rotationY.target = rotationY.value + valueMap.get('rotYSpeed').value / deltaTime;          
             }
 
-            if(this.rotationSpeed.y < this.tilt.y) {
-                this.rotationSpeed.y += 0.0075;
-            }
-
-            
-            if(this.rotationSpeed.y > this.tilt.y) {
-                this.rotationSpeed.y -= 0.0075;
-            }
-
-            this.O.rotationOrigin.rotation.x += this.rotationSpeed.x / 60;
-
-            while(this.O.rotationOrigin.rotation.x < 0) {
-                this.O.rotationOrigin.rotation.x += Math.PI * 2;
-            }
-
-            this.O.rotationOrigin.rotation.x %= Math.PI * 2;
-
-            this.O.rotationOrigin.rotation.y += this.rotationSpeed.y / 60;
-            
-            while(this.O.rotationOrigin.rotation.y < 0) {
-                this.O.rotationOrigin.rotation.y += Math.PI * 2;
-            }
-
-            this.O.rotationOrigin.rotation.y %= Math.PI * 2;     
-
+            // TODO : correct rotation when it is out of bounds
+            // TODO : adjust Y value
         }
 
         // only process sprite alpha updates once per 100 ms max as
@@ -497,14 +564,16 @@ class SkillsOrbit extends Component {
 
         if(DEBUG_3D && this.R.debugText) {
             let { 
-                x:xR, 
-                y:yR, 
-                z:zR 
+                x:xR, y:yR, z:zR 
             } = this.O.rotationOrigin.rotation;
 
             this.R.debugText.innerHTML = `${
                 Math.round(xR*100)
-            }, <br/>${Math.round(yR*100)} <br/>${zR}`;
+            }, <br/>${
+                Math.round(yR*100)
+            } <br/>${
+                zR
+            }`;
         }
 
         this.renderer.render( this.scene, this.camera );
@@ -533,6 +602,7 @@ class SkillsOrbit extends Component {
             );
     }
 }
+
 
 export default injectSheet(styleSheet)(connect(
     (state,ownProps)=> ({ 
