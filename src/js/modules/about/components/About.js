@@ -63,7 +63,8 @@ const styleSheet = {
         }
     },
     linkDivider : {
-        display : 'inline-block'
+        display : 'inline-block',
+        color   : ({ theme }) => getTheme(theme).rc3.text
     },
     avatar : {
         width  : '128px',
@@ -258,8 +259,8 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
 
 export default pure(connect(
     ({ core }, ownProps)=> ({ 
-        theme : core.theme,
-        viewportWidth : core.viewportWidth,
+        theme          : core.theme,
+        viewportWidth  : core.viewportWidth,
         viewportHeight : core.viewportHeight
      })
 )(injectSheet(styleSheet)(About)));

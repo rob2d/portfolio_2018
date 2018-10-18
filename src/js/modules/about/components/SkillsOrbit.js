@@ -504,14 +504,14 @@ class SkillsOrbit extends Component {
         this.shiftingValuesMap.set('rotXSpeed', new ShiftingValueMap.ValueEntry({ 
             value    : 0,
             target   : 0.175,
-            rate     : 0.025,
+            rate     : 0.25,
             onChange : rotXSpeed => {}
         }));
 
         this.shiftingValuesMap.set('rotYSpeed', new ShiftingValueMap.ValueEntry({ 
             value    : 0,
             target   : 0.325,
-            rate     : 0.025,
+            rate     : 0.25,
             onChange : rotSpeedY => {}
         }));
     };
@@ -606,7 +606,7 @@ class SkillsOrbit extends Component {
         const { classes, theme } = this.props;
         const { isHighlighted } = this.state;
 
-        const leftIconClass = `mdi mdi-${isHighlighted ? 'cursor-pointer' : 'human'}`;
+        const leftIconClass = `mdi mdi-${!isHighlighted ? 'cursor-pointer' : 'human'}`;
         const arrowClass = `mdi mdi-arrow-right ${
                 classes.arrow} ${ this.state.isHighlighted ? 
                     classes.arrowRotated : ''

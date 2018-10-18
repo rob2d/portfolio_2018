@@ -6,7 +6,7 @@ import PDFViewer from './PDFViewer'
 
 const RESUME_URL = '/downloads/concepcion_resume_201808.pdf';
 
-const styleSheet = (theme) => ({
+const styleSheet = {
     container : {
         marginLeft     : 'auto',
         marginRight    : 'auto',
@@ -16,7 +16,7 @@ const styleSheet = (theme) => ({
         flexDirection  : 'column',
         justifyContent : 'center',
     }
-});
+};
 const CV = ({ classes, theme })=> (
     <div className={classes.container}>
         <PDFViewer fileURL={ RESUME_URL } theme={ theme } />
