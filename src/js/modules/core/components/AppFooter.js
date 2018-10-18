@@ -32,7 +32,7 @@ const styles = theme=> ({
         padding  : '4px 8px !important',
         minHeight: '20px !important',
         lineHeight: '20px !important'
-    },
+    }
 });
 
 const ContactButton = pure(withStyles(styles)

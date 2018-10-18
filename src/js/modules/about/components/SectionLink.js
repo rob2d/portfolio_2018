@@ -1,45 +1,41 @@
 import React from 'react'
 import pure from 'recompose/pure'
-import withStyles from '@material-ui/core/styles/withStyles'
+import injectSheet from 'react-jss'
+import { getTheme } from 'app-root/themeFactory'
 import ButtonLink from 'tools/components/ButtonLink'
+import isLandscape from 'tools/isLandscape'
 
-const styles = theme => ({
+const styles = {
     listItem : {
         listStyleType : 'none',
         cursor        : 'pointer',
         color         : '#c51162',
         fontFamily    : 'roboto_bold',
         fontSize      : '11pt',
-        minWidth      : '148px',
+        minWidth      : ({ viewportWidth, viewportHeight })=>(
+            !isLandscape(viewportWidth,viewportHeight) ? '148px' : '1px'
+        ),
         textAlign     : 'left',
         transition    : 'color 0.21s'
     },
     icon : {
-        marginRight : '16px',
+        marginRight : ({ viewportWidth, viewportHeight }) => (
+            !isLandscape ? '16px' : '6px'
+        ),
         fontSize    : '13pt',
-        color       : theme.rc3.text
-    },
-    container : {
-        display : 'block !important',
-        padding : '8px !important',
-        '&:hover $listItem' : {
-            color : '#ff4081'
-        },
-        '&:active $listItem' : {
-            color : '#00b8d4'
-        }
+        color       : ({ theme }) => getTheme(theme).rc3.text
     }
-});
+};
 
 
-let SectionLink = pure(withStyles(styles)(
-    function SectionLinkLayout ({ url, name, mdiClass, classes }) {
+let SectionLink = pure(injectSheet(styles)(
+    function SectionLink ({ url, name, theme, mdiClass, containerClass, classes }) {
         const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
 
         return (
             <ButtonLink 
                 url={url}
-                containerClass={classes.container}
+                containerClass={containerClass}
             >   <li className={classes.listItem}> 
                     <i className={iconClass} />&nbsp;{name}
                 </li>

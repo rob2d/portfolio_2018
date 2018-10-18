@@ -8,14 +8,11 @@ import injectSheet         from 'react-jss'
 import { connect }         from 'react-redux'
 import { about as strings} from 'strings'
 import Themes              from 'constants/Themes'
+import skillPoints         from 'constants/skillPoints'
+import { getTheme }        from 'app-root/themeFactory'
 import ShiftingValueMap    from 'tools/data-structs/ShiftingValueMap'
+import SkillsOverlayText   from './skills-orbit/SkillsOverlayText'
 import DEBUG_3D            from 'constants/env/DEBUG_3D'
-
-const { ValueEntry } = ShiftingValueMap.prototype;
-const { triangulateShape } = THREE.ShapeUtils;
-
-// (1) destroy instance and free up some
-// RAM when component unmounts
 
 const OUTER_RADIUS      = 200,
       INNER_RADIUS      = 40,
@@ -41,16 +38,6 @@ function createMesh (sources) {
     const { geometry, material } = sources;
     return new THREE.Mesh(geometry, material);
 }
-
-
-let skillPoints = [
-    { namespace : 'frontend',     value : 1.00 },  
-    { namespace : 'devops',       value : 0.55 },  
-    { namespace : 'backend',      value : 0.92 }, 
-    { namespace : 'uiUxDesign',   value : 0.70 }, 
-    { namespace : 'architecture', value : 0.95 },
-    { namespace : 'graphics',     value : 0.60 }
-];
 
 /**
  * cache distance->opacity mappings
@@ -118,21 +105,63 @@ const sources = {
     }
 };
 
-const styleSheet = {
+let FadingOrbitContainer = injectSheet({   
     canvas3d : {
         position       : 'relative',
         display        : 'flex',
         overflow       : 'hidden',
         justifyContent : 'center',
         alignItems     : 'center',
+        pointerEvents  : 'all',
+        paddingBottom  : '16px',
+        opacity        : ({ isHighlighted }) => (isHighlighted ? 0 : 1),
+        transition     : ({ isHighlighted }) => (isHighlighted ? 
+            '0.75s ease opacity 0s' :
+            '0.75s ease opacity 1s'
+        )
+    }
+ })(function OrbitContainer ({ classes, isHighlighted }) { 
+        return (
+            <div 
+                id="canvas3d" 
+                className={ classes.canvas3d } 
+            />
+        );
+    }
+);
+
+const styleSheet = {
+    container : {
+        position       : 'relative',
+        display        : 'flex',
+        flexDirection  : 'column',
+        overflow       : 'hidden',
+        justifyContent : 'center',
+        alignItems     : 'center',
         flexAlign      : 'center',
         pointerEvents  : 'all',
-        cursor         : 'help'
+        cursor         : 'pointer'
     },
     meta3d : {
         maxWidth  : '200px',
-        maxheight : '200px',
+        maxHeight : '200px',
         overflow  : 'auto'
+    },
+    hintIcons : {
+        position : 'absolute',
+        margin   : '0px',
+        bottom   : '0px',
+        color    : ({ theme })=>( getTheme(theme).rc3.text )
+    },
+    arrow : {
+        '&:before': {
+            transition : 'transform ease 0.5s'
+        }
+    },
+    arrowRotated : {
+        '&:before': {
+            transform : 'rotateZ(180deg) !important'
+        }
     }
 };
 
@@ -145,6 +174,7 @@ class SkillsOrbit extends Component {
          **/
         this.O = {};
         this._hasInstantiated = false;
+        this.lastFocusEvent    = performance.now();
         this.tiltTimeProcessed = performance.now();
         this.shiftingValuesMap = new ShiftingValueMap();
 
@@ -155,7 +185,7 @@ class SkillsOrbit extends Component {
         };
 
         this._isMounted = false;
-        this.state = { isMouseOver : false };
+        this.state = { isHighlighted : false };
     }
 
     componentDidMount () {
@@ -208,14 +238,14 @@ class SkillsOrbit extends Component {
     };
 
     onMouseEnter = e => {
-        if(!this.state.isMouseOver) {
-            this.setState({ isMouseOver : true });
+        if(!this.state.isHighlighted) {
+            this.setState({ isHighlighted : true });
         }
     };
 
     onMouseLeave = e => {
-        if(this.state.isMouseOver) {
-            this.setState({ isMouseOver : false });
+        if(this.state.isHighlighted) {
+            this.setState({ isHighlighted : false });
         }
     };
 
@@ -250,34 +280,28 @@ class SkillsOrbit extends Component {
             }
         }
 
-        if(this.state.isMouseOver != prevState.isMouseOver && this.shiftingValuesMap) {
+        if(this.state.isHighlighted != prevState.isHighlighted && this.shiftingValuesMap) {
+            this.lastFocusEvent = performance.now();
             const map = this.shiftingValuesMap;
             
             if(map.has('camPosZ')) {
                 let camPosZ = map.get('camPosZ');
-                if(this.state.isMouseOver) {
+                if(this.state.isHighlighted) {
                     camPosZ.target = 800;
                 } else {
-                    camPosZ.target = 550;
+                    // TODO : transform alpha
+                    setTimeout(()=>(camPosZ.target = 550), 1000);
                 }
             }
 
-            if(map.has('camPosX')) {
-                let camPosX = map.get('camPosX');
-                if(this.state.isMouseOver) {
-                    camPosX.target = 150;
-                } else {
-                    camPosX.target = 0;
-                }
-            }
-
+            /*
             if(map.has('rotationX') && map.has('rotationY')) {
-                if(this.state.isMouseOver) {
+                if(this.state.isHighlighted) {
                     console.log('setting x & y targets');
                     map.get('rotationX').target = 0;
                     map.get('rotationY').target = 0;
                 }
-            }
+            }*/
         }
     }
 
@@ -312,7 +336,6 @@ class SkillsOrbit extends Component {
         }
 
         // re-assign as Three.JS is a bit funny 
-        this.R.container = window.document.querySelector('#canvas3d');
         this.R.canvas = window.document.querySelector('#canvas3d canvas');
 
         // add event listener to newly created references
@@ -334,8 +357,6 @@ class SkillsOrbit extends Component {
 
         this.R.container.removeEventListener('mouseenter', this.onMouseEnter);        
         this.R.container.removeEventListener('mouseleave', this.onMouseLeave);
-
-        this.R.container = undefined;
         this.R.canvas = undefined;
     };
 
@@ -349,7 +370,7 @@ class SkillsOrbit extends Component {
             this.camera   = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
 
             this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({ 
-                value    : 1500,
+                value    : 1000,
                 target   : 550,
                 rate     : 500,
                 onChange : camPosZ => {
@@ -357,18 +378,6 @@ class SkillsOrbit extends Component {
                     const { x, y } = position;
 
                     this.camera && (this.camera.position.set(x,y,camPosZ));
-                }
-            }));
-
-            this.shiftingValuesMap.set('camPosX', new ShiftingValueMap.ValueEntry({ 
-                value    : 0,
-                target   : 0,
-                rate     : 500,
-                onChange : camPosX => {
-                    const { position } = this.camera;
-                    const { y, z } = position;
-
-                    this.camera && (this.camera.position.set(camPosX,y,z))
                 }
             }));
 
@@ -383,7 +392,6 @@ class SkillsOrbit extends Component {
         this.refreshRendererSize();
 
         if(!this._hasInstantiated) {
-            console.log('hasn\'t instantiated. animate!');
             this._hasInstantiated = true;
             window.requestAnimationFrame( this.animate );
         }
@@ -495,15 +503,15 @@ class SkillsOrbit extends Component {
 
         this.shiftingValuesMap.set('rotXSpeed', new ShiftingValueMap.ValueEntry({ 
             value    : 0,
-            target   : 0,
-            rate     : 1,
+            target   : 0.175,
+            rate     : 0.025,
             onChange : rotXSpeed => {}
         }));
 
         this.shiftingValuesMap.set('rotYSpeed', new ShiftingValueMap.ValueEntry({ 
             value    : 0,
-            target   : 0,
-            rate     : 1,
+            target   : 0.325,
+            rate     : 0.025,
             onChange : rotSpeedY => {}
         }));
     };
@@ -519,7 +527,7 @@ class SkillsOrbit extends Component {
 
         this.lastAnimated = timestamp;
 
-        if(this.O.rotationOrigin && !this.state.isMouseOver) {
+        if(this.O.rotationOrigin) {
             if(valueMap.has('rotXSpeed')) {
                 let rotationX = valueMap.get('rotationX');
                 rotationX.target = rotationX.value + valueMap.get('rotXSpeed').value / deltaTime;
@@ -583,32 +591,60 @@ class SkillsOrbit extends Component {
         }
     };
 
+    onClick = ()=> {
+        let eventTime = performance.now();
+        let eventTimeDelta = eventTime - this.lastFocusEvent;
+
+        // allow updating max every .35s from 
+        // another mouse event
+        if(eventTimeDelta > 350) {
+            this.setState({ isHighlighted : !this.state.isHighlighted });
+        }
+    };
+
     render () {
-        const { classes } = this.props;
+        const { classes, theme } = this.props;
+        const { isHighlighted } = this.state;
+
+        const leftIconClass = `mdi mdi-${isHighlighted ? 'cursor-pointer' : 'human'}`;
+        const arrowClass = `mdi mdi-arrow-right ${
+                classes.arrow} ${ this.state.isHighlighted ? 
+                    classes.arrowRotated : ''
+        }`;
+
         return (
-            <Fragment>
+            <div 
+                className={classes.container} 
+                ref={ c => this.R.container = c } 
+                onClick={this.onClick}
+            >
                 { DEBUG_3D && <pre 
                     id="meta3d" 
                     className={ classes.meta3d }
                     ref={ c => this.R.debugText = c }>[debug vars]</pre> 
                 }
-                <div 
-                    id="canvas3d" 
-                    className={ classes.canvas3d }
-                    ref={ c => this.R.container = c }
-                >
-                </div>
-            </Fragment>
-            );
+                <FadingOrbitContainer isHighlighted={isHighlighted} />
+                <SkillsOverlayText theme={theme} isVisible={isHighlighted} />
+                <p className={classes.hintIcons}>
+                { 
+                    <span>
+                        <i className={leftIconClass}></i>&nbsp;&nbsp;
+                        <i className={arrowClass}></i>&nbsp;&nbsp;
+                        <i className="mdi mdi-information"></i>
+                    </span>
+                }
+                </p>
+            </div>
+        );
     }
 }
 
 
-export default injectSheet(styleSheet)(connect(
+export default connect(
     (state,ownProps)=> ({ 
         viewportWidth  : state.core.viewportWidth,
         viewportHeight : state.core.viewportHeight,
         theme          : state.core.theme
     }),
     null
-)(SkillsOrbit));
+)(injectSheet(styleSheet)(SkillsOrbit));
