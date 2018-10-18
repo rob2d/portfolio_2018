@@ -121,8 +121,6 @@ const getTheme = theme => {
                 }
             }
         });
-    } else {
-        console.log('theme existed');
     }
 
     return themes[theme];
