@@ -7,13 +7,29 @@ import {
     about as strings, 
     menus as menuStrings 
 } from 'strings'
+import isPortrait  from 'tools/isPortrait'
 import Avatar from '@material-ui/core/Avatar'
 import ButtonLink from 'tools/components/ButtonLink'
-import SectionLink from './SectionLink'
+import SectionLinks from './SectionLinks'
 import SkillsOrbit from './SkillsOrbit'
-import isLandscape from 'tools/isLandscape'
+
+function Tech ({ children, containerClass, url }) {
+    return (
+        <ButtonLink containerClass={ containerClass } url={ url }>
+            { children }
+        </ButtonLink>
+    );
+}
 
 const styleSheet = {
+    topContent : {
+        width   : ({ viewportWidth })=> (
+            (viewportWidth <= 420) ? '100%' : 'auto'
+        ),
+        display        : 'flex',
+        justifyContent : 'center',
+        alignItems     : 'center'
+    },
     mainContainer : {
         marginLeft     : 'auto',
         marginRight    : 'auto',
@@ -22,10 +38,13 @@ const styleSheet = {
         display        : 'flex',
         flexDirection  : 'column',
         justifyContent : 'center',
-        padding        : '16px',
+        padding        : ({ viewportWidth, viewportHeight }) => (
+            isPortrait(viewportWidth, viewportHeight) ? '0px 16px' : '16px'
+        ),
         alignItems     : 'center',
         boxSizing      : 'border-box' // for padding in landscape
     },
+
     pText : {
         paddingLeft   : '16px',
         paddingRight  : '16px',
@@ -34,46 +53,22 @@ const styleSheet = {
         textAlign     : 'left',
         fontSize      : '12pt',
         fontFamily    : 'roboto_light',
-        color         : ({ theme }) => {
-            return getTheme(theme).rc3.text; 
-        }
-    },
-    sectionList : {
-        paddingLeft   : '16px',
-        paddingRight  : '16px',
-        paddingTop    : '8px',
-        paddingBottom : '0px',
-        textAlign     : 'left',
-        paddingInlineStart : ({ viewportWidth, viewportHeight }) => (
-            !isLandscape(viewportWidth, viewportHeight) ? 
-                '40px' : '16px'
+        color         : ({ theme }) => (
+            getTheme(theme).rc3.text
         )
     },
-    sectionLink : {
-        display : ({ viewportWidth, viewportHeight }) => (
-            !isLandscape(viewportWidth, viewportHeight) ? 
-                'block' : 'inline-block'
-        ),
-        padding : '8px !important',
-        '&:hover $listItem' : {
-            color : '#ff4081'
-        },
-        '&:active $listItem' : {
-            color : '#00b8d4'
-        }
-    },
-    linkDivider : {
-        display : 'inline-block',
-        color   : ({ theme }) => getTheme(theme).rc3.text
-    },
+
     avatar : {
         width  : '128px',
         height : '128px',
         margin : '32px auto'
+
     },
+
     skillsOrbit : {
         position : 'relative'
     },
+
     '@media (max-width: 700px) and (min-width : 341px) and (orientation:portrait)': {
         // don't want the avatar to dominate the 
         // mobile screen :
@@ -147,46 +142,33 @@ const styleSheet = {
             flexDirection : 'column',
             overflowY     : 'auto',
             flexGrow      : 1
-        },
-        sectionList : {
-            paddingLeft : '64px'
         }
     },
+    
     tooltip : {
         fontSize : '11pt !important',
         padding  : '4px 8px !important',
         minHeight: '20px !important',
         lineHeight: '20px !important'
-    }
-};
+    },
 
-
-let Tech = injectSheet({
-    container : {
+    tech : {
         display       : 'inline-block',
         fontFamily    : 'roboto_regular',
         color         : ({ theme })=> getTheme(theme).rc3.text,
         verticalAlign : 'top !important',
-        fontSize      : '12pt'
-    },
-    '@media (min-width:901px)' : {
-        container : {
+        fontSize      : '12pt',
+        '@media (min-width:901px)' : {
             fontSize : '14pt !important'
-        }
-    },
-     // for general mobile devices in landscape
-     '@media (orientation:landscape) and (max-width:900px)' : {
-         container : {
+        },
+
+        // for general mobile devices in landscape
+        '@media (orientation:landscape) and (max-width:900px)' : {
             fontSize : '11pt'
-         }
-     }
-})(function Tech ({ children, classes, url, theme }) {
-    return (
-        <ButtonLink containerClass={ classes.container } url={ url }>
-            { children }
-        </ButtonLink>
-    );
-});
+        }
+    }
+
+};
 
 function About ({ classes, viewportWidth, viewportHeight, theme }) {
     let { period, comma } = strings;
@@ -194,18 +176,20 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
     // check renderpixels on viewport for (general)
     // coverage of landscape; covers iPhone6-X
     // and most android devices
-    const isLandscapeView = isLandscape(viewportWidth, viewportHeight);
-    const linkDividerClass = `mdi mdi-circle-small ${classes.linkDivider}`;
     const coreProps = { viewportWidth, viewportHeight, theme };
+    const techProps = { containerClass : classes.tech, theme };
+    const isInPortrait = isPortrait(viewportWidth, viewportHeight);
 
     return (
         <div className={classes.mainContainer}>
-            
-            <Avatar 
-                alt={'Rob'} 
-                src="img/about/me.jpg" 
-                className={classes.avatar}
-            />
+            <div className={classes.topContent}>
+                <Avatar 
+                    alt={'Rob'} 
+                    src="img/about/me.jpg" 
+                    className={classes.avatar}
+                />
+                { isInPortrait && <SectionLinks {...coreProps} /> }
+            </div>
 
             <div className={classes.aboutMe}>
                 <p className={classes.pText}>
@@ -213,41 +197,16 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
                 </p> 
                 <p className={classes.pText}> 
                     {strings.thisSiteWas}
-                    <Tech url={'https://reactjs.com'} theme={theme}>React</Tech>,&nbsp;
-                    <Tech url={'https://redux.js.org'} theme={theme}>Redux</Tech>,&nbsp;
-                    <Tech url={'https://threejs.org'} theme={theme}>THREE.js</Tech>,&nbsp; 
-                    <Tech url={'https://nodejs.org'} theme={theme}>Node</Tech>,&nbsp; 
-                    <Tech url={'https://gulpjs.com'} theme={theme}>Gulp</Tech>,&nbsp;
+                    <Tech url={'https://reactjs.com'} { ...techProps }>React</Tech>,&nbsp;
+                    <Tech url={'https://redux.js.org'} { ...techProps }>Redux</Tech>,&nbsp;
+                    <Tech url={'https://threejs.org'} { ...techProps }>THREE.js</Tech>,&nbsp; 
+                    <Tech url={'https://nodejs.org'} { ...techProps }>Node</Tech>,&nbsp; 
+                    <Tech url={'https://gulpjs.com'} { ...techProps }>Gulp</Tech>,&nbsp;
                     {strings.andDeployedUsing}
-                    <Tech url={'http://nginx.org'} theme={theme}>NginX</Tech> and&nbsp; 
-                    <Tech url={'http://pm2.keymetrics.io/'} theme={theme}>PM2</Tech>.
+                    <Tech url={'http://nginx.org'} { ...techProps }>NginX</Tech> and&nbsp; 
+                    <Tech url={'http://pm2.keymetrics.io/'} { ...techProps }>PM2</Tech>.
                 </p>
-                <ul className={classes.sectionList}>
-                    <SectionLink 
-                        name={menuStrings.main.projects} 
-                        mdiClass={'briefcase'} 
-                        url={'/projects'} 
-                        containerClass={classes.sectionLink}
-                        { ...coreProps }
-                    />
-                    { isLandscapeView  && <i className={linkDividerClass} /> }
-                    <SectionLink 
-                        name={ isLandscapeView ? 'Misc' : 'Miscellaneous' } 
-                        mdiClass={'dice-multiple'} 
-                        url={'/misc'} 
-                        containerClass={classes.sectionLink}
-                        { ...coreProps }
-                    /> 
-
-                    { isLandscapeView  && <i className={linkDividerClass} /> }
-                    <SectionLink
-                        name={menuStrings.main.cv}
-                        mdiClass={'file-document-box'}
-                        url={'/cv'}
-                        containerClass={classes.sectionLink}
-                        { ...coreProps }
-                    />
-                </ul>
+                { !isInPortrait && <SectionLinks {...coreProps} /> }
             </div>
 
             <div className={classes.skillsOrbit}>

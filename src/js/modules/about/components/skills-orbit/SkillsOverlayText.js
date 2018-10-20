@@ -53,7 +53,7 @@ const styleSheet = {
         width          : '100%',
         justifyContent : 'flex-end',
         alignItems     : 'center',
-        height         : (Math.round(100/skillPoints.length) * 0.55) + '%'
+        height         : (Math.round(100/skillPoints.length) * 0.62) + '%'
     },
     namespace : {
         display        : 'flex',

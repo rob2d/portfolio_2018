@@ -4,6 +4,7 @@ import injectSheet from 'react-jss'
 import { getTheme } from 'app-root/themeFactory'
 import ButtonLink from 'tools/components/ButtonLink'
 import isLandscape from 'tools/isLandscape'
+import isPortrait  from 'tools/isPortrait'
 
 const styles = {
     listItem : {
@@ -13,7 +14,9 @@ const styles = {
         fontFamily    : 'roboto_bold',
         fontSize      : '11pt',
         minWidth      : ({ viewportWidth, viewportHeight })=>(
-            !isLandscape(viewportWidth,viewportHeight) ? '148px' : '1px'
+            (!isPortrait(viewportWidth, viewportHeight) && 
+            !isLandscape(viewportWidth,viewportHeight)) ? 
+                '148px' : '1px'
         ),
         textAlign     : 'left',
         transition    : 'color 0.21s'
