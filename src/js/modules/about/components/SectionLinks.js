@@ -28,10 +28,13 @@ const styleSheet = {
             }
         },
         position : 'relative',
-        left     : ({ viewportWidth, viewportHeight} ) => (
-            isPortrait(viewportWidth, viewportHeight) ? 
-            '-48px' : '0px'
-        )
+        left : ({ viewportWidth, viewportHeight} ) => {
+            if(isPortrait(viewportWidth, viewportHeight)) {
+                return (viewportWidth < 400) ? '-24px' : '-48px'
+            } else {
+                return '0px';
+            }
+        }
     },
     sectionLink : {
         position : 'relative',
