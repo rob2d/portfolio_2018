@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
+import { getTheme } from 'app-root/themeFactory'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
@@ -38,10 +39,11 @@ const styleSheet = {
     }
 };
 
-const PDFNav = pure(injectSheet(styleSheet)(({
+const PDFViewerNav = pure(injectSheet(styleSheet)(({
     classes,
     pageNumber, pageCount,
     handleNextPage, handlePrevPage,
+    theme,
     isLoaded
 })=>
 (
@@ -76,6 +78,6 @@ const PDFNav = pure(injectSheet(styleSheet)(({
             </div>
         </div>
     )
-)));;;
+)));
 
-export default PDFNav
+export default PDFViewerNav
