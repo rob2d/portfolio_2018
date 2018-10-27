@@ -1,9 +1,121 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 48 48" style="enable-background:new 0 0 48 48;" xml:space="preserve">
-<path style="fill:#8BC34A;" d="M20.942,38h-1.695c-1.986,0-3.833-1.083-4.819-2.826L8,24l8.025-14h8.321l-7.44,14.016l0.097,0.055
-	L20.462,30h4.943L20.942,38z M11.065,14.632l-2.177-3.789C8.574,10.319,8.016,10,7.415,10H0l6.849,11.986L11.065,14.632z
-	 M33.497,12.826C32.511,11.083,30.665,10,28.677,10H26.61l-4.247,8h5.099L31,24l-7.768,14h8.667L40,24L33.497,12.826z
-	 M41.148,26.009l-4.235,7.32l2.199,3.828C39.426,37.681,39.984,38,40.585,38H48L41.148,26.009z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 630 630"
+   version="1.1"
+   id="svg1080"
+   sodipodi:docname="gml.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata1086">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs1084" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1432"
+     inkscape:window-height="841"
+     id="namedview1082"
+     showgrid="false"
+     inkscape:zoom="0.51111111"
+     inkscape:cx="576.25245"
+     inkscape:cy="496.13206"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1080" />
+  <rect
+     width="630"
+     height="630"
+     id="rect1076"
+     style="fill:#000000"
+     x="0"
+     y="0" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5012"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5014"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5016"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5018"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5020"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5022"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5024"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5026"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5028"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5030"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5032"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5034"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5036"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5038"
+     style="fill:#ffffff" />
+  <g
+     transform="translate(69.852295,70.373037)"
+     id="g5040"
+     style="fill:#ffffff" />
+  <path
+     inkscape:connector-curvature="0"
+     style="fill:#ffffff;stroke-width:9.722826"
+     d="m 285.2676,451.11956 h -16.48019 c -19.30953,0 -37.2676,-10.52981 -46.8543,-27.4767 L 159.43479,315 237.46046,178.88044 h 80.90364 l -72.33782,136.27512 0.94311,0.53476 33.63125,57.64664 h 48.05993 z m -96.03235,-227.203 -21.1666,-36.83979 c -3.05296,-5.09476 -8.4783,-8.19633 -14.32172,-8.19633 H 81.652177 l 66.591633,116.53778 z m 218.10243,-17.55942 c -9.58671,-16.94689 -27.53504,-27.4767 -46.86402,-27.4767 h -20.09709 l -41.29283,77.7826 h 49.57669 L 383.05979,315 307.53287,451.11956 H 391.8006 L 470.56521,315 Z m 74.38935,128.17602 -41.17618,71.17109 21.3805,37.21897 c 3.05296,5.09477 8.4783,8.19634 14.32172,8.19634 h 72.09475 z"
+     id="path7950" />
 </svg>
