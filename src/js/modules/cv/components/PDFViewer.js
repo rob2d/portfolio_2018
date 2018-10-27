@@ -193,6 +193,7 @@ class PDFViewer extends Component {
                     handleNextPage={this.handleNextPage}
                     handlePrevPage={this.handlePrevPage}
                     isLoaded={isLoaded}
+                    theme={theme}
                 />
             </div>
         );

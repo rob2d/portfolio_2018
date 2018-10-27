@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import PDFViewer from './PDFViewer'
 
-const RESUME_URL = '/downloads/concepcion_resume_201808.pdf';
+const RESUME_URL = '/downloads/concepcion_resume_Q42018.pdf';
 
 const styleSheet = {
     container : {
