@@ -6,80 +6,79 @@ import PDF from 'react-pdf-js'
 import Tooltip   from '@material-ui/core/Tooltip'
 import shouldShowHoverContent from 'tools/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import Themes from 'constants/Themes'
+import { getTheme } from 'app-root/themeFactory'
 
-const styleSheet = theme => { 
-    return ({
-        container : {
-            position       : 'relative',
-            display        : 'flex',
-            flexDirection  : 'column',
-            width          : '100%',
-            height         : 'auto',
-            minHeight      : '60px',
-            alignItems     : 'center',
-            justifyContent : 'center',
-            paddingTop     : '32px',
-            paddingBottom  : '16px'
+const styleSheet = { 
+    container : {
+        position       : 'relative',
+        display        : 'flex',
+        flexDirection  : 'column',
+        width          : '100%',
+        height         : 'auto',
+        minHeight      : '60px',
+        alignItems     : 'center',
+        justifyContent : 'center',
+        paddingTop     : '32px',
+        paddingBottom  : '16px'
+    },
+    pdfContent : {
+        display  : 'inline-block',
+        padding  : 0,
+        margin   : 0,
+        filter : ({ theme }) => (theme == Themes.LIGHT) ? 'none' : 'invert(100%)',
+        // resize pdf height according to 8.5x11
+        '@media (max-width: 900px)': {
+            maxWidth : '100%',
+            height : 'auto !important'
         },
-        pdfContent : {
-            display  : 'inline-block',
-            padding  : 0,
-            margin   : 0,
-            filter : (theme.theme == Themes.LIGHT) ? 'none' : 'invert(100%)',
-            // resize pdf height according to 8.5x11
-            '@media (max-width: 900px)': {
-                maxWidth : '100%',
-                height : 'auto !important'
-            },
-            '@media (min-width: 900px)': {
-                width    : '100%',
-                maxWidth : '800px',
-                height   : 'auto !important'
-            }
-        },
-        downloadP : {
-            paddingLeft: '12px',
-            paddingBottom: '12px',
-            paddingTop: '12px'
-        },
-        downloadIcon : {
-            fontSize : '28pt',
-            color : theme.rc3.secondaryContrastText
-        },
-        downloadButtonContainer : {
-            position : 'fixed',
-            bottom   : '48px',
-            right    : '48px',
-            '@media (max-width: 800px)': {
-                bottom   : '24px !important',
-                right    : '24px !important',
-            }
-        },
-        downloadButton : {
-            backgroundColor : theme.palette.secondary['400'],
-            '&:hover' : {
-                backgroundColor : theme.palette.secondary['300']
-            },
-            '&:active' : {
-                backgroundColor : theme.palette.secondary['400']
-            }
-        },
-        // TODO : use constant to make
-        //        tooltip style DRY
-        tooltip : {
-            fontSize : '11pt !important',
-            padding  : '4px 8px !important',
-            minHeight: '20px !important',
-            lineHeight: '20px !important'
-        },
-        loadingContent : {
-            display : 'none'
+        '@media (min-width: 900px)': {
+            width    : '100%',
+            maxWidth : '800px',
+            height   : 'auto !important'
         }
-
+    },
+    downloadP : {
+        paddingLeft: '12px',
+        paddingBottom: '12px',
+        paddingTop: '12px'
+    },
+    downloadIcon : {
+        fontSize : '28pt',
+        color : ({ theme }) => getTheme(theme).rc3.secondaryContrastText
+    },
+    downloadButtonContainer : {
+        position : 'fixed',
+        bottom   : '48px',
+        right    : '48px',
+        '@media (max-width: 800px)': {
+            bottom   : '24px !important',
+            right    : '24px !important',
+        }
+    },
+    downloadButton : {
+        backgroundColor : ({ theme }) => getTheme(theme).palette.secondary['400'],
+        '&:hover' : {
+            backgroundColor : ({ theme }) => getTheme(theme).palette.secondary['300']
+        },
+        '&:active' : {
+            backgroundColor : ({ theme }) => getTheme(theme).palette.secondary['400']
+        }
+    },
+    // TODO : use constant to make
+    //        tooltip style DRY
+    tooltip : {
+        fontSize : '11pt !important',
+        padding  : '4px 8px !important',
+        minHeight: '20px !important',
+        lineHeight: '20px !important'
+    },
+    loadingContent : {
+        display : 'none'
     }
-)};
+
+};
 
 class PDFViewer extends Component {
     constructor(props) {
@@ -200,4 +199,4 @@ class PDFViewer extends Component {
     }
 }
 
-export default pure(withStyles(styleSheet)(PDFViewer));
+export default pure(injectSheet(styleSheet)(PDFViewer));

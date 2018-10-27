@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
-import { getTheme }        from 'app-root/themeFactory'
+import { getTheme } from 'app-root/themeFactory'
 import { 
     about as strings, 
     menus as menuStrings 
@@ -130,7 +130,7 @@ const styleSheet = {
             fontSize     : '14pt !important',
             fontFamily   : 'roboto_light !important'
         },
-        aboutMe : {
+        centerContent : {
             display       : 'flex',
             flexDirection : 'column', 
             overflowY     : 'auto',
@@ -158,6 +158,7 @@ const styleSheet = {
         color         : ({ theme })=> getTheme(theme).rc3.text,
         verticalAlign : 'top !important',
         fontSize      : '12pt',
+        
         '@media (min-width:901px)' : {
             fontSize : '14pt !important'
         },
@@ -191,10 +192,7 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
                 { isInPortrait && <SectionLinks {...coreProps} /> }
             </div>
 
-            <div className={classes.aboutMe}>
-                <p className={classes.pText}>
-                    {strings.hiAndThanks}
-                </p> 
+            <div className={classes.centerContent}>
                 <p className={classes.pText}> 
                     {strings.thisSiteWas}
                     <Tech url={'https://reactjs.com'} { ...techProps }>React</Tech>,&nbsp;

@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import pure from 'recompose/pure'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const styleSheet = theme => ({
+const styleSheet = {
     container : {
         display        : 'flex',
         flexDirection  : 'row',
@@ -14,7 +14,7 @@ const styleSheet = theme => ({
         width          : '100%',
         textAlign      : 'center',
         marginTop      : '16px',
-        color          : theme.rc3.text
+        color          : ({ theme }) => getTheme(theme).rc3.text
     },
     progress : {
         display : 'block',
@@ -36,9 +36,9 @@ const styleSheet = theme => ({
         fontSize : '17pt',
         minWidth : '48px'
     }
-});
+};
 
-const PDFNav = pure(withStyles(styleSheet)(({
+const PDFNav = pure(injectSheet(styleSheet)(({
     classes,
     pageNumber, pageCount,
     handleNextPage, handlePrevPage,

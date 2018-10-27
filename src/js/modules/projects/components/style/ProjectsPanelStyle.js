@@ -1,4 +1,4 @@
-const styleSheet = (theme) => ({
+const styleSheet = {
     container : {
         display        : 'block',
         position       : 'relative',
@@ -27,6 +27,6 @@ const styleSheet = (theme) => ({
             paddingTop : '0px'
         }
     }
-});
+};
 
 export default styleSheet

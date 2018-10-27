@@ -1,8 +1,7 @@
 export default {
-    hiAndThanks   : "Hi and thanks for visiting.",
-    thisSiteWas   : 'This website was created from the ground up using ',
+    thisSiteWas   : 'This website was created using ',
     aboutThisSite : "Here you'll find just a bit about some projects I've worked on (that I can share publicly) " +
-                    " and various things related to my philosophy on software development and random creative interests.",
+                    " and various things related to my philosophy on software development.",
     andDeployedUsing : "and deployed using ",
     fromScatch       : '',
     comma            : ',',

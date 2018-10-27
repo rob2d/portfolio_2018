@@ -5,7 +5,7 @@ import appHistory    from 'tools/appHistory'
 import strings from 'strings'
 import projectsData from 'app-root/data/projectsData'
 import styleSheet from './style/ProjectsPanelStyle'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
 
@@ -163,9 +163,9 @@ class ProjectsPanel extends PureComponent {
     }
 }
 
-const VisibleProjectsPanel = pure(withStyles(styleSheet)(connect(
+const VisibleProjectsPanel = pure(injectSheet(styleSheet)(connect(
     ({ core })=> ({ 
-        theme : core.theme,
+        theme         : core.theme,
         viewportWidth : core.viewportWidth 
     })
 )(ProjectsPanel)));

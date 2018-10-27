@@ -1,17 +1,19 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 import Button from '@material-ui/core/Button'
 import pure from 'recompose/pure'
 import Themes from 'constants/Themes'
-import Tooltip   from '@material-ui/core/Tooltip'
+import Tooltip from '@material-ui/core/Tooltip'
+import { connect } from 'react-redux'
+import { getTheme } from 'app-root/themeFactory'
 
-const styles = theme=> ({
+const styles = {
     contactButton : {
         display        : 'inline-flex !important',
         justifyContent : 'center !important',
         flexDirection  : 'column !important',
         '&:hover $icon': {
-            color : `${theme.palette.primary[800]} !important`
+            color : ({ theme }) =>`${getTheme(theme).palette.primary[800]} !important`
         },
         '&:active $icon': {
             color : '#00b8d4 !important'
@@ -22,9 +24,8 @@ const styles = theme=> ({
     },
     icon : {
         fontSize : '18pt !important',
-        color    : ((theme == Themes.LIGHT) ? 
-                        '#455A64' : 
-                        theme.palette.primary[700])+ ' !important',
+        color    : ({ theme }) => ((theme == Themes.LIGHT) ? 
+            '#455A64' : getTheme(theme).palette.primary[700]) + ' !important',
         transition : 'color 0.24s ease-in'
     },
     tooltip : {
@@ -33,9 +34,9 @@ const styles = theme=> ({
         minHeight: '20px !important',
         lineHeight: '20px !important'
     }
-});
+};
 
-const ContactButton = pure(withStyles(styles)
+const ContactButton = pure(injectSheet(styles)
 (function ContactButton({ url, classes, iconClass, tooltipContent }){ return (
     <Tooltip
         enterDelay={350}
@@ -52,7 +53,9 @@ const ContactButton = pure(withStyles(styles)
 ContactButton.displayName = 'ContactButton';
 
 
-const AppFooter = pure(function AppFooter() {
+const AppFooter = connect(
+    ({ core }) => ({ theme : core.theme })
+)(function AppFooter() {
     return (
         <div className="appFooter">
         
@@ -76,6 +79,7 @@ const AppFooter = pure(function AppFooter() {
                 url={ 'mailto:robert.concepcion.iii@gmail.com' }
                 tooltipContent={ <span>Email me -- but no spam, please (❗)</span> }
             />
+            
         </div>
     )
 });

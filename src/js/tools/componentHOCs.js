@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
-import { withStyles } from '@material-ui/core/styles'
+import injectSheet from 'react-jss'
 
 /**
  * usage : connectPureWithStyles(styleSheet)(connectParams)(component)
@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles'
  */
 export const connectPureWithStyles = (styleSheet)=>
 {
-    const styleWrapper = withStyles(styleSheet);
+    const styleWrapper = injectSheet(styleSheet);
     return (connectParams)=> {
         return (component)=>(pure(connect(connectParams)(component)));
     };
