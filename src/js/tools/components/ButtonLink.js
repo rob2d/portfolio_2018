@@ -53,23 +53,31 @@ function ButtonLink ({
         isAbsoluteURL ? `${url}` : undefined
     );
 
-    return (
-        <Tooltip
-            enterDelay={ 600 }
-            title={ title }
-            classes={{ tooltip : classes.tooltip }}
-        >
+    const ButtonContent = (
         <ButtonBase 
-            focusRipple 
-            className={ containerClass }
-            onClick={ onClick }
-            TouchRippleProps={{
-                classes : { ripple : classes.touchRipple }
-            }}
-        >{ children }
-        </ButtonBase>
-        </Tooltip>
+                focusRipple 
+                className={ containerClass }
+                onClick={ onClick }
+                TouchRippleProps={{
+                    classes : { ripple : classes.touchRipple }
+                }}
+            >{ children }
+            </ButtonBase>
     );
+
+    if(title && title.length) {
+        return (
+            <Tooltip
+                enterDelay={ 600 }
+                title={ title }
+                classes={{ tooltip : classes.tooltip }}
+            >
+            {ButtonContent}
+            </Tooltip>
+        );
+    } else {
+        return ButtonContent;
+    }
 }
 
 export default pure(connect(({ core }) => 

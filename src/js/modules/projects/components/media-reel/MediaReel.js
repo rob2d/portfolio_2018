@@ -74,11 +74,12 @@ const styleSheet = {
         flexDirection  : 'column'
     },
     statusBox : {
-        flexGrow : 1,
-        display : 'flex',
-        alignItems : 'center',
+        flexGrow       : 1,
+        display        : 'flex',
+        alignItems     : 'center',
         justifyContent : 'center',
-        cursor : 'pointer'
+        cursor         : 'pointer',
+        padding        : '0px 12px'
     },
     statusBoxIcon : {
         fontSize : '10pt'

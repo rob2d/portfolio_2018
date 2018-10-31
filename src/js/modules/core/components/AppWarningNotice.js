@@ -53,7 +53,7 @@ const styleSheet = {
     },
     '@media (max-width: 400px)': {
         disclaimerIconContainer : {
-            display : 'none !important',
+            display : 'none',
             opacity : '0'
         }
     },

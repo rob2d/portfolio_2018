@@ -29,7 +29,7 @@ const styleSheet = {
     },
     arrowRotated : {
         '&:before': {
-            transform : 'rotateZ(180deg) !important'
+            transform : 'rotateZ(180deg)'
         }
     }
 };

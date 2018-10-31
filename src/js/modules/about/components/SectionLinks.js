@@ -42,7 +42,7 @@ const styleSheet = {
             !isLandscape(viewportWidth, viewportHeight) ? 
                 'block' : 'inline-block'
         ),
-        padding : '8px !important',
+        padding : '8px',
         '&:hover $listItem' : {
             color : '#ff4081'
         },
@@ -62,13 +62,11 @@ const styleSheet = {
     },
     '@media (orientation:landscape)': {
         avatar : {
-            margin : '16px 16px 8px !important',
-            marginLeft  : '16px',
-            marginRight : '16px'
+            margin : '16px 16px 8px'
         },
         mainContainer : {
             padding       : '16px',
-            flexDirection : 'row !important',
+            flexDirection : 'row',
             boxSizing     : 'border-box'
         }
     },

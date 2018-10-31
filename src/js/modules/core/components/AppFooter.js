@@ -9,30 +9,30 @@ import { getTheme } from 'app-root/themeFactory'
 
 const styles = {
     contactButton : {
-        display        : 'inline-flex !important',
-        justifyContent : 'center !important',
-        flexDirection  : 'column !important',
+        display        : 'inline-flex',
+        justifyContent : 'center',
+        flexDirection  : 'column',
         '&:hover $icon': {
             color : ({ theme }) =>`${getTheme(theme).palette.primary[800]} !important`
         },
         '&:active $icon': {
-            color : '#00b8d4 !important'
+            color : '#00b8d4'
         }
     },
     '@media (max-width: 400px)': {
-        contactButton : { minWidth : '68px !important' }
+        contactButton : { minWidth : '68px' }
     },
     icon : {
-        fontSize : '18pt !important',
+        fontSize : '18pt',
         color    : ({ theme }) => ((theme == Themes.LIGHT) ? 
-            '#455A64' : getTheme(theme).palette.primary[700]) + ' !important',
+            '#455A64' : getTheme(theme).palette.primary[700]),
         transition : 'color 0.24s ease-in'
     },
     tooltip : {
-        fontSize : '11pt !important',
-        padding  : '4px 8px !important',
-        minHeight: '20px !important',
-        lineHeight: '20px !important'
+        fontSize : '11pt',
+        padding  : '4px 8px',
+        minHeight: '20px',
+        lineHeight: '20px'
     }
 };
 
