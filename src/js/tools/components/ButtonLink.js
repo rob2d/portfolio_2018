@@ -15,10 +15,10 @@ const styleSheet = {
         )
     },
     tooltip : {
-        fontSize : '11pt !important',
-        padding  : '4px 8px !important',
-        minHeight: '20px !important',
-        lineHeight: '20px !important'
+        fontSize : '11pt',
+        padding  : '4px 8px',
+        minHeight: '20px',
+        lineHeight: '20px'
     }
 };
 

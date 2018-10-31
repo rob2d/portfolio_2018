@@ -117,7 +117,12 @@ class ProjectsPanel extends PureComponent {
             match 
         } = this.props;
 
-        const { selectedProjectId, displayState, wasSelectionViaUI } = this.state;
+        const { 
+            selectedProjectId, 
+            displayState, 
+            wasSelectionViaUI 
+        } = this.state;
+
         const  { PROJECT_VIEW } = DisplayStates;
 
         this.R.projects = [];   //reset projects currently in references
@@ -163,11 +168,9 @@ class ProjectsPanel extends PureComponent {
     }
 }
 
-const VisibleProjectsPanel = pure(injectSheet(styleSheet)(connect(
+export default pure(injectSheet(styleSheet)(connect(
     ({ core })=> ({ 
         theme         : core.theme,
         viewportWidth : core.viewportWidth 
     })
 )(ProjectsPanel)));
-
-export default VisibleProjectsPanel

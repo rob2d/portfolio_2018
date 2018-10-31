@@ -20,7 +20,7 @@ const styleSheet = {
         position       : 'relative',
         width          : `${SECTION_COUNT * BUTTON_WIDTH_PX}px`,
         height         : '100%',
-        color          : '#FFFFFF !important',
+        color          : '#FFFFFF',
         justifyContent : 'center',
         alignItems     : 'center',
         display        : 'flex',

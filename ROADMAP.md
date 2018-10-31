@@ -4,10 +4,6 @@
 
 ## Systematic fixes
 
-- replace instances of `withStyles` of `MaterialUI` with `injectJSS` and simpy pull theme directly using Redux in all cases-- this would reduce bundle size a bit (+ consistency is an amazing thing).
-[Random thought: could be simplified with a custom HOC linking to `core.theme`]
-(this is in progress)
-
 - go through components and determine `recompose/pure` usage to be sure the hierarchy is best for rendering efficiency.
 
 - consider creating a separate `view` state slice so that variables related to responsive view 

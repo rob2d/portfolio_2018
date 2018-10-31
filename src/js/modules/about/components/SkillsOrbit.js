@@ -12,7 +12,8 @@ import skillPoints         from 'constants/skillPoints'
 import { getTheme }        from 'app-root/themeFactory'
 import ShiftingValueMap    from 'tools/data-structs/ShiftingValueMap'
 import SkillsOverlayText   from './skills-orbit/SkillsOverlayText'
-import DEBUG_3D            from 'constants/env/DEBUG_3D'
+import styleSheet          from './style/SkillsOrbitStyle'
+import FadingOrbitContainer from './skills-orbit/FadingOrbitContainer'
 
 const OUTER_RADIUS      = 200,
       INNER_RADIUS      = 40,
@@ -105,66 +106,6 @@ const sources = {
     }
 };
 
-let FadingOrbitContainer = injectSheet({   
-    canvas3d : {
-        position       : 'relative',
-        display        : 'flex',
-        overflow       : 'hidden',
-        justifyContent : 'center',
-        alignItems     : 'center',
-        pointerEvents  : 'all',
-        paddingBottom  : '16px',
-        opacity        : ({ isHighlighted }) => (isHighlighted ? 0 : 1),
-        transition     : ({ isHighlighted }) => (isHighlighted ? 
-            '0.75s ease opacity 0s' :
-            '0.75s ease opacity 1s'
-        )
-    }
- })(function OrbitContainer ({ classes, isHighlighted }) { 
-        return (
-            <div 
-                id="canvas3d" 
-                className={ classes.canvas3d } 
-            />
-        );
-    }
-);
-
-const styleSheet = {
-    container : {
-        position       : 'relative',
-        display        : 'flex',
-        flexDirection  : 'column',
-        overflow       : 'hidden',
-        justifyContent : 'center',
-        alignItems     : 'center',
-        flexAlign      : 'center',
-        pointerEvents  : 'all',
-        cursor         : 'pointer'
-    },
-    meta3d : {
-        maxWidth  : '200px',
-        maxHeight : '200px',
-        overflow  : 'auto'
-    },
-    hintIcons : {
-        position : 'absolute',
-        margin   : '0px',
-        bottom   : '0px',
-        color    : ({ theme })=>( getTheme(theme).rc3.text )
-    },
-    arrow : {
-        '&:before': {
-            transition : 'transform ease 0.5s'
-        }
-    },
-    arrowRotated : {
-        '&:before': {
-            transform : 'rotateZ(180deg) !important'
-        }
-    }
-};
-
 class SkillsOrbit extends Component {
     constructor (props, context) {
         super(props, context);
@@ -197,11 +138,7 @@ class SkillsOrbit extends Component {
 
     componentWillUnmount () {
         window.removeEventListener('mousemove', this.onMouseMove);
-
         this.freeResources();
-        if(DEBUG_3D) {
-            this.R.debugText = undefined;
-        }
         this._isMounted = false;
     }
 
@@ -570,20 +507,6 @@ class SkillsOrbit extends Component {
             });
         }
 
-        if(DEBUG_3D && this.R.debugText) {
-            let { 
-                x:xR, y:yR, z:zR 
-            } = this.O.rotationOrigin.rotation;
-
-            this.R.debugText.innerHTML = `${
-                Math.round(xR*100)
-            }, <br/>${
-                Math.round(yR*100)
-            } <br/>${
-                zR
-            }`;
-        }
-
         this.renderer.render( this.scene, this.camera );
 
         if(this._isMounted) {
@@ -618,11 +541,6 @@ class SkillsOrbit extends Component {
                 ref={ c => this.R.container = c } 
                 onClick={this.onClick}
             >
-                { DEBUG_3D && <pre 
-                    id="meta3d" 
-                    className={ classes.meta3d }
-                    ref={ c => this.R.debugText = c }>[debug vars]</pre> 
-                }
                 <FadingOrbitContainer isHighlighted={isHighlighted} />
                 <SkillsOverlayText theme={theme} isVisible={isHighlighted} />
                 <p className={classes.hintIcons}>

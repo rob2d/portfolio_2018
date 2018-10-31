@@ -17,6 +17,7 @@ const styleSheet = {
         justifyContent : 'center',
     }
 };
+
 const CV = ({ classes, theme })=> (
     <div className={classes.container}>
         <PDFViewer fileURL={ RESUME_URL } theme={ theme } />

@@ -14,17 +14,17 @@ const styleSheet = {
             color : '#00b8d4'
         },
         '&:nth-of-type(1)' : {
-            marginLeft : '0px !important'
+            marginLeft : '0px'
         },
         '&:last-of-type' : {
-            marginRight : '0px !important'
+            marginRight : '0px'
         },
 
         '@media(max-width:800px)' : {
             margin : '0px 4px'
         },
         '@media(max-width:400px)' : {
-            margin : '0px 0px !important'
+            margin : '0px 0px'
         }
     },
     techText : {

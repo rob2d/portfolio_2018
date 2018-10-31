@@ -222,7 +222,7 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
                     }
                     {project.technologySet && project.technologySet.size && (
                     <div className={classes.section}>
-                        <p className={`${classes.sectionContent} ${classes.techSection}`}>
+                        <p className={classes.sectionContent}>
                             <ProjectTechnologies technologySet={project.technologySet} />
                         </p>
                     </div>

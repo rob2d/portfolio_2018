@@ -38,7 +38,7 @@ const styleSheet = {
     disclaimerNote : {
         display    : 'flex',
         overflow   : 'hidden',
-        flexAlign  : 'row',
+        alignItems : 'row',
         fontSize   : '12pt',
         textAlign  : 'justify',
         margin     : '0px',
