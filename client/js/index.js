@@ -1,5 +1,3 @@
-import 'babel-polyfill'
-import smoothscroll from 'smoothscroll-polyfill'
 import React from 'react'
 import ReactDOM                      from 'react-dom'
 import { RoutingApp }                from './modules'
@@ -9,14 +7,13 @@ smoothscroll.polyfill(); // enable smoothscroll in DOM
 
 // suppress warnings in prod for Three.js (which are
 // simply due to glitches within the API itself)
-// ugly but a bit inevitable; do not want to reveal
-// api info to bots/malware
+// ugly but a bit inevitable
 
 if(process.env.NODE_ENV == 'production') {
-    console.warn = function(){}; // now warnings do nothing!
+    console.warn = function(){}; 
 }
 
 ReactDOM.render(
-    (<AppContainer><RoutingApp/></AppContainer>),
+    (<div>Hey!</div>),
     document.getElementById('app')
 );

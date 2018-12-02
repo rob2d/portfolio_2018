@@ -27,6 +27,7 @@ function createDirAliases (subPath) {
   return aliasDict;
 }
 
+
 const rootJSAliases = createDirAliases('client/js');
 const reduxAliases  = createDirAliases('client/js/modules');
 
@@ -132,6 +133,7 @@ module.exports = {
     alias : {
       ...rootJSAliases,
       ...reduxAliases,
+      ['app-root'] : global.resolvePath('client/js'),
       common : global.resolvePath('server/utils/common')
     }
   }
