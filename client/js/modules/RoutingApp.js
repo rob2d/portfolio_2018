@@ -9,9 +9,6 @@ import appHistory from 'tools/appHistory'
 import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
 import { pure } from 'recompose'
-
-import AppWarningNotice from './core/components/AppWarningNotice'
-
 import AppHeader     from './core/components/AppHeader'
 import AppFooter     from './core/components/AppFooter'
 import ProjectsPanel from './projects/components/ProjectsPanel'
@@ -47,7 +44,6 @@ const StyledContent = withStyles(styles)(
             <div className={ classes.appWrapper }>
                 <div className={ classes.routeViewWrapper }>
                     <AppHeader />
-                    <AppWarningNotice />
                     {
                         <Switch>
                             <Route 

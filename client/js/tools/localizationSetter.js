@@ -7,19 +7,20 @@ import EventEmitter from 'events'
 
 class LocalizationSetter extends EventEmitter
 {
-    addLocalizedStrings = (localizedStrings)=>
-    {
-        this.on('setLanguage', function(language)
-        {
+    addLocalizedStrings = (localizedStrings)=> {
+        this.on('setLanguage', function(language) {
             localizedStrings.setLanguage(language);
         });
     };
-    setLanguage = (language)=>
-    {
+    
+    setLanguage = (language)=> {
         this.emit('setLanguage', language);
     };
 }
 
 // export an instance
 let localizationSetter = new LocalizationSetter();
+
+export const addLocalizedStrings = localizationSetter.addLocalizedStrings;
+export const setLanguage = localizationSetter.setLanguage;
 export default localizationSetter

@@ -45,7 +45,6 @@
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.3.0",
     "shallowequal": "^1.0.2",
-    "smoothscroll-polyfill": "^0.4.0",
     "three": "^0.97.0",
     "three-text2d": "^0.4.1",
     "webpack": "^4.25.1",

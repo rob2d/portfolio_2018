@@ -12,7 +12,7 @@ let themes = {};
  * grabs a theme; otherwise creates and caches a theme
  * corresponding to the theme entered
  */
-const getTheme = theme => {
+export const getTheme = theme => {
     if(!themes[theme]) {
         themes[theme] = createMuiTheme({
             // MUI goes a bit far with defaults;
@@ -127,3 +127,4 @@ const getTheme = theme => {
 };
 
 export default { themes, getTheme };
+export { themes };

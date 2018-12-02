@@ -28,7 +28,7 @@ function createSkillVertex({ radianAngle, value=1 }) {
         xWidth   = Math.cos(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius),
         yWidth   = Math.sin(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius);
     
-    return [x, y, z] = [
+    return [
         Math.cos(radianAngle) * INNER_RADIUS + xWidth, 
         Math.sin(radianAngle) * INNER_RADIUS + yWidth, 
         0
@@ -386,10 +386,12 @@ class SkillsOrbit extends Component {
             // difference between outer and inner
             // circle radius
 
-            let skillVertex = [ x, y, z ] = createSkillVertex({ 
+            let skillsVertex = createSkillVertex({ 
                 radianAngle : projectionAngle, 
                 value 
             });
+            
+            let [ x, y, z ] = skillsVertex;
 
             let skillPointObj = createMesh(
                 sources.skillPoint.generateParams({ value, theme })
