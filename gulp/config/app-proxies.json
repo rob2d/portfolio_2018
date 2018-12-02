@@ -1,5 +1,0 @@
-[
-  { "source" : "/cv",       "target": "http://localhost:8080"},
-  { "source" : "/projects", "target": "http://localhost:8080"},
-  { "source" : "/about",    "target": "http://localhost:8080"}
-]

@@ -1,4 +1,0 @@
-{
-    "poll"        : true,
-    "ignoreWatch" : ["**/node_modes/**"]
-}
