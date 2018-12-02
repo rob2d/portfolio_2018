@@ -3,8 +3,7 @@ import getUrlParam from './getUrlparam'
 
 let appHistory = createBrowserHistory();
 
-appHistory.goTo = function(url)
-{
+appHistory.goTo = function(url) {
     
     // be sure to maintain the language query param
     // so that we continue to travel/bookmark the 
