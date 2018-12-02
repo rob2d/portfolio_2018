@@ -17,7 +17,6 @@ const REEL_ANIM_SPEED = 6500;
 function getReelWidth ( width, maxWidth ) {
     return maxWidth !== 'undefined' && 
         ((width > maxWidth) ? maxWidth : width);
-}
 
 const styleSheet = {
     container : {
