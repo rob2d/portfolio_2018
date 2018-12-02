@@ -5,8 +5,9 @@
   "description": "Web App Portfolio of Robert Concepcion III",
   "main": "app.js",
   "scripts": {
-    "start": "gulp build && node app",
-    "dev": "gulp && node app --dev"
+    "start": "webpack-dev-server --mode development ./client/js/index.js --open --output ./server/public/main.js --hot",
+    "dev": "webpack --mode development ./client/js/index.js --output ./server/public/main.js",
+    "build": "webpack --mode production ./client/js/index.js --output ./server/public/main.js  --export_standalone=true --zip=true"
   },
   "devDependencies": {
     "@material-ui/core": "^3.2.0",
