@@ -46,7 +46,6 @@ const envFile = require('dotenv').config(), // funnel process.env vars
       colors = require('colors'),
       controllers = require('./controllers'),
       bodyParser = require('body-parser'),
-      createMongoConnection = require( './utils/db/createMongoConnection' ),
       port = argv.port || process.env.PORT || 3002,
       env = process.env.NODE_ENV || 'development';
       
@@ -116,7 +115,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 // require backend routes 
 
-app.use('/api', require('./routes/api'));
+//app.use('/api', require('./routes/api'));
 app.get('/api/*', function(req,res) {
     res.status(404).send('404 Error');
 });
@@ -165,20 +164,6 @@ let host = server.address().address,
         );
     }
     
-    // ==================== //
-    // SETUP DB CONNECTION  //
-    // ==================== //
-
-     createMongoConnection(process.env.DB_URI)
-        .then( db => {
-            app.set('db', db);
-            app.get('eventHandler').emit('dbConnReady');
-        })
-        .catch( error => {
-            console.error(`error connecting to database: ${process.env.DB_URI}`);
-            process.exit(1);
-        });
-
     return server;
 };
 

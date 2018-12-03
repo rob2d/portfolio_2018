@@ -50,7 +50,7 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
                     <Tech url={'https://redux.js.org'} { ...techProps }>Redux</Tech>,&nbsp;
                     <Tech url={'https://threejs.org'} { ...techProps }>THREE.js</Tech>,&nbsp; 
                     <Tech url={'https://nodejs.org'} { ...techProps }>Node</Tech>,&nbsp; 
-                    <Tech url={'https://gulpjs.com'} { ...techProps }>Gulp</Tech>,&nbsp;
+                    <Tech url={'https://webpack.js.org/'} { ...techProps }>Webpack</Tech>,&nbsp;
                     {strings.andDeployedUsing}
                     <Tech url={'http://nginx.org'} { ...techProps }>NginX</Tech> and&nbsp; 
                     <Tech url={'http://pm2.keymetrics.io/'} { ...techProps }>PM2</Tech>.

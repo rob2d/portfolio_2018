@@ -118,8 +118,6 @@ module.exports = {
     ], {
       ignore  : [
         'client/*.*',
-        'client/fonts/**',
-        'client/fonts/**/*.*', 
         'client/style/**',
         'client/style/**/*.*', 
         'client/js/**',

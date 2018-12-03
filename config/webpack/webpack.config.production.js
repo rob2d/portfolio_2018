@@ -1,9 +1,9 @@
-const ImageminPlugin    = require('imagemin-webpack-plugin').default;
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const fs                = require('fs');
-const path              = require('path');
-const moment            = require('moment');
-const { args }          = global;
+const fs = require('fs');
+const path = require('path');
+const moment = require('moment');
+const { args } = global;
 
 const config = { 
     module : {
@@ -27,7 +27,6 @@ const config = {
   ]
 };
 
-
 /*
 |-------------------------------------------------|
 | Create Exportable Standalone                    |
@@ -39,7 +38,6 @@ const config = {
 */
 
 if(args && args.export_standalone) {
-  console.log('export_standalone detected');
   let dateStr = moment(new Date())
               .format('YYYY-MM-DD-HHmmss');
 
