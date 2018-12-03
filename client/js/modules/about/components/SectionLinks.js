@@ -1,10 +1,10 @@
 import React from 'react'
+import ButtonLink from 'tools/components/ButtonLink'
 import injectSheet from 'react-jss'
-import {  menus as menuStrings } from 'strings'
+import { menus as menuStrings } from 'strings'
 import isLandscape from 'tools/isLandscape'
-import isPortrait  from 'tools/isPortrait'
+import isPortrait from 'tools/isPortrait'
 import { getTheme } from 'app-root/themeFactory'
-import SectionLink from './SectionLink'
 
 const styleSheet = {
     sectionList : {
@@ -56,6 +56,22 @@ const styleSheet = {
             )
         }
     },
+
+     listItem : {
+        listStyleType : 'none',
+        cursor        : 'pointer',
+        color         : '#c51162',
+        fontFamily    : 'roboto_bold',
+        fontSize      : '11pt',
+        minWidth      : ({ viewportWidth, viewportHeight })=>(
+            (!isPortrait(viewportWidth, viewportHeight) && 
+            !isLandscape(viewportWidth,viewportHeight)) ? 
+                '148px' : '1px'
+        ),
+        textAlign     : 'left',
+        transition    : 'color 0.21s'
+    },
+
     linkDivider : {
         display : 'inline-block',
         color   : ({ theme }) => getTheme(theme).rc3.text
@@ -70,6 +86,15 @@ const styleSheet = {
             boxSizing     : 'border-box'
         }
     },
+
+    icon : {
+        marginRight : ({ viewportWidth, viewportHeight }) => (
+            !isLandscape ? '16px' : '6px'
+        ),
+        fontSize    : '13pt',
+        color       : ({ theme }) => getTheme(theme).rc3.text
+    },
+
     // make certain things larger on non-mobile devices
     '@media (min-width:901px)' : {
         sectionList : {
@@ -78,13 +103,27 @@ const styleSheet = {
     }
 };
 
+function SectionLink ({ url, name, theme, mdiClass, classes }) {
+    const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
+
+    return (
+        <ButtonLink 
+            url={url}
+            containerClass={classes.sectionLink}
+        >   <li className={classes.listItem}> 
+                <i className={iconClass} />&nbsp;{name}
+            </li>
+        </ButtonLink>
+    );
+};
+
 function SectionLinks ({ classes, viewportWidth, viewportHeight, theme }) {
     
     const sectionLinkProps = {
         theme,
         viewportWidth,
         viewportHeight,
-        containerClass : classes.sectionLink
+        classes
     };
 
     const linkDividerClass = `mdi mdi-circle-small ${classes.linkDivider}`;
