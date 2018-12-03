@@ -37,8 +37,8 @@ class AppHeader extends PureComponent {
 
         // stores our references
         this.R = {
-            toolbarRef : undefined, 
-            buttonDivRefs : [] 
+            toolbar : undefined, 
+            buttonDivRefs : []
         };
     }
 
@@ -82,8 +82,9 @@ class AppHeader extends PureComponent {
         setTimeout(function updateButtonXPositions() {
             const leftmostButton = that.R.buttonDivRefs[0];
             const buttonWidth = leftmostButton && leftmostButton.offsetWidth;
-            const appBar = document.querySelector("div[class^=MuiToolbar]");            
+            const appBar = leftmostButton.parentNode.parentNode;
             const appBarHeight = appBar && appBar.clientHeight;
+
 
             // supported in all browsers IE9+
             const leftPadding = window.getComputedStyle(appBar, null)
@@ -145,7 +146,7 @@ class AppHeader extends PureComponent {
                         buttonWidth={buttonWidth}
                         appBarHeight={appBarHeight} // needed for browser issues
                 />
-                <Toolbar className={ classes.toolbar } ref={ c => this.R.toolbarRef = c }>
+                <Toolbar className={ classes.toolbar } ref={ c => this.R.toolbar = c }>
                     <div className={ classes.leftIconsWrapper }>
                         { Sections.map((s, i)=>
                         (
