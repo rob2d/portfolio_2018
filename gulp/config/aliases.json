@@ -1,8 +1,0 @@
-{
-    "tools"      : "src/js/tools",
-    "constants"  : "src/js/constants",
-    "middleware" : "src/js/middleware",
-    "modules"    : "src/js/modules",
-    "strings"    : "src/js/strings",
-    "app-root"    : "src/js"
-}
