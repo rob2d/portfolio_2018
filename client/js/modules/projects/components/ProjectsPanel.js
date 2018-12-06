@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import pure from 'recompose/pure'
 import { connect } from 'react-redux'
 import appHistory from 'utils/appHistory'
+import wait from 'utils/wait'
 import strings from 'strings'
 import projectsData from 'app-root/data/projectsData'
 import styleSheet from './style/ProjectsPanelStyle'
@@ -31,13 +32,6 @@ const getProjectIdAt = (location)=>(
     !(location.pathname == SECTION_ROOT || location.pathname == '/') ?
         location.pathname.substr(SECTION_ROOT.length+1) : undefined
 );
-
-const wait = (time)=>
-{
-    return new Promise((resolve,reject)=> {
-        setTimeout(()=>resolve(), time);
-    });
-};
 
 class ProjectsPanel extends PureComponent {
     constructor(props) {
