@@ -18,7 +18,7 @@ import {
 const ProjectCardLayout = injectSheet(styleSheet)(
     function ProjectCardLayout({
         data, pData, classes, onClick, 
-        theme, controllerComponent, viewAsTitle
+        theme, parent, viewAsTitle
     }) {
 
         let containerClass = ( viewAsTitle ? 
@@ -26,7 +26,7 @@ const ProjectCardLayout = injectSheet(styleSheet)(
                                 classes.cardContainer );
 
         return (
-            <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
+            <div ref={ c => parent.R.container = c } className={classes.container}>
                 <Card className={containerClass} onClick={onClick}>
                     <div className={classes.cardMediaContent}>
                         <img
@@ -197,7 +197,7 @@ class ProjectCard extends PureComponent {
         return (
             <ProjectCardLayout
                 onScreen={ onScreen }
-                controllerComponent={ this }
+                parent={ this }
                 offsetX={ offsetX }
                 offsetY={ offsetY }
                 hasAbsolutePosition={ hasAbsolutePosition }
