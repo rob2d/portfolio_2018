@@ -9,16 +9,14 @@ import styleSheet from './style/ProjectsPanelStyle'
 import injectSheet from 'react-jss'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
-
-export const DisplayStates =
-{
-    VIEW_ALL_PROJECTS          : 'DisplayStates.VIEW_ALL_PROJECTS',
-    PROJECT_FADE_TO            : 'DisplayStates.PROJECT_FADE_TO',
-    PROJECT_OFFSET_CALCULATION : 'DisplayStates.PROJECT_OFFSET_CALCULATION',
-    AFTER_FADE_POSITIONING     : 'DisplayStates.AFTER_FADE_POSITIONING',
-    PROJECT_SCROLL_TO_TOP      : 'DisplayStates.PROJECT_SCROLL_TO_TOP',
-    PROJECT_VIEW               : 'DisplayStates.PROJECT_VIEW'
-};
+import {
+    VIEW_ALL,
+    PROJECT_FADE_TO,
+    OFFSET_CALCULATION,
+    AFTER_FADE_POSITIONING,
+    PROJECT_SCROLL_UP,
+    PROJECT_VIEW
+} from './../constants/DisplayStates'
 
 const SECTION_ROOT = '/projects';
 
@@ -38,10 +36,9 @@ class ProjectsPanel extends PureComponent {
         super(props);
 
         const isAtProjectURL = (typeof getProjectIdAt(props.location) != 'undefined');
-        const { VIEW_ALL_PROJECTS, PROJECT_VIEW } = DisplayStates;
 
         this.state = {
-            displayState    : (!isAtProjectURL ? VIEW_ALL_PROJECTS : PROJECT_VIEW),
+            displayState    : (!isAtProjectURL ? VIEW_ALL : PROJECT_VIEW),
             selectedProjectId : getProjectIdAt(props.location),
             // if a user bookmarks a page and visits a project via that method,
             // this variable will help us figure out whether to transition or not
@@ -59,7 +56,7 @@ class ProjectsPanel extends PureComponent {
         if(selectedProjectId != this.state.selectedProjectId) {
             const stateUpdates = {
                 selectedProjectId, 
-                displayState : DisplayStates.PROJECT_FADE_TO
+                displayState : PROJECT_FADE_TO
             };
             if(selectedProjectId && !prevProps.isAtProjectURL) {
                 stateUpdates.wasSelectionViaUI = true;
@@ -71,33 +68,40 @@ class ProjectsPanel extends PureComponent {
         // update state to reflect project selected when detected
         if(!prevSelectedProjectId && selectedProjectId) {
             wait(50).then(()=> { // wait for half sec and then jump to next phase
-                this.setState({ displayState : DisplayStates.PROJECT_OFFSET_CALCULATION });
+                this.setState({ displayState : OFFSET_CALCULATION });
             });
-        }else if(prevSelectedProjectId && !selectedProjectId) {
+        }
+        else if(prevSelectedProjectId && !selectedProjectId) {
             const stateUpdates = {};
-            stateUpdates.displayState      = DisplayStates.VIEW_ALL_PROJECTS;
+            stateUpdates.displayState = VIEW_ALL;
             stateUpdates.wasSelectionViaUI = true;
             this.setState(stateUpdates);
-        }else { // project selection has not changed
+        }
+        else { // project selection has not changed
 
-            if(this.state.displayState == DisplayStates.PROJECT_OFFSET_CALCULATION) {
-                wait(200).then(()=>this.setState({
-                    displayState : DisplayStates.AFTER_FADE_POSITIONING
-                }))
-            }
-            if(this.state.displayState == DisplayStates.AFTER_FADE_POSITIONING) {
-                wait(200).then(()=>{
-                    window.scrollTo(0,0); 
-                    this.setState({
-                        displayState : DisplayStates.PROJECT_SCROLL_TO_TOP
-                    })
-                });
-            }
-
-            if(this.state.displayState == DisplayStates.PROJECT_SCROLL_TO_TOP) {
-                wait(50).then(()=>{ 
-                    this.setState({ displayState : DisplayStates.PROJECT_VIEW })                    
-                });
+            switch(this.state.displayState) {
+                case OFFSET_CALCULATION : 
+                    wait(200).then(()=>{
+                        this.setState({
+                            displayState : AFTER_FADE_POSITIONING
+                        });
+                    });
+                    break;
+                case AFTER_FADE_POSITIONING : 
+                    wait(200).then(()=>{
+                        window.scrollTo(0,0); 
+                        this.setState({
+                            displayState : PROJECT_SCROLL_UP
+                        });
+                    });
+                    break;
+                case PROJECT_SCROLL_UP :
+                    wait(50).then(()=>{ 
+                    this.setState({ 
+                            displayState : PROJECT_VIEW 
+                        });                    
+                    });
+                    break;
             }
         }
     }
@@ -116,8 +120,6 @@ class ProjectsPanel extends PureComponent {
             displayState, 
             wasSelectionViaUI 
         } = this.state;
-
-        const  { PROJECT_VIEW } = DisplayStates;
 
         this.R.projects = [];   //reset projects currently in references
 

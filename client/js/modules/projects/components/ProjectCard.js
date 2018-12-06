@@ -6,7 +6,14 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import styleSheet from './style/ProjectCardStyle'
-import { DisplayStates } from './ProjectsPanel'
+import {
+    VIEW_ALL,
+    PROJECT_FADE_TO,
+    OFFSET_CALCULATION,
+    AFTER_FADE_POSITIONING,
+    PROJECT_SCROLL_UP,
+    PROJECT_VIEW
+} from './../constants/DisplayStates'
 
 // TODO : use React 16's new lifecycle methods/guidelines
 //        for animation sequence (which coincidentally make 
@@ -108,15 +115,15 @@ class ProjectCard extends PureComponent {
             //        can be simple integer check?
 
             switch(nextProps.displayState) {
-                case DisplayStates.VIEW_ALL_PROJECTS : 
+                case VIEW_ALL : 
                     stateUpdates.hasAbsolutePosition = false;
                     break;
 
-                case DisplayStates.PROJECT_FADE_TO :
+                case PROJECT_FADE_TO :
                     stateUpdates.hasAbsolutePosition = false;
                     break;
 
-                case DisplayStates.PROJECT_OFFSET_CALCULATION :
+                case OFFSET_CALCULATION :
                     if(this.R.container) {
                         stateUpdates.offsetX = this.R.container.offsetLeft;
                         stateUpdates.offsetY = this.R.container.offsetTop;
@@ -124,11 +131,11 @@ class ProjectCard extends PureComponent {
                     }
                     break;
 
-                case DisplayStates.AFTER_FADE_POSITIONING : 
+                case AFTER_FADE_POSITIONING : 
                     stateUpdates.hasAbsolutePosition = true;
                     break;
 
-                case DisplayStates.PROJECT_SCROLL_TO_TOP :
+                case PROJECT_SCROLL_UP :
                     if(nextProps.wasSelectionViaUI) {
                         stateUpdates.hasAbsolutePosition = true;                        
                     }
@@ -136,7 +143,7 @@ class ProjectCard extends PureComponent {
                     stateUpdates.offsetY = 0;
                     break;
                     
-                case DisplayStates.PROJECT_VIEW :
+                case PROJECT_VIEW :
                     stateUpdates.viewAsTitle = true;
                     stateUpdates.isBeingHovered = false;
                     stateUpdates.hasAbsolutePosition = true;
@@ -158,7 +165,7 @@ class ProjectCard extends PureComponent {
             stateUpdates.hasAbsolutePosition = false;
             stateUpdates.viewAsTitle = false;
 
-            if(nextProps.displayState == DisplayStates.PROJECT_VIEW) {
+            if(nextProps.displayState == PROJECT_VIEW) {
                 stateUpdates.isBeingHovered = false;
             }
         }
@@ -169,8 +176,6 @@ class ProjectCard extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        
-        const { VIEW_ALL_PROJECTS } = DisplayStates;
         // if we are going from being selected 
         // to not selected, grab the coordinates 
         // after being processed
