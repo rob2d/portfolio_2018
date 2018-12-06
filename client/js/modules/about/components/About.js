@@ -6,9 +6,9 @@ import {
     about as strings, 
     menus as menuStrings 
 } from 'strings'
-import isPortrait  from 'tools/isPortrait'
+import isPortrait  from 'utils/isPortrait'
 import Avatar from '@material-ui/core/Avatar'
-import ButtonLink from 'tools/components/ButtonLink'
+import ButtonLink from 'utils/components/ButtonLink'
 import SectionLinks from './SectionLinks'
 import SkillsOrbit from './SkillsOrbit'
 import styleSheet from './style/AboutStyle'

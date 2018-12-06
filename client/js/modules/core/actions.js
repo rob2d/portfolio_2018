@@ -1,4 +1,4 @@
-import appHistory from 'tools/appHistory'
+import appHistory from 'utils/appHistory'
 
 export const SET_THEME    = 'core/SET_THEME';
 export const REFRESH_WINDOW_DIMENSIONS = 'core/REFRESH_WINDOW_DIMENSIONS';

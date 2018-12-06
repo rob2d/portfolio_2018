@@ -2,7 +2,7 @@ import {
     SET_THEME,
     REFRESH_WINDOW_DIMENSIONS
 } from './actions'
-import getUrlParam from 'tools/getUrlParam'
+import getUrlParam from 'utils/getUrlParam'
 import Themes from 'constants/Themes'
 
 // getWindowWidth & getWindowHeight was

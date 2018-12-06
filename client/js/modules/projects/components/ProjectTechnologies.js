@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import injectSheet from 'react-jss'
 import Technologies from 'constants/Technologies'
-import ButtonLink from 'tools/components/ButtonLink'
+import ButtonLink from 'utils/components/ButtonLink'
 
 const styleSheet = {
     techContainer : {

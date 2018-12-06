@@ -5,7 +5,7 @@ import promise from 'redux-promise-middleware'
 import rootReducer from './reducers'
 import routeTitleMapper from 'middleware/routeTitleMapper'
 import reduxLogger from 'redux-logger'
-import appHistory from 'tools/appHistory'
+import appHistory from 'utils/appHistory'
 import { 
     connectRouter, 
     routerMiddleware 

@@ -1,9 +1,9 @@
 import React from 'react'
-import ButtonLink from 'tools/components/ButtonLink'
+import ButtonLink from 'utils/components/ButtonLink'
 import injectSheet from 'react-jss'
 import { menus as menuStrings } from 'strings'
-import isLandscape from 'tools/isLandscape'
-import isPortrait from 'tools/isPortrait'
+import isLandscape from 'utils/isLandscape'
+import isPortrait from 'utils/isPortrait'
 import { getTheme } from 'app-root/themeFactory'
 
 const styleSheet = {

@@ -3,7 +3,7 @@ import injectSheet              from 'react-jss'
 import IconButton               from '@material-ui/core/IconButton'
 import strings, {menus}         from 'strings'
 import { connect }              from 'react-redux'
-import appHistory from 'tools/appHistory'
+import appHistory from 'utils/appHistory'
 
 const parentStyleSheet = {
     container : {

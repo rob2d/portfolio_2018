@@ -1,5 +1,5 @@
 import Themes from 'constants/Themes'
-import shouldShowHoverContent from 'tools/shouldShowHoverContent'
+import shouldShowHoverContent from 'utils/shouldShowHoverContent'
 
 const ANIM_INTERVAL = '0.32';
 

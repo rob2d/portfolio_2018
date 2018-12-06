@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
-import ButtonLink from 'tools/components/ButtonLink'
+import ButtonLink from 'utils/components/ButtonLink'
 import Themes from 'constants/Themes'
 import { misc as strings } from 'strings'
 

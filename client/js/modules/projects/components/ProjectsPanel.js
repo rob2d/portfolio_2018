@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import pure from 'recompose/pure'
 import { connect } from 'react-redux'
-import appHistory    from 'tools/appHistory'
+import appHistory from 'utils/appHistory'
 import strings from 'strings'
 import projectsData from 'app-root/data/projectsData'
 import styleSheet from './style/ProjectsPanelStyle'

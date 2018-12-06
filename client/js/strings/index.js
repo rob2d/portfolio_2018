@@ -1,6 +1,6 @@
 import LocalizedStrings from 'react-localization'
-import localizationSetter from 'tools/localizationSetter'
-import getUrlParam from 'tools/getUrlParam'
+import localizationSetter from 'utils/localizationSetter'
+import getUrlParam from 'utils/getUrlParam'
 
 import en from './en'
 import global from './global'
