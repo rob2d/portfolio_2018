@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react'
 import pure from 'recompose/pure'
 import { connect } from 'react-redux'
+import injectSheet from 'react-jss'
+import strings from 'strings'
 import appHistory from 'utils/appHistory'
 import wait from 'utils/wait'
-import strings from 'strings'
 import projectsData from 'app-root/data/projectsData'
 import styleSheet from './style/ProjectsPanelStyle'
-import injectSheet from 'react-jss'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
+import { projectIdOfUrl } from './../selectors'
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -20,45 +21,27 @@ import {
 
 const SECTION_ROOT = '/projects';
 
-/**
- * retrieve the project id given a specific
- * location passed by Redux Router to Component.
- * If root section, returns undefined
- * @param loc
- */
-const getProjectIdAt = (location)=>(
-    !(location.pathname == SECTION_ROOT || location.pathname == '/') ?
-        location.pathname.substr(SECTION_ROOT.length+1) : undefined
-);
-
 class ProjectsPanel extends PureComponent {
     constructor(props) {
         super(props);
-
-        const isAtProjectURL = (typeof getProjectIdAt(props.location) != 'undefined');
+        const { projectIdOfUrl } = props;
 
         this.state = {
-            displayState    : (!isAtProjectURL ? VIEW_ALL : PROJECT_VIEW),
-            selectedProjectId : getProjectIdAt(props.location),
-            // if a user bookmarks a page and visits a project via that method,
-            // this variable will help us figure out whether to transition or not
-            wasSelectionViaUI  : false,
-            visitedViaRootPath : !isAtProjectURL
+            displayState : !projectIdOfUrl ? VIEW_ALL : PROJECT_VIEW,
+            wasSelectionViaUI : false
         };
 
         this.R = { projects : [] };
     }
     componentDidUpdate (prevProps, prevState) {
-        const prevSelectedProjectId =  getProjectIdAt(prevProps.location);
-        const selectedProjectId = getProjectIdAt(this.props.location);
-        const { visitedViaRootPath } = this.state;
+        const { projectIdOfUrl } = this.props;
+        const prevProjectIdOfUrl =  prevProps.projectIdOfUrl;
 
-        if(selectedProjectId != this.state.selectedProjectId) {
+        if(prevProjectIdOfUrl != projectIdOfUrl) {
             const stateUpdates = {
-                selectedProjectId, 
                 displayState : PROJECT_FADE_TO
             };
-            if(selectedProjectId && !prevProps.isAtProjectURL) {
+            if(projectIdOfUrl && !prevProjectIdOfUrl) {
                 stateUpdates.wasSelectionViaUI = true;
             }
 
@@ -66,18 +49,22 @@ class ProjectsPanel extends PureComponent {
         }
 
         // update state to reflect project selected when detected
-        if(!prevSelectedProjectId && selectedProjectId) {
+        if(!prevProjectIdOfUrl && projectIdOfUrl) {
             wait(50).then(()=> { // wait for half sec and then jump to next phase
                 this.setState({ displayState : OFFSET_CALCULATION });
             });
         }
-        else if(prevSelectedProjectId && !selectedProjectId) {
+
+        // project was unselected (user went back or navigated to base route)
+        else if(prevProjectIdOfUrl && !projectIdOfUrl) {
             const stateUpdates = {};
             stateUpdates.displayState = VIEW_ALL;
             stateUpdates.wasSelectionViaUI = true;
             this.setState(stateUpdates);
         }
-        else { // project selection has not changed
+        
+        // project selection has not changed
+        else {     
 
             switch(this.state.displayState) {
                 case OFFSET_CALCULATION : 
@@ -87,6 +74,7 @@ class ProjectsPanel extends PureComponent {
                         });
                     });
                     break;
+                
                 case AFTER_FADE_POSITIONING : 
                     wait(200).then(()=>{
                         window.scrollTo(0,0); 
@@ -95,6 +83,7 @@ class ProjectsPanel extends PureComponent {
                         });
                     });
                     break;
+
                 case PROJECT_SCROLL_UP :
                     wait(50).then(()=>{ 
                     this.setState({ 
@@ -107,44 +96,36 @@ class ProjectsPanel extends PureComponent {
     }
     render () {
         const { 
-            language,
-            theme, 
-            classes, 
-            viewportWidth,
-            location, 
-            match 
+            projectIdOfUrl, language, theme, classes, 
+            viewportWidth, location, match 
         } = this.props;
 
         const { 
-            selectedProjectId, 
             displayState, 
             wasSelectionViaUI 
         } = this.state;
 
-        this.R.projects = [];   //reset projects currently in references
-
         const areAllProjectsOnScreen = (
-            (typeof selectedProjectId != 'undefined' &&             // selection made &&
-                wasSelectionViaUI && displayState != PROJECT_VIEW) // not via UI & projectSelected
-        ) || (typeof selectedProjectId == 'undefined');
+            projectIdOfUrl && wasSelectionViaUI && 
+            displayState != PROJECT_VIEW
+        ) || !projectIdOfUrl;
 
         return (
             <div className={classes.container}>
                 <div className={classes.content}>
                     { strings.projects.projectData.map((p)=>
                     {
-                        const isSelected = (p.id == selectedProjectId);
+                        const isSelected = (p.id == projectIdOfUrl);
                         const onScreen = areAllProjectsOnScreen || isSelected;
 
                         return (
                             <ProjectCard
-                                ref={ (c) => this.R.projects[p.id] = c }
                                 key={ `ProjectCard${p.id}` }
                                 data={ p }
                                 pData={ projectsData[p.id] }
                                 language={ language }
                                 onClick={ ()=> appHistory.goTo(`/projects/${p.id}`) }
-                                isShown={ (!selectedProjectId) || (selectedProjectId == p.id) }
+                                isShown={ (!projectIdOfUrl) || (projectIdOfUrl == p.id) }
                                 onScreen={ onScreen }
                                 displayState={ displayState }
                                 isSelected={ isSelected }
@@ -154,9 +135,9 @@ class ProjectsPanel extends PureComponent {
                             />
                         )
                     })}
-                    { typeof selectedProjectId != 'undefined' && 
+                    { typeof projectIdOfUrl != 'undefined' && 
                     (
-                        <ProjectDetails projectId={selectedProjectId} fadeInDelay={1000} />
+                        <ProjectDetails projectId={projectIdOfUrl} fadeInDelay={1000} />
                     )}
                 </div>
             </div>
@@ -165,8 +146,9 @@ class ProjectsPanel extends PureComponent {
 }
 
 export default pure(injectSheet(styleSheet)(connect(
-    ({ core })=> ({ 
-        theme         : core.theme,
-        viewportWidth : core.viewportWidth 
+    (state, props) => ({ 
+        theme          : state.core.theme,
+        viewportWidth  : state.core.viewportWidth,
+        projectIdOfUrl : projectIdOfUrl(state,props) 
     })
 )(ProjectsPanel)));

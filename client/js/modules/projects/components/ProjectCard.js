@@ -15,56 +15,49 @@ import {
     PROJECT_VIEW
 } from './../constants/DisplayStates'
 
-// TODO : use React 16's new lifecycle methods/guidelines
-//        for animation sequence (which coincidentally make 
-//        this much simpler)
+const ProjectCardLayout = injectSheet(styleSheet)(
+    function ProjectCardLayout({
+        data, pData, classes, onClick, 
+        theme, controllerComponent, viewAsTitle
+    }) {
 
-const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
-    data,
-    pData,
-    classes,
-    onClick,
-    theme,
-    controllerComponent,
-    viewAsTitle
-}) {
+        let containerClass = ( viewAsTitle ? 
+                                classes.cardContainerAsTitle : 
+                                classes.cardContainer );
 
-    let containerClass = ( viewAsTitle ? 
-                            classes.cardContainerAsTitle : 
-                            classes.cardContainer );
-
-    return (
-        <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
-            <Card className={containerClass} onClick={onClick}>
-                <div className={classes.cardMediaContent}>
-                    <img
-                        src={`/img/projects/${
-                            data.id}/${
-                            data.id}_thumb.png`
-                        }
-                        className={classes.cardMediaImg}
-                    />
-                    <div className={classes.titleOverlay}>
-                        <p className={classes.projectTitle}>
-                            {data.title}
-                        </p>
-                        <p className={classes.projectSubtitle}>
-                            {data.context} ({pData.year})
-                        </p>
-                        <div className={classes.moreInfoButton}>
-                            <i className={'mdi mdi-information-outline'}/>
+        return (
+            <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
+                <Card className={containerClass} onClick={onClick}>
+                    <div className={classes.cardMediaContent}>
+                        <img
+                            src={`/img/projects/${
+                                data.id}/${
+                                data.id}_thumb.png`
+                            }
+                            className={classes.cardMediaImg}
+                        />
+                        <div className={classes.titleOverlay}>
+                            <p className={classes.projectTitle}>
+                                {data.title}
+                            </p>
+                            <p className={classes.projectSubtitle}>
+                                {data.context} ({pData.year})
+                            </p>
+                            <div className={classes.moreInfoButton}>
+                                <i className={'mdi mdi-information-outline'}/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <CardContent className={classes.cardContent}>
-                    <Typography component="p">
-                        {data.shortDescription}
-                    </Typography>
-                </CardContent>
-            </Card>
-        </div>
-    )
-});
+                    <CardContent className={classes.cardContent}>
+                        <Typography component="p">
+                            {data.shortDescription}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
+);
 
 class ProjectCard extends PureComponent {
     constructor (props)
@@ -193,21 +186,17 @@ class ProjectCard extends PureComponent {
             wasSelectionViaUI, 
             onScreen 
         } = this.props;
+
         const { 
-            offsetX, 
-            offsetY, 
+            offsetX, offsetY, 
             hasAbsolutePosition, 
-            viewAsTitle, 
-            isBeingHovered,
+            viewAsTitle, isBeingHovered
         } = this.state;
 
-        // TODO | replace this whole inner state/prop 
-        //      |  dynamic with new simpler 
-        // TODO | "statefulProps" HOC
 
         return (
             <ProjectCardLayout
-                onScreen={onScreen}
+                onScreen={ onScreen }
                 controllerComponent={ this }
                 offsetX={ offsetX }
                 offsetY={ offsetY }
