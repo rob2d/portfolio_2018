@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
-import pure from 'recompose/pure'
 import { connect } from 'react-redux'
 import injectSheet from 'react-jss'
-import strings from 'strings'
+import { projects } from 'strings'
 import appHistory from 'utils/appHistory'
 import wait from 'utils/wait'
 import projectsData from 'app-root/data/projectsData'
@@ -105,7 +104,7 @@ class ProjectsPanel extends PureComponent {
             wasSelectionViaUI 
         } = this.state;
 
-        const areAllProjectsOnScreen = (
+        const areAllShown = (
             projectIdOfUrl && wasSelectionViaUI && 
             displayState != PROJECT_VIEW
         ) || !projectIdOfUrl;
@@ -113,28 +112,23 @@ class ProjectsPanel extends PureComponent {
         return (
             <div className={classes.container}>
                 <div className={classes.content}>
-                    { strings.projects.projectData.map((p)=>
-                    {
-                        const isSelected = (p.id == projectIdOfUrl);
-                        const onScreen = areAllProjectsOnScreen || isSelected;
-
-                        return (
-                            <ProjectCard
-                                key={ `ProjectCard${p.id}` }
-                                data={ p }
-                                pData={ projectsData[p.id] }
-                                language={ language }
-                                onClick={ ()=> appHistory.goTo(`/projects/${p.id}`) }
-                                isShown={ (!projectIdOfUrl) || (projectIdOfUrl == p.id) }
-                                onScreen={ onScreen }
-                                displayState={ displayState }
-                                isSelected={ isSelected }
-                                theme={ theme } 
-                                wasSelectionViaUI={ this.state.wasSelectionViaUI }
-                                viewportWidth={viewportWidth}
-                            />
-                        )
-                    })}
+                    { projects.projectData.map( p => 
+                    (
+                        <ProjectCard
+                            key={ `ProjectCard${p.id}` }
+                            data={ p }
+                            pData={ projectsData[p.id] }
+                            language={ language }
+                            onClick={ ()=> appHistory.goTo(`/projects/${p.id}`) }
+                            isShown={ (!projectIdOfUrl) || (projectIdOfUrl == p.id) }
+                            onScreen={ areAllShown || (p.id == projectIdOfUrl) }
+                            displayState={ displayState }
+                            isSelected={ (p.id == projectIdOfUrl) }
+                            theme={ theme } 
+                            wasSelectionViaUI={ this.state.wasSelectionViaUI }
+                            viewportWidth={viewportWidth}
+                        />
+                    ))}
                     { typeof projectIdOfUrl != 'undefined' && 
                     (
                         <ProjectDetails projectId={projectIdOfUrl} fadeInDelay={1000} />
@@ -145,10 +139,10 @@ class ProjectsPanel extends PureComponent {
     }
 }
 
-export default pure(injectSheet(styleSheet)(connect(
+export default injectSheet(styleSheet)(connect(
     (state, props) => ({ 
         theme          : state.core.theme,
         viewportWidth  : state.core.viewportWidth,
         projectIdOfUrl : projectIdOfUrl(state,props) 
     })
-)(ProjectsPanel)));
+)(ProjectsPanel));
