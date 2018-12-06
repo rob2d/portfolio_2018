@@ -3,7 +3,7 @@ import pure           from 'recompose/pure'
 import Button         from '@material-ui/core/Button'
 import injectSheet    from 'react-jss'
 import Tooltip   from '@material-ui/core/Tooltip'
-import shouldShowHoverContent from 'tools/shouldShowHoverContent'
+import shouldShowHoverContent from 'utils/shouldShowHoverContent'
 import styleSheet from './style/HeaderSectionButtonStyle'
 
 const HeaderSectionButton = pure(injectSheet(styleSheet)(function HeaderSectionButton({ 

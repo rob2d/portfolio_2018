@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import pure        from 'recompose/pure'
 import ButtonBase  from '@material-ui/core/ButtonBase'
 import Themes      from 'constants/Themes'
-import appHistory  from 'tools/appHistory'
+import appHistory  from 'utils/appHistory'
 import injectSheet from 'react-jss'
 import Tooltip   from '@material-ui/core/Tooltip'
 

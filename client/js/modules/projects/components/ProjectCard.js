@@ -6,58 +6,58 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import styleSheet from './style/ProjectCardStyle'
-import { DisplayStates } from './ProjectsPanel'
+import {
+    VIEW_ALL,
+    PROJECT_FADE_TO,
+    OFFSET_CALCULATION,
+    AFTER_FADE_POSITIONING,
+    PROJECT_SCROLL_UP,
+    PROJECT_VIEW
+} from './../constants/DisplayStates'
 
-// TODO : use React 16's new lifecycle methods/guidelines
-//        for animation sequence (which coincidentally make 
-//        this much simpler)
+const ProjectCardLayout = injectSheet(styleSheet)(
+    function ProjectCardLayout({
+        data, pData, classes, onClick, 
+        theme, parent, viewAsTitle
+    }) {
 
-const ProjectCardLayout = injectSheet(styleSheet)(function ProjectCardLayout({
-    data,
-    pData,
-    classes,
-    onClick,
-    theme,
-    controllerComponent,
-    viewAsTitle
-}) {
+        let containerClass = ( viewAsTitle ? 
+                                classes.cardContainerAsTitle : 
+                                classes.cardContainer );
 
-    let containerClass = ( viewAsTitle ? 
-                            classes.cardContainerAsTitle : 
-                            classes.cardContainer );
-
-    return (
-        <div ref={ (c)=>controllerComponent.R.container=c } className={classes.container}>
-            <Card className={containerClass} onClick={onClick}>
-                <div className={classes.cardMediaContent}>
-                    <img
-                        src={`/img/projects/${
-                            data.id}/${
-                            data.id}_thumb.png`
-                        }
-                        className={classes.cardMediaImg}
-                    />
-                    <div className={classes.titleOverlay}>
-                        <p className={classes.projectTitle}>
-                            {data.title}
-                        </p>
-                        <p className={classes.projectSubtitle}>
-                            {data.context} ({pData.year})
-                        </p>
-                        <div className={classes.moreInfoButton}>
-                            <i className={'mdi mdi-information-outline'}/>
+        return (
+            <div ref={ c => parent.R.container = c } className={classes.container}>
+                <Card className={containerClass} onClick={onClick}>
+                    <div className={classes.cardMediaContent}>
+                        <img
+                            src={`/img/projects/${
+                                data.id}/${
+                                data.id}_thumb.png`
+                            }
+                            className={classes.cardMediaImg}
+                        />
+                        <div className={classes.titleOverlay}>
+                            <p className={classes.projectTitle}>
+                                {data.title}
+                            </p>
+                            <p className={classes.projectSubtitle}>
+                                {data.context} ({pData.year})
+                            </p>
+                            <div className={classes.moreInfoButton}>
+                                <i className={'mdi mdi-information-outline'}/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <CardContent className={classes.cardContent}>
-                    <Typography component="p">
-                        {data.shortDescription}
-                    </Typography>
-                </CardContent>
-            </Card>
-        </div>
-    )
-});
+                    <CardContent className={classes.cardContent}>
+                        <Typography component="p">
+                            {data.shortDescription}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
+);
 
 class ProjectCard extends PureComponent {
     constructor (props)
@@ -108,15 +108,15 @@ class ProjectCard extends PureComponent {
             //        can be simple integer check?
 
             switch(nextProps.displayState) {
-                case DisplayStates.VIEW_ALL_PROJECTS : 
+                case VIEW_ALL : 
                     stateUpdates.hasAbsolutePosition = false;
                     break;
 
-                case DisplayStates.PROJECT_FADE_TO :
+                case PROJECT_FADE_TO :
                     stateUpdates.hasAbsolutePosition = false;
                     break;
 
-                case DisplayStates.PROJECT_OFFSET_CALCULATION :
+                case OFFSET_CALCULATION :
                     if(this.R.container) {
                         stateUpdates.offsetX = this.R.container.offsetLeft;
                         stateUpdates.offsetY = this.R.container.offsetTop;
@@ -124,11 +124,11 @@ class ProjectCard extends PureComponent {
                     }
                     break;
 
-                case DisplayStates.AFTER_FADE_POSITIONING : 
+                case AFTER_FADE_POSITIONING : 
                     stateUpdates.hasAbsolutePosition = true;
                     break;
 
-                case DisplayStates.PROJECT_SCROLL_TO_TOP :
+                case PROJECT_SCROLL_UP :
                     if(nextProps.wasSelectionViaUI) {
                         stateUpdates.hasAbsolutePosition = true;                        
                     }
@@ -136,7 +136,7 @@ class ProjectCard extends PureComponent {
                     stateUpdates.offsetY = 0;
                     break;
                     
-                case DisplayStates.PROJECT_VIEW :
+                case PROJECT_VIEW :
                     stateUpdates.viewAsTitle = true;
                     stateUpdates.isBeingHovered = false;
                     stateUpdates.hasAbsolutePosition = true;
@@ -158,7 +158,7 @@ class ProjectCard extends PureComponent {
             stateUpdates.hasAbsolutePosition = false;
             stateUpdates.viewAsTitle = false;
 
-            if(nextProps.displayState == DisplayStates.PROJECT_VIEW) {
+            if(nextProps.displayState == PROJECT_VIEW) {
                 stateUpdates.isBeingHovered = false;
             }
         }
@@ -169,8 +169,6 @@ class ProjectCard extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        
-        const { VIEW_ALL_PROJECTS } = DisplayStates;
         // if we are going from being selected 
         // to not selected, grab the coordinates 
         // after being processed
@@ -188,22 +186,18 @@ class ProjectCard extends PureComponent {
             wasSelectionViaUI, 
             onScreen 
         } = this.props;
+
         const { 
-            offsetX, 
-            offsetY, 
+            offsetX, offsetY, 
             hasAbsolutePosition, 
-            viewAsTitle, 
-            isBeingHovered,
+            viewAsTitle, isBeingHovered
         } = this.state;
 
-        // TODO | replace this whole inner state/prop 
-        //      |  dynamic with new simpler 
-        // TODO | "statefulProps" HOC
 
         return (
             <ProjectCardLayout
-                onScreen={onScreen}
-                controllerComponent={ this }
+                onScreen={ onScreen }
+                parent={ this }
                 offsetX={ offsetX }
                 offsetY={ offsetY }
                 hasAbsolutePosition={ hasAbsolutePosition }

@@ -1,5 +1,5 @@
 import { getTheme } from 'app-root/themeFactory'
-import isPortrait  from 'tools/isPortrait'
+import isPortrait  from 'utils/isPortrait'
 
 const styleSheet = {
     topContent : {

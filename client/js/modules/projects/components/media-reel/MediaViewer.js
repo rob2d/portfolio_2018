@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import injectSheet from 'react-jss'
 import MediaTypes from 'constants/MediaTypes'
-import ButtonLink from 'tools/components/ButtonLink'
+import ButtonLink from 'utils/components/ButtonLink'
 import YouTube from 'react-youtube'
 import PropTypes from 'prop-types'
 import CircularProgress from '@material-ui/core/CircularProgress'
