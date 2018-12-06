@@ -29,22 +29,19 @@ class ProjectsPanel extends PureComponent {
             displayState : !projectIdOfUrl ? VIEW_ALL : PROJECT_VIEW,
             wasSelectionViaUI : false
         };
-
-        this.R = { projects : [] };
     }
     componentDidUpdate (prevProps, prevState) {
         const { projectIdOfUrl } = this.props;
         const prevProjectIdOfUrl =  prevProps.projectIdOfUrl;
 
-        if(prevProjectIdOfUrl != projectIdOfUrl) {
-            const stateUpdates = {
-                displayState : PROJECT_FADE_TO
-            };
+        let stateUpdates = {};
+
+        if(projectIdOfUrl && prevProjectIdOfUrl != projectIdOfUrl) {
+            stateUpdates.displayState = PROJECT_FADE_TO;
+
             if(projectIdOfUrl && !prevProjectIdOfUrl) {
                 stateUpdates.wasSelectionViaUI = true;
             }
-
-            this.setState(stateUpdates);
         }
 
         // update state to reflect project selected when detected
@@ -56,10 +53,8 @@ class ProjectsPanel extends PureComponent {
 
         // project was unselected (user went back or navigated to base route)
         else if(prevProjectIdOfUrl && !projectIdOfUrl) {
-            const stateUpdates = {};
             stateUpdates.displayState = VIEW_ALL;
             stateUpdates.wasSelectionViaUI = true;
-            this.setState(stateUpdates);
         }
         
         // project selection has not changed
@@ -91,6 +86,10 @@ class ProjectsPanel extends PureComponent {
                     });
                     break;
             }
+        }
+
+        if(Object.keys(stateUpdates).length) {
+            this.setState(stateUpdates);
         }
     }
     render () {
