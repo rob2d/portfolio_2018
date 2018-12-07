@@ -11,7 +11,7 @@ const styleSheet = {
     content : {
         display        : 'flex',
         alignItems     : 'center',
-        justifyContent : 'center',
+        justifyContent : 'flex-start',
         flexDirection  : 'row',
         flexWrap       : 'wrap',
         position       : 'relative',
