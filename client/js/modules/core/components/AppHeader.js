@@ -12,15 +12,15 @@ import appHistory                   from 'utils/appHistory'
 import HeaderSectionButton          from './HeaderSectionButton'
 import SectionHighlighter           from './SectionHighlighter'
 import AppSections                  from 'constants/AppSections'
-import { refreshWindowDimensions }  from './../actions'
 
 let { SectionIndexes, Sections } = AppSections;
 
 const goToHeaderLink = (url)=> (appHistory.goTo(url) );
 
 // determine what to do when sections are clicked
-const SectionClickEvents = Sections.map((section, i)=> {
-   return ()=>{ goToHeaderLink(section.basePath); };
+
+const SectionClickEvents = Sections.map( section => {
+   return ()=> goToHeaderLink(section.basePath);
 });
 
 class AppHeader extends PureComponent {
@@ -51,40 +51,33 @@ class AppHeader extends PureComponent {
     }
 
     componentDidMount () {
-        // needed to initially trigger re-grab of coordinates for dynamic header tabs
-        this.updateButtonXPositions();
         
-        // since the AppHeader is the only globally available component
-        // down to within the context of redux, use it as an opportunity
-        // to hook for update dimensions here
-        window.addEventListener('resize', this.onWindowResize);
+        // needed to initially trigger re-grab of 
+        // coordinates for dynamic header tabs
+        
+        this.updateButtonXPositions();
     }
-
-    componentWillUnmount () {
-        // and to unhook here
-        window.removeEventListener('resize', this.onWindowResize);
-    }
-
-    onWindowResize = ()=> {
-        this.props.refreshWindowDimensions();
-    };
 
     componentDidUpdate(prevProps, prevState) {
-        // if the path index or viewport width changed, use it as the opportunity
-        // to re-grab coordinates of buttons for the section highlighter
-        if((prevState.pathIndex != this.state.pathIndex) || (this.props.viewportWidth != prevProps.viewportWidth)) {
+        
+        // if the path index changed, re-grab coordinates 
+        // of buttons for the section highlighter
+        
+        if((prevState.pathIndex != this.state.pathIndex) || 
+            (this.props.viewportWidth != prevProps.viewportWidth)
+        ) {
             this.updateButtonXPositions();
         }
     }
 
     updateButtonXPositions = ()=> {
         let that = this;
+        // (using function syntax for debuggability)
         setTimeout(function updateButtonXPositions() {
             const leftmostButton = that.R.buttonDivRefs[0];
             const buttonWidth = leftmostButton && leftmostButton.offsetWidth;
             const appBar = leftmostButton.parentNode.parentNode;
             const appBarHeight = appBar && appBar.clientHeight;
-
 
             // supported in all browsers IE9+
             const leftPadding = window.getComputedStyle(appBar, null)
@@ -98,9 +91,10 @@ class AppHeader extends PureComponent {
                 appBarHeight,
                 leftPadding,
             });
-
-        }, 0);  // need a timeout to get around functional component refs; a bit of hack
-                // but this is all to get around temp JSS glitch with media queries
+        }, 0);  // need a timeout to get around functional 
+                //component refs; a bit of hack but this is 
+                // all to get around temp JSS glitch with 
+                // media queries
     };
 
     /**
@@ -118,7 +112,6 @@ class AppHeader extends PureComponent {
             case Sections[2].basePath:  return SectionIndexes.MISC;
             case Sections[3].basePath:  return SectionIndexes.CV;
             default :  
-
                 return -1;
         }
     };
@@ -174,10 +167,7 @@ class AppHeader extends PureComponent {
     }
 }
 
-export default pure(connect(
-    (state,ownProps)=>({ 
-        pathname      : state.router.location.pathname,
-        viewportWidth : state.core.viewportWidth
-    }),
-    ({ refreshWindowDimensions })
-)(injectSheet(styleSheet)(AppHeader)))
+export default connect(({ router, viewport }, ownProps) => ({ 
+    pathname : router.location.pathname,
+    viewportWidth : viewport.viewportWidth
+}))(injectSheet(styleSheet)(AppHeader))
