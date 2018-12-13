@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { pure } from 'recompose'
+import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
 import { connect } from 'react-redux'
 import MediaViewer from './MediaViewer'

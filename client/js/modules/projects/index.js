@@ -1,4 +1,12 @@
-import reducer   from './reducer'
+import selectors from './selectors'
+import ProjectsPanel from './components/ProjectsPanel'
+
 export default {
-    reducer
+    selectors,
+    ProjectsPanel
+}
+
+export {
+    selectors,
+    ProjectsPanel
 }
