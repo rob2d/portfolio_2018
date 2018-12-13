@@ -1,5 +1,5 @@
 import { orderedBreakpoints } from 'constants/style/Breakpoints'
-import { REFRESH_WINDOW_DIMENSIONS } from './viewportActions'
+import { REFRESH_WINDOW_DIMENSIONS } from './actions'
 
 // getViewportWidth & getViewportHeight was
 // adapted from http://stackoverflow.com/a/8876069/1291659

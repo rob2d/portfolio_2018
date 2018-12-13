@@ -6,6 +6,7 @@ import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
 import { getTheme } from 'app-root/themeFactory'
 import appHistory from 'utils/appHistory'
+import withViewportSizes from 'utils/hocs/withViewportSizes'
 import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
 import pure from 'recompose/pure'
@@ -71,19 +72,21 @@ const StyledContent = withStyles(styles)(
 );
 
 
-const ThemedApp = connect(
+const ThemedApp = withViewportSizes(connect(
     ({ core })=> ({ theme : core.theme })
-)(function ThemedApp({ theme }) {
-    const themeApplied = getTheme(theme); 
+)(
+    function ThemedApp({ theme }) {
+        const themeApplied = getTheme(theme); 
 
-    return (
-        <MuiThemeProvider theme={ themeApplied }>
-            <ConnectedRouter history={ appHistory }>
-                <StyledContent />
-            </ConnectedRouter>
-        </MuiThemeProvider>
-    )
-});
+        return (
+            <MuiThemeProvider theme={ themeApplied }>
+                <ConnectedRouter history={ appHistory }>
+                    <StyledContent />
+                </ConnectedRouter>
+            </MuiThemeProvider>
+        )
+    })
+);
 
 
 function RoutingApp(){ 

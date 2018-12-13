@@ -3,8 +3,8 @@ import React, {
 } from 'react'
 import { connect } from 'react-redux'
 import getDisplayName from 'recompose/getDisplayName'
-import viewport from 'modules/viewport'
-const { refreshWindowDimensions } = viewport.actions;
+import { actions } from 'modules/viewport'
+const { refreshWindowDimensions } = actions;
 
 /**
  * injects viewport state
