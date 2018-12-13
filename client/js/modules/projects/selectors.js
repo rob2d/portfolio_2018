@@ -1,4 +1,4 @@
-import defineSelector    from 'utils/defineSelector'
+import defineSelector from 'utils/defineSelector'
 
 const SECTION_ROOT = '/projects';
 

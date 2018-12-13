@@ -28,6 +28,7 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
     // check renderpixels on viewport for (general)
     // coverage of landscape; covers iPhone6-X
     // and most android devices
+
     const coreProps = { viewportWidth, viewportHeight, theme };
     const techProps = { containerClass : classes.tech, theme };
     const isInPortrait = isPortrait(viewportWidth, viewportHeight);
@@ -57,7 +58,7 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
                 </p>
                 { !isInPortrait && <SectionLinks {...coreProps} /> }
             </div>
-
+            
             <div className={classes.skillsOrbit}>
                 <SkillsOrbit />
             </div>

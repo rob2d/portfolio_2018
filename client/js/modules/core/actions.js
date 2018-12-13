@@ -14,3 +14,10 @@ export const refreshWindowDimensions = ()=> ({
     type : REFRESH_WINDOW_DIMENSIONS,
     payload : {}
 });
+
+export default {
+    refreshWindowDimensions,
+    setTheme,
+    SET_THEME,
+    REFRESH_WINDOW_DIMENSIONS
+}
