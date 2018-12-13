@@ -37,7 +37,8 @@ const styleSheet = {
         flexGrow      : 1,
         display       : 'flex',
         flexDirection : 'row',
-        flexWrap      : 'wrap'
+        flexWrap      : 'wrap',
+        justifyContent : 'center'
     },
     articleImg : {
         width     : '80%',
