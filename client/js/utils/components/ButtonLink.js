@@ -32,8 +32,13 @@ function ButtonLink ({
 }) {
     let isAbsoluteURL = url.indexOf('://') != -1;
 
-    const onClick = function(){ 
+    const onClick = function(e){ 
         
+        // keep synthetic event's reference
+        // for duration of timeout 
+        
+        e.persist();
+
         // provide a small timeout so 
         // that animation can be seen
         
@@ -41,7 +46,7 @@ function ButtonLink ({
             if(!isAbsoluteURL) {
                 // if protocol unspecified, 
                 // handle with local router
-                appHistory.goTo(url) 
+                appHistory.goTo(url, e) 
             } else {
                 // otherwise, change location
                 window.open(url, '_newtab');
@@ -57,7 +62,7 @@ function ButtonLink ({
         <ButtonBase 
                 focusRipple 
                 className={ containerClass }
-                onClick={ onClick }
+                onMouseDown={ onClick }
                 TouchRippleProps={{
                     classes : { ripple : classes.touchRipple }
                 }}

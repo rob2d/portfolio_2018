@@ -1,26 +1,24 @@
-import React, { PureComponent }     from 'react'
-import pure                         from 'recompose/pure'
-import injectSheet                  from 'react-jss'
-import Typography                   from '@material-ui/core/Typography'
-import AppBar                       from '@material-ui/core/AppBar'
-import Toolbar                      from '@material-ui/core/Toolbar'
-import { menus }                    from 'strings'
-import styleSheet                   from './style/AppHeaderStyle'
-import ThemeButton                  from './ThemeButton'
-import { connect }                  from 'react-redux'
-import appHistory                   from 'utils/appHistory'
-import HeaderSectionButton          from './HeaderSectionButton'
-import SectionHighlighter           from './SectionHighlighter'
-import AppSections                  from 'constants/AppSections'
+import React, { PureComponent } from 'react'
+import pure                     from 'recompose/pure'
+import injectSheet              from 'react-jss'
+import Typography               from '@material-ui/core/Typography'
+import AppBar                   from '@material-ui/core/AppBar'
+import Toolbar                  from '@material-ui/core/Toolbar'
+import { menus }                from 'strings'
+import styleSheet               from './style/AppHeaderStyle'
+import ThemeButton              from './ThemeButton'
+import { connect }              from 'react-redux'
+import appHistory               from 'utils/appHistory'
+import HeaderSectionButton      from './HeaderSectionButton'
+import SectionHighlighter       from './SectionHighlighter'
+import AppSections              from 'constants/AppSections'
 
 let { SectionIndexes, Sections } = AppSections;
-
-const goToHeaderLink = (url)=> (appHistory.goTo(url) );
 
 // determine what to do when sections are clicked
 
 const SectionClickEvents = Sections.map( section => {
-   return ()=> goToHeaderLink(section.basePath);
+   return  e => appHistory.goTo(section.basePath, e);
 });
 
 class AppHeader extends PureComponent {

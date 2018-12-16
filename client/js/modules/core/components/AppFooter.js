@@ -6,6 +6,7 @@ import Themes from 'constants/Themes'
 import Tooltip from '@material-ui/core/Tooltip'
 import { connect } from 'react-redux'
 import { getTheme } from 'app-root/themeFactory'
+import appHistory from 'utils/appHistory'
 
 const styles = {
     contactButton : {
@@ -37,21 +38,27 @@ const styles = {
 };
 
 const ContactButton = pure(injectSheet(styles)
-(function ContactButton({ url, classes, iconClass, tooltipContent }){ return (
-    <Tooltip
-        enterDelay={350}
-        title={tooltipContent}
-        classes={{ tooltip : classes.tooltip }}
-    >
-        <Button
-            className={ classes.contactButton }
-            onClick={()=>{ location.href = url }}
-        ><i className={`${iconClass} ${classes.icon}`}/>
-        </Button>
-    </Tooltip>
-)}));
+(function ContactButton({ 
+    url, 
+    classes, 
+    iconClass, 
+    tooltipContent 
+}){ 
+    return (
+        <Tooltip
+            enterDelay={350}
+            title={tooltipContent}
+            classes={{ tooltip : classes.tooltip }}
+        >
+            <Button
+                className={ classes.contactButton }
+                onMouseDown={()=>{ appHistory.goTo(url) }}
+            ><i className={`${iconClass} ${classes.icon}`}/>
+            </Button>
+        </Tooltip>
+    )}
+));
 ContactButton.displayName = 'ContactButton';
-
 
 const AppFooter = connect(
     ({ core }) => ({ theme : core.theme })
