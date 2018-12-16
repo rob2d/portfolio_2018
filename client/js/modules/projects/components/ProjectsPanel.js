@@ -118,7 +118,7 @@ class ProjectsPanel extends PureComponent {
                             data={ p }
                             pData={ projectsData[p.id] }
                             language={ language }
-                            onClick={ ()=> appHistory.goTo(`/projects/${p.id}`) }
+                            onClick={ e => appHistory.goTo(`/projects/${p.id}`, e) }
                             isShown={ (!projectIdOfUrl) || (projectIdOfUrl == p.id) }
                             onScreen={ areAllShown || (p.id == projectIdOfUrl) }
                             displayState={ displayState }

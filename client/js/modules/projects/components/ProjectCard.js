@@ -30,7 +30,7 @@ const ProjectCardLayout = injectSheet(styleSheet)(
                 ref={ c => parent.R.container = c } 
                 className={classes.container}
             >
-                <Card className={containerClass} onClick={onClick}>
+                <Card className={containerClass} onMouseDown={onClick}>
                     <div className={classes.cardMediaContent}>
                         <img
                             src={`/img/projects/${

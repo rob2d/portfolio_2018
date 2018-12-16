@@ -21,7 +21,7 @@ const HeaderSectionButton = pure(injectSheet(styleSheet)(function HeaderSectionB
                 <Button className={ classes.button }
                     disabled={ disabled }
                     id={ domId }
-                    onClick={ onClick }
+                    onMouseDown={ onClick }
                 >
                     <div className={ classes.buttonIconWrapper }>
                         <i className={`${iconClass} ${
