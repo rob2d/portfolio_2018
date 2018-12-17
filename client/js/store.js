@@ -23,8 +23,6 @@ const middleware = [
 
 // redux-logger is not needed in prod
 
-console.log('process.NODE_ENV ->', process.env.NODE_ENV);
-
 if(process.env.NODE_ENV != 'production') {
     middleware.push(reduxLogger)
 }
