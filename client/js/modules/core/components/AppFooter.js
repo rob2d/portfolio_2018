@@ -52,7 +52,7 @@ const ContactButton = pure(injectSheet(styles)
         >
             <Button
                 className={ classes.contactButton }
-                onMouseDown={()=>{ appHistory.goTo(url) }}
+                onMouseDown={ e => appHistory.goTo(url, e) }
             ><i className={`${iconClass} ${classes.icon}`}/>
             </Button>
         </Tooltip>
