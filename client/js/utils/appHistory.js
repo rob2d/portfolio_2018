@@ -8,9 +8,10 @@ appHistory.goTo = function(url, e) {
     const event = e.nativeEvent;
     const isAbsoluteUrl = (
         (url.indexOf('https://') != -1) ||
-        (url.indexOf('http://') != -1)
+        (url.indexOf('http://') != -1) ||
+        (url.indexOf('mailto:') != -1)
     );
-    
+
     // normal left click/touch behavior;
 
     if(!event.defaultPrevented && 
