@@ -281,7 +281,6 @@ class MediaViewer extends PureComponent {
                 if(!isMediaLoading) {
                     mediaElement =  resource.domSegment;
                 } else {
-                    console.log('media is not loading');
                     mediaElement = (
                         <ButtonLink 
                             url={resource.url} 
