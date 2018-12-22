@@ -32,11 +32,9 @@ function withFadeTransitions (WrappedComponent) {
         }
         static displayName = `FadeTransitioner(${getDisplayName(FadingComponent)})`;
         componentWillReceiveProps(newProps) {
-            console.error('||>componentWillReceiveProps');
             this.processNewProps(newProps);
         }
         processNewProps = (newProps)=> {
-            console.error('||>processNewProps ->', newProps);
             const { 
                 checkIfMounted, 
                 ...propsChecked 
