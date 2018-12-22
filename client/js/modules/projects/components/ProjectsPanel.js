@@ -141,7 +141,7 @@ class ProjectsPanel extends PureComponent {
 export default injectSheet(styleSheet)(connect(
     (state, props) => ({ 
         theme          : state.core.theme,
-        viewportWidth  : state.core.viewportWidth,
+        viewportWidth  : state.viewport.viewportWidth,
         projectIdOfUrl : projectIdOfUrl(state,props) 
     })
 )(ProjectsPanel));

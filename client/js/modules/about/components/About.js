@@ -67,9 +67,9 @@ function About ({ classes, viewportWidth, viewportHeight, theme }) {
 };
 
 export default pure(connect(
-    ({ core }, ownProps)=> ({ 
+    ({ core, viewport }, ownProps)=> ({ 
         theme          : core.theme,
-        viewportWidth  : core.viewportWidth,
-        viewportHeight : core.viewportHeight
+        viewportWidth  : viewport.viewportWidth,
+        viewportHeight : viewport.viewportHeight
      })
 )(injectSheet(styleSheet)(About)));

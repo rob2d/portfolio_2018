@@ -562,9 +562,9 @@ class SkillsOrbit extends Component {
 
 export default connect(
     (state,ownProps)=> ({ 
-        viewportWidth  : state.core.viewportWidth,
-        viewportHeight : state.core.viewportHeight,
-        theme          : state.core.theme
+        viewportWidth  : state.viewport.viewportWidth,
+        viewportHeight : state.viewport.viewportHeight,
+        theme          : state.viewport.theme
     }),
     null
 )(injectSheet(styleSheet)(SkillsOrbit));

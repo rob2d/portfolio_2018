@@ -256,9 +256,9 @@ MediaReel.propTypes = {
 };
 
 export default injectSheet(styleSheet)(connect(
-    ({ core }, ownProps)=> ({ 
+    ({ core, viewport }, ownProps)=> ({ 
         theme          : core.theme,
-        viewportWidth  : core.viewportWidth,
-        viewportHeight : core.viewportHeight
+        viewportWidth  : viewport.viewportWidth,
+        viewportHeight : viewport.viewportHeight
     })
 )(MediaReel));

@@ -358,9 +358,9 @@ const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
 );
 
 let VisibleProjectView = connect(
-    ({ core })=> ({ 
+    ({ core, viewport })=> ({ 
         theme         : core.theme,
-        viewportWidth : core.viewportWidth 
+        viewportWidth : viewport.viewportWidth 
     })
 )(ProjectDetails);
 

@@ -27,8 +27,8 @@ const CV = ({ classes, theme })=> (
 let VisibleCV = pure(connect(
     (state, ownProps)=> ({
         theme         : state.core.theme,
-        viewportWidth : state.core.viewportWidth,
-        viewportHeight: state.core.viewportHeight
+        viewportWidth : state.viewport.viewportWidth,
+        viewportHeight: state.viewport.viewportHeight
     }),
     null
 )(injectSheet(styleSheet)(CV)));
