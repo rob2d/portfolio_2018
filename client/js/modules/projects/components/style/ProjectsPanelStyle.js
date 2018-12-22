@@ -26,6 +26,12 @@ const styleSheet = {
         mainContainer : {
             paddingTop : '0px'
         }
+    },
+    emptyCard : {
+        display : 'block',
+        width   : '300px',
+        height  : '1px',
+        padding : '0px 32px'
     }
 };
 

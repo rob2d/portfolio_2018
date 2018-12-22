@@ -128,6 +128,12 @@ class ProjectsPanel extends PureComponent {
                             viewportWidth={viewportWidth}
                         />
                     ))}
+                    {/* if we have a large viewport, fill in the space so
+                        that we don't get oddly centered cards on the bottom
+                    */}
+                    {!projectIdOfUrl && (viewportWidth > 1108) && (
+                        <div className={classes.emptyCard} />
+                    )}
                     { typeof projectIdOfUrl != 'undefined' && 
                     (
                         <ProjectDetails projectId={projectIdOfUrl} fadeInDelay={1000} />
