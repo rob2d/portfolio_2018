@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
@@ -22,16 +22,7 @@ const styleSheet = {
     item : {
         padding  : '16px',
         margin   : '8px 0px',
-        maxWidth : '300px !important'
-    },
-    sig : {
-        textAlign   : 'right !important',
-        marginRight : '72px !important'
-    },
-    avatar : {
-        width  : '128px',
-        height : '128px',
-        margin : '32px auto'
+        width    : '300px'
     },
     bodyContent : {
         flexGrow      : 1,
@@ -94,54 +85,17 @@ const styleSheet = {
         transition : 'all 0.32s'
     },
 
-    '@media (max-width: 700px) and (min-width : 341px) and (orientation:portrait)': {
-        // don't want the avatar to dominate the 
-        // mobile screen :)
-        avatar : {
-            margin : '24px auto 16px !important',
-            width  : '116px !important',
-            height : '116px !important'
-        }
-    },
-    '@media (max-width: 340px) and (orientation:portrait)': {
-        // accomodations for micro phones like iP5
-        avatar : {
-            margin : '16px auto 8px !important',
-            width  : '80px !important',
-            height : '80px !important'
-        }
-    },
-    '@media (orientation:landscape)': {
-        avatar : {
-            margin      : '16px 16px 8px !important',
-            marginLeft  : '16px',
-            marginRight : '16px'
-        }
-    },
-    // for general mobile devices in landscape
-    '@media (orientation:landscape) and (max-width:900px)': {
-        avatar : {
-            width  : '80px !important',
-            height : '80px !important',
-        }
-    },
-
     // make certain things larger on non-mobile devices
     
     '@media (min-width:901px)' : {
-
-        avatar : {
-            width  : '180px !important',
-            height : '180px !important'
-        },
-        
+   
         mainContainer : {
             maxWidth : '1100px !important'
         }
     }
 };
 
-function Miscellaneous ({ classes, theme }) {
+function Miscellaneous ({ classes, theme, viewportWidth }) {
     return (
         <div className={classes.mainContainer}>
             <div className={classes.bodyContent}>
@@ -255,13 +209,21 @@ function Miscellaneous ({ classes, theme }) {
                         This was one of the results of that.
                     </p>
                 </div>
+                {(viewportWidth > 1036) && 
+                    <Fragment>
+                        <div className={classes.item}></div><div className={classes.item}></div>
+                    </Fragment>
+                }
             </div>
         </div>
     );
 };
 
 let VisibleMisc = pure(connect(
-    (state,ownProps)=> ({ theme : state.core.theme })
+    ({ core, viewport },ownProps)=> ({ 
+        theme : core.theme,
+        viewportWidth : viewport.viewportWidth 
+    })
 )(injectSheet(styleSheet)(Miscellaneous)));
 
 export default VisibleMisc
