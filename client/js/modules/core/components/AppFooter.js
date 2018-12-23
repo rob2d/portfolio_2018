@@ -7,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import { connect } from 'react-redux'
 import { getTheme } from 'app-root/themeFactory'
 import appHistory from 'utils/appHistory'
+import withFadeTransitions from 'utils/withFadeTransitions'
 
 const styles = {
     contactButton : {
@@ -60,7 +61,7 @@ const ContactButton = pure(injectSheet(styles)
 ));
 ContactButton.displayName = 'ContactButton';
 
-const AppFooter = connect(
+const AppFooter = withFadeTransitions(connect(
     ({ core }) => ({ theme : core.theme })
 )(function AppFooter() {
     return (
@@ -89,6 +90,6 @@ const AppFooter = connect(
             
         </div>
     )
-});
+}));
 
 export default AppFooter

@@ -1,21 +1,21 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component } from 'react'
 import * as THREE from 'three'
 import { 
     textAlign, 
     SpriteText2D 
 } from 'three-text2d'
-import injectSheet         from 'react-jss'
-import { connect }         from 'react-redux'
+import injectSheet from 'react-jss'
+import { connect } from 'react-redux'
 import { about as strings} from 'strings'
-import Themes              from 'constants/Themes'
-import skillPoints         from 'constants/skillPoints'
-import ShiftingValueMap    from 'utils/data-structs/ShiftingValueMap'
-import SkillsOverlayText   from './skills-orbit/SkillsOverlayText'
-import styleSheet          from './style/SkillsOrbitStyle'
+import Themes from 'constants/Themes'
+import skillPoints from 'constants/skillPoints'
+import ShiftingValueMap from 'utils/data-structs/ShiftingValueMap'
+import SkillsOverlayText from './skills-orbit/SkillsOverlayText'
+import styleSheet  from './style/SkillsOrbitStyle'
 import FadingOrbitContainer from './skills-orbit/FadingOrbitContainer'
 
-const OUTER_RADIUS      = 200,
-      INNER_RADIUS      = 40,
+const OUTER_RADIUS = 200,
+      INNER_RADIUS = 40,
       RADIUS_DIFFERENCE = OUTER_RADIUS - INNER_RADIUS;
 
 function getSkillSphereDiameter(value) {
@@ -23,9 +23,9 @@ function getSkillSphereDiameter(value) {
 }
 
 function createSkillVertex({ radianAngle, value=1 }) {
-    let vRadius  = getSkillSphereDiameter(value)/2,
-        xWidth   = Math.cos(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius),
-        yWidth   = Math.sin(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius);
+    let vRadius = getSkillSphereDiameter(value)/2,
+        xWidth = Math.cos(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius),
+        yWidth = Math.sin(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius);
     
     return [
         Math.cos(radianAngle) * INNER_RADIUS + xWidth, 
@@ -148,15 +148,6 @@ class SkillsOrbit extends Component {
 
         if(timeDelta > 64 && this.R.canvas) {
             this.tiltTimeProcessed = performance.now();
-            
-            let { canvas } = this.R;
-            
-            let rect    = canvas.getBoundingClientRect(),
-                centerX = rect.left + (rect.width/2),
-                centerY = rect.top  + (rect.height/2);
-
-            let relX = centerX / window.innerWidth,
-                relY = centerY / window.innerHeight;
 
             let mouseRelX = clientX / window.innerWidth,
                 mouseRelY = clientY / window.innerHeight;
@@ -218,26 +209,16 @@ class SkillsOrbit extends Component {
 
         if(this.state.isHighlighted != prevState.isHighlighted && this.shiftingValuesMap) {
             this.lastFocusEvent = performance.now();
-            const map = this.shiftingValuesMap;
+            const map =this.shiftingValuesMap;
             
             if(map.has('camPosZ')) {
                 let camPosZ = map.get('camPosZ');
                 if(this.state.isHighlighted) {
-                    camPosZ.target = 800;
+                    camPosZ.target = 700;
                 } else {
-                    // TODO : transform alpha
                     setTimeout(()=>(camPosZ.target = 550), 1000);
                 }
             }
-
-            /*
-            if(map.has('rotationX') && map.has('rotationY')) {
-                if(this.state.isHighlighted) {
-                    console.log('setting x & y targets');
-                    map.get('rotationX').target = 0;
-                    map.get('rotationY').target = 0;
-                }
-            }*/
         }
     }
 
@@ -301,14 +282,16 @@ class SkillsOrbit extends Component {
         if(this.renderer) {
             this.freeResources();
         } else { 
+
             // instantiate renderer, scene, camera
-            this.scene    = new THREE.Scene();
-            this.camera   = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
+            
+            this.scene = new THREE.Scene();
+            this.camera = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
 
             this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({ 
-                value    : 1000,
-                target   : 550,
-                rate     : 500,
+                value : 720,
+                target : 550,
+                rate : 500,
                 onChange : camPosZ => {
                     const { position } = this.camera;
                     const { x, y } = position;
@@ -317,7 +300,10 @@ class SkillsOrbit extends Component {
                 }
             }));
 
-            this.renderer = new THREE.WebGLRenderer({ alpha : true, antialias : true });
+            this.renderer = new THREE.WebGLRenderer({ 
+                alpha : true, 
+                antialias : true 
+            });
         }
 
         this.createOrbit();
@@ -417,9 +403,9 @@ class SkillsOrbit extends Component {
         this.scene.add(this.O.rotationOrigin);
 
         this.shiftingValuesMap.set('rotationX', new ShiftingValueMap.ValueEntry({
-            value  : 0,
+            value : 0,
             target : 0,
-            rate   : (Math.PI * 2)/4,
+            rate : (Math.PI * 2)/4,
             onChange : rotationX => {
                 if(this.O.rotationOrigin) {
                     this.O.rotationOrigin.rotation.x = rotationX;
@@ -429,9 +415,9 @@ class SkillsOrbit extends Component {
 
         
         this.shiftingValuesMap.set('rotationY', new ShiftingValueMap.ValueEntry({
-            value  : 0,
+            value : 0,
             target : 0,
-            rate   : (Math.PI * 2)/4,
+            rate : (Math.PI * 2)/4,
             onChange : rotationY => {
                 if(this.O.rotationOrigin) {
                     this.O.rotationOrigin.rotation.y = rotationY;
@@ -440,9 +426,9 @@ class SkillsOrbit extends Component {
         }));
 
         this.shiftingValuesMap.set('rotXSpeed', new ShiftingValueMap.ValueEntry({ 
-            value    : 0,
-            target   : 0.175,
-            rate     : 0.25,
+            value : 0,
+            target : 0.175,
+            rate : 0.25,
             onChange : rotXSpeed => {}
         }));
 
