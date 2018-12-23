@@ -46,7 +46,9 @@ const styleSheet = {
     },
 
     skillsOrbit : {
-        position : 'relative'
+        position : 'relative',
+        minWidth : '200px',
+        minHeight : '200px'
     },
 
     '@media (max-width: 700px) and (min-width : 341px) and (orientation:portrait)': {
@@ -55,7 +57,7 @@ const styleSheet = {
         avatar : {
             margin : '24px auto 16px',
             width : '116px',
-            height: '116px'
+            height : '116px'
         }
     },
     '@media (max-width: 340px) and (orientation:portrait)': {
@@ -63,7 +65,7 @@ const styleSheet = {
         avatar : {
             margin : '16px auto 8px',
             width : '80px',
-            height: '80px'
+            height : '80px'
         }
     },
     '@media (orientation:landscape)': {
@@ -71,16 +73,16 @@ const styleSheet = {
             margin : '16px 16px 8px'
         },
         mainContainer : {
-            padding       : '16px',
+            padding : '16px',
             flexDirection : 'row',
-            boxSizing     : 'border-box'
+            boxSizing : 'border-box'
         }
     },
     // for general mobile devices in landscape
     '@media (orientation:landscape) and (max-width:900px)': {
         avatar : {
             width : '80px',
-            height: '80px',
+            height : '80px',
         },
         pText : {
             fontSize : '11pt'
@@ -96,7 +98,7 @@ const styleSheet = {
     // make certain things larger on non-mobile devices
     '@media (min-width:901px)' : {
         avatar : {
-            width  : '180px',
+            width : '180px',
             height : '180px'
         },
         mainContainer : {
@@ -105,21 +107,21 @@ const styleSheet = {
         pText : {
             paddingLeft  : '32px',
             paddingRight : '32px',
-            fontSize     : '14pt',
-            fontFamily   : 'roboto_light'
+            fontSize : '14pt',
+            fontFamily : 'roboto_light'
         },
         centerContent : {
-            display       : 'flex',
+            display : 'flex',
             flexDirection : 'column', 
-            overflowY     : 'auto',
-            zIndex        : 5000,
-            flexGrow      : 1
+            overflowY : 'auto',
+            zIndex : 5000,
+            flexGrow : 1
         },
         skillsOrbit : {
-            display       : 'flex',
+            display : 'flex',
             flexDirection : 'column',
-            overflowY     : 'auto',
-            flexGrow      : 1
+            overflowY : 'auto',
+            flexGrow : 1
         }
     },
     
