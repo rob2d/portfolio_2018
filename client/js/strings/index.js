@@ -1,28 +1,19 @@
-import LocalizedStrings from 'react-localization'
-import localizationSetter from 'utils/localizationSetter'
-import getUrlParam from 'utils/getUrlParam'
+import menus    from './menus'
+import projects from './projects'
+import cv       from './cv.js'
+import about    from './about'
+import misc     from './misc'
 
-import en from './en'
-import global from './global'
+export { menus }
+export { projects }
+export { cv }
+export { about }
+export { misc }
 
-// TODO : remove multi-language support;
-// not worth hassle of manually updating
-// in several languages (and can move to
-// an automated i118 solution soon if needed)
-
-let strings = new LocalizedStrings({ en });
-strings.global = global;
-
-strings.languageCodes = [ 'en' ];
-localizationSetter.addLocalizedStrings(strings);
-const currentLanguage = getUrlParam('language') || 'en';
-
-// set initial language to either that of url params or english
-localizationSetter.setLanguage(currentLanguage);
-
-export const about = strings.about;
-export const cv = strings.cv;
-export const projects = strings.projects;
-export const menus = strings.menus;
-
-export default strings
+export default { 
+    menus, 
+    projects, 
+    cv, 
+    about, 
+    misc 
+}
