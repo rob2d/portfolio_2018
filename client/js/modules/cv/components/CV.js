@@ -1,7 +1,6 @@
 import React from 'react'
 import injectSheet from 'react-jss'
 import { connect } from 'react-redux'
-import pure from 'recompose/pure'
 import PDFViewer from './PDFViewer'
 
 const RESUME_URL = '/downloads/concepcion_resume_Q42018.pdf';
@@ -24,13 +23,13 @@ const CV = ({ classes, theme })=> (
     </div>
 );
 
-let VisibleCV = pure(connect(
+let VisibleCV = connect(
     (state, ownProps)=> ({
         theme         : state.core.theme,
         viewportWidth : state.viewport.viewportWidth,
         viewportHeight: state.viewport.viewportHeight
     }),
     null
-)(injectSheet(styleSheet)(CV)));
+)(injectSheet(styleSheet)(CV));
 
 export default VisibleCV

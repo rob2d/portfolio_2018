@@ -1,6 +1,7 @@
 import { Provider, connect } from 'react-redux'
-import React, { Component } from 'react'
+import React from 'react'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import Loadable from 'react-loadable'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
@@ -9,12 +10,7 @@ import appHistory from 'utils/appHistory'
 import withViewportSizes from 'utils/hocs/withViewportSizes'
 import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
-import pure from 'recompose/pure'
 import { AppHeader, AppFooter } from './core'
-import { ProjectsPanel } from './projects'
-import { About } from './about'
-import { Miscellaneous } from './misc'
-import { CV } from './cv'
 
 const styles = theme => ({
     appWrapper : {
@@ -36,6 +32,56 @@ const styles = theme => ({
         display : 'flex',
         flexDirection : 'column'
     }
+});
+
+
+// TODO : create module/stylize this
+
+const Loading = ({ error })=> {
+    if(error) {
+        return 'Error Loading!';
+    }
+    else {
+        return (<p>Loading...</p>);
+    }
+};
+
+// TODO : DRY this
+
+const ProjectsPanel = Loadable({
+    loader : ()=> new Promise((resolve, reject) => 
+        import(/* webpackChunkName: "projects" */'./projects')
+            .then( m => resolve(m.ProjectsPanel) )
+            .catch( reject )
+    ),
+    loading : Loading
+});
+
+const About = Loadable({
+    loader : ()=> new Promise((resolve, reject) =>
+        import(/* webpackChunkName: "core" */'./about')
+            .then( m => resolve(m.About) )
+            .catch( reject )
+    ),
+    loading : Loading
+});
+
+const Miscellaneous = Loadable({
+    loader : ()=> new Promise((resolve, reject) =>
+        import(/* webpackChunkName: "misc" */'./misc')
+            .then( m => resolve(m.Miscellaneous) )
+            .catch( reject )
+    ),
+    loading : Loading
+});
+
+const CV = Loadable({
+    loader : ()=> new Promise((resolve, reject) => 
+        import(/* webpackChunkName: "cv" */'./cv')
+            .then( m => resolve(m.CV) )
+            .catch( reject )
+    ),
+    loading : Loading
 });
 
 const StyledContent = withStyles(styles)(

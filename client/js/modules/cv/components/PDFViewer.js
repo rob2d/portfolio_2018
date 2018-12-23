@@ -1,14 +1,14 @@
-import React, { PureComponent, Component } from 'react'
+import React, { Component } from 'react'
 import pure from 'recompose/pure'
-import Button from '@material-ui/core/Button'
-import { cv as strings } from 'strings'
+import injectSheet from 'react-jss'
 import PDF from 'react-pdf-js'
 import Tooltip   from '@material-ui/core/Tooltip'
+import Button from '@material-ui/core/Button'
 import shouldShowHoverContent from 'utils/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
-import injectSheet from 'react-jss'
 import Themes from 'constants/Themes'
 import { getTheme } from 'app-root/themeFactory'
+
 
 const styleSheet = { 
     container : {
