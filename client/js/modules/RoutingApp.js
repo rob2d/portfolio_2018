@@ -1,5 +1,5 @@
 import { Provider, connect } from 'react-redux'
-import React, { Component } from 'react'
+import React from 'react'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Route from 'react-router-dom/Route'
@@ -9,12 +9,8 @@ import appHistory from 'utils/appHistory'
 import withViewportSizes from 'utils/hocs/withViewportSizes'
 import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
-import pure from 'recompose/pure'
+import lazyLoadComponent from 'utils/lazyLoadComponent'
 import { AppHeader, AppFooter } from './core'
-import { ProjectsPanel } from './projects'
-import { About } from './about'
-import { Miscellaneous } from './misc'
-import { CV } from './cv'
 
 const styles = theme => ({
     appWrapper : {
@@ -36,6 +32,34 @@ const styles = theme => ({
         display : 'flex',
         flexDirection : 'column'
     }
+});
+
+const ProjectsPanel = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "projects" */
+        './projects'
+    ),
+    resolver : m => m.ProjectsPanel
+});
+
+const About = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "about" */
+        './about'
+    ),
+    resolver : m => m.About
+});
+
+const Miscellaneous = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "misc" */
+        './misc'
+    ),
+    resolver : m => m.Miscellaneous
+});
+
+const CV = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "cv" */
+        './cv'
+    ),
+    resolver : m => m.CV
 });
 
 const StyledContent = withStyles(styles)(

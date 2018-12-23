@@ -27,14 +27,38 @@ function createDirAliases (subPath) {
   return aliasDict;
 }
 
-
 const rootJSAliases = createDirAliases('client/js');
 const reduxAliases  = createDirAliases('client/js/modules');
 
 module.exports = {
+  entry : {
+    main : './client/js'
+  },
   output : {
-    filename : 'main.js',
-    publicPath : '/'
+    path : global.resolvePath('server/public/'),
+    publicPath : '/',
+    filename : '[name].bundle.js',
+    chunkFilename: '[name].bundle.js'
+  },
+  optimization : {
+    splitChunks : {
+      name : true,
+      cacheGroups: {
+        vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'all',
+            name: 'vendor',
+            enforce: true,
+            minChunks: 3
+        },
+        // Split code common to all chunks to its own chunk
+        commons: {
+            name: 'commons',    
+            chunks: 'initial',  
+            minChunks: 2
+        }
+    }
+    }
   },
   module : {
     

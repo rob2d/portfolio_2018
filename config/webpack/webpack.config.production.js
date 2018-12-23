@@ -1,5 +1,6 @@
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
@@ -19,12 +20,22 @@ const config = {
     },
     plugins: [
       new ImageminPlugin({
-        disable  : process.env.NODE_ENV !== 'production', // Disable during development
         pngquant : {
           quality: '95-100'
         }
       })
-  ]
+  ],
+  optimization : {
+    minimizer : [
+      new UglifyJsPlugin({
+        uglifyOptions : {
+          output : {
+            comments : false
+          }
+        }
+      })
+    ]
+  }
 };
 
 /*
