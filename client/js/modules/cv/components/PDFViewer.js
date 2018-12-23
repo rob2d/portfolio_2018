@@ -96,6 +96,7 @@ class PDFViewer extends Component {
             // for providing fileURL as blank
             // (luckily this is very easy with
             // React's new setState callback)
+            
             isRetriggering : false,
             fileURL        : undefined
         };

@@ -1,7 +1,6 @@
 import { Provider, connect } from 'react-redux'
 import React from 'react'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
-import Loadable from 'react-loadable'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
@@ -10,6 +9,7 @@ import appHistory from 'utils/appHistory'
 import withViewportSizes from 'utils/hocs/withViewportSizes'
 import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
+import lazyLoadComponent from 'utils/lazyLoadComponent'
 import { AppHeader, AppFooter } from './core'
 
 const styles = theme => ({
@@ -34,54 +34,32 @@ const styles = theme => ({
     }
 });
 
-
-// TODO : create module/stylize this
-
-const Loading = ({ error })=> {
-    if(error) {
-        return 'Error Loading!';
-    }
-    else {
-        return (<p>Loading...</p>);
-    }
-};
-
-// TODO : DRY this
-
-const ProjectsPanel = Loadable({
-    loader : ()=> new Promise((resolve, reject) => 
-        import(/* webpackChunkName: "projects" */'./projects')
-            .then( m => resolve(m.ProjectsPanel) )
-            .catch( reject )
+const ProjectsPanel = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "projects" */
+        './projects'
     ),
-    loading : Loading
+    resolver : m => m.ProjectsPanel
 });
 
-const About = Loadable({
-    loader : ()=> new Promise((resolve, reject) =>
-        import(/* webpackChunkName: "core" */'./about')
-            .then( m => resolve(m.About) )
-            .catch( reject )
+const About = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "about" */
+        './about'
     ),
-    loading : Loading
+    resolver : m => m.About
 });
 
-const Miscellaneous = Loadable({
-    loader : ()=> new Promise((resolve, reject) =>
-        import(/* webpackChunkName: "misc" */'./misc')
-            .then( m => resolve(m.Miscellaneous) )
-            .catch( reject )
+const Miscellaneous = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "misc" */
+        './misc'
     ),
-    loading : Loading
+    resolver : m => m.Miscellaneous
 });
 
-const CV = Loadable({
-    loader : ()=> new Promise((resolve, reject) => 
-        import(/* webpackChunkName: "cv" */'./cv')
-            .then( m => resolve(m.CV) )
-            .catch( reject )
+const CV = lazyLoadComponent({
+    loader : ()=> import( /* webpackChunkName: "cv" */
+        './cv'
     ),
-    loading : Loading
+    resolver : m => m.CV
 });
 
 const StyledContent = withStyles(styles)(

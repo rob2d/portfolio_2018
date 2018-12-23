@@ -3,7 +3,7 @@ import pure from 'recompose/pure'
 import injectSheet from 'react-jss'
 import { getTheme } from 'app-root/themeFactory'
 import Button from '@material-ui/core/Button'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import LoadingComponent from 'utils/components/LoadingComponent'
 
 const styleSheet = {
     container : {
@@ -74,7 +74,7 @@ const PDFViewerNav = pure(injectSheet(styleSheet)(({
     ) : (
         <div className={classes.container}>
             <div className={classes.linearProgress}>
-                <CircularProgress size={64} color="accent" />
+                <LoadingComponent />
             </div>
         </div>
     )
