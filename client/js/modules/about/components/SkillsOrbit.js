@@ -564,7 +564,7 @@ export default connect(
     (state,ownProps)=> ({ 
         viewportWidth  : state.viewport.viewportWidth,
         viewportHeight : state.viewport.viewportHeight,
-        theme          : state.viewport.theme
+        theme          : state.core.theme
     }),
     null
 )(injectSheet(styleSheet)(SkillsOrbit));
