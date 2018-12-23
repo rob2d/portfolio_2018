@@ -4,7 +4,6 @@ import injectSheet              from 'react-jss'
 import Typography               from '@material-ui/core/Typography'
 import AppBar                   from '@material-ui/core/AppBar'
 import Toolbar                  from '@material-ui/core/Toolbar'
-import { menus }                from 'strings'
 import styleSheet               from './style/AppHeaderStyle'
 import ThemeButton              from './ThemeButton'
 import { connect }              from 'react-redux'
@@ -12,6 +11,7 @@ import appHistory               from 'utils/appHistory'
 import HeaderSectionButton      from './HeaderSectionButton'
 import SectionHighlighter       from './SectionHighlighter'
 import AppSections              from 'constants/AppSections'
+import withFadeTransitions      from 'utils/withFadeTransitions'
 
 let { SectionIndexes, Sections } = AppSections;
 
@@ -165,7 +165,7 @@ class AppHeader extends PureComponent {
     }
 }
 
-export default connect(({ router, viewport }, ownProps) => ({ 
+export default withFadeTransitions(connect(({ router, viewport }, ownProps) => ({ 
     pathname : router.location.pathname,
     viewportWidth : viewport.viewportWidth
-}))(injectSheet(styleSheet)(AppHeader))
+}))(injectSheet(styleSheet)(AppHeader)))

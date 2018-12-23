@@ -67,7 +67,7 @@ const StyledContent = withStyles(styles)(
         return (  
             <div className={ classes.appWrapper }>
                 <div className={ classes.routeViewWrapper }>
-                    <AppHeader />
+                    <AppHeader fadeDelay={100} />
                     {
                         <Switch>
                             <Route 
