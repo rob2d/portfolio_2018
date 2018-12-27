@@ -44,7 +44,11 @@ function ProjectTechnologies({ technologySet, classes }) {
 
         return (
             <Fragment>
-                <ButtonLink url={ referenceUrl } containerClass={classes.techContainer}>
+                <ButtonLink 
+                    url={referenceUrl} 
+                    containerClass={classes.techContainer}
+                    title={displayName}
+                >
                     <SVG 
                         className={classes.techIcon}
                         src={`/img/techs/${tKey}.svg`}
