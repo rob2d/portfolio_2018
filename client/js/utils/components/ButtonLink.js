@@ -43,14 +43,7 @@ function ButtonLink ({
         // that animation can be seen
         
         setTimeout(function() {
-            if(!isAbsoluteURL) {
-                // if protocol unspecified, 
-                // handle with local router
-                appHistory.goTo(url, e) 
-            } else {
-                // otherwise, change location
-                window.open(url, '_newtab');
-            } 
+            appHistory.goTo(url, e);
         }, delay);
     };
 
