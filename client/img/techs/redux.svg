@@ -5,13 +5,9 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 630 630"
-   version="1.1"
    id="svg1080"
-   sodipodi:docname="redux.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+   version="1.1"
+   viewBox="0 0 630 630">
   <metadata
      id="metadata1086">
     <rdf:RDF>
@@ -26,96 +22,75 @@
   </metadata>
   <defs
      id="defs1084" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1432"
-     inkscape:window-height="841"
-     id="namedview1082"
-     showgrid="false"
-     inkscape:zoom="0.51111111"
-     inkscape:cx="249.51332"
-     inkscape:cy="496.13206"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg1080" />
   <rect
-     width="630"
-     height="630"
-     id="rect1076"
-     style="fill:#000000"
+     y="0"
      x="0"
-     y="0" />
+     style="fill:#000000"
+     id="rect1076"
+     height="630"
+     width="630" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5012"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5014"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5016"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5018"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5020"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5022"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5024"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5026"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5028"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5030"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5032"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5034"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5036"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5038"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <g
-     transform="translate(69.852295,70.373037)"
+     style="fill:#ffffff"
      id="g5040"
-     style="fill:#ffffff" />
+     transform="translate(69.852295,70.373037)" />
   <path
-     inkscape:connector-curvature="0"
-     style="fill:#ffffff;stroke-width:1.52723241"
+     id="path6963"
      d="m 390.41624,388.63704 c 14.42777,-1.49364 25.37344,-13.93141 24.87556,-28.85858 -0.49634,-14.92565 -12.93565,-26.86708 -27.8613,-26.86708 h -0.99422 c -15.42505,0.49788 -27.36496,13.43353 -26.86708,28.85706 0.49787,7.46358 3.48208,13.93141 7.95994,18.40926 -16.91563,33.33643 -42.78695,57.71565 -81.59392,78.11489 -26.3692,13.93142 -53.73262,18.90715 -81.09605,15.42504 -22.38922,-2.98574 -39.80273,-12.93565 -50.74994,-29.35646 -15.91987,-24.37921 -17.41197,-50.74993 -3.97843,-77.11912 9.45356,-18.90714 24.37768,-32.83857 33.83125,-39.80427 -1.98998,-6.46783 -4.97572,-17.41351 -6.46783,-25.37344 -72.14188,52.24203 -64.67829,122.89334 -42.78694,156.22825 16.41774,24.87861 49.75265,40.30214 86.56964,40.30214 9.94992,0 19.89984,-0.99576 29.85129,-3.48209 63.68407,-12.43931 111.94461,-50.25359 139.30803,-106.4756 z m 87.56541,-61.6956 C 440.16889,282.65932 384.44629,258.28011 320.76223,258.28011 h -7.95993 c -4.47786,-8.95569 -13.93143,-14.92717 -24.37922,-14.92717 h -0.99575 c -15.422,0.49788 -27.36191,13.43354 -26.86556,28.85858 0.49788,14.92565 12.93567,26.86708 27.86131,26.86708 h 0.99423 c 10.94567,-0.49788 20.39925,-7.46358 24.37921,-16.91716 h 8.95569 c 37.81274,0 73.63398,10.94568 105.97465,32.34069 24.87557,16.41927 42.78696,37.81427 52.73687,63.68558 8.45778,20.89714 7.95997,41.29637 -0.99576,58.7114 -13.92987,26.3692 -37.31333,40.7985 -68.16038,40.7985 -19.90137,0 -38.80697,-5.97148 -48.75843,-10.44934 -5.47207,4.97574 -15.42351,12.93567 -22.38922,17.91293 21.395,9.94991 43.28635,15.42351 64.18195,15.42351 47.76265,0 83.08754,-26.37072 96.5211,-52.73992 14.42774,-28.85859 13.43197,-78.61277 -23.88134,-120.90335 z m -252.74476,70.15189 c 0.49787,14.92717 12.93566,26.86708 27.8613,26.86708 h 0.99576 c 15.42352,-0.49636 27.36342,-13.43355 26.86555,-28.85706 -0.49636,-14.92717 -12.93567,-26.86708 -27.86131,-26.86708 h -0.99423 c -0.99575,0 -2.48939,0 -3.48208,0.49635 -20.39925,-33.83279 -28.85707,-70.64978 -25.87133,-110.45403 1.98846,-29.85282 11.93991,-55.72566 29.35341,-77.12066 14.42776,-18.40926 42.28907,-27.36496 61.1962,-27.86131 52.73686,-0.99575 75.12456,64.67983 76.6182,91.05055 6.46783,1.49211 17.41351,4.97573 24.8771,7.46358 -5.97149,-80.60122 -55.72414,-122.39546 -103.48528,-122.39546 -44.77846,0 -86.07329,32.34067 -102.49257,80.10487 -22.88557,63.68559 -7.95993,124.88332 19.90137,173.1454 -2.48633,3.4821 -3.97997,8.9557 -3.48209,14.4293 z"
-     id="path6963" />
+     style="fill:#ffffff;stroke-width:1.52723241" />
 </svg>

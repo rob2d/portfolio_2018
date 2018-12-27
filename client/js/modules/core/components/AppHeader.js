@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import injectSheet from 'react-jss'
+import SVG from 'react-inlinesvg'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -69,7 +70,9 @@ class AppHeader extends PureComponent {
 
     updateButtonXPositions = ()=> {
         let that = this;
+        
         // (using function syntax for debuggability)
+        
         setTimeout(function updateButtonXPositions() {
             const leftmostButton = that.R.buttonDivRefs[0];
             const buttonWidth = leftmostButton && leftmostButton.offsetWidth;
@@ -77,6 +80,7 @@ class AppHeader extends PureComponent {
             const appBarHeight = appBar && appBar.clientHeight;
 
             // supported in all browsers IE9+
+
             const leftPadding = window.getComputedStyle(appBar, null)
                                     .getPropertyValue('padding-left');
 

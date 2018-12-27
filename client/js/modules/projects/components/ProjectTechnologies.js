@@ -2,35 +2,32 @@ import React, { Fragment } from 'react'
 import injectSheet from 'react-jss'
 import Technologies from 'constants/Technologies'
 import ButtonLink from 'utils/components/ButtonLink'
+import SVG from 'react-inlinesvg'
 
 const styleSheet = {
     techContainer : {
-        margin   : '0px 8px',
+        margin : '4px',
         
         '&:hover $techText' : {
             color : '#ff4081'
         },
         '&:active $techText' : {
             color : '#00b8d4'
-        },
-        '&:nth-of-type(1)' : {
-            marginLeft : '0px'
-        },
-        '&:last-of-type' : {
-            marginRight : '0px'
-        },
-
-        '@media(max-width:800px)' : {
-            margin : '0px 4px'
-        },
-        '@media(max-width:400px)' : {
-            margin : '0px 0px'
         }
     },
     techText : {
-        fontSize   : '12pt',
+        fontSize : '12pt',
         fontFamily : 'roboto_bold'
     },
+    techIcon : {
+        width : '64px',
+        height : '64px',
+        
+        '@media(max-width:800px)' : {
+            width : '48px',
+            height : '48px'
+        },
+    }
 };
 
 function ProjectTechnologies({ technologySet, classes }) { 
@@ -48,9 +45,12 @@ function ProjectTechnologies({ technologySet, classes }) {
         return (
             <Fragment>
                 <ButtonLink url={ referenceUrl } containerClass={classes.techContainer}>
-                    <span className={classes.techText}>{ displayName }</span>
+                    <SVG 
+                        className={classes.techIcon}
+                        src={`/img/techs/${tKey}.svg`}
+                    />
                 </ButtonLink>
-                {(i < arr.length-1) && <span><i className={bulletPointClass} /></span> }
+                {(i < arr.length-1)}
             </Fragment>
         );
     });

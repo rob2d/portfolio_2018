@@ -128,7 +128,6 @@ export default {
                 technologySet: new Set([
                     'android_sdk',
                     'java',
-                    'xml',
                     'javascript',
                     'jquery',
                     'php'

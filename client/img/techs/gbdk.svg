@@ -5,13 +5,9 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    viewBox="0 0 630 630"
    version="1.1"
-   id="svg1080"
-   sodipodi:docname="gbdk.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+   id="svg1080">
   <metadata
      id="metadata1086">
     <rdf:RDF>
@@ -26,26 +22,6 @@
   </metadata>
   <defs
      id="defs1084" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1432"
-     inkscape:window-height="841"
-     id="namedview1082"
-     showgrid="false"
-     inkscape:zoom="0.72282027"
-     inkscape:cx="317.86526"
-     inkscape:cy="353.96753"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg1080" />
   <rect
      width="630"
      height="630"
@@ -67,7 +43,6 @@
          id="g4976"
          style="fill:#ffffff">
         <path
-           inkscape:connector-curvature="0"
            d="M 402.241,0 H 72.294 C 55.965,0 42.591,13.395 42.591,29.681 v 415.151 c 0,16.351 13.374,29.725 29.703,29.725 h 329.968 c 16.308,0 29.703,-13.374 29.703,-29.725 V 29.681 C 431.944,13.395 418.549,0 402.241,0 Z M 93.434,50.864 H 391.197 V 249.423 H 93.434 Z M 207.5,400.915 h -34.556 v 34.556 h -39.777 v -34.556 h -34.6 v -39.798 h 34.6 v -34.578 h 39.777 v 34.578 H 207.5 Z m 78,7.312 c -15.725,0 -28.43,-12.748 -28.43,-28.452 0,-15.747 12.748,-28.473 28.43,-28.473 15.747,0 28.473,12.727 28.473,28.473 0.022,15.725 -12.705,28.452 -28.473,28.452 z m 81.71,0 c -15.725,0 -28.452,-12.748 -28.452,-28.452 0,-15.747 12.791,-28.473 28.452,-28.473 15.725,0 28.473,12.727 28.473,28.473 0.022,15.725 -12.726,28.452 -28.473,28.452 z"
            id="path4974"
            style="fill:#ffffff" />
