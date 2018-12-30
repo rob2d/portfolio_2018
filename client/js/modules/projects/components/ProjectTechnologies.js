@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import injectSheet from 'react-jss'
 import Technologies from 'constants/Technologies'
 import ButtonLink from 'utils/components/ButtonLink'
@@ -22,6 +22,14 @@ const styleSheet = {
     techIcon : {
         width : '64px',
         height : '64px',
+        transition: 'fill 0.35s ease',
+        '&:hover' : {
+            fill : '#ff4081'
+        },
+
+        '&:active' : {
+            fill : '#00b8d4'
+        },
         
         '@media(max-width:800px)' : {
             width : '48px',
@@ -38,24 +46,17 @@ function ProjectTechnologies({ technologySet, classes }) {
             referenceUrl 
         } = Technologies[tKey];
 
-        const bulletPointClass = `${classes.techText} ${
-                                    classes.bulletPoint
-                                    } mdi mdi-circle-small`;
-
         return (
-            <Fragment>
-                <ButtonLink 
-                    url={referenceUrl} 
-                    containerClass={classes.techContainer}
-                    title={displayName}
-                >
-                    <SVG 
-                        className={classes.techIcon}
-                        src={`/img/techs/${tKey}.svg`}
-                    />
-                </ButtonLink>
-                {(i < arr.length-1)}
-            </Fragment>
+            <ButtonLink 
+                url={referenceUrl} 
+                containerClass={classes.techContainer}
+                title={displayName}
+            >
+                <SVG 
+                    className={classes.techIcon}
+                    src={`/img/techs/${tKey}.svg`}
+                />
+            </ButtonLink>
         );
     });
 }
