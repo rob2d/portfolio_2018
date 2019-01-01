@@ -1,4 +1,4 @@
 export default { 
-    LIGHT : 'Themes.LIGHT',
-    DARK  : 'Themes.DARK'
+    LIGHT : 'light',
+    DARK  : 'dark'
 }

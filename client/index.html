@@ -201,7 +201,80 @@
             -webkit-transform: scaleY(1.0);
             background-color : #f50057;
         }
-}
+    }
+
+    
+		.themeicon__star {
+			transform-origin: 50% 50%;
+		}
+
+		.dark * .themeicon__star { 
+			transition: transform 0.25s ease-in 0.125s;
+		}
+
+
+		.light * .themeicon__star { 
+			transition: transform 0.25s ease-in 0s;
+		}
+
+		.dark * .themeicon__moon {
+			opacity : 0;
+			transform-origin: 50% 52%;
+			transform: scale(0.475) rotate(360deg);
+			transition: opacity 0.5s ease 0.35s, transform 0.35s linear 0s;
+		}
+
+		.light * .themeicon__moon {
+			opacity: 1;
+			transform-origin: 50% 52%;
+			transition: opacity 0.5s ease, transform 0.25s linear 0.20s;
+		} 
+
+		.light * .themeicon__sun {
+			opacity: 0;
+			transition: opacity 0.75s ease 0.1s;
+		} 
+
+		.dark * .themeicon__sun {
+			opacity: 1;
+			transition: opacity 0.75s ease 0.25s;
+		}
+
+		.dark * .themeicon__stara1 {
+            transform: scaleX(0.5) scaleY(0.6) translateX(29%) translateY(-50%) rotateZ(-108deg);
+            transition-property:transform;
+            transition-delay: 0.0s;
+		}
+
+		.dark * .themeicon__stara2 {
+            transform: scaleX(0.5) scaleY(0.6) translateX(-75%) translateY(-25%) rotateZ(-290deg);
+            transition-property:transform;
+            transition-delay: 0.05s;
+		}
+
+		.dark * .themeicon__stara3 {
+			transform: scaleX(0.5) scaleY(0.6) translateX(-75%) translateY(40%) rotateZ(50deg);
+            transition-property:transform;
+            transition-delay: 0.1s;
+        }
+
+		.dark * .themeicon__starb1 {
+			transform: scaleX(0.7) scaleY(0.8) translateX(25%) translateY(3%) rotateZ(-65deg);
+            transition-property:transform;
+            transition-delay: 0.15s;
+        }
+
+		.dark * .themeicon__starb2 {
+			transform : scaleX(0.7) scaleY(0.8) translateX(30%) translateY(40%) rotateZ(-60deg);
+            transition-property:transform;
+            transition-delay: 0.2s;
+        }
+
+		.dark * .themeicon__starb3 {
+            transform: scaleX(0.7) scaleY(0.8) translateX(-5%) translateY(66%) rotateZ(-73.5deg);
+            transition-property:transform;
+            transition-delay: 0.25s;
+		}
 
     </style>
 </head>

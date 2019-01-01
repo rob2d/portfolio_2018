@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import { connect }  from 'react-redux'
 import injectSheet  from 'react-jss'
+import SVG from 'react-inlinesvg'
 import { setTheme } from 'modules/core/actions'
-import Themes       from 'constants/Themes'
-import Tooltip      from '@material-ui/core/Tooltip'
-import Button       from '@material-ui/core/Button'
+import Themes from 'constants/Themes'
+import Tooltip from '@material-ui/core/Tooltip'
+import Button from '@material-ui/core/Button'
 
 let themeTargets = {
     [Themes.LIGHT] : {
@@ -19,13 +20,10 @@ let themeTargets = {
 
 const styleSheet = {
     container : {
-        cursor        : 'pointer !important',
-        marginLeft    : '12pt !important',
-        display       : 'flex !important',
-        alignItems    : 'center !important',
-        flexDirection : 'row !important',
-        color         : '#FFFFFF',
-        padding       : '0px !important'
+        cursor : 'pointer',
+        color : '#FFFFFF',
+        fill : '#FFFFFF',
+        stroke : '#FFFFFF'
     },
     tooltip : {
         fontSize   : '11pt !important',
@@ -68,8 +66,11 @@ class ThemeButton extends PureComponent {
             >
                 <Button 
                     onClick={ this.onClick }
-                    className={ classes.languageContainer } 
-                >   <i className={`${themeTargets[theme].iconClass} ${classes.icon}`} />
+                    className={ classes.container } 
+                >   <SVG 
+                        className={theme}
+                        src={'/img/icons/day-night.svg'} 
+                    />
                 </Button>
             </Tooltip>
         );
