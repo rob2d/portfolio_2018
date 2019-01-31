@@ -1,4 +1,5 @@
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
@@ -18,24 +19,28 @@ const config = {
         }
       ]
     },
+    optimization: {
+      minimizer: [
+        new UglifyJSPlugin({
+          uglifyOptions: {
+            compress: {
+              drop_console: true
+            },
+            output: {
+              comments: false
+            }
+          },
+        }),
+      ],
+    },
+
     plugins: [
       new ImageminPlugin({
         pngquant : {
           quality: '95-100'
         }
       })
-  ],
-  optimization : {
-    minimizer : [
-      new UglifyJsPlugin({
-        uglifyOptions : {
-          output : {
-            comments : false
-          }
-        }
-      })
     ]
-  }
 };
 
 /*
