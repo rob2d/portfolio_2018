@@ -11,9 +11,6 @@ if(process.env.NODE_ENV == 'production') {
     console.warn = function(){}; 
 }
 
-ReactDOM.render(
-    (
-        <RoutingApp><AppContainer /></RoutingApp>
-    ),
-    document.getElementById('app')
-);
+ReactDOM.render((
+    <RoutingApp><AppContainer /></RoutingApp>
+), document.getElementById('app'));
