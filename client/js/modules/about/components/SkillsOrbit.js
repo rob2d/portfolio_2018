@@ -398,8 +398,6 @@ class SkillsOrbit extends Component {
             textSprite.position.set(textX, textY, textZ);
         });
 
-        this.O.rotationOrigin.add(this.O.skillShape);
-
         this.scene.add(this.O.rotationOrigin);
 
         this.shiftingValuesMap.set('rotationX', new ShiftingValueMap.ValueEntry({
@@ -461,9 +459,6 @@ class SkillsOrbit extends Component {
                 let rotationY = valueMap.get('rotationY');
                 rotationY.target = rotationY.value + valueMap.get('rotYSpeed').value / deltaTime;          
             }
-
-            // TODO : correct rotation when it is out of bounds
-            // TODO : adjust Y value
         }
 
         // only process sprite alpha updates once per 100 ms max as
