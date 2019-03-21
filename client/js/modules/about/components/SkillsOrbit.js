@@ -184,6 +184,7 @@ class SkillsOrbit extends Component {
      * @param {*} prevState 
      */
     componentDidUpdate(prevProps, prevState) {
+
         // if language has changed, we should also change the 
         // content of the sphere text
 
@@ -261,10 +262,6 @@ class SkillsOrbit extends Component {
     };
 
     freeResources = () => {
-        
-        // TODO : look into whether this properly
-        // frees up memory
-
         this.scene.remove(this.O.rotationOrigin);
         this.O.rotationOrigin = undefined;
         this.O.textSprites.length = 0;

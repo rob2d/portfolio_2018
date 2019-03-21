@@ -51,6 +51,7 @@ module.exports = {
             enforce: true,
             minChunks: 3
         },
+        
         // Split code common to all chunks to its own chunk
         commons: {
             name: 'commons',    
@@ -62,10 +63,6 @@ module.exports = {
   },
   module : {
     rules : [
-      {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader'
-      },
       {
         test : /\.html$/,
         use  : [
@@ -79,6 +76,7 @@ module.exports = {
       },
       {
         test: /\.(sa|sc|c)ss$/,
+        exclude: /img/,
         use: [
           {
             loader : MiniCssExtractPlugin.loader,
@@ -101,7 +99,19 @@ module.exports = {
         ],
       },
       {
+          test: /\.svg$/,
+          exclude: /fonts/,
+          use: [{
+              loader: 'file-loader',
+              options: {
+                  name: '[name].[ext]',
+                  outputPath: 'img/icons'
+              }
+          }]
+      },
+      {
           test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+          exclude: /img/,
           use: [{
               loader: 'file-loader',
               options: {
@@ -160,6 +170,7 @@ module.exports = {
     alias : {
       ...rootJSAliases,
       ...reduxAliases,
+      'img' : global.resolvePath('client/img'),
       ['app-root'] : global.resolvePath('client/js'),
       common : global.resolvePath('server/utils/common')
     }

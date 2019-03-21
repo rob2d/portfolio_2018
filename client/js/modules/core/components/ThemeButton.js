@@ -1,18 +1,18 @@
 import React, { PureComponent } from 'react'
-import { connect }  from 'react-redux'
-import injectSheet  from 'react-jss'
-import SVG from 'react-inlinesvg'
+import { connect } from 'react-redux'
+import injectSheet from 'react-jss'
 import { setTheme } from 'modules/core/actions'
 import Themes from 'constants/Themes'
 import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'
+import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon'
 
 let themeTargets = {
-    [Themes.LIGHT] : {
+    [ Themes.LIGHT ] : {
         name      : 'Dark',
         iconClass : 'mdi mdi-weather-night'
     }, 
-    [Themes.DARK] : {
+    [ Themes.DARK ] : {
         name      : 'Light',
         iconClass : 'mdi mdi-weather-sunny'
     }
@@ -45,32 +45,32 @@ class ThemeButton extends PureComponent {
         // let the button anim play out a bit
         // (and also prevent user double-taps/clicks
         // in the process)
+
         if(!this._isToggling) {
             this._isToggling = true;
             setTimeout(()=> {
                 setTheme((theme == Themes.LIGHT) ?  Themes.DARK : Themes.LIGHT);
                 this._isToggling = false;
-    
-            },300);
+            }, 300);
         }
     };
 
     render () {
-        const { classes, theme } = this.props;
+        const { 
+            classes, 
+            theme 
+        } = this.props;
         
         return (
             <Tooltip
-                enterDelay={400}
+                enterDelay={ 400 }
                 title={ <span>Switch to the <b>{themeTargets[theme].name}</b> theme</span> }
                 classes={{ tooltip : classes.tooltip }}
             >
                 <Button 
                     onClick={ this.onClick }
                     className={ classes.container } 
-                >   <SVG 
-                        className={theme}
-                        src={'/img/icons/day-night.svg'} 
-                    />
+                > <DayNightSVGIcon className={ theme } />
                 </Button>
             </Tooltip>
         );
