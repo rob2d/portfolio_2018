@@ -1,7 +1,7 @@
 import { Provider, connect } from 'react-redux'
 import React from 'react'
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
-import withStyles from '@material-ui/core/styles/withStyles'
+import ThemeProvider from '@material-ui/styles/ThemeProvider'
+import withStyles from '@material-ui/styles/withStyles'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
 import { getTheme } from 'app-root/themeFactory'
@@ -103,11 +103,11 @@ const ThemedApp = withViewportSizes(connect(
         const themeApplied = getTheme(theme); 
 
         return (
-            <MuiThemeProvider theme={ themeApplied }>
+            <ThemeProvider theme={ themeApplied }>
                 <ConnectedRouter history={ appHistory }>
                     <StyledContent />
                 </ConnectedRouter>
-            </MuiThemeProvider>
+            </ThemeProvider>
         )
     })
 );

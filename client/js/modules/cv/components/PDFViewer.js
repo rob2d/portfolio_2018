@@ -1,16 +1,13 @@
-import React, { Component } from 'react'
-import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
+import React, { Component, memo } from 'react'
+import { withStyles } from '@material-ui/styles'
 import PDF from 'react-pdf-js'
-import Tooltip   from '@material-ui/core/Tooltip'
-import Button from '@material-ui/core/Button'
+import Tooltip from '@material-ui/core/Tooltip'
+import Fab from '@material-ui/core/fab'
 import shouldShowHoverContent from 'utils/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
 import Themes from 'constants/Themes'
-import { getTheme } from 'app-root/themeFactory'
 
-
-const styleSheet = { 
+const styles = theme => ({ 
     container : {
         position       : 'relative',
         display        : 'flex',
@@ -27,7 +24,7 @@ const styleSheet = {
         display  : 'inline-block',
         padding  : 0,
         margin   : 0,
-        filter : ({ theme }) => (theme == Themes.LIGHT) ? 'none' : 'invert(100%)',
+        filter : (theme.theme == Themes.LIGHT) ? 'none' : 'invert(100%)',
         // resize pdf height according to 8.5x11
         '@media (max-width: 900px)': {
             maxWidth : '100%',
@@ -45,8 +42,8 @@ const styleSheet = {
         paddingTop: '12px'
     },
     downloadIcon : {
-        fontSize : '28pt',
-        color : ({ theme }) => getTheme(theme).rc3.secondaryContrastText
+        fontSize : '24pt',
+        color : theme.rc3.secondaryContrastText
     },
     downloadButtonContainer : {
         position : 'fixed',
@@ -58,12 +55,12 @@ const styleSheet = {
         }
     },
     downloadButton : {
-        backgroundColor : ({ theme }) => getTheme(theme).palette.secondary['400'],
+        backgroundColor : theme.palette.secondary['400'],
         '&:hover' : {
-            backgroundColor : ({ theme }) => getTheme(theme).palette.secondary['300']
+            backgroundColor : theme.palette.secondary['300']
         },
         '&:active' : {
-            backgroundColor : ({ theme }) => getTheme(theme).palette.secondary['400']
+            backgroundColor : theme.palette.secondary['400']
         }
     },
     // TODO : use constant to make
@@ -77,30 +74,26 @@ const styleSheet = {
     loadingContent : {
         display : 'none'
     }
-
-};
+});
 
 class PDFViewer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            pageNumber         : 1, 
-            pageCount          : 0,
-            isLoaded           : false,
+    state = {
+        pageNumber : 1, 
+        pageCount : 0,
+        isLoaded : false,
 
-            // to solve a glitch with PDF viewer
-            // re-quiring re-renders, we simulate
-            // re-loading file URL by using this
-            // simple variable when a prop has
-            // loaded -- this acts as a switch
-            // for providing fileURL as blank
-            // (luckily this is very easy with
-            // React's new setState callback)
-            
-            isRetriggering : false,
-            fileURL        : undefined
-        };
-    }
+        // to solve a glitch with PDF viewer
+        // re-quiring re-renders, we simulate
+        // re-loading file URL by using this
+        // simple variable when a prop has
+        // loaded -- this acts as a switch
+        // for providing fileURL as blank
+        // (luckily this is very easy with
+        // React's new setState callback)
+        
+        isRetriggering : false,
+        fileURL : undefined
+    };
 
     componentDidMount () {
         this.setState({ isLoaded : false });
@@ -110,27 +103,31 @@ class PDFViewer extends Component {
         this.setState({ isLoaded : false });
     }
 
-    onDocumentComplete = (pageCount)=> {
+    onDocumentComplete = pageCount => {
         this.setState({ 
-            pageNumber : 1, 
             pageCount,
+            pageNumber : 1, 
             isLoaded : true 
         });
     };
 
-    onPageComplete = (pageNumber)=> {
+    onPageComplete = pageNumber => {
         this.setState({ pageNumber });
     };
 
     handlePrevPage = ()=> {
         if(this.state.pageNumber > 1) {
-            this.setState({ pageNumber: this.state.pageNumber - 1 });
+            this.setState({ 
+                pageNumber: this.state.pageNumber - 1 
+            });
         }
     };
 
     handleNextPage = ()=> {
         if(this.state.pageNumber < this.state.pageCount) {
-            this.setState({ pageNumber: this.state.pageNumber + 1 });
+            this.setState({ 
+                pageNumber: this.state.pageNumber + 1 
+            });
         }
     };
 
@@ -143,7 +140,12 @@ class PDFViewer extends Component {
     }
 
     render () {
-        const { classes, fileURL, theme } = this.props;
+        const { 
+            classes, 
+            fileURL, 
+            theme 
+        } = this.props;
+
         const { 
             pageNumber, 
             pageCount, 
@@ -166,7 +168,7 @@ class PDFViewer extends Component {
                     href={fileURL}
                     download={'RobertConcepcionResume'}
                     className={classes.downloadButtonContainer}>
-                    {shouldShowHoverContent ? 
+                    { shouldShowHoverContent ? 
                     (
                         <Tooltip
                             id={`resume-pdf-download-tooltip`}
@@ -174,11 +176,10 @@ class PDFViewer extends Component {
                             title='Download this PDF'
                             classes={{ tooltip : classes.tooltip }}
                         >
-                            <Button
-                                variant="fab"
+                            <Fab
                                 className={classes.downloadButton}
                             ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
-                            </Button>
+                            </Fab>
                         </Tooltip>
                     ) : (<Button
                             variant="fab"
@@ -189,16 +190,16 @@ class PDFViewer extends Component {
                     )}
                 </a>
                 <PDFViewerNav
-                    pageNumber={pageNumber}
-                    pageCount={pageCount}
-                    handleNextPage={this.handleNextPage}
-                    handlePrevPage={this.handlePrevPage}
-                    isLoaded={isLoaded}
-                    theme={theme}
+                    pageNumber={ pageNumber }
+                    pageCount={ pageCount }
+                    handleNextPage={ this.handleNextPage }
+                    handlePrevPage={ this.handlePrevPage }
+                    isLoaded={ isLoaded }
+                    theme={ theme }
                 />
             </div>
         );
     }
 }
 
-export default pure(injectSheet(styleSheet)(PDFViewer));
+export default memo(withStyles(styles)(PDFViewer));

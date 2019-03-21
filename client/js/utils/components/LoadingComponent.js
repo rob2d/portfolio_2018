@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import injectSheet from 'react-jss'
+import { makeStyles } from '@material-ui/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const styleSheet = {
+const useStyles = makeStyles( theme => ({
     container : {
         position : 'relative',
         display : 'flex',
@@ -16,20 +17,25 @@ const styleSheet = {
         paddingBottom : '16px',
         flexGrow : 1
     }
-};
+}), 'LoadingComponent');
 
-function LoadingComponent ({ error, classes, size=64 }) {
+function LoadingComponent ({ error, size=64 }) {
+    const classes = useStyles({ error, size });
+
     if(error) {
         console.error(error);
         return 'Error Loading!';
     }
     else {
         return (
-            <div className={classes.container}>
-                <CircularProgress size={size} color='accent' />
+            <div className={ classes.container }>
+                <CircularProgress 
+                    size={ size } 
+                    color='accent' 
+                />
             </div>
         );
     }
 }
 
-export default injectSheet(styleSheet)(LoadingComponent)
+export default memo(LoadingComponent)

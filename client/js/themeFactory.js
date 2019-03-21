@@ -1,5 +1,4 @@
 import { createMuiTheme } from '@material-ui/core/styles'
-import indigo from '@material-ui/core/colors/indigo'
 import red from '@material-ui/core/colors/red'
 import pink from '@material-ui/core/colors/pink'
 import grey from '@material-ui/core/colors/grey'
@@ -7,6 +6,9 @@ import Themes from 'constants/Themes'
 
 let themes = {};
 
+// TODO : organize the palette to use a mutual system;
+// also rely a bit more on built in Mui components
+// now that 4.x.x+ can be used
 
 /**
  * grabs a theme; otherwise creates and caches a theme
@@ -27,15 +29,16 @@ export const getTheme = theme => {
                             '#FFFFFF' : grey['A100'],
                 secondaryContrastText : '#FFFFFF',
                 background : (theme == Themes.LIGHT) ? 
-                            '#FFFFFF' : '#000000'
+                            '#FFFFFF' : '#000000',
+                footerIcon : (theme == Themes.LIGHT) ? 
+                                '#455A64' : grey[700]
             },
             palette: {
                 primary   : grey, 
                 secondary : pink,
-                error     :  red,
-                text      : (theme == Themes.LIGHT) ? 
-                            '#000000' : 
-                            '#FFFFFF',
+                error :  red,
+                text : (theme == Themes.LIGHT) ? 
+                    '#000000' : '#FFFFFF',
                
             },
             overrides : {

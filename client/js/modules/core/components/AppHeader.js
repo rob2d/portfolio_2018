@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react'
-import injectSheet from 'react-jss'
-import SVG from 'react-inlinesvg'
+import { withStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import styleSheet from './style/AppHeaderStyle'
+import styles from './style/AppHeaderStyle'
 import ThemeButton from './ThemeButton'
 import { connect } from 'react-redux'
 import appHistory from 'utils/appHistory'
@@ -41,11 +40,16 @@ class AppHeader extends PureComponent {
     }
 
     componentWillUpdate(nextProps, nextState) {
+        
         // can be optimized, but due to time constraint
         // we will always update the visited path index
 
         let pathIndex = this.getVisitedPathIndex(nextProps.pathname);
-        this.setState({ pathIndex, lastMatchedIndex : pathIndex != -1 ? pathIndex : nextState.lastMatchedIndex });
+        this.setState({ 
+            pathIndex, 
+            lastMatchedIndex : pathIndex != -1 ? 
+                pathIndex : nextState.lastMatchedIndex 
+        });
     }
 
     componentDidMount () {
@@ -168,7 +172,7 @@ class AppHeader extends PureComponent {
     }
 }
 
-export default withFadeTransitions(connect(({ router, viewport }, ownProps) => ({ 
+export default withFadeTransitions(connect(({ router, viewport }) => ({ 
     pathname : router.location.pathname,
     viewportWidth : viewport.viewportWidth
-}))(injectSheet(styleSheet)(AppHeader)))
+}))(withStyles(styles)(AppHeader)))

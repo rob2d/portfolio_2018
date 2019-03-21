@@ -1,6 +1,4 @@
-import { getTheme } from 'app-root/themeFactory'
-
-const styleSheet = {
+const styles = theme =>({
     container : {
         position       : 'relative',
         display        : 'flex',
@@ -20,7 +18,7 @@ const styleSheet = {
         position : 'absolute',
         margin   : '0px',
         bottom   : '0px',
-        color    : ({ theme })=>( getTheme(theme).rc3.text )
+        color    : theme.rc3.text
     },
     arrow : {
         '&:before': {
@@ -32,6 +30,6 @@ const styleSheet = {
             transform : 'rotateZ(180deg)'
         }
     }
-};
+});
 
-export default styleSheet
+export default styles

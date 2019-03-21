@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
+import { withStyles } from '@material-ui/styles'
 import { 
     about as strings, 
     menus as menuStrings 
@@ -11,7 +11,7 @@ import Avatar from '@material-ui/core/Avatar'
 import ButtonLink from 'utils/components/ButtonLink'
 import SectionLinks from './SectionLinks'
 import SkillsOrbit from './SkillsOrbit'
-import styleSheet from './style/AboutStyle'
+import styles from './style/AboutStyle'
 import withFadeTransitions from 'utils/withFadeTransitions'
 
 function Tech ({ children, containerClass, url }) {
@@ -79,4 +79,4 @@ export default pure(connect(
         viewportWidth  : viewport.viewportWidth,
         viewportHeight : viewport.viewportHeight
      })
-)(injectSheet(styleSheet)(About)));
+)(withStyles(styles)(About)));

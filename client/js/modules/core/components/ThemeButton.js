@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import injectSheet from 'react-jss'
 import { setTheme } from 'modules/core/actions'
 import Themes from 'constants/Themes'
 import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/styles'
 import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon'
 
 let themeTargets = {
@@ -18,7 +18,13 @@ let themeTargets = {
     }
 };
 
-const styleSheet = {
+function getFlipTheme (theme) {
+    return ((theme == Themes.LIGHT) ?  
+                Themes.DARK : Themes.LIGHT
+    );
+}
+
+const useStyles = makeStyles( theme =>({
     container : {
         cursor : 'pointer',
         color : '#FFFFFF',
@@ -34,51 +40,45 @@ const styleSheet = {
     icon : {
         fontSize : '16pt'
     }
-};
+}), 'ThemeButton');
 
+function ThemeButton ({ theme, setTheme }) {
+    const classes = useStyles();
+    const [ isToggling, setIsToggling ] = useState(false);
+    // reflects theme state
+    const [ themeState, setThemeState ] = useState(theme);
 
-class ThemeButton extends PureComponent {
+    const onClick = e => {
 
-    onClick = event => {
-        const { theme, setTheme } = this.props;
+        // let the button anim play out a bit smoothly,
+        // then begin the theme transition
 
-        // let the button anim play out a bit
-        // (and also prevent user double-taps/clicks
-        // in the process)
-
-        if(!this._isToggling) {
-            this._isToggling = true;
+        if(!isToggling) {
+            setIsToggling(true);
+            setThemeState(getFlipTheme(theme));
             setTimeout(()=> {
-                setTheme((theme == Themes.LIGHT) ?  Themes.DARK : Themes.LIGHT);
-                this._isToggling = false;
-            }, 300);
+                setTheme(getFlipTheme(theme));
+                setIsToggling(false);
+            }, 750);
         }
-    };
-
-    render () {
-        const { 
-            classes, 
-            theme 
-        } = this.props;
-        
-        return (
-            <Tooltip
-                enterDelay={ 400 }
-                title={ <span>Switch to the <b>{themeTargets[theme].name}</b> theme</span> }
-                classes={{ tooltip : classes.tooltip }}
-            >
-                <Button 
-                    onClick={ this.onClick }
-                    className={ classes.container } 
-                > <DayNightSVGIcon className={ theme } />
-                </Button>
-            </Tooltip>
-        );
     }
 
+    return (
+        <Tooltip
+            enterDelay={ 400 }
+            title={ <span>Switch to the <b>{themeTargets[themeState].name}</b> theme</span> }
+            classes={{ tooltip : classes.tooltip }}
+        >
+            <Button 
+                onClick={ onClick }
+                className={ classes.container } 
+            > <DayNightSVGIcon className={ themeState } />
+            </Button>
+        </Tooltip>
+    );
 }
 
 export default connect(
     ({ core }) => ({ theme : core.theme }), 
     ({ setTheme })
-)(injectSheet(styleSheet)(ThemeButton))
+)(ThemeButton)

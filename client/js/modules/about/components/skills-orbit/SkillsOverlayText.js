@@ -1,36 +1,12 @@
-import React, { Fragment } from 'react'
-import injectSheet         from 'react-jss'
+import React, { memo, Fragment } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import { about as strings} from 'strings'
-import skillPoints         from 'constants/skillPoints'
-import Themes              from 'constants/Themes'
-import { getTheme }        from 'app-root/themeFactory'
+import skillPoints from 'constants/skillPoints'
+import Themes from 'constants/Themes'
+import { getTheme } from 'app-root/themeFactory'
+import ValueBar from './ValueBar'
 
-const ValueBar = injectSheet({
-    container : { 
-        width : '100%',
-        transition : 'border-color 0.5s',
-        height : '4px'
-    },
-    bar : {
-        display : 'block',
-        width   : ({ isVisible, value }) => (
-            (isVisible ? (value * 100)  : '0') + '%'
-        ),
-        height : '100%',
-        backgroundColor : '#c51162',
-        transition : ({ index }) => {
-            const attribs = `0.30s linear ${Number(((index+1)*0.1).toFixed(2))+'s'}`;
-            return `width ${attribs}`;
-        }
-    }
-})(({ classes, isVisible, index, value }) => (
-    <div className={classes.container}>
-        <div className={classes.bar}>
-        </div>
-    </div>
-));
-
-const styleSheet = {
+const useStyles = makeStyles( theme => ({
     container : {
         position       : 'absolute',
         bottom         : '0',
@@ -45,7 +21,7 @@ const styleSheet = {
         transition     : ({ isVisible }) => `opacity 0.5s ease ${ !isVisible ? 1: 0 }s`,
         overflowX      : 'hidden',
         overflowY      : 'visible',
-        color          : ({ theme }) => getTheme(theme).rc3.text
+        color          : theme.rc3.text
     },
     textItem : {
         boxSizing      : 'border-box',
@@ -71,36 +47,35 @@ const styleSheet = {
         fontFamily     : 'roboto_regular',
         fontSize       : '11pt'
     }
-};
+}));
 
-const SkillsOverlayText = injectSheet(styleSheet)(
-    function SkillsOverlayText({ classes, isVisible }) {
-        let skillStrings = strings.skills;
+function SkillsOverlayText({ isVisible }) {
+    const classes = useStyles({ isVisible });
+    let skillStrings = strings.skills;
 
-        return (
-            <div className={classes.container}>
-                { skillPoints.sort((sp1, sp2)=> (
-                    sp2.value-sp1.value
-                  )).map(({ namespace, value }, index) => (
-                    <Fragment key={`skillText_${namespace}_${index}`}>
-                        <div className={classes.textItem}>
-                            <p className={classes.namespace}>
-                                { skillStrings[namespace] } 
-                            </p> 
-                            <p className={classes.value}>
-                                { parseFloat(value).toFixed(2) }
-                            </p>
-                        </div>
-                        <ValueBar 
-                            isVisible={isVisible}
-                            value={value} 
-                            index={index} 
-                        />
-                    </Fragment>
-                )) }
-            </div>
-        );
-    }
-);
+    return (
+        <div className={classes.container}>
+            { skillPoints.sort((sp1, sp2)=> (
+                sp2.value-sp1.value
+                )).map(({ namespace, value }, index) => (
+                <Fragment key={`skillText_${namespace}_${index}`}>
+                    <div className={classes.textItem}>
+                        <p className={classes.namespace}>
+                            { skillStrings[namespace] } 
+                        </p> 
+                        <p className={classes.value}>
+                            { parseFloat(value).toFixed(2) }
+                        </p>
+                    </div>
+                    <ValueBar 
+                        isVisible={isVisible}
+                        value={value} 
+                        index={index} 
+                    />
+                </Fragment>
+            )) }
+        </div>
+    );
+}
 
-export default SkillsOverlayText
+export default memo(SkillsOverlayText)

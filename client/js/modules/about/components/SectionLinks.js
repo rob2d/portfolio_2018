@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import ButtonLink from 'utils/components/ButtonLink'
-import injectSheet from 'react-jss'
 import { menus as menuStrings } from 'strings'
 import isLandscape from 'utils/isLandscape'
 import isPortrait from 'utils/isPortrait'
-import { getTheme } from 'app-root/themeFactory'
 
-const styleSheet = {
+const useStyles = makeStyles( theme => ({
     sectionList : {
         paddingLeft : ({ viewportWidth, viewportHeight }) => (
             !isPortrait(viewportWidth, viewportHeight) ? '16px' : '0px'
@@ -74,16 +73,16 @@ const styleSheet = {
 
     linkDivider : {
         display : 'inline-block',
-        color   : ({ theme }) => getTheme(theme).rc3.text
+        color   : theme.rc3.text
     },
     '@media (orientation:landscape)': {
         avatar : {
             margin : '16px 16px 8px'
         },
         mainContainer : {
-            padding       : '16px',
+            padding : '16px',
             flexDirection : 'row',
-            boxSizing     : 'border-box'
+            boxSizing : 'border-box'
         }
     },
 
@@ -91,8 +90,8 @@ const styleSheet = {
         marginRight : ({ viewportWidth, viewportHeight }) => (
             !isLandscape ? '16px' : '6px'
         ),
-        fontSize    : '13pt',
-        color       : ({ theme }) => getTheme(theme).rc3.text
+        fontSize : '13pt',
+        color : theme.rc3.text
     },
 
     // make certain things larger on non-mobile devices
@@ -101,9 +100,9 @@ const styleSheet = {
             paddingLeft : '64px'
         }
     }
-};
+}), 'SectionLinks');
 
-function SectionLink ({ url, name, theme, mdiClass, classes }) {
+const SectionLink = memo(function SectionLink ({ url, name, mdiClass, classes }) {
     const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
 
     return (
@@ -115,12 +114,11 @@ function SectionLink ({ url, name, theme, mdiClass, classes }) {
             </li>
         </ButtonLink>
     );
-};
+});
 
-function SectionLinks ({ classes, viewportWidth, viewportHeight, theme }) {
-    
+function SectionLinks ({ viewportWidth, viewportHeight }) {
+    const classes = useStyles({ viewportWidth, viewportHeight })
     const sectionLinkProps = {
-        theme,
         viewportWidth,
         viewportHeight,
         classes
@@ -158,4 +156,4 @@ function SectionLinks ({ classes, viewportWidth, viewportHeight, theme }) {
     );
 }
 
-export default injectSheet(styleSheet)(SectionLinks)
+export default memo(SectionLinks)

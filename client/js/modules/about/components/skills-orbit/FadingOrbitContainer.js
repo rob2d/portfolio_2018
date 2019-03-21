@@ -1,7 +1,7 @@
-import React       from 'react'
-import injectSheet from 'react-jss'
+import React, { memo } from 'react'
+import { makeStyles } from '@material-ui/styles'
 
-let FadingOrbitContainer = injectSheet({   
+const useStyles = makeStyles( theme => ({   
     canvas3d : {
         position       : 'relative',
         display        : 'flex',
@@ -16,14 +16,13 @@ let FadingOrbitContainer = injectSheet({
             '0.75s ease opacity 1s'
         )
     }
- })(function OrbitContainer ({ classes, isHighlighted }) { 
-        return (
-            <div 
-                id="canvas3d" 
-                className={ classes.canvas3d } 
-            />
-        );
-    }
-);
+}), 'FadingOrbitContainer');
 
-export default FadingOrbitContainer
+const FadingOrbitContainer = function OrbitContainer ({ isHighlighted }) { 
+    const classes = useStyles({ isHighlighted });
+    return (
+        <div id="canvas3d" className={ classes.canvas3d } />
+    );
+}
+
+export default memo(FadingOrbitContainer)

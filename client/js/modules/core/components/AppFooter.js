@@ -1,21 +1,18 @@
-import React from 'react'
-import injectSheet from 'react-jss'
+import React, { memo } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button'
-import pure from 'recompose/pure'
-import Themes from 'constants/Themes'
 import Tooltip from '@material-ui/core/Tooltip'
 import { connect } from 'react-redux'
-import { getTheme } from 'app-root/themeFactory'
 import appHistory from 'utils/appHistory'
 import withFadeTransitions from 'utils/withFadeTransitions'
 
-const styles = {
+const useStyles = makeStyles(theme => ({
     contactButton : {
         display        : 'inline-flex',
         justifyContent : 'center',
         flexDirection  : 'column',
         '&:hover $icon': {
-            color : ({ theme }) =>`${getTheme(theme).palette.primary[800]} !important`
+            color : `${theme.palette.primary[800]} !important`
         },
         '&:active $icon': {
             color : '#00b8d4'
@@ -26,29 +23,28 @@ const styles = {
     },
     icon : {
         fontSize : '18pt',
-        color    : ({ theme }) => ((theme == Themes.LIGHT) ? 
-            '#455A64' : getTheme(theme).palette.primary[700]),
+        color : theme.rc3.footerIcon,
         transition : 'color 0.24s ease-in'
     },
     tooltip : {
         fontSize : '11pt',
-        padding  : '4px 8px',
-        minHeight: '20px',
-        lineHeight: '20px'
+        padding : '4px 8px',
+        minHeight : '20px',
+        lineHeight : '20px'
     }
-};
+}), 'ContactButton');
 
-const ContactButton = pure(injectSheet(styles)
-(function ContactButton({ 
+const ContactButton = memo(function ContactButton({ 
     url, 
-    classes, 
     iconClass, 
     tooltipContent 
 }){ 
+    const classes = useStyles({ url, iconClass, tooltipContent });
+    
     return (
         <Tooltip
-            enterDelay={350}
-            title={tooltipContent}
+            enterDelay={ 350 }
+            title={ tooltipContent }
             classes={{ tooltip : classes.tooltip }}
         >
             <Button
@@ -57,13 +53,10 @@ const ContactButton = pure(injectSheet(styles)
             ><i className={`${iconClass} ${classes.icon}`}/>
             </Button>
         </Tooltip>
-    )}
-));
-ContactButton.displayName = 'ContactButton';
+    );
+});
 
-const AppFooter = withFadeTransitions(connect(
-    ({ core }) => ({ theme : core.theme })
-)(function AppFooter() {
+const AppFooter = withFadeTransitions(function AppFooter() {
     return (
         <div className="appFooter">
         
@@ -87,9 +80,8 @@ const AppFooter = withFadeTransitions(connect(
                 url={ 'mailto:robert.concepcion.iii@gmail.com' }
                 tooltipContent={ <span>Email me -- but no spam, please (❗)</span> }
             />
-            
         </div>
     )
-}));
+});
 
 export default AppFooter

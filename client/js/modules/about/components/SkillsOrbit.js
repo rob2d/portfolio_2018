@@ -1,26 +1,21 @@
 import React, { Component } from 'react'
 import * as THREE from 'three'
-import { 
-    textAlign, 
-    SpriteText2D 
-} from 'three-text2d'
-import injectSheet from 'react-jss'
+import { textAlign, SpriteText2D } from 'three-text2d'
+import { withStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
 import { about as strings} from 'strings'
 import Themes from 'constants/Themes'
 import skillPoints from 'constants/skillPoints'
 import ShiftingValueMap from 'utils/data-structs/ShiftingValueMap'
 import SkillsOverlayText from './skills-orbit/SkillsOverlayText'
-import styleSheet  from './style/SkillsOrbitStyle'
+import styles from './style/SkillsOrbitStyle'
 import FadingOrbitContainer from './skills-orbit/FadingOrbitContainer'
 
 const OUTER_RADIUS = 200,
       INNER_RADIUS = 40,
       RADIUS_DIFFERENCE = OUTER_RADIUS - INNER_RADIUS;
 
-function getSkillSphereDiameter(value) {
-    return (40 * value) - 6;
-}
+function getSkillSphereDiameter(value) { return (40 * value) - 6; }
 
 function createSkillVertex({ radianAngle, value=1 }) {
     let vRadius = getSkillSphereDiameter(value)/2,
@@ -217,7 +212,7 @@ class SkillsOrbit extends Component {
                 if(this.state.isHighlighted) {
                     camPosZ.target = 700;
                 } else {
-                    setTimeout(()=>(camPosZ.target = 550), 1000);
+                    setTimeout(()=>( camPosZ.target = 550 ), 1000);
                 }
             }
         }
@@ -231,13 +226,9 @@ class SkillsOrbit extends Component {
         let maxDimension = Math.max(window.innerWidth,window.innerHeight);
 
         let SIZE = (()=>{
-            if(maxDimension <= 800) {
-               return 180;
-            } else if(maxDimension <= 960) {
-                return 200;
-            } else {
-                return 240;
-            }
+            if(maxDimension <= 800) { return 180; } 
+            if(maxDimension <= 960) { return 200; }
+            return 240;
         })();
 
         this.renderer.setSize(SIZE*3, SIZE*3);
@@ -499,6 +490,7 @@ class SkillsOrbit extends Component {
 
         // allow updating max every .35s from 
         // another mouse event
+        
         if(eventTimeDelta > 350) {
             this.setState({ isHighlighted : !this.state.isHighlighted });
         }
@@ -520,14 +512,14 @@ class SkillsOrbit extends Component {
                 ref={ c => this.R.container = c } 
                 onClick={this.onClick}
             >
-                <FadingOrbitContainer isHighlighted={isHighlighted} />
-                <SkillsOverlayText theme={theme} isVisible={isHighlighted} />
-                <p className={classes.hintIcons}>
+                <FadingOrbitContainer isHighlighted={ isHighlighted } />
+                <SkillsOverlayText theme={ theme } isVisible={ isHighlighted } />
+                <p className={ classes.hintIcons }>
                 { 
                     <span>
-                        <i className={leftIconClass}></i>&nbsp;&nbsp;
-                        <i className={arrowClass}></i>&nbsp;&nbsp;
-                        <i className="mdi mdi-information"></i>
+                        <i className={ leftIconClass } />&nbsp;&nbsp;
+                        <i className={ arrowClass } />&nbsp;&nbsp;
+                        <i className="mdi mdi-information" />
                     </span>
                 }
                 </p>
@@ -538,10 +530,9 @@ class SkillsOrbit extends Component {
 
 
 export default connect(
-    (state,ownProps)=> ({ 
+    (state, ownProps) => ({ 
         viewportWidth  : state.viewport.viewportWidth,
         viewportHeight : state.viewport.viewportHeight,
         theme          : state.core.theme
-    }),
-    null
-)(injectSheet(styleSheet)(SkillsOrbit));
+    })
+)(withStyles(styles)(SkillsOrbit));

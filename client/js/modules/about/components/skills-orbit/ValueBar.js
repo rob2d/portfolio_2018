@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import injectSheet         from 'react-jss'
+import React, { memo, Fragment } from 'react'
+import { makeStyles } from '@material-ui/styles'
 
 function getBarXsition ({ index }) {
     const attribs = `0.30s linear ${
@@ -8,7 +8,7 @@ function getBarXsition ({ index }) {
     return `width ${attribs}`;
 }
 
-const styleSheet = {
+const useValueBarStyles = makeStyles( theme => ({
     container : { 
         width : '100%',
         transition : 'border-color 0.5s',
@@ -21,17 +21,20 @@ const styleSheet = {
         ),
         height : '100%',
         backgroundColor : '#c51162',
-        transition : getBarXsition
+        transition : ({ index }) => {
+            const attribs = `0.30s linear ${Number(((index+1)*0.1).toFixed(2))+'s'}`;
+            return `width ${attribs}`;
+        }
     }
-};
+}));
+function ValueBar ({ isVisible, index, value }) {
+    const classes = useValueBarStyles({ isVisible, index, value });
 
-const ValueBar = injectSheet(styleSheet)(
-    ({ classes, isVisible, index, value }) => (
+    return (
         <div className={classes.container}>
-            <div className={classes.bar}>
-            </div>
+            <div className={classes.bar} />
         </div>
-    )
-);
+    );
+}
 
-export default ValueBar
+export default memo(ValueBar)
