@@ -7,29 +7,29 @@ import isPortrait from 'utils/isPortrait'
 
 const useStyles = makeStyles( theme => ({
     sectionList : {
-        paddingLeft : ({ viewportWidth, viewportHeight }) => (
-            !isPortrait(viewportWidth, viewportHeight) ? '16px' : '0px'
+        paddingLeft : ({ vpW, vpH }) => (
+            !isPortrait(vpW, vpH) ? '16px' : '0px'
         ),
-        paddingRight : ({ viewportWidth, viewportHeight }) => (
-            !isPortrait(viewportWidth, viewportHeight) ? '16px' : '0px'
+        paddingRight : ({ vpW, vpH }) => (
+            !isPortrait(vpW, vpH) ? '16px' : '0px'
         ),
         paddingTop    : '8px',
         paddingBottom : '0px',
         textAlign     : 'left',
-        paddingInlineStart : ({ viewportWidth, viewportHeight }) => {
-            if(isPortrait(viewportWidth, viewportHeight)) {
+        paddingInlineStart : ({ vpW, vpH }) => {
+            if(isPortrait(vpW, vpH)) {
                 return '0px';
             } 
-            else if(isLandscape(viewportWidth, viewportHeight)) {
+            else if(isLandscape(vpW, vpH)) {
                 return '16px';
             } else {
                 return '40px';
             }
         },
         position : 'relative',
-        left : ({ viewportWidth, viewportHeight} ) => {
-            if(isPortrait(viewportWidth, viewportHeight)) {
-                return (viewportWidth < 400) ? '-24px' : '-48px'
+        left : ({ vpW, vpH} ) => {
+            if(isPortrait(vpW, vpH)) {
+                return (vpW < 400) ? '-24px' : '-48px'
             } else {
                 return '0px';
             }
@@ -37,8 +37,8 @@ const useStyles = makeStyles( theme => ({
     },
     sectionLink : {
         position : 'relative',
-        display : ({ viewportWidth, viewportHeight }) => (
-            !isLandscape(viewportWidth, viewportHeight) ? 
+        display : ({ vpW, vpH }) => (
+            !isLandscape(vpW, vpH) ? 
                 'block' : 'inline-block'
         ),
         padding : '8px',
@@ -49,8 +49,8 @@ const useStyles = makeStyles( theme => ({
             color : '#00b8d4'
         },
         '&:nth-of-type(odd)': {
-            left : ({ viewportWidth, viewportHeight }) => (
-                isPortrait(viewportWidth, viewportHeight) ? 
+            left : ({ vpW, vpH }) => (
+                isPortrait(vpW, vpH) ? 
                     '-12px' : '0px'
             )
         }
@@ -62,9 +62,9 @@ const useStyles = makeStyles( theme => ({
         color         : '#c51162',
         fontFamily    : 'roboto_bold',
         fontSize      : '11pt',
-        minWidth      : ({ viewportWidth, viewportHeight })=>(
-            (!isPortrait(viewportWidth, viewportHeight) && 
-            !isLandscape(viewportWidth,viewportHeight)) ? 
+        minWidth      : ({ vpW, vpH })=>(
+            (!isPortrait(vpW, vpH) && 
+            !isLandscape(vpW,vpH)) ? 
                 '148px' : '1px'
         ),
         textAlign     : 'left',
@@ -87,8 +87,8 @@ const useStyles = makeStyles( theme => ({
     },
 
     icon : {
-        marginRight : ({ viewportWidth, viewportHeight }) => (
-            !isLandscape ? '16px' : '6px'
+        marginRight : ({ vpW, vpH }) => (
+            !isLandscape(vpW,vpH) ? '16px' : '6px'
         ),
         fontSize : '13pt',
         color : theme.rc3.text
@@ -116,17 +116,17 @@ const SectionLink = memo(function SectionLink ({ url, name, mdiClass, classes })
     );
 });
 
-function SectionLinks ({ viewportWidth, viewportHeight }) {
-    const classes = useStyles({ viewportWidth, viewportHeight })
+function SectionLinks ({ vpW, vpH }) {
+    const classes = useStyles({ vpW, vpH })
     const sectionLinkProps = {
-        viewportWidth,
-        viewportHeight,
+        vpW,
+        vpH,
         classes
     };
 
     const linkDividerClass = `mdi mdi-circle-small ${classes.linkDivider}`;
-    const isInLandscape = isLandscape(viewportWidth, viewportHeight);
-    const isInPortrait = isPortrait(viewportWidth, viewportHeight);
+    const isInLandscape = isLandscape(vpW, vpH);
+    const isInPortrait = isPortrait(vpW, vpH);
     const isSmallDevice = isInLandscape || isInPortrait;
     
     return (

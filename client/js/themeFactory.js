@@ -21,7 +21,7 @@ export const getTheme = theme => {
             // this is a simpler alternative
             // until there is a need for more
             // complex theming
-            theme : theme, // allows lookup of theme value
+            theme,
             rc3 : {
                 text : (theme == Themes.LIGHT) ? 
                             '#000000' : '#FFFFFF',
@@ -39,6 +39,7 @@ export const getTheme = theme => {
                 error :  red,
                 text : (theme == Themes.LIGHT) ? 
                     '#000000' : '#FFFFFF',
+                type : theme
                
             },
             overrides : {
@@ -114,12 +115,24 @@ export const getTheme = theme => {
                                 '0, 0, 0' : '120, 120, 120'
                             );
 
-                            let strength = ((theme == Themes.LIGHT) ? 1 : 1);
+                            let strength = 1;
                         
                             return `0px 2px 4px -1px rgba(${rgbColor}, ${0.2*strength}), ` + 
                                    `0px 4px 5px 0px rgba(${rgbColor}, ${0.14*strength}), ` + 
                                    `0px 1px 10px 0px rgba(${rgbColor}, ${0.12*strength})`;
                         })()
+                    }
+                },
+                MuiTooltip : {
+                    tooltip : {
+                        backgroundColor : theme == Themes.LIGHT ? '#000' : pink[700],
+                        fontSize : '11pt',
+                        padding  : '4px 8px',
+                        minHeight: '20px',
+                        lineHeight: '20px'
+                    },
+                    popper : {
+                        opacity : 0.7
                     }
                 }
             }
