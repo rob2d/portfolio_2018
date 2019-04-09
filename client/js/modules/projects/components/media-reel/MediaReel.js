@@ -1,6 +1,5 @@
-import React, { PureComponent } from 'react'
-import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
+import React, { memo, PureComponent } from 'react'
+import { withStyles } from '@material-ui/styles'
 import { connect } from 'react-redux'
 import MediaViewer from './MediaViewer'
 import ReelThumbs from './ReelThumbs'
@@ -19,18 +18,18 @@ function getReelWidth ( width, maxWidth ) {
         ((width > maxWidth) ? maxWidth : width);
 }
 
-const styleSheet = {
+const styles = theme =>({
     container : {
         display  : 'flex',
         overflow : 'visible',
-        maxWidth : ({ maxWidth })=>(maxWidth),
-        height   : ({ width, maxWidth, aspectRatio })=>(
+        maxWidth : ({ maxWidth })=> maxWidth,
+        height   : ({ width, maxWidth, aspectRatio }) => (
             // 25% diff to account for reel and status boxes
             Math.round(
                 (getReelWidth(width,maxWidth)/(aspectRatio)) * 0.75
             ) + 'px'
         ),
-        margin  : '0 auto 56px'
+        margin : '0 auto 56px'
     },
     highlightedImageButton : {
         '&:hover $highlightedMediaImage' : {
@@ -89,20 +88,18 @@ const styleSheet = {
         right    : '16px',
         bottom   : '16px'
     }
-};
+});
 
 class MediaReel extends PureComponent {
-    constructor (props) {
-        super(props);
-        this.state = {
-            selectedIndex : 0,
-            isVideoPlaying : false,
-            autoplayTimer : null,
-            updateCount : 0
-         };
-    }
 
-    handleItemClick = (selectedIndex)=> {
+    state = {
+        selectedIndex : 0,
+        isVideoPlaying : false,
+        autoplayTimer : null,
+        updateCount : 0
+    };
+
+    handleItemClick = selectedIndex => {
         this.startReelAutoplay(); // resets autoplay timer
                                   // and binds new interval
         this.setState({ selectedIndex });
@@ -133,7 +130,7 @@ class MediaReel extends PureComponent {
     /**
      * detects when youtube state changes
      */
-    handleYTStateChange = (state)=> {
+    handleYTStateChange = state => {
         if(state && state.data) {
             switch(state.data){
                 case 3 :    // 3: buffering; e.g. user clicked
@@ -171,11 +168,10 @@ class MediaReel extends PureComponent {
         const { 
             classes, 
             media, 
-            projectId, 
             width, 
             maxWidth, 
             aspectRatio,
-            viewportWidth
+            vpW
         } = this.props;
 
         const { 
@@ -188,21 +184,21 @@ class MediaReel extends PureComponent {
         return (
             <div className={classes.container}>
                 <MediaViewer 
-                    {...highlightedMedia}
+                    { ...highlightedMedia }
                     width={ Math.floor(width*0.7) }
                     aspectRatio={ aspectRatio }
-                    viewportWidth={viewportWidth}
-                    onVideoPlay={this.handleVideoPlay}
-                    onVideoStop={this.handleVideoStop}
-                    onVideoPause={undefined} //do not want reel to resume
-                    onVideoEnd={this.handleVideoStop}
-                    onUpdate={this.handlePropUpdate}
-                    updateCount={updateCount}
+                    vpW={ vpW }
+                    onVideoPlay={ this.handleVideoPlay }
+                    onVideoStop={ this.handleVideoStop }
+                    onVideoPause={ undefined } //do not want reel to resume
+                    onVideoEnd={ this.handleVideoStop }
+                    onUpdate={ this.handlePropUpdate }
+                    updateCount={ updateCount }
                 />
-                <div className={classes.reel}>
-                    <div className={classes.reelPadding}></div>
+                <div className={ classes.reel }>
+                    <div className={ classes.reelPadding } />
                     {
-                        viewportWidth > 740 && 
+                        vpW > 740 && 
                         <ReelThumbs 
                             media={media}
                             selectedIndex={selectedIndex}
@@ -216,22 +212,20 @@ class MediaReel extends PureComponent {
                             width={width}
                         />
                     }
-                    <div className={classes.reelPadding}>
-                    </div>
-                    <div className={classes.statusBoxes}>
-                    {media.map((item, i)=>{
-                        return (
-                         <div 
+                    <div className={ classes.reelPadding } />
+                    <div className={ classes.statusBoxes }>
+                    {media.map((item, i)=>(
+                        <div 
                             key={`mediaReelItem${i}`}
                             className={classes.statusBox} 
-                            onClick={()=>this.handleItemClick(i)}
+                            onClick={ ()=> this.handleItemClick(i) }
                         >
                             <i className={`mdi mdi-square${ 
                                 (i!=selectedIndex) ? '-outline':'' } ${
                                 classes.statusBoxIcon}`} 
                             />
-                         </div>
-                    )})}
+                        </div>
+                    ))}
                 </div>       
                 </div>
             </div>
@@ -240,9 +234,8 @@ class MediaReel extends PureComponent {
 }
 
 MediaReel.propTypes = {
-    theme          : PropTypes.string.isRequired,
-    viewportWidth  : PropTypes.number.isRequired,
-    viewportHeight : PropTypes.number.isRequired,
+    vpW  : PropTypes.number.isRequired,
+    vpH : PropTypes.number.isRequired,
     width          : PropTypes.number,
     maxWidth       : PropTypes.number,
     aspectRatio    : PropTypes.number.isRequired,
@@ -255,10 +248,9 @@ MediaReel.propTypes = {
     })
 };
 
-export default injectSheet(styleSheet)(connect(
+export default (connect(
     ({ core, viewport }, ownProps)=> ({ 
-        theme          : core.theme,
-        viewportWidth  : viewport.viewportWidth,
-        viewportHeight : viewport.viewportHeight
+        vpW  : viewport.vpW,
+        vpH : viewport.vpH
     })
-)(MediaReel));
+)(withStyles(styles)(MediaReel)));

@@ -3,8 +3,8 @@
  * different variation), we take certain actions
  * if we determine we're in portrait mode
  */
-function isPortrait(viewportWidth, viewportHeight) {
-    return (viewportWidth <= 420) && (viewportHeight > viewportWidth);
+function isPortrait(vpW, vpH) {
+    return (vpW <= 420) && (vpH > vpW);
 }
 
 export default isPortrait

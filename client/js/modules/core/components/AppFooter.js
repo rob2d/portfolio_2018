@@ -1,18 +1,17 @@
-import React, { memo } from 'react'
+import React, { useMemo } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
-import { connect } from 'react-redux'
 import appHistory from 'utils/appHistory'
 import withFadeTransitions from 'utils/withFadeTransitions'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(({ palette, rc3 }) => ({
     contactButton : {
-        display        : 'inline-flex',
+        display : 'inline-flex',
         justifyContent : 'center',
         flexDirection  : 'column',
         '&:hover $icon': {
-            color : `${theme.palette.primary[800]} !important`
+            color : palette.primary[900]
         },
         '&:active $icon': {
             color : '#00b8d4'
@@ -23,40 +22,29 @@ const useStyles = makeStyles(theme => ({
     },
     icon : {
         fontSize : '18pt',
-        color : theme.rc3.footerIcon,
+        color : rc3.footerIcon,
         transition : 'color 0.24s ease-in'
-    },
-    tooltip : {
-        fontSize : '11pt',
-        padding : '4px 8px',
-        minHeight : '20px',
-        lineHeight : '20px'
     }
-}), 'ContactButton');
+}), { name : 'ContactButton' });
 
-const ContactButton = memo(function ContactButton({ 
-    url, 
-    iconClass, 
-    tooltipContent 
-}){ 
+function ContactButton({ url, iconClass, tooltipContent }){ 
     const classes = useStyles({ url, iconClass, tooltipContent });
-    
+    const onMouseDown = useMemo(()=> e => appHistory.goTo(url, e), [url]);
     return (
         <Tooltip
             enterDelay={ 350 }
             title={ tooltipContent }
-            classes={{ tooltip : classes.tooltip }}
         >
             <Button
                 className={ classes.contactButton }
-                onMouseDown={ e => appHistory.goTo(url, e) }
+                onMouseDown={ onMouseDown }
             ><i className={`${iconClass} ${classes.icon}`}/>
             </Button>
         </Tooltip>
     );
-});
+}
 
-const AppFooter = withFadeTransitions(function AppFooter() {
+function AppFooter() {
     return (
         <div className="appFooter">
         
@@ -82,6 +70,6 @@ const AppFooter = withFadeTransitions(function AppFooter() {
             />
         </div>
     )
-});
+}
 
-export default AppFooter
+export default withFadeTransitions(AppFooter)

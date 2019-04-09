@@ -44,7 +44,6 @@ const envFile = require('dotenv').config(), // funnel process.env vars
       helmet = require('helmet'),
       argv = require('yargs').argv, //grabs our app arguments
       colors = require('colors'),
-      controllers = require('./controllers'),
       bodyParser = require('body-parser'),
       port = argv.port || process.env.PORT || 3002,
       env = process.env.NODE_ENV || 'development';
@@ -87,12 +86,6 @@ app.set('eventHandler', appCallbackHandler);
 app.get('eventHandler').on('dbConnReady', function() {
     console.log('db connection ready event emitted!');
 });
-
-
-// initialize all controllers found
-// within the controllers dir
-
-controllers.init({ app });
 
 // disable layout
 

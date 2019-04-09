@@ -1,11 +1,9 @@
-import React from 'react';
-import injectSheet from 'react-jss';
-import pure from 'recompose/pure';
+import React, { memo } from 'react'
+import { makeStyles } from '@material-ui/styles'
 
 const DEFAULT_FADETIME = 500;
 
-const styleSheet =
-{
+const useStyles = makeStyles( theme => ({
     fadeContainer :
     {
         transition : ({ fadeTime = DEFAULT_FADETIME })=> {
@@ -21,7 +19,7 @@ const styleSheet =
         visibility : ({ isShown })=> (isShown?'visible':'hidden'),
         opacity    : ({ isShown })=> (isShown?1:0)
     }
-};
+}), { name : 'componentFader' });
 
 // TODO | append displayName at appropriate points
 // TODO | when generating
@@ -32,12 +30,16 @@ const styleSheet =
  *
  * accepts "isShown" and "fadeTime"(optional) as props
  */
-export const componentFader = (WrappedComponent)=>(injectSheet(styleSheet)(
-({ classes, ...propsWOClasses })=>
-{
+export const componentFader = WrappedComponent => memo(
+function ComponentFader({ fadeTime = DEFAULT_FADETIME, isShown, ...otherProps }) {
+    const classes= useStyles({ fadeTime, isShown });
     return (
-    <div className={classes.fadeContainer}>
-        <WrappedComponent {...propsWOClasses} faderClasses={classes} />
-    </div>
-)}));
-export default componentFader;
+        <div className={classes.fadeContainer}>
+            <WrappedComponent 
+                { ...otherProps } 
+                faderClasses={classes}     
+            />
+        </div>
+    )
+});
+export default componentFader

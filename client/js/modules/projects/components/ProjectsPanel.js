@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import injectSheet from 'react-jss'
 import { projects } from 'strings'
+import { withStyles } from '@material-ui/styles'
 import appHistory from 'utils/appHistory'
 import wait from 'utils/wait'
 import projectsData from 'app-root/data/projectsData'
-import styleSheet from './style/ProjectsPanelStyle'
+import styles from './style/ProjectsPanelStyle'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
 import { projectIdOfUrl } from './../selectors'
@@ -17,8 +17,6 @@ import {
     PROJECT_SCROLL_UP,
     PROJECT_VIEW
 } from './../constants/DisplayStates'
-
-const SECTION_ROOT = '/projects';
 
 class ProjectsPanel extends PureComponent {
     constructor(props) {
@@ -63,26 +61,20 @@ class ProjectsPanel extends PureComponent {
             switch(this.state.displayState) {
                 case OFFSET_CALCULATION : 
                     wait(200).then(()=>{
-                        this.setState({
-                            displayState : AFTER_FADE_POSITIONING
-                        });
+                        this.setState({ displayState : AFTER_FADE_POSITIONING });
                     });
                     break;
                 
                 case AFTER_FADE_POSITIONING : 
                     wait(200).then(()=>{
                         window.scrollTo(0,0); 
-                        this.setState({
-                            displayState : PROJECT_SCROLL_UP
-                        });
+                        this.setState({ displayState : PROJECT_SCROLL_UP });
                     });
                     break;
 
                 case PROJECT_SCROLL_UP :
                     wait(50).then(()=>{ 
-                    this.setState({ 
-                            displayState : PROJECT_VIEW 
-                        });                    
+                    this.setState({ displayState : PROJECT_VIEW });                    
                     });
                     break;
             }
@@ -95,7 +87,7 @@ class ProjectsPanel extends PureComponent {
     render () {
         const { 
             projectIdOfUrl, language, theme, classes, 
-            viewportWidth, location, match 
+            vpW, location, match 
         } = this.props;
 
         const { 
@@ -125,13 +117,13 @@ class ProjectsPanel extends PureComponent {
                             isSelected={ (p.id == projectIdOfUrl) }
                             theme={ theme } 
                             wasSelectionViaUI={ this.state.wasSelectionViaUI }
-                            viewportWidth={viewportWidth}
+                            vpW={vpW}
                         />
                     ))}
                     {/* if we have a large viewport, fill in the space so
                         that we don't get oddly centered cards on the bottom
                     */}
-                    {!projectIdOfUrl && (viewportWidth > 1108) && (
+                    {!projectIdOfUrl && (vpW > 1108) && (
                         <div className={classes.emptyCard} />
                     )}
                     { typeof projectIdOfUrl != 'undefined' && 
@@ -144,10 +136,10 @@ class ProjectsPanel extends PureComponent {
     }
 }
 
-export default injectSheet(styleSheet)(connect(
+export default withStyles(styles)(connect(
     (state, props) => ({ 
         theme          : state.core.theme,
-        viewportWidth  : state.viewport.viewportWidth,
+        vpW  : state.viewport.vpW,
         projectIdOfUrl : projectIdOfUrl(state,props) 
     })
 )(ProjectsPanel));

@@ -20,11 +20,11 @@ function getViewportHeight () {
 
 /**
  * Get the minimum width breakpoint
- * based on a given viewportWidth
+ * based on a given vpW
  * 
- * @param {Number} viewportWidth 
+ * @param {Number} vpW 
  */
-function getBreakpoint (viewportWidth) {
+function getBreakpoint (vpW) {
     for(let bp of orderedBreakpoints) {
         let isMatch = window.matchMedia( `(min-width: ${bp}px)` ).matches;
         if(isMatch) { 
@@ -34,12 +34,12 @@ function getBreakpoint (viewportWidth) {
 }
 
 const getInitialState = ()=> {
-    const viewportWidth = getViewportWidth();
+    const vpW = getViewportWidth();
 
     return {
-        viewportWidth,
-        viewportHeight : getViewportHeight(),   
-        breakpoint : getBreakpoint(viewportWidth)
+        vpW,
+        vpH : getViewportHeight(),   
+        breakpoint : getBreakpoint(vpW)
     };
 };
 
@@ -50,20 +50,20 @@ const reducer = (state = { ...getInitialState() }, action) => {
 
         case REFRESH_WINDOW_DIMENSIONS :
 
-            let viewportWidth = getViewportWidth(),
-                viewportHeight = getViewportHeight(),
-                breakpoint = getBreakpoint(viewportWidth);
+            let vpW = getViewportWidth(),
+                vpH = getViewportHeight(),
+                breakpoint = getBreakpoint(vpW);
 
-            if((state.viewportWidth != viewportWidth) || 
-                (state.viewportHeight != viewportHeight)
+            if((state.vpW != vpW) || 
+                (state.vpH != vpH)
             ) {
                 // override width/height which will refresh app view
                 
                 return Object.assign(
                     { ...state }, 
                     { 
-                        viewportWidth, 
-                        viewportHeight,
+                        vpW, 
+                        vpH,
                         breakpoint
                     }
                 );

@@ -1,10 +1,10 @@
-import React from 'react'
-import injectSheet from 'react-jss'
+import React, { memo } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import Technologies from 'constants/Technologies'
 import ButtonLink from 'utils/components/ButtonLink'
 import SVG from 'react-inlinesvg'
 
-const styleSheet = {
+const useStyles = makeStyles( theme =>({
     techContainer : {
         margin : '4px',
         
@@ -36,11 +36,12 @@ const styleSheet = {
             height : '48px'
         },
     }
-};
+}), { name : 'ProjectTechnologies' });
 
-function ProjectTechnologies({ technologySet, classes }) { 
-    
-    return Array.from(technologySet).map( (tKey,i,arr) => {
+function ProjectTechnologies({ technologySet }) { 
+    const classes = useStyles({ technologySet });
+
+    return Array.from(technologySet).map((tKey,i,arr) => {
         const { 
             displayName, 
             referenceUrl 
@@ -48,11 +49,10 @@ function ProjectTechnologies({ technologySet, classes }) {
 
         return (
             <ButtonLink 
-                url={referenceUrl} 
-                containerClass={classes.techContainer}
-                title={displayName}
-            >
-                <SVG 
+                url={ referenceUrl } 
+                containerClass={ classes.techContainer }
+                title={ displayName }
+            >   <SVG 
                     className={classes.techIcon}
                     src={`/img/techs/${tKey}.svg`}
                 />
@@ -61,4 +61,4 @@ function ProjectTechnologies({ technologySet, classes }) {
     });
 }
 
-export default injectSheet(styleSheet)(ProjectTechnologies)
+export default memo(ProjectTechnologies)

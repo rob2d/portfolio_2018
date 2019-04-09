@@ -1,11 +1,9 @@
-import React, { PureComponent } from 'react'
-import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
-import { getTheme } from 'app-root/themeFactory'
+import React, { memo, PureComponent } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button'
 import LoadingComponent from 'utils/components/LoadingComponent'
 
-const styleSheet = {
+const useStyles = makeStyles( theme => ({
     container : {
         display        : 'flex',
         flexDirection  : 'row',
@@ -15,7 +13,7 @@ const styleSheet = {
         width          : '100%',
         textAlign      : 'center',
         marginTop      : '16px',
-        color          : ({ theme }) => getTheme(theme).rc3.text
+        color : theme.rc3.text
     },
     progress : {
         display : 'block',
@@ -37,47 +35,48 @@ const styleSheet = {
         fontSize : '17pt',
         minWidth : '48px'
     }
-};
+}), { name : 'PDFViewerNav' });
 
-const PDFViewerNav = pure(injectSheet(styleSheet)(({
-    classes,
+function PDFViewerNav ({
     pageNumber, pageCount,
     handleNextPage, handlePrevPage,
-    theme,
     isLoaded
-})=>
-(
-    isLoaded ? 
-    (
-        <div className={classes.container}>
-            <div className={`${classes.buttonContainer} ${classes.prevButton}`}>
-                <Button
-                    className={classes.button}
-                    disabled={ !(pageNumber > 1) }
-                    onClick={ handlePrevPage }
-                ><i className={`mdi mdi-skip-previous`}/>
-                </Button>
-            </div>
-            { 
-                ( pageCount > 0 ) &&
-                    (<div>{pageNumber}&nbsp;/&nbsp;{pageCount}</div>)
-            }
-            <div className={`${classes.buttonContainer} ${classes.nextButton}`}>
-                <Button
-                    className={classes.button}
-                    disabled={ !(pageNumber < pageCount) }
-                    onClick={ handleNextPage }
-                ><i className={`mdi mdi-skip-next`}/>
-                </Button>
-            </div>
-        </div>
-    ) : (
-        <div className={classes.container}>
-            <div className={classes.linearProgress}>
-                <LoadingComponent />
-            </div>
-        </div>
-    )
-)));
+}) {
+    const classes = useStyles();
 
-export default PDFViewerNav
+    return (
+        isLoaded ? 
+        (
+            <div className={classes.container}>
+                <div className={`${classes.buttonContainer} ${classes.prevButton}`}>
+                    <Button
+                        className={classes.button}
+                        disabled={ !(pageNumber > 1) }
+                        onClick={ handlePrevPage }
+                    ><i className={`mdi mdi-skip-previous`}/>
+                    </Button>
+                </div>
+                { 
+                    ( pageCount > 0 ) &&
+                        (<div>{pageNumber}&nbsp;/&nbsp;{pageCount}</div>)
+                }
+                <div className={`${classes.buttonContainer} ${classes.nextButton}`}>
+                    <Button
+                        className={classes.button}
+                        disabled={ !(pageNumber < pageCount) }
+                        onClick={ handleNextPage }
+                    ><i className={`mdi mdi-skip-next`}/>
+                    </Button>
+                </div>
+            </div>
+        ) : (
+            <div className={classes.container}>
+                <div className={classes.linearProgress}>
+                    <LoadingComponent />
+                </div>
+            </div>
+        )
+    )
+}
+
+export default memo(PDFViewerNav)

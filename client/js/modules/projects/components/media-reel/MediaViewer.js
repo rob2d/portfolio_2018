@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react'
-import injectSheet from 'react-jss'
+import React, { memo, PureComponent } from 'react'
+import { withStyles } from '@material-ui/styles'
 import MediaTypes from 'constants/MediaTypes'
 import ButtonLink from 'utils/components/ButtonLink'
 import YouTube from 'react-youtube'
 import PropTypes from 'prop-types'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const styleSheet = {
+const styles = theme => ({
     container : {
         display         : 'flex',
         boxSizing       : 'border-box',
@@ -81,15 +81,13 @@ const styleSheet = {
             fontSize :'10pt'
         }
     },
-};
+});
 
 class MediaViewer extends PureComponent {
 
     constructor(props) {
         super(props);
-
         const { disableCache } = props;
-
         this.state = { 
             cacheMap : disableCache ? undefined : new Map() 
         };
@@ -248,7 +246,7 @@ class MediaViewer extends PureComponent {
 
         const { 
             type, src, thumb, videoId, 
-            caption, classes, viewportWidth
+            caption, classes, vpW
         } = this.props;
 
         const itemKey = MediaViewer.getItemKey(this.props);
@@ -303,7 +301,7 @@ class MediaViewer extends PureComponent {
                         classes= {{
                             colorPrimary : classes.circularProgress
                         }}
-                        size={(viewportWidth <= 800) ? 40 : 64} 
+                        size={(vpW <= 800) ? 40 : 64} 
                         color={`primary`} 
                     />
                 </div>)}
@@ -325,7 +323,7 @@ MediaViewer.propTypes = {
     onVideoPlay   : PropTypes.func.isRequired,
     onVideoStop   : PropTypes.func.isRequired,
     disableCache  : PropTypes.bool,
-    viewportWidth : PropTypes.number
+    vpW : PropTypes.number
 };
 
-export default injectSheet(styleSheet)(MediaViewer)
+export default memo(withStyles(styles)(MediaViewer))

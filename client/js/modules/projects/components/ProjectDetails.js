@@ -1,6 +1,5 @@
-import React, { PureComponent } from 'react'
-import injectSheet from 'react-jss'
-import pure from 'recompose/pure'
+import React, { memo } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import strings, { projects } from 'strings'
 import { connect } from 'react-redux'
 import appHistory from 'utils/appHistory'
@@ -19,7 +18,7 @@ const getTextColor = ({ theme }) => ((theme == Themes.LIGHT) ?
     '#000000' : '#FFFFFF'
 );
 
-const styleSheet = {
+const useStyles = makeStyles(theme => ({
     mainContainer : {
         flexGrow     : 1,
         margin       : '0 auto',
@@ -60,7 +59,9 @@ const styleSheet = {
         textAlign    : 'left',
         paddingLeft  : '16px',
         paddingRight : '16px',
-        color : getTextColor
+        color : ((theme.theme == Themes.LIGHT) ? 
+            '#000000' : '#FFFFFF'
+        ),
     },
 
     // only on tablet sized device+ or certain
@@ -131,7 +132,9 @@ const styleSheet = {
     },
     section : {
         margin : '16px 0px 32px',
-        color : getTextColor
+        color : ((theme.theme == Themes.LIGHT) ? 
+            '#000000' : '#FFFFFF'
+        ),
     },
     sectionHeader : {
         fontFamily : 'roboto_bold',
@@ -173,7 +176,7 @@ const styleSheet = {
     },
     linkIcon : {
         paddingRight : '16px',
-        color        : ({ theme }) => ((theme == Themes.LIGHT) ? 
+        color        : ((theme.theme == Themes.LIGHT) ? 
             '#000000' : '#FFFFFF'
         ),
         fontSize : '12pt'
@@ -187,181 +190,175 @@ const styleSheet = {
         fontSize    : '12pt',
         textAlign   : 'left'
     }
-};
+}));
 
-const ProjectDetails = withFadeTransitions(injectSheet(styleSheet)(
-    function ProjectDetails({ classes, match, projectId, viewportWidth, theme }) { 
-        const project = findProjectStrings(projectId);
-        const pData = projectsData[projectId];
+function ProjectDetails({ projectId, vpW }) { 
+    const classes = useStyles({  projectId, vpW });
+    const project = findProjectStrings(projectId);
+    const pData = projectsData[projectId];
 
-        // TODO : use redux to hydrate media data
-        let media = (()=>{
-            if(pData && pData.media && pData.media.length > 0) {
-                // if media captions exist in project strings,
-                // concat those to our media
-                if(project.mediaCaptions && project.mediaCaptions.length > 0) {
-                    return pData.media.map((item,i)=>({
-                        ...item,
-                        caption : project.mediaCaptions[i]
-                    })); 
-                }
-                else return pData.media;
+    // TODO : use redux to hydrate media data
+    let media = (()=>{
+        if(pData && pData.media && pData.media.length > 0) {
+            // if media captions exist in project strings,
+            // concat those to our media
+            if(project.mediaCaptions && project.mediaCaptions.length > 0) {
+                return pData.media.map((item,i)=>({
+                    ...item,
+                    caption : project.mediaCaptions[i]
+                })); 
             }
-        })();
-        
-        return (
-            <div className={ classes.mainContainer }>
-                <div className={classes.contentContainer}>
-                    { project && (
-                            <div className={classes.section}>
-                                <p className={classes.sectionRole}>
-                                  {project.roles}
-                                </p>
-                            </div>
-                        )
-                    }
-                    {project.technologySet && project.technologySet.size && (
-                    <div className={classes.section}>
-                        <p className={classes.sectionContent}>
-                            <ProjectTechnologies technologySet={project.technologySet} />
-                        </p>
-                    </div>
-                    )}
-                  <div className={classes.section}>
-                    {project.description && Array.isArray(project.description) ? 
-                        project.description.map((d, i)=>(
-                            <p className={classes.description} key={`project_description_${i}`}>
-                             {d}
+            else return pData.media;
+        }
+    })();
+    
+    return (
+        <div className={ classes.mainContainer }>
+            <div className={classes.contentContainer}>
+                { project && (
+                        <div className={classes.section}>
+                            <p className={classes.sectionRole}>
+                                {project.roles}
                             </p>
-                        )) : (  
-                        <p className={classes.description} key={`project_description_${i}`}>
-                            {project.description || project.shortDescription}
-                        </p>)
-                    }
+                        </div>
+                    )
+                }
+                {project.technologySet && project.technologySet.size && (
+                <div className={classes.section}>
+                    <p className={classes.sectionContent}>
+                        <ProjectTechnologies technologySet={project.technologySet} />
+                    </p>
                 </div>
-                    { pData && pData.media && pData.media.length > 0 && 
-                    (
-                        <div className={classes.section}>
-                            <p className={classes.sectionHeader}>
-                                Media
-                            </p>
-                            <p className={classes.sectionContent}>
-                                <MediaReel 
-                                    maxWidth={ 800 }
-                                    width={ Math.min(Math.round(viewportWidth * 0.80), 800) }
-                                    aspectRatio={ pData.mediaAspectRatio }
-                                    projectId={projectId}
-                                    media={media}
-                                />
-                            </p>
-                        </div>
-                    )}
-                    { pData && pData.sourceCode && (
-                        <div className={classes.section}>
-                            <p className={classes.sectionHeader}>
-                                Source Code
-                            </p>
-                            <p className={classes.sectionContent}>
-                                {pData.sourceCode.map((link,i)=>(
-                                <ButtonLink
-                                    url={link}
-                                    containerClass={classes.linkContainer}
-                                    key={`project_sourcecode_${i}`}
-                                >
-                                    <i className={`mdi mdi-code-tags ${classes.linkIcon}`} />
-                                    <p className={classes.linkText}>
-                                        {project.sourceCodeDescriptions[i]}
-                                    </p>
-                                </ButtonLink>
-                                ))}
-                            </p>
-                        </div>
-                    )}
-                    { pData && pData.documentation && (
-                        <div className={classes.section}>
-                            <p className={classes.sectionHeader}>
-                                Documentation
-                            </p>
-                            <p className={classes.sectionContent}>
-                                {pData.documentation.map((link, i)=>(
-                                <ButtonLink 
-                                    url={link}
-                                    containerClass={classes.linkContainer}
-                                    key={`project_doclink_${i}`}
-                                >
-                                    <i className={`mdi mdi-note-outline ${classes.linkIcon}`} />
-                                    <p className={classes.linkText}>
-                                        {project.documentationDescriptions[i]}
-                                    </p>
-                                </ButtonLink>
-                                ))}
-                            </p>
-                        </div>
-                    )}
-                    { pData && pData.downloads && (
+                )}
+                <div className={classes.section}>
+                {project.description && Array.isArray(project.description) ? 
+                    project.description.map((d, i)=>(
+                        <p className={classes.description} key={`project_description_${i}`}>
+                            {d}
+                        </p>
+                    )) : (  
+                    <p className={classes.description} key={`project_description_${i}`}>
+                        {project.description || project.shortDescription}
+                    </p>)
+                }
+            </div>
+                { pData && pData.media && pData.media.length > 0 && 
+                (
                     <div className={classes.section}>
                         <p className={classes.sectionHeader}>
-                            Downloads
+                            Media
                         </p>
                         <p className={classes.sectionContent}>
-                            {pData.downloads.map((link, i)=>(
-                            <ButtonLink 
-                                url={link} 
+                            <MediaReel 
+                                maxWidth={ 800 }
+                                width={ Math.min(Math.round(vpW * 0.80), 800) }
+                                aspectRatio={ pData.mediaAspectRatio }
+                                projectId={projectId}
+                                media={media}
+                            />
+                        </p>
+                    </div>
+                )}
+                { pData && pData.sourceCode && (
+                    <div className={classes.section}>
+                        <p className={classes.sectionHeader}>
+                            Source Code
+                        </p>
+                        <p className={classes.sectionContent}>
+                            {pData.sourceCode.map((link,i)=>(
+                            <ButtonLink
+                                url={link}
                                 containerClass={classes.linkContainer}
-                                key={`project_downloads_${i}`}
+                                key={`project_sourcecode_${i}`}
                             >
-                                <i className={`mdi mdi-download ${classes.linkIcon}`} />
+                                <i className={`mdi mdi-code-tags ${classes.linkIcon}`} />
                                 <p className={classes.linkText}>
-                                    {project.downloadDescriptions[i]}
+                                    {project.sourceCodeDescriptions[i]}
                                 </p>
                             </ButtonLink>
                             ))}
                         </p>
                     </div>
                 )}
-                    { pData && pData.links && (
-                        <div className={classes.section}>
-                            <p className={classes.sectionHeader}>
-                                Links
-                            </p>
-                            <p className={classes.sectionContent}>
-                                {pData.links.map((link, i)=>(
-                                <ButtonLink 
-                                    url={link} 
-                                    containerClass={classes.linkContainer}
-                                    key={`project_links_${i}`}
-                                >
-                                            <i className={`mdi mdi-link ${classes.linkIcon}`} />
-                                            <p className={classes.linkText}>
-                                                {project.linkDescriptions[i]}
-                                            </p>
-                                </ButtonLink>
-                                ))}
-                            </p>
-                        </div>
-                    )}
-
-                    <ButtonLink containerClass={ classes.returnContainer } url={`/projects`}>
-                        <div className={classes.returnIcon}>
-                            <div className={classes.returnIconContainer}>
-                            <i className={`mdi mdi-arrow-left-box ${classes.linkIcon}`} />
-                            </div>
-                        </div>
-                        <p className={ classes.returnText }>
-                            Back to Projects
+                { pData && pData.documentation && (
+                    <div className={classes.section}>
+                        <p className={classes.sectionHeader}>
+                            Documentation
                         </p>
-                    </ButtonLink>
+                        <p className={classes.sectionContent}>
+                            {pData.documentation.map((link, i)=>(
+                            <ButtonLink 
+                                url={link}
+                                containerClass={classes.linkContainer}
+                                key={`project_doclink_${i}`}
+                            >
+                                <i className={`mdi mdi-note-outline ${classes.linkIcon}`} />
+                                <p className={classes.linkText}>
+                                    {project.documentationDescriptions[i]}
+                                </p>
+                            </ButtonLink>
+                            ))}
+                        </p>
+                    </div>
+                )}
+                { pData && pData.downloads && (
+                <div className={classes.section}>
+                    <p className={classes.sectionHeader}>
+                        Downloads
+                    </p>
+                    <p className={classes.sectionContent}>
+                        {pData.downloads.map((link, i)=>(
+                        <ButtonLink 
+                            url={link} 
+                            containerClass={classes.linkContainer}
+                            key={`project_downloads_${i}`}
+                        >
+                            <i className={`mdi mdi-download ${classes.linkIcon}`} />
+                            <p className={classes.linkText}>
+                                {project.downloadDescriptions[i]}
+                            </p>
+                        </ButtonLink>
+                        ))}
+                    </p>
                 </div>
+            )}
+                { pData && pData.links && (
+                    <div className={classes.section}>
+                        <p className={classes.sectionHeader}>
+                            Links
+                        </p>
+                        <p className={classes.sectionContent}>
+                            {pData.links.map((link, i)=>(
+                            <ButtonLink 
+                                url={link} 
+                                containerClass={classes.linkContainer}
+                                key={`project_links_${i}`}
+                            >
+                                        <i className={`mdi mdi-link ${classes.linkIcon}`} />
+                                        <p className={classes.linkText}>
+                                            {project.linkDescriptions[i]}
+                                        </p>
+                            </ButtonLink>
+                            ))}
+                        </p>
+                    </div>
+                )}
+
+                <ButtonLink containerClass={ classes.returnContainer } url={`/projects`}>
+                    <div className={classes.returnIcon}>
+                        <div className={classes.returnIconContainer}>
+                        <i className={`mdi mdi-arrow-left-box ${classes.linkIcon}`} />
+                        </div>
+                    </div>
+                    <p className={ classes.returnText }>
+                        Back to Projects
+                    </p>
+                </ButtonLink>
             </div>
-        )
-    })
-);
+        </div>
+    );
+}
 
-let VisibleProjectView = connect(
-    ({ core, viewport })=> ({ 
-        theme         : core.theme,
-        viewportWidth : viewport.viewportWidth 
-    })
-)(ProjectDetails);
-
-export default VisibleProjectView
+export default  withFadeTransitions(connect(
+    ({ viewport })=> ({ vpW : viewport.vpW })
+)(ProjectDetails))

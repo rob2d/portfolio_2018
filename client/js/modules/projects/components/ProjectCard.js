@@ -1,11 +1,9 @@
-import React, { PureComponent } from 'react'
-import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
+import React, { PureComponent, memo } from 'react'
+import { withStyles } from '@material-ui/styles'
 import Typography  from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import styleSheet from './style/ProjectCardStyle'
+import styles from './style/ProjectCardStyle'
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -15,46 +13,43 @@ import {
     PROJECT_VIEW
 } from './../constants/DisplayStates'
 
-const ProjectCardLayout = injectSheet(styleSheet)(
+const ProjectCardLayout = withStyles(styles)(
     function ProjectCardLayout({
-        data, pData, classes, onClick, 
-        theme, parent, viewAsTitle
+        data : { id, title, context, shortDescription }, 
+        pData, classes, onClick, parent, viewAsTitle
     }) {
         let containerClass = ( viewAsTitle ? 
                                 classes.cardContainerAsTitle : 
-                                classes.cardContainer 
-        );
+                                classes.cardContainer );
 
         return (
             <div 
                 ref={ c => parent.R.container = c } 
-                className={classes.container}
+                className={ classes.container }
             >
-                <Card className={containerClass} onMouseDown={onClick}>
+                <Card 
+                    className={ containerClass } 
+                    onMouseDown={ onClick }
+                >
                     <div className={classes.cardMediaContent}>
                         <img
-                            src={`/img/projects/${
-                                data.id}/${
-                                data.id}_thumb.png`
-                            }
+                            src={`/img/projects/${id}/${id}_thumb.png`}
                             className={classes.cardMediaImg}
                         />
                         <div className={classes.titleOverlay}>
                             <p className={classes.projectTitle}>
-                                {data.title}
+                                { title }
                             </p>
                             <p className={classes.projectSubtitle}>
-                                {data.context} ({pData.year})
+                                { context } ({pData.year})
                             </p>
                             <div className={classes.moreInfoButton}>
-                                <i className={'mdi mdi-information-outline'}/>
+                                <i className={'mdi mdi-information-outline'} />
                             </div>
                         </div>
                     </div>
-                    <CardContent className={classes.cardContent}>
-                        <Typography component="p">
-                            {data.shortDescription}
-                        </Typography>
+                    <CardContent className={ classes.cardContent }>
+                        <Typography component="p">{ shortDescription }</Typography>
                     </CardContent>
                 </Card>
             </div>
@@ -63,17 +58,17 @@ const ProjectCardLayout = injectSheet(styleSheet)(
 );
 
 class ProjectCard extends PureComponent {
-    constructor (props) {
-        super(props);
-        this.state = {
-            hasAbsolutePosition : false,
-            viewAsTitle         : false,
-            onScreen            : true
-        };
-        this.R = { container : undefined };
-        this.offsetX = undefined;
-        this.offsetY = undefined;
-    }
+    
+    state = {
+        hasAbsolutePosition : false,
+        viewAsTitle         : false,
+        onScreen            : true
+    };
+
+    R = { container : undefined };
+    offsetX = undefined;
+    offsetY = undefined;
+    
     componentWillMount() {
         this.componentWillReceiveProps(this.props);
     }

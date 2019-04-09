@@ -33,8 +33,8 @@ const base = {
     }
 };
 
-function getTopMargin (viewportWidth) {
-    return viewportWidth > 800 ? 32 : 16;
+function getTopMargin (vpW) {
+    return vpW > 800 ? 32 : 16;
 }
 
 const styleSheet = {
@@ -44,8 +44,8 @@ const styleSheet = {
         position: ({ hasAbsolutePosition })=>(
             hasAbsolutePosition ? 'absolute' : 'relative'
         ),
-        top: ({ hasAbsolutePosition, offsetY, viewportWidth }) => (
-            hasAbsolutePosition ? (offsetY - getTopMargin(viewportWidth)) : 'auto'
+        top: ({ hasAbsolutePosition, offsetY, vpW }) => (
+            hasAbsolutePosition ? (offsetY - getTopMargin(vpW)) : 'auto'
         ),
         left: ({hasAbsolutePosition, offsetX, data }) => (
             hasAbsolutePosition ? offsetX : 'auto'
@@ -57,7 +57,7 @@ const styleSheet = {
         ),
         width        : ({ viewAsTitle })=> (viewAsTitle ? '400px' : '300px'),
         height       : ({ viewAsTitle }) => (viewAsTitle ? '80px' : '324px'),
-        marginTop    : ({ viewportWidth }) => (getTopMargin(viewportWidth) + 'px'),
+        marginTop    : ({ vpW }) => (getTopMargin(vpW) + 'px'),
         marginBottom : ({ viewAsTitle }) => (viewAsTitle ? '0px' : '32px'),
         textAlign    : 'left',
         cursor       : ({ viewAsTitle  }) => viewAsTitle ? 'text' : 'pointer',

@@ -1,7 +1,6 @@
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
@@ -21,8 +20,8 @@ const config = {
     },
     optimization: {
       minimizer: [
-        new UglifyJSPlugin({
-          uglifyOptions: {
+        new TerserPlugin({
+          terserOptions: {
             compress: {
               drop_console: true
             },
