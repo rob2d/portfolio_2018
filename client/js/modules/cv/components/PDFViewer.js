@@ -80,6 +80,7 @@ const initialState = {
 };
 
 function reducer (state={ initialState }, action) {
+    console.trace('action ->', action);
     const { type, payload } = action;
 
     switch(type) {
@@ -101,9 +102,6 @@ function reducer (state={ initialState }, action) {
         case 'unload-content' : {
             return { ...state, isLoaded : false };
         }
-        case 'handle-page-complete' : {
-            return { ...state, pageNumber : payload };
-        }
         case 'handle-document-complete' : {
             return { ...state, 
                 pageCount : payload,
@@ -123,11 +121,6 @@ function PDFViewer ({ fileURL }) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(()=> {
-        dispatch({ type : 'unload-content' }); 
-        return ()=> dispatch({ type : 'unload-content' });
-    }, []);
-
-    useEffect(()=> {
         dispatch({ type : 'retrigger-view' });
     }, [theme.palette.type]);
 
@@ -143,7 +136,6 @@ function PDFViewer ({ fileURL }) {
     }, [state.pageNumber]);
 
     const handleNextPage = useMemo(()=> ()=>{
-        console.log('handleNextPage :D ->', { state });
         (state.pageNumber < state.pageCount) && 
         dispatch({ type : 'go-to-next-page' })
     }, [state.pageNumber, state.pageCount]);
@@ -160,6 +152,8 @@ function PDFViewer ({ fileURL }) {
             type : 'handle-document-complete',
             payload : pageCount
         }), []);
+
+    console.log('rendering 🙂🙏🙏🙏')
 
     return (
         <div className={ classes.container }>
