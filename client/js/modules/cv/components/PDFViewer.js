@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useEffect, useState, } from 'react'
+import React, { memo, useMemo, useEffect, useState, useReducer } from 'react'
 import { makeStyles, useTheme } from '@material-ui/styles'
 import PDF from 'react-pdf-js'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -72,49 +72,103 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
     }
 }), { name : 'PDFViewer' });
 
+const initialState = {
+    pagenumber : 1,
+    pageCount : 0,
+    isLoaded : false,
+    isRetriggering : false
+};
+
+function reducer (state={ initialState }, action) {
+    const { type, payload } = action;
+
+    switch(type) {
+        case 'go-to-next-page': {
+            return { ...state, pageNumber : (state.pageNumber + 1) };
+        }
+        case 'go-to-prev-page': {
+            return { ...state, pageNumber : (state.pageNumber - 1) };
+        }
+        case 'retrigger-view': {
+            return { ...state, isRetriggering : true };
+        }
+        case 'reset-retrigger': {
+            return { ...state, isRetriggering : false };
+        }
+        case 'load-content' : {
+            return { ...state, isLoaded : true };
+        }
+        case 'unload-content' : {
+            return { ...state, isLoaded : false };
+        }
+        case 'handle-page-complete' : {
+            return { ...state, pageNumber : payload };
+        }
+        case 'handle-document-complete' : {
+            return { ...state, 
+                pageCount : payload,
+                pageNumber : 1,
+                isLoaded : true 
+            };
+        }
+        default : {
+            return state;
+        }
+    }
+}
+
 function PDFViewer ({ fileURL }) {
     const classes = useStyles();
-    const { theme } = useTheme();
-    const [pageNumber, setPageNumber] = useState(1);
-    const [pageCount, setPageCount] = useState(0);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [isRetriggering, setIsRetriggering] = useState(false);
+    const theme = useTheme();
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(()=> {
-        setIsLoaded(false); 
-        return ()=> setIsLoaded(false);
+        dispatch({ type : 'unload-content' }); 
+        return ()=> dispatch({ type : 'unload-content' });
     }, []);
 
     useEffect(()=> {
-        if(isRetriggering) {
-            setIsRetriggering(false);
+        dispatch({ type : 'retrigger-view' });
+    }, [theme.palette.type]);
+
+    useEffect(()=> {
+        if(state.isRetriggering) {
+            dispatch({ type : 'reset-retrigger' });
         }
-    }, [isRetriggering])
+    }, [state.isRetriggering]);
 
-    const handlePrevPage = useMemo(()=> {
-        (pageNumber > 1 && setPageNumber(pageNumber-1));
-    }, []);
+    const handlePrevPage = useMemo(()=> ()=> {
+        (state.pageNumber > 1 && 
+            dispatch({ type : 'go-to-prev-page' }));
+    }, [state.pageNumber]);
 
-    const handleNextPage = useMemo(()=> {
-        (pageNumber < pageCount) && setPageNumber(pageNumber+1)
-    }, []);
+    const handleNextPage = useMemo(()=> ()=>{
+        console.log('handleNextPage :D ->', { state });
+        (state.pageNumber < state.pageCount) && 
+        dispatch({ type : 'go-to-next-page' })
+    }, [state.pageNumber, state.pageCount]);
 
-    const onPageComplete = useMemo(()=> setPageNumber, []);
+    const onPageComplete = useMemo(()=> 
+        pageNumber => dispatch({ 
+            type : 'handle-page-complete', 
+            payload : pageNumber 
+        }), 
+    []);
 
-    const onDocumentComplete = useMemo(()=> pageCount => {
-        setPageCount(pageCount);
-        setPageNumber(1);
-        setIsLoaded(true);
-    }, []);
+    const onDocumentComplete = useMemo(()=> 
+        pageCount => dispatch({ 
+            type : 'handle-document-complete',
+            payload : pageCount
+        }), []);
 
     return (
         <div className={ classes.container }>
-            <div className={!isLoaded ? classes.loadingContent : undefined}>
-                <PDF file={ !isRetriggering && fileURL }
-                    onDocumentComplete={onDocumentComplete}
-                    onPageComplete={onPageComplete}
-                    page={pageNumber}
-                    className={classes.pdfContent}
+            <div className={!state.isLoaded ? classes.loadingContent : undefined}>
+                <PDF file={ !state.isRetriggering && fileURL }
+                    onDocumentComplete={ onDocumentComplete }
+                    onPageComplete={ onPageComplete }
+                    page={ state.pageNumber }
+                    className={ classes.pdfContent }
                 />
             </div>
             <a
@@ -142,11 +196,11 @@ function PDFViewer ({ fileURL }) {
                 )}
             </a>
             <PDFViewerNav
-                pageNumber={ pageNumber }
-                pageCount={ pageCount }
+                pageNumber={ state.pageNumber }
+                pageCount={ state.pageCount }
                 handleNextPage={ handleNextPage }
                 handlePrevPage={ handlePrevPage }
-                isLoaded={ isLoaded }
+                isLoaded={ state.isLoaded }
                 theme={ theme }
             />
         </div>
