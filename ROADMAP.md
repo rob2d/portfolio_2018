@@ -8,8 +8,7 @@
 
 ## Technologies
 
-- allow filtering of techs in Projects view (not high priority).
-- add classnames to path elements and use theme-ing.
+- allow filtering of techs in Projects view (not high priority)
 
 ## Project Details
 
@@ -20,4 +19,3 @@
 ## Refactors
 
 - inline SVGs from mdi library -- decreased page size + responsiveness
-- rewrite the PDFViewer using hooks (for fun and profit -- not really, just for the experience)
