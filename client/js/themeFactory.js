@@ -23,21 +23,21 @@ export const getTheme = theme => {
             // complex theming
             theme,
             rc3 : {
-                text : (theme == Themes.LIGHT) ? 
+                text : (theme == 'light') ? 
                             '#000000' : '#FFFFFF',
-                contrastText : (theme == Themes.LIGHT) ? 
+                contrastText : (theme == 'light') ? 
                             '#FFFFFF' : grey['A100'],
                 secondaryContrastText : '#FFFFFF',
-                background : (theme == Themes.LIGHT) ? 
+                background : (theme == 'light') ? 
                             '#FFFFFF' : '#000000',
-                footerIcon : (theme == Themes.LIGHT) ? 
+                footerIcon : (theme == 'light') ? 
                                 '#455A64' : grey[700]
             },
             palette: {
                 primary   : grey, 
                 secondary : pink,
                 error :  red,
-                text : (theme == Themes.LIGHT) ? 
+                text : (theme == 'light') ? 
                     '#000000' : '#FFFFFF',
                 type : theme
                

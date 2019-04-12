@@ -4,7 +4,7 @@ import Technologies from 'constants/Technologies'
 import ButtonLink from 'utils/components/ButtonLink'
 import SVG from 'react-inlinesvg'
 
-const useStyles = makeStyles( theme =>({
+const useStyles = makeStyles(({ palette, rc3 }) =>({
     techContainer : {
         margin : '4px',
         
@@ -22,26 +22,36 @@ const useStyles = makeStyles( theme =>({
     techIcon : {
         width : '64px',
         height : '64px',
-        transition: 'fill 0.35s ease',
+        transition: 'background-color 0.35s ease',
+        backgroundColor : 'rgba(255,255,255,0)',
         '&:hover' : {
-            fill : '#ff4081'
+            backgroundColor : '#ff4081'
         },
 
         '&:active' : {
-            fill : '#00b8d4'
+            backgroundColor : '#00b8d4'
         },
         
         '@media(max-width:800px)' : {
             width : '48px',
             height : '48px'
         },
+
+        '& polygon, & circle, & path' : {
+            fill : `${rc3.text} !important`,
+            transition: 'fill 0.35s ease'
+        },
+
+        '&:hover path, &:hover circle, &:hover polygon' : {
+            fill : '#fff !important'
+        }
     }
 }), { name : 'ProjectTechnologies' });
 
 function ProjectTechnologies({ technologySet }) { 
     const classes = useStyles({ technologySet });
 
-    return Array.from(technologySet).map((tKey,i,arr) => {
+    return Array.from(technologySet).map( (tKey,i,arr) => {
         const { 
             displayName, 
             referenceUrl 
@@ -53,7 +63,7 @@ function ProjectTechnologies({ technologySet }) {
                 containerClass={ classes.techContainer }
                 title={ displayName }
             >   <SVG 
-                    className={classes.techIcon}
+                    className={ classes.techIcon }
                     src={`/img/techs/${tKey}.svg`}
                 />
             </ButtonLink>
