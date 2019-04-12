@@ -2,7 +2,6 @@ import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 
-
 function getHeight (index) {
     return (index!=-1) ? 4 : 6;
 }
@@ -47,12 +46,11 @@ const useStyles = makeStyles( theme => ({
 
 function SectionHighlighter (props) {
     const borderEdge = useMemo(()=>{
-        console.log('props ->', props);
-        return (
-        (props.index == -1) ?
+        return ((props.index == -1) ?
             '6px solid transparent':
             `${(props.buttonWidth/2)}px solid #c51162`
-        )},[props.index, props.buttonWidth]);
+        );
+    },[props.index, props.buttonWidth]);
 
     const classes = useStyles({ 
         ...props, 

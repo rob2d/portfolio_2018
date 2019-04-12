@@ -80,7 +80,6 @@ const initialState = {
 };
 
 function reducer (state={ initialState }, action) {
-    console.trace('action ->', action);
     const { type, payload } = action;
 
     switch(type) {
