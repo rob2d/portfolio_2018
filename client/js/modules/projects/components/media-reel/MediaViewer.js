@@ -27,10 +27,8 @@ const styles = theme => ({
         '&:active' : {
             border : '2px solid #00b8d4;'
         },
-        width : ({ width }) =>(`${width}px`),
-        height : ({ width, aspectRatio }) => (
-            `${(width / aspectRatio)}px`
-        )
+        width : 'auto',
+        height : 'auto'
     },
     image : {
         width      : '100%',
@@ -42,7 +40,11 @@ const styles = theme => ({
         height : ({ width, aspectRatio }) => (
             `${(width / aspectRatio)}px`
         ),
-        cursor : 'pointer'
+        cursor : 'pointer',
+        '& > span > iframe' : {
+            maxWidth : '100%',
+            maxHeight : '100%'
+        }
     },
     caption : {
         display : 'flex',
@@ -87,6 +89,7 @@ class MediaViewer extends PureComponent {
 
     constructor(props) {
         super(props);
+
         const { disableCache } = props;
         this.state = { 
             cacheMap : disableCache ? undefined : new Map() 
@@ -135,15 +138,15 @@ class MediaViewer extends PureComponent {
         )) {
 
             let newState = {
-                type        : state.src,
-                src         : props.src,
-                thumb       : props.thumb,
-                videoId     : props.videoId,
+                type : state.src,
+                src : props.src,
+                thumb : props.thumb,
+                videoId : props.videoId,
                 updateCount : props.updateCount,
-                height      : props.width / props.aspectRatio
+                height : props.width / props.aspectRatio,
+                itemDimensionStyle : { width : props.width+'px', height : props.height+'px' }
             };
 
-            // 
             const { cacheMap } = state;
             let itemKey = MediaViewer.getItemKey(props);
 
@@ -181,8 +184,10 @@ class MediaViewer extends PureComponent {
                             <ButtonLink 
                                 url={resource.url}
                                 title={ 'Open full res image in new tab' }
-                                containerClass={props.classes.mediaContainerButton}
+                                containerClass={ props.classes.mediaContainerButton }
+                                style={ newState.itemDimensionStyle }
                             > <img 
+                                style={ newState.itemDimensionStyle }
                                 className={props.classes.image} 
                                 src={props.src} 
                             />
@@ -203,10 +208,12 @@ class MediaViewer extends PureComponent {
                         resource.thumb = `https://img.youtube.com/vi/${videoId}/default.jpg`
                         resource.domSegment = (
                             <YouTube
-                                key={itemKey}
-                                id={itemKey}
-                                videoId={videoId}
-                                className={props.classes.mediaContainer}
+                                key={ itemKey }
+                                id={ itemKey }
+                                videoId={ videoId }
+                                style={ newState.itemDimensionStyle }
+                                width={ newState.width }
+                                height={ newState.height }
                                 onReady={() => {
                                     let thisItem = cacheMap.get(itemKey);
                                     thisItem.isMediaLoading = false;
@@ -314,14 +321,14 @@ class MediaViewer extends PureComponent {
 }
 
 MediaViewer.propTypes = {
-    type          : PropTypes.string.isRequired,
-    src           : PropTypes.string,
-    thumb         : PropTypes.string,
-    width         : PropTypes.number,
-    aspectRatio   : PropTypes.number,
-    videoId       : PropTypes.string,
-    onVideoPlay   : PropTypes.func.isRequired,
-    onVideoStop   : PropTypes.func.isRequired,
+    type : PropTypes.string.isRequired,
+    src : PropTypes.string,
+    thumb : PropTypes.string,
+    width : PropTypes.number,
+    aspectRatio : PropTypes.number,
+    videoId : PropTypes.string,
+    onVideoPlay : PropTypes.func.isRequired,
+    onVideoStop : PropTypes.func.isRequired,
     disableCache  : PropTypes.bool,
     vpW : PropTypes.number
 };
