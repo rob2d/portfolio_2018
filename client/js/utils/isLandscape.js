@@ -10,11 +10,11 @@
 const isLandscape = (function() {
     const memoizedValues = {};
     
-    return (viewportWidth, viewportHeight)=> {
-        const hashKey = `${viewportWidth}_${viewportHeight}`;
+    return (vpW, vpH)=> {
+        const hashKey = `${vpW}_${vpH}`;
         if(!memoizedValues[hashKey]) {
             memoizedValues[hashKey] = (
-                viewportHeight < 430 && (viewportWidth > (viewportHeight * 1.33))
+                vpH < 430 && (vpW > (vpH * 1.33))
             );
         }
 

@@ -1,5 +1,5 @@
-import React, { Component, memo } from 'react'
-import { withStyles } from '@material-ui/styles'
+import React, { memo, useMemo, useEffect, useState, useReducer } from 'react'
+import { makeStyles, useTheme } from '@material-ui/styles'
 import PDF from 'react-pdf-js'
 import Tooltip from '@material-ui/core/Tooltip'
 import Fab from '@material-ui/core/fab'
@@ -7,7 +7,7 @@ import shouldShowHoverContent from 'utils/shouldShowHoverContent'
 import PDFViewerNav from './PDFViewerNav'
 import Themes from 'constants/Themes'
 
-const styles = theme => ({ 
+const useStyles = makeStyles(({ palette, rc3 }) => ({ 
     container : {
         position       : 'relative',
         display        : 'flex',
@@ -24,8 +24,12 @@ const styles = theme => ({
         display  : 'inline-block',
         padding  : 0,
         margin   : 0,
-        filter : (theme.theme == Themes.LIGHT) ? 'none' : 'invert(100%)',
+        filter : ((palette.type == Themes.LIGHT) ? 
+            'none' : 'invert(100%)'
+        ),
+
         // resize pdf height according to 8.5x11
+        
         '@media (max-width: 900px)': {
             maxWidth : '100%',
             height : 'auto !important'
@@ -43,7 +47,7 @@ const styles = theme => ({
     },
     downloadIcon : {
         fontSize : '24pt',
-        color : theme.rc3.secondaryContrastText
+        color : rc3.secondaryContrastText
     },
     downloadButtonContainer : {
         position : 'fixed',
@@ -55,151 +59,145 @@ const styles = theme => ({
         }
     },
     downloadButton : {
-        backgroundColor : theme.palette.secondary['400'],
+        backgroundColor : palette.secondary['400'],
         '&:hover' : {
-            backgroundColor : theme.palette.secondary['300']
+            backgroundColor : palette.secondary['300']
         },
         '&:active' : {
-            backgroundColor : theme.palette.secondary['400']
+            backgroundColor : palette.secondary['400']
         }
-    },
-    // TODO : use constant to make
-    //        tooltip style DRY
-    tooltip : {
-        fontSize : '11pt !important',
-        padding  : '4px 8px !important',
-        minHeight: '20px !important',
-        lineHeight: '20px !important'
     },
     loadingContent : {
         display : 'none'
     }
-});
+}), { name : 'PDFViewer' });
 
-class PDFViewer extends Component {
-    state = {
-        pageNumber : 1, 
-        pageCount : 0,
-        isLoaded : false,
+const initialState = {
+    pagenumber : 1,
+    pageCount : 0,
+    isLoaded : false,
+    isRetriggering : false
+};
 
-        // to solve a glitch with PDF viewer
-        // re-quiring re-renders, we simulate
-        // re-loading file URL by using this
-        // simple variable when a prop has
-        // loaded -- this acts as a switch
-        // for providing fileURL as blank
-        // (luckily this is very easy with
-        // React's new setState callback)
-        
-        isRetriggering : false,
-        fileURL : undefined
-    };
+function reducer (state={ initialState }, action) {
+    const { type, payload } = action;
 
-    componentDidMount () {
-        this.setState({ isLoaded : false });
-    }
-
-    componentWillUnmount () {
-        this.setState({ isLoaded : false });
-    }
-
-    onDocumentComplete = pageCount => {
-        this.setState({ 
-            pageCount,
-            pageNumber : 1, 
-            isLoaded : true 
-        });
-    };
-
-    onPageComplete = pageNumber => {
-        this.setState({ pageNumber });
-    };
-
-    handlePrevPage = ()=> {
-        if(this.state.pageNumber > 1) {
-            this.setState({ 
-                pageNumber: this.state.pageNumber - 1 
-            });
+    switch(type) {
+        case 'go-to-next-page': {
+            return { ...state, pageNumber : (state.pageNumber + 1) };
         }
-    };
-
-    handleNextPage = ()=> {
-        if(this.state.pageNumber < this.state.pageCount) {
-            this.setState({ 
-                pageNumber: this.state.pageNumber + 1 
-            });
+        case 'go-to-prev-page': {
+            return { ...state, pageNumber : (state.pageNumber - 1) };
         }
-    };
-
-    componentDidUpdate (prevProps) {
-        if(this.props.theme != prevProps.theme) {
-            this.setState({ isRetriggering : true }, () => {
-                this.setState({ isRetriggering : false });
-            });
+        case 'retrigger-view': {
+            return { ...state, isRetriggering : true };
         }
-    }
-
-    render () {
-        const { 
-            classes, 
-            fileURL, 
-            theme 
-        } = this.props;
-
-        const { 
-            pageNumber, 
-            pageCount, 
-            isLoaded,
-            isRetriggering
-        } = this.state;
-
-        return (
-            <div className={ classes.container }>
-                <div className={!isLoaded ? classes.loadingContent : undefined}>
-                    <PDF file={ !isRetriggering && fileURL }
-                        onDocumentComplete={this.onDocumentComplete}
-                        onPageComplete={this.onPageComplete}
-                        page={pageNumber}
-                        className={classes.pdfContent}
-                        theme={theme}
-                    />
-                </div>
-                <a
-                    href={fileURL}
-                    download={'RobertConcepcionResume'}
-                    className={classes.downloadButtonContainer}>
-                    { shouldShowHoverContent ? 
-                    (
-                        <Tooltip
-                            id={`resume-pdf-download-tooltip`}
-                            enterDelay={400} 
-                            title='Download this PDF'
-                            classes={{ tooltip : classes.tooltip }}
-                        >
-                            <Fab
-                                className={classes.downloadButton}
-                            ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
-                            </Fab>
-                        </Tooltip>
-                    ) : (<Button
-                            variant="fab"
-                            data-tip data-for={`resume-pdf-download-tooltip`}
-                            className={classes.downloadButton}
-                        ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
-                    </Button>
-                    )}
-                </a>
-                <PDFViewerNav
-                    pageNumber={ pageNumber }
-                    pageCount={ pageCount }
-                    handleNextPage={ this.handleNextPage }
-                    handlePrevPage={ this.handlePrevPage }
-                    isLoaded={ isLoaded }
-                    theme={ theme }
-                />
-            </div>
-        );
+        case 'reset-retrigger': {
+            return { ...state, isRetriggering : false };
+        }
+        case 'load-content' : {
+            return { ...state, isLoaded : true };
+        }
+        case 'unload-content' : {
+            return { ...state, isLoaded : false };
+        }
+        case 'handle-document-complete' : {
+            return { ...state, 
+                pageCount : payload,
+                pageNumber : 1,
+                isLoaded : true 
+            };
+        }
+        default : {
+            return state;
+        }
     }
 }
 
-export default memo(withStyles(styles)(PDFViewer));
+function PDFViewer ({ fileURL }) {
+    const classes = useStyles();
+    const theme = useTheme();
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    useEffect(()=> {
+        dispatch({ type : 'retrigger-view' });
+    }, [theme.palette.type]);
+
+    useEffect(()=> {
+        if(state.isRetriggering) {
+            dispatch({ type : 'reset-retrigger' });
+        }
+    }, [state.isRetriggering]);
+
+    const handlePrevPage = useMemo(()=> ()=> {
+        (state.pageNumber > 1 && 
+            dispatch({ type : 'go-to-prev-page' }));
+    }, [state.pageNumber]);
+
+    const handleNextPage = useMemo(()=> ()=>{
+        (state.pageNumber < state.pageCount) && 
+        dispatch({ type : 'go-to-next-page' })
+    }, [state.pageNumber, state.pageCount]);
+
+    const onPageComplete = useMemo(()=> 
+        pageNumber => dispatch({ 
+            type : 'handle-page-complete', 
+            payload : pageNumber 
+        }), 
+    []);
+
+    const onDocumentComplete = useMemo(()=> 
+        pageCount => dispatch({ 
+            type : 'handle-document-complete',
+            payload : pageCount
+        }), []);
+
+    console.log('rendering 🙂🙏🙏🙏')
+
+    return (
+        <div className={ classes.container }>
+            <div className={!state.isLoaded ? classes.loadingContent : undefined}>
+                <PDF file={ !state.isRetriggering && fileURL }
+                    onDocumentComplete={ onDocumentComplete }
+                    onPageComplete={ onPageComplete }
+                    page={ state.pageNumber }
+                    className={ classes.pdfContent }
+                />
+            </div>
+            <a
+                href={fileURL}
+                download={'RobertConcepcionResume'}
+                className={classes.downloadButtonContainer}>
+                { shouldShowHoverContent ? 
+                (
+                    <Tooltip
+                        id={`resume-pdf-download-tooltip`}
+                        enterDelay={400} 
+                        title='Download this PDF'
+                        classes={{ tooltip : classes.tooltip }}
+                    >
+                        <Fab className={classes.downloadButton}>
+                            <i className={`mdi mdi-download ${classes.downloadIcon}`}/>
+                        </Fab>
+                    </Tooltip>
+                ) : (<Button
+                        variant="fab"
+                        data-tip data-for={`resume-pdf-download-tooltip`}
+                        className={classes.downloadButton}
+                    ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
+                </Button>
+                )}
+            </a>
+            <PDFViewerNav
+                pageNumber={ state.pageNumber }
+                pageCount={ state.pageCount }
+                handleNextPage={ handleNextPage }
+                handlePrevPage={ handlePrevPage }
+                isLoaded={ state.isLoaded }
+                theme={ theme }
+            />
+        </div>
+    );
+}
+
+export default memo(PDFViewer);

@@ -21,8 +21,8 @@ export default ({ className })=> (
     />
     <ellipse
         className="themeicon__sun"
-        ry="4.7593417"
-        rx="4.7108541"
+        ry="4"
+        rx="4"
         cy="12.370112"
         cx="12.079329"
         id="path1640"

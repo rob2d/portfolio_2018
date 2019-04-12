@@ -1,16 +1,13 @@
 import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
-import pure        from 'recompose/pure'
 import ButtonBase  from '@material-ui/core/ButtonBase'
+import { makeStyles } from '@material-ui/styles'
 import Themes      from 'constants/Themes'
 import appHistory  from 'utils/appHistory'
-import injectSheet from 'react-jss'
 import Tooltip   from '@material-ui/core/Tooltip'
 
-
-const styleSheet = {
+const useStyles = makeStyles( theme => ({
     touchRipple : {
-        color : ({ theme }) => ((theme == Themes.LIGHT) ? 
+        color : () => (theme.theme == Themes.LIGHT ? 
             '#000000' : '#FFFFFF'
         )
     },
@@ -20,36 +17,25 @@ const styleSheet = {
         minHeight: '20px',
         lineHeight: '20px'
     }
-};
+}));
 
 function ButtonLink ({ 
-    url, 
-    classes,
-    containerClass, 
-    children, 
-    title=undefined,
-    delay=250 
+    url, containerClass, children, 
+    title=undefined, delay=250 
 }) {
+    const classes = useStyles();
     let isAbsoluteURL = url.indexOf('://') != -1;
 
-    const onClick = function(e){ 
-        
-        // keep synthetic event's reference
-        // for duration of timeout 
-        
+    const onClick = e => { 
         e.persist();
 
         // provide a small timeout so 
         // that animation can be seen
         
-        setTimeout(function() {
-            appHistory.goTo(url, e);
-        }, delay);
+        setTimeout(()=> appHistory.goTo(url, e), delay);
     };
 
-    title = title || (
-        isAbsoluteURL ? `${url}` : undefined
-    );
+    title = title || (isAbsoluteURL?`${url}`:undefined);
 
     const ButtonContent = (
         <ButtonBase 
@@ -70,15 +56,11 @@ function ButtonLink ({
                 title={ title }
                 classes={{ tooltip : classes.tooltip }}
             >
-            {ButtonContent}
+            { ButtonContent }
             </Tooltip>
         );
-    } else {
-        return ButtonContent;
-    }
+    } 
+    else return ButtonContent;
 }
 
-export default pure(connect(({ core }) => 
-    ({ theme : core.theme }))
-    (injectSheet(styleSheet)(ButtonLink))
-);
+export default ButtonLink

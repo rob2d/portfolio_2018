@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import styles from './style/AppHeaderStyle'
 import ThemeButton from './ThemeButton'
 import { connect } from 'react-redux'
 import appHistory from 'utils/appHistory'
@@ -11,8 +10,58 @@ import HeaderSectionButton from './HeaderSectionButton'
 import SectionHighlighter from './SectionHighlighter'
 import AppSections from 'constants/AppSections'
 import withFadeTransitions from 'utils/withFadeTransitions'
+import { visitedPathIndex } from 'app-root/selectors'
+const { SectionIndexes, Sections } = AppSections;
 
-let { SectionIndexes, Sections } = AppSections;
+
+const SECTION_COUNT   = Sections.length,
+      BUTTON_WIDTH_PX = 60;
+
+const styles = theme => ({
+    appBar : {
+        position : 'relative',
+        minHeight : '56px' // needed to prevent gutters 
+    },                     // from resizing
+    rightContainer : {
+        textAlign : 'right',
+        height : '100%',
+        display : 'flex',
+        alignItems : 'center',
+        justifyContent : 'flex-end',
+        position : 'relative'
+    },
+    leftIconsWrapper : {
+        position : 'relative',
+        width : `${SECTION_COUNT * BUTTON_WIDTH_PX}px`,
+        height : '100%',
+        color : '#FFFFFF',
+        justifyContent : 'center',
+        alignItems : 'center',
+        display : 'flex',
+        flexDirection : 'row',
+    },
+    rightIconsWrapper : {
+        textAlign : 'right',
+        display : 'flex',
+        alignItems : 'center',
+        justifyContent : 'center',
+        flexDirection : 'row',
+        height : '100%',
+        color : '#FFFFFF'
+    },
+    centerPadder : {
+        flex : 1,
+        display : 'flex'
+    },
+    myNameText : {
+        textAlign : 'right !important',
+        marginRight : '16px !important',
+        fontSize : '16pt !important',
+        lineHeight : '17pt !important',
+        display : 'block',
+        color : '#FFFFFF !important'
+    }
+});
 
 // determine what to do when sections are clicked
 
@@ -21,23 +70,17 @@ const SectionClickEvents = Sections.map( section => {
 });
 
 class AppHeader extends PureComponent {
-    constructor(props) {
-        super(props);
+    state = {
+        pathIndex : this.props.pathIndex,
+        lastMatchedIndex : (this.props.pathIndex != -1) ? 
+                                this.props.pathIndex : SectionIndexes.PROJECTS
+    };
 
-        const pathIndex = this.getVisitedPathIndex(props.pathname);
+    R = {
+        toolbar : undefined, 
+        buttonDivRefs : []
+    };
 
-        this.state = { 
-            pathIndex,
-            lastMatchedIndex : (pathIndex != -1) ? 
-                                    pathIndex : SectionIndexes.PROJECTS
-        };
-
-        // stores our references
-        this.R = {
-            toolbar : undefined, 
-            buttonDivRefs : []
-        };
-    }
 
     componentWillUpdate(nextProps, nextState) {
         
@@ -66,7 +109,7 @@ class AppHeader extends PureComponent {
         // of buttons for the section highlighter
         
         if((prevState.pathIndex != this.state.pathIndex) || 
-            (this.props.viewportWidth != prevProps.viewportWidth)
+            (this.props.vpW != prevProps.vpW)
         ) {
             this.updateButtonXPositions();
         }
@@ -122,7 +165,7 @@ class AppHeader extends PureComponent {
     };
 
     render () {
-        const { classes, viewportWidth } = this.props;
+        const { classes, vpW } = this.props;
 
         const { 
             pathIndex, 
@@ -138,7 +181,7 @@ class AppHeader extends PureComponent {
                 <SectionHighlighter 
                         lastKnownIndex={lastMatchedIndex} 
                         index={pathIndex} 
-                        viewportWidth={viewportWidth}
+                        vpW={vpW}
                         buttonXPositions={buttonXPositions}
                         leftPadding={leftPadding}
                         buttonWidth={buttonWidth}
@@ -174,5 +217,6 @@ class AppHeader extends PureComponent {
 
 export default withFadeTransitions(connect(({ router, viewport }) => ({ 
     pathname : router.location.pathname,
-    viewportWidth : viewport.viewportWidth
+    vpW : viewport.vpW,
+    pathIndex : visitedPathIndex({ router })
 }))(withStyles(styles)(AppHeader)))

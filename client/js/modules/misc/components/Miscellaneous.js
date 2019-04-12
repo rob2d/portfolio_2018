@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
-import pure from 'recompose/pure'
-import injectSheet from 'react-jss'
+import { makeStyles } from '@material-ui/styles'
 import ButtonLink from 'utils/components/ButtonLink'
 import Themes from 'constants/Themes'
 import { misc as strings } from 'strings'
 
-const styleSheet = {
+const useStyles = makeStyles( theme => ({
     mainContainer : {
         marginLeft     : 'auto',
         marginRight    : 'auto',
@@ -38,7 +37,7 @@ const styleSheet = {
         minHeight : '190px',
         margin    : '0 auto',
         display   : 'block',
-        filter    : ({ theme }) => (((theme == Themes.LIGHT)) ? 
+        filter    : ((theme.theme == Themes.LIGHT) ? 
             'invert(0%)' : 'invert(100%)'
         ),
         transition : 'filter 0.32s'
@@ -48,8 +47,8 @@ const styleSheet = {
         width     : '292px',
         textAlign : 'left',
         margin    : '0 auto',
-        color     : ({ theme }) => ((theme == Themes.LIGHT) ? 
-                        '#000000' : '#FFFFFF'
+        color     : ((theme.theme == Themes.LIGHT) ? 
+            '#000000' : '#FFFFFF'
         ),
         transition : 'all 0.32s'
     },
@@ -77,7 +76,7 @@ const styleSheet = {
         display        : 'flex',
         maxWidth       : '32px',
         marginRight    : '16px',
-        color          : ({ theme }) => ((theme == Themes.LIGHT) ? 
+        color          : ((theme.theme == Themes.LIGHT) ? 
             '#000000' : '#FFFFFF'
         ),
         alignItems     : 'center',
@@ -93,9 +92,13 @@ const styleSheet = {
             maxWidth : '1100px !important'
         }
     }
-};
+}), { name : 'Miscellaneous' });
 
-function Miscellaneous ({ classes, theme, viewportWidth }) {
+function Miscellaneous ({ vpW }) {
+    const classes = useStyles({ vpW });
+
+    console.log({ classes });
+
     return (
         <div className={classes.mainContainer}>
             <div className={classes.bodyContent}>
@@ -209,9 +212,10 @@ function Miscellaneous ({ classes, theme, viewportWidth }) {
                         This was one of the results of that.
                     </p>
                 </div>
-                {(viewportWidth > 1036) && 
+                {(vpW > 1036) && 
                     <Fragment>
-                        <div className={classes.item}></div><div className={classes.item}></div>
+                        <div className={ classes.item }></div>
+                        <div className={ classes.item } />
                     </Fragment>
                 }
             </div>
@@ -219,11 +223,8 @@ function Miscellaneous ({ classes, theme, viewportWidth }) {
     );
 };
 
-let VisibleMisc = pure(connect(
-    ({ core, viewport },ownProps)=> ({ 
-        theme : core.theme,
-        viewportWidth : viewport.viewportWidth 
+export default connect(
+    ({ viewport }, ownProps)=> ({ 
+        vpW : viewport.vpW 
     })
-)(injectSheet(styleSheet)(Miscellaneous)));
-
-export default VisibleMisc
+)(Miscellaneous);

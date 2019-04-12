@@ -206,10 +206,12 @@
     .themeicon__star {
         transform-origin: 50% 50%;
         stroke: rgba(0,0,0,0);
+        stroke-width: 2px;
     }
 
     .themeicon__moon {
-        stroke: rgba(0,0,0,0);
+        stroke: rgba(255,255,255,1);
+        fill : none;
     }
 
     .light .themeicon__star { 
@@ -228,26 +230,30 @@
         transform-origin: 50% 52%;
         transform: scale(0.475);
         transition: opacity 0.5s ease 0.25s, transform 0.25s linear 0s;
-        stroke: rgba(0,0,0,0);
+        stroke: rgba(255,255,255,1);
+        fill: none;
     }
 
     .dark > .themeicon__moon {
         opacity: 1;
         transform-origin: 50% 52%;
         transition: opacity 0.5s ease, transform 0.25s linear 0.20s;
-        stroke: rgba(0,0,0,0);
+        stroke: rgba(255,255,255,1);
+        fill: none;
     } 
 
     .dark > .themeicon__sun {
         opacity: 0;
         transition: opacity 0.75s ease 0.1s;
-        stroke: rgba(0,0,0,0);
+        stroke: rgba(255,255,255,1);
+        fill: none;
     } 
 
     .light > .themeicon__sun {
         opacity: 1;
         transition: opacity 0.75s ease 0.25s;
-        stroke: rgba(0,0,0,0);
+        stroke: rgba(255,255,255,1);
+        fill: none;
     }
 
     .light > .themeicon__stara1 {

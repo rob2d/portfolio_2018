@@ -11,6 +11,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
 import lazyLoadComponent from 'utils/lazyLoadComponent'
 import { AppHeader, AppFooter } from './core'
+import { hot } from 'react-hot-loader/root'
 
 const styles = theme => ({
     appWrapper : {
@@ -123,4 +124,4 @@ function RoutingApp(){
 
 
 
-export default RoutingApp
+export default hot(RoutingApp)

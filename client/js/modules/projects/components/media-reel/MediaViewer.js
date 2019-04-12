@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react'
-import injectSheet from 'react-jss'
+import React, { memo, PureComponent } from 'react'
+import { withStyles } from '@material-ui/styles'
 import MediaTypes from 'constants/MediaTypes'
 import ButtonLink from 'utils/components/ButtonLink'
 import YouTube from 'react-youtube'
 import PropTypes from 'prop-types'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const styleSheet = {
+const styles = theme => ({
     container : {
         display         : 'flex',
         boxSizing       : 'border-box',
@@ -27,10 +27,8 @@ const styleSheet = {
         '&:active' : {
             border : '2px solid #00b8d4;'
         },
-        width : ({ width }) =>(`${width}px`),
-        height : ({ width, aspectRatio }) => (
-            `${(width / aspectRatio)}px`
-        )
+        width : 'auto',
+        height : 'auto'
     },
     image : {
         width      : '100%',
@@ -42,7 +40,11 @@ const styleSheet = {
         height : ({ width, aspectRatio }) => (
             `${(width / aspectRatio)}px`
         ),
-        cursor : 'pointer'
+        cursor : 'pointer',
+        '& > span > iframe' : {
+            maxWidth : '100%',
+            maxHeight : '100%'
+        }
     },
     caption : {
         display : 'flex',
@@ -81,7 +83,7 @@ const styleSheet = {
             fontSize :'10pt'
         }
     },
-};
+});
 
 class MediaViewer extends PureComponent {
 
@@ -89,7 +91,6 @@ class MediaViewer extends PureComponent {
         super(props);
 
         const { disableCache } = props;
-
         this.state = { 
             cacheMap : disableCache ? undefined : new Map() 
         };
@@ -137,15 +138,15 @@ class MediaViewer extends PureComponent {
         )) {
 
             let newState = {
-                type        : state.src,
-                src         : props.src,
-                thumb       : props.thumb,
-                videoId     : props.videoId,
+                type : state.src,
+                src : props.src,
+                thumb : props.thumb,
+                videoId : props.videoId,
                 updateCount : props.updateCount,
-                height      : props.width / props.aspectRatio
+                height : props.width / props.aspectRatio,
+                itemDimensionStyle : { width : props.width+'px', height : props.height+'px' }
             };
 
-            // 
             const { cacheMap } = state;
             let itemKey = MediaViewer.getItemKey(props);
 
@@ -183,8 +184,10 @@ class MediaViewer extends PureComponent {
                             <ButtonLink 
                                 url={resource.url}
                                 title={ 'Open full res image in new tab' }
-                                containerClass={props.classes.mediaContainerButton}
+                                containerClass={ props.classes.mediaContainerButton }
+                                style={ newState.itemDimensionStyle }
                             > <img 
+                                style={ newState.itemDimensionStyle }
                                 className={props.classes.image} 
                                 src={props.src} 
                             />
@@ -205,10 +208,12 @@ class MediaViewer extends PureComponent {
                         resource.thumb = `https://img.youtube.com/vi/${videoId}/default.jpg`
                         resource.domSegment = (
                             <YouTube
-                                key={itemKey}
-                                id={itemKey}
-                                videoId={videoId}
-                                className={props.classes.mediaContainer}
+                                key={ itemKey }
+                                id={ itemKey }
+                                videoId={ videoId }
+                                style={ newState.itemDimensionStyle }
+                                width={ newState.width }
+                                height={ newState.height }
                                 onReady={() => {
                                     let thisItem = cacheMap.get(itemKey);
                                     thisItem.isMediaLoading = false;
@@ -248,7 +253,7 @@ class MediaViewer extends PureComponent {
 
         const { 
             type, src, thumb, videoId, 
-            caption, classes, viewportWidth
+            caption, classes, vpW
         } = this.props;
 
         const itemKey = MediaViewer.getItemKey(this.props);
@@ -303,7 +308,7 @@ class MediaViewer extends PureComponent {
                         classes= {{
                             colorPrimary : classes.circularProgress
                         }}
-                        size={(viewportWidth <= 800) ? 40 : 64} 
+                        size={(vpW <= 800) ? 40 : 64} 
                         color={`primary`} 
                     />
                 </div>)}
@@ -316,16 +321,16 @@ class MediaViewer extends PureComponent {
 }
 
 MediaViewer.propTypes = {
-    type          : PropTypes.string.isRequired,
-    src           : PropTypes.string,
-    thumb         : PropTypes.string,
-    width         : PropTypes.number,
-    aspectRatio   : PropTypes.number,
-    videoId       : PropTypes.string,
-    onVideoPlay   : PropTypes.func.isRequired,
-    onVideoStop   : PropTypes.func.isRequired,
+    type : PropTypes.string.isRequired,
+    src : PropTypes.string,
+    thumb : PropTypes.string,
+    width : PropTypes.number,
+    aspectRatio : PropTypes.number,
+    videoId : PropTypes.string,
+    onVideoPlay : PropTypes.func.isRequired,
+    onVideoStop : PropTypes.func.isRequired,
     disableCache  : PropTypes.bool,
-    viewportWidth : PropTypes.number
+    vpW : PropTypes.number
 };
 
-export default injectSheet(styleSheet)(MediaViewer)
+export default memo(withStyles(styles)(MediaViewer))

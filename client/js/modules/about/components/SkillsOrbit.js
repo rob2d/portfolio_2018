@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import * as THREE from 'three'
 import { textAlign, SpriteText2D } from 'three-text2d'
 import { withStyles } from '@material-ui/styles'
@@ -100,7 +100,7 @@ const sources = {
     }
 };
 
-class SkillsOrbit extends Component {
+class SkillsOrbit extends PureComponent {
     constructor (props, context) {
         super(props, context);
 
@@ -190,12 +190,12 @@ class SkillsOrbit extends Component {
             // upon resize of window, recalculate the width of the renderer    
 
             let maxDimension = Math.max(
-                    this.props.viewportWidth,
-                    this.props.viewportHeight
+                    this.props.vpW,
+                    this.props.vpH
                 ),
                 prevMaxDimension = Math.max(
-                    prevProps.viewportWidth, 
-                    prevProps.viewportHeight
+                    prevProps.vpW, 
+                    prevProps.vpH
                 );
                 
             if(maxDimension != prevMaxDimension) {
@@ -502,8 +502,8 @@ class SkillsOrbit extends Component {
 
         const leftIconClass = `mdi mdi-${!isHighlighted ? 'cursor-pointer' : 'human'}`;
         const arrowClass = `mdi mdi-arrow-right ${
-                classes.arrow} ${ this.state.isHighlighted ? 
-                    classes.arrowRotated : ''
+                classes.arrow} ${ 
+                isHighlighted ? classes.arrowRotated : '' 
         }`;
 
         return (
@@ -530,9 +530,9 @@ class SkillsOrbit extends Component {
 
 
 export default connect(
-    (state, ownProps) => ({ 
-        viewportWidth  : state.viewport.viewportWidth,
-        viewportHeight : state.viewport.viewportHeight,
-        theme          : state.core.theme
+    ({ viewport : { vpW, vpH }, core : { theme } }) => ({ 
+        vpW,
+        vpH,
+        theme
     })
 )(withStyles(styles)(SkillsOrbit));
