@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useMemo, useState, memo } from 'react'
+import React, { useRef, useLayoutEffect, useMemo, useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
@@ -11,6 +11,7 @@ import SectionHighlighter from './SectionHighlighter'
 import AppSections from 'constants/AppSections'
 import withFadeTransitions from 'utils/withFadeTransitions'
 import { visitedPathIndex } from 'app-root/selectors'
+import useViewportSizes from 'use-viewport-sizes'
 const { SectionIndexes, Sections } = AppSections;
 
 const SECTION_COUNT   = Sections.length,
@@ -60,7 +61,7 @@ const useStyles = makeStyles( theme => ({
         display : 'block',
         color : '#FFF'
     }
-}), { name : 'Appheader' });
+}), { name : 'AppHeader' });
 
 // determine what to do when sections are clicked
 
@@ -68,7 +69,8 @@ const SectionClickEvents = Sections.map( section => {
    return  e => appHistory.goTo(section.basePath, e);
 });
 
-function AppHeader ({ vpW, pathIndex }) {
+function AppHeader ({ pathIndex }) {
+    const [vpW, vpH] = useViewportSizes();
     const [hasInitialized, setInitialized] = useState(undefined);
 
     // create a re-render before first paint to consume refs
@@ -101,7 +103,7 @@ function AppHeader ({ vpW, pathIndex }) {
             };
         } else return {
         }
-    }, [vpW, pathIndex, buttonRefs.current && buttonRefs.current[0]]);
+    }, [vpW, vpH, pathIndex, buttonRefs.current && buttonRefs.current[0]]);
 
     // set of callbacks to set individual refs
     // (to prevent 2x renders in SectionButtons)
