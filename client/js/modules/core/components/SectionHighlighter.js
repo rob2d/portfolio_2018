@@ -2,10 +2,6 @@ import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 
-function getHeight (index) {
-    return (index!=-1) ? 4 : 6;
-}
-
 const useStyles = makeStyles( theme => ({
     sectionHighlighter : {
         position : 'absolute',
@@ -20,20 +16,20 @@ const useStyles = makeStyles( theme => ({
         // chrome/firefox/ie
 
         // we also offset based on whether a project
-        // is selected (currently, if index == -1 or not)
+        // is selected (currently, if sectionIndex == -1 or not)
 
-        top : ({ appBarHeight, buttonHeight })=>(
-            appBarHeight - getHeight(buttonHeight)
+        top : ({ appBarHeight, buttonHeight, containerHeight })=>(
+            appBarHeight - buttonHeight
         ),
 
         // shift the left position towards the last active
-        // known button (+4px) when that is available
+        // known button when that is available
         
-        left : ({ lastKnownIndex, buttonXPositions, leftPadding=0 }) => {
+        left : ({ sectionIndex, buttonXPositions, leftPadding=0 }) => {
             return (
                 (buttonXPositions && 
-                buttonXPositions.hasOwnProperty(lastKnownIndex) && 
-                        ((buttonXPositions[lastKnownIndex] )+parseInt(leftPadding) )+'px')
+                buttonXPositions.hasOwnProperty(sectionIndex) && 
+                        ((buttonXPositions[sectionIndex] )+parseInt(leftPadding) )+'px')
         )},
         transform : 'translateX(-50%)',
         opacity : 1,
@@ -42,20 +38,20 @@ const useStyles = makeStyles( theme => ({
                      'border-right 0.27s linear, border-bottom 0.27s linear, ' + 
                      'bottom 0.27s linear'
     }
-}), 'SectionHighlighter');
+}), { name : 'SectionHighlighter' });
 
 function SectionHighlighter (props) {
     const borderEdge = useMemo(()=>{
-        return ((props.index == -1) ?
+        return (props.isSubsection ?
             '6px solid transparent':
             `${(props.buttonWidth/2)}px solid #c51162`
         );
-    },[props.index, props.buttonWidth]);
+    },[props.isSubsection, props.buttonWidth]);
 
     const classes = useStyles({ 
         ...props, 
         borderEdge,
-        buttonHeight : (props.index!=-1) ? 4 : 6
+        buttonHeight : (props.isSubsection) ? 4 : 6
     });
 
     return (<div className={ classes.sectionHighlighter }></div>);
@@ -63,11 +59,10 @@ function SectionHighlighter (props) {
 
 SectionHighlighter.propTypes = {
     buttonXPositions : PropTypes.arrayOf(PropTypes.number), 
-    index : PropTypes.number, 
-    lastKnownIndex : PropTypes.number, 
+    sectionIndex : PropTypes.number, 
     leftPadding : PropTypes.number, 
     appBarHeight : PropTypes.number, 
     buttonWidth : PropTypes.number
 };
 
-export default memo(SectionHighlighter);
+export default SectionHighlighter

@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/styles'
+import React, { useRef, useState, useMemo, useLayoutEffect } from 'react'
+import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -13,11 +13,10 @@ import withFadeTransitions from 'utils/withFadeTransitions'
 import { visitedPathIndex } from 'app-root/selectors'
 const { SectionIndexes, Sections } = AppSections;
 
-
 const SECTION_COUNT   = Sections.length,
       BUTTON_WIDTH_PX = 60;
 
-const styles = theme => ({
+const useStyles = makeStyles( theme => ({
     appBar : {
         position : 'relative',
         minHeight : '56px' // needed to prevent gutters 
@@ -61,7 +60,7 @@ const styles = theme => ({
         display : 'block',
         color : '#FFFFFF !important'
     }
-});
+}), { name : 'Appheader' });
 
 // determine what to do when sections are clicked
 
@@ -69,142 +68,79 @@ const SectionClickEvents = Sections.map( section => {
    return  e => appHistory.goTo(section.basePath, e);
 });
 
-class AppHeader extends PureComponent {
-    state = {
-        pathIndex : this.props.pathIndex,
-        lastMatchedIndex : (this.props.pathIndex != -1) ? 
-                                this.props.pathIndex : SectionIndexes.PROJECTS
-    };
+function AppHeader ({ vpW, pathIndex }) {
+    const classes = useStyles();
+    const buttonRefs = useRef(
+        Array(SectionIndexes.length).fill(undefined)
+    );
+    const lastKnownIndex = useMemo(()=> 
+        (pathIndex != -1) ? pathIndex : lastKnownIndex
+    );
 
-    R = {
-        toolbar : undefined, 
-        buttonDivRefs : []
-    };
+    const [ visualState, setVisualState ] = useState(
+        ()=> ({
+            xPositions : Array(SectionIndexes.lenth).fill(0),
+            buttonWidth : undefined,
+            appBarHeight : 0,
+            leftPadding : 0
+        })
+    );
 
+    useLayoutEffect(()=> {
+        const buttons = buttonRefs.current;
+        const buttonWidth = buttons[0] && buttons[0].offsetWidth;
+        const appBar = buttons[0].parentNode.parentNode;
+        const appBarHeight = appBar && appBar.clientHeight;
+        const leftPadding = window.getComputedStyle(appBar, null)
+                                .getPropertyValue('padding-left');
+        const xPositions = buttons.map( b => ( 
+            b.offsetLeft + buttonWidth / 2 
+        ));
 
-    componentWillUpdate(nextProps, nextState) {
-        
-        // can be optimized, but due to time constraint
-        // we will always update the visited path index
-
-        let pathIndex = this.getVisitedPathIndex(nextProps.pathname);
-        this.setState({ 
-            pathIndex, 
-            lastMatchedIndex : pathIndex != -1 ? 
-                pathIndex : nextState.lastMatchedIndex 
-        });
-    }
-
-    componentDidMount () {
-        
-        // needed to initially trigger re-grab of 
-        // coordinates for dynamic header tabs
-        
-        this.updateButtonXPositions();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        
-        // if the path index changed, re-grab coordinates 
-        // of buttons for the section highlighter
-        
-        if((prevState.pathIndex != this.state.pathIndex) || 
-            (this.props.vpW != prevProps.vpW)
-        ) {
-            this.updateButtonXPositions();
-        }
-    }
-
-    updateButtonXPositions = ()=> {
-        let that = this;
-        
-        // (using function syntax for debuggability)
-        
-        setTimeout(function updateButtonXPositions() {
-            const leftmostButton = that.R.buttonDivRefs[0];
-            const buttonWidth = leftmostButton && leftmostButton.offsetWidth;
-            const appBar = leftmostButton.parentNode.parentNode;
-            const appBarHeight = appBar && appBar.clientHeight;
-
-            // supported in all browsers IE9+
-
-            const leftPadding = window.getComputedStyle(appBar, null)
-                                    .getPropertyValue('padding-left');
-
-            that.setState({ 
-                buttonXPositions : that.R.buttonDivRefs.map( 
-                    b =>( b.offsetLeft + buttonWidth/2 )
-                ),
-                buttonWidth,
-                appBarHeight,
-                leftPadding,
-            });
-        }, 0);  // need a timeout to get around functional 
-                //component refs; a bit of hack but this is 
-                // all to get around temp JSS glitch with 
-                // media queries
-    };
-
-    /**
-     * returns an index corresponding
-     * to the last known path which
-     * matches one of the navigation
-     * buttons' positions
-     * 
-     * TODO : NORMALIZE THIS WITH APP SECTION HEADER DATA
-     */
-    getVisitedPathIndex = (pathname)=> {
-        switch(pathname) {
-            case Sections[0].basePath:  return SectionIndexes.WELCOME;
-            case Sections[1].basePath:  return SectionIndexes.PROJECTS;
-            case Sections[2].basePath:  return SectionIndexes.MISC;
-            case Sections[3].basePath:  return SectionIndexes.CV;
-            default :  
-                return -1;
-        }
-    };
-
-    render () {
-        const { classes, vpW } = this.props;
+        setVisualState({
+            appBarHeight,
+            leftPadding,
+            xPositions,
+            buttonWidth
+        })
+    }, [vpW, pathIndex]);
 
         const { 
-            pathIndex, 
-            lastMatchedIndex,
             appBarHeight,
             buttonWidth,
-            leftPadding,
-            buttonXPositions
-        } = this.state;
+            xPositions,
+            leftPadding
+        } = visualState;
 
         return (
             <AppBar className={ classes.appBar }>
                 <SectionHighlighter 
-                        lastKnownIndex={lastMatchedIndex} 
-                        index={pathIndex} 
-                        vpW={vpW}
-                        buttonXPositions={buttonXPositions}
-                        leftPadding={leftPadding}
-                        buttonWidth={buttonWidth}
-                        appBarHeight={appBarHeight} // needed for browser issues
+                    sectionIndex={ (pathIndex != -1) ? pathIndex : 1 } 
+                    isSubsection={ pathIndex == -1 }
+                    vpW={ vpW }
+                    buttonXPositions={ xPositions }
+                    leftPadding={ leftPadding }
+                    buttonWidth={ buttonWidth }
+                    appBarHeight={ appBarHeight } // needed for browser issues
                 />
-                <Toolbar className={ classes.toolbar } ref={ c => this.R.toolbar = c }>
+                <Toolbar className={ classes.toolbar }>
                     <div className={ classes.leftIconsWrapper }>
                         { Sections.map((s, i)=>
                         (
                             <HeaderSectionButton
                                 key={ `headerSectionButton${s.name}` }
                                 name={ s.name }
-                                disabled={ /*pathIndex == i*/ false } // TODO: contribute a fix to 
-                                iconClass={ s.iconClass }            // material-ui lib to allow disabling
-                                tooltipText={ s.getTooltipText() }   // without ruining click anim
+                                disabled={ false }  
+                                iconClass={ s.iconClass }           
+                                tooltipText={ s.getTooltipText() }
                                 onClick={ SectionClickEvents[i] }
-                                buttonDivRef={ el => this.R.buttonDivRefs[i]=el } // for the purpose of
-                            />                                               // guided tabs
+                                buttonDivRef={ el => buttonRefs.current[i]=el } // for the purpose of
+                            />                                                     // guided tabs
                         ))}
                     </div>
                     <div className={ classes.centerPadder } />
                     <div className={ classes.rightContainer }>
-                        <Typography className={`md-maximum ${classes.myNameText}`}>
+                        <Typography className={ `md-maximum ${classes.myNameText}` }>
                             Robert Concepción III
                         </Typography>
                         <ThemeButton />
@@ -212,11 +148,9 @@ class AppHeader extends PureComponent {
                 </Toolbar>
             </AppBar>
         );
-    }
 }
 
-export default withFadeTransitions(connect(({ router, viewport }) => ({ 
+export default withFadeTransitions(connect(({ router }) => ({ 
     pathname : router.location.pathname,
-    vpW : viewport.vpW,
     pathIndex : visitedPathIndex({ router })
-}))(withStyles(styles)(AppHeader)))
+}))(AppHeader))
