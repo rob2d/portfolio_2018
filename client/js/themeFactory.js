@@ -37,8 +37,10 @@ export const getTheme = theme => {
                 primary   : grey, 
                 secondary : pink,
                 error :  red,
-                text : (theme == 'light') ? 
-                    '#000000' : '#FFFFFF',
+                text : { 
+                    primary : (theme == 'light') ? 
+                    '#000000' : '#FFFFFF'
+                },
                 type : theme
                
             },

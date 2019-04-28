@@ -151,9 +151,6 @@ function PDFViewer ({ fileURL }) {
             type : 'handle-document-complete',
             payload : pageCount
         }), []);
-
-    console.log('rendering 🙂🙏🙏🙏')
-
     return (
         <div className={ classes.container }>
             <div className={!state.isLoaded ? classes.loadingContent : undefined}>

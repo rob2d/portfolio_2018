@@ -8,12 +8,12 @@ const useStyles = makeStyles( theme => ({
         display : 'block'
     },
     button : {
-        display    : 'block !importanst',
-        color      : '#FFFFFF !important',
-        height     : 'auto !important',
-        lineHeight : '24px !important',
-        padding    : '8px !important',
-        minWidth   : '60px !important'
+        display    : 'block',
+        color      : '#FFF',
+        height     : 'auto',
+        lineHeight : '24px',
+        padding    : '8px',
+        minWidth   : '60px'
     },
     buttonIconWrapper : {
         display : 'block'
@@ -62,6 +62,7 @@ function HeaderSectionButton({
                     disabled={ disabled }
                     id={ domId }
                     onMouseDown={ onClick }
+                    variant='text'
                 >
                     <div className={ classes.buttonIconWrapper }>
                         <i className={ `${iconClass} ${classes.buttonIcon}`} />

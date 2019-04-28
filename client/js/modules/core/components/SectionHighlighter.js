@@ -25,12 +25,11 @@ const useStyles = makeStyles( theme => ({
         // shift the left position towards the last active
         // known button when that is available
         
-        left : ({ sectionIndex, buttonXPositions, leftPadding=0 }) => {
-            return (
+        left : ({ sectionIndex, buttonXPositions, leftPadding=0 }) => (
                 (buttonXPositions && 
                 buttonXPositions.hasOwnProperty(sectionIndex) && 
-                        ((buttonXPositions[sectionIndex] )+parseInt(leftPadding) )+'px')
-        )},
+                    ((buttonXPositions[sectionIndex] )+parseInt(leftPadding) )+'px')
+        ),
         transform : 'translateX(-50%)',
         opacity : 1,
         transition : 'left 0.55s ease-out 0.25s, opacity 0.4s, ' +
