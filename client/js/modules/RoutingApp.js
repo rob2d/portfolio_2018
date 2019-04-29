@@ -117,6 +117,4 @@ function RoutingApp(){
     );
 }
 
-
-
 export default hot(RoutingApp)
