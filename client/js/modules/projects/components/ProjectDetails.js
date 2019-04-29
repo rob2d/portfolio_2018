@@ -1,8 +1,7 @@
-import React, { memo } from 'react'
+import React from 'react'
+import useViewportSizes from 'use-viewport-sizes'
 import { makeStyles } from '@material-ui/styles'
-import strings, { projects } from 'strings'
-import { connect } from 'react-redux'
-import appHistory from 'utils/appHistory'
+import { projects } from 'strings'
 import withFadeTransitions from 'utils/withFadeTransitions'
 import ButtonLink from 'utils/components/ButtonLink'
 import MediaReel from './media-reel/MediaReel'
@@ -192,7 +191,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function ProjectDetails({ projectId, vpW }) { 
+function ProjectDetails({ projectId }) { 
+    const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({  projectId, vpW });
     const project = findProjectStrings(projectId);
     const pData = projectsData[projectId];
@@ -359,6 +359,4 @@ function ProjectDetails({ projectId, vpW }) {
     );
 }
 
-export default  withFadeTransitions(connect(
-    ({ viewport })=> ({ vpW : viewport.vpW })
-)(ProjectDetails))
+export default withFadeTransitions(ProjectDetails)

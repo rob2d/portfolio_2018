@@ -1,43 +1,14 @@
 import Themes from 'constants/Themes'
 import shouldShowHoverContent from 'utils/shouldShowHoverContent'
+import { makeStyles } from '@material-ui/styles'
 
 const ANIM_INTERVAL = '0.32';
-
-const base = {
-    cardContainer : {
-        width         : '300px !important',
-        height        : '320px !important',
-        padding       : '0px !important',
-        display       : 'block !important',
-        flexDirection : 'column !important',
-        overflow      : 'hidden !important',
-        boxShadow     : ({ theme }) => {
-            let rgbColor = (theme == Themes.LIGHT)? 
-                                '0,0,0' : '255,255,255';
-
-            let shadowStrength = (theme == Themes.LIGHT) ? 
-                                    1 : 2;
-
-            return (`0px 1px 3px 0px rgba(${rgbColor}, ${0.2*shadowStrength}), ` +
-                    `0px 1px 1px 0px rgba(${rgbColor}, ${0.14*shadowStrength}), ` + 
-                    `0px 2px 1px -1px rgba(${rgbColor}, ${0.12*shadowStrength})`
-            );
-        }, 
-        transition : `box-shadow ${ANIM_INTERVAL}s ease-out, ` +
-                        `transform ${ANIM_INTERVAL*2}s ` + 
-                        `cubic-bezier(0.25, 0.1, 0.5, 1), ` + 
-                        `background-color ${ANIM_INTERVAL}s !important`,
-        '@media (max-width: 400px)': {  // support for smaller devices
-            width : '300px !important'
-        }
-    }
-};
 
 function getTopMargin (vpW) {
     return vpW > 800 ? 32 : 16;
 }
 
-const styleSheet = {
+const useStyles = makeStyles( theme => ({
     container : {
         opacity: ({ isShown }) => (isShown ? '1' : '0'),
         display: ({ onScreen })=>(onScreen ? 'block' : 'none'),
@@ -102,13 +73,39 @@ const styleSheet = {
         overflow  : 'hidden',
         border : 0
     },
-    cardContainerAsTitle : Object.assign({}, base.cardContainer, {
+    cardContainerBase : {
+        width         : '300px',
+        height        : '320px',
+        padding       : '0px !important',
+        display       : 'block !important',
+        flexDirection : 'column !important',
+        overflow      : 'hidden !important',
+        boxShadow     : () => {
+            let rgbColor = (theme.palette.type == Themes.LIGHT)? 
+                                '0,0,0' : '255,255,255';
+
+            let shadowStrength = (theme.palette.type == Themes.LIGHT) ? 
+                                    1 : 2;
+
+            return (`0px 1px 3px 0px rgba(${rgbColor}, ${0.2*shadowStrength}), ` +
+                    `0px 1px 1px 0px rgba(${rgbColor}, ${0.14*shadowStrength}), ` + 
+                    `0px 2px 1px -1px rgba(${rgbColor}, ${0.12*shadowStrength})`
+            );
+        }, 
+        transition : `box-shadow ${ANIM_INTERVAL}s ease-out, ` +
+                        `transform ${ANIM_INTERVAL*2}s ` + 
+                        `cubic-bezier(0.25, 0.1, 0.5, 1), ` + 
+                        `background-color ${ANIM_INTERVAL}s !important`,
+        '@media (max-width: 400px)': {  // support for smaller devices
+            width : '300px !important'
+        }
+    },
+    cardContainerAsTitle : {
         boxShadow : 'none !important',
         width     : '420px !important',
         height    : '80px !important',
         transform : 'rotateY(360deg) !important'
-    }),
-    cardContainer : Object.assign({}, base.cardContainer),
+    },
     cardContent : {
         height     : '88px',
         transition : `all ${ANIM_INTERVAL}s ease-out`,
@@ -129,7 +126,7 @@ const styleSheet = {
     projectTitle : {
         display      : 'block',
         width        : '100%',
-        minWidth     : ({viewAsTitle})=>(!viewAsTitle?'300px':'400px'),
+        minWidth     : ({ viewAsTitle })=>(!viewAsTitle?'300px':'400px'),
           '@media (max-width: 400px)': {  // adding support for smaller
            fontSize : ({ viewAsTitle })=>(!viewAsTitle ? '16pt' : '20pt') // devices such as iPhone5
         },
@@ -139,7 +136,7 @@ const styleSheet = {
         fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
         marginTop    : '0px',
         marginBottom : '0px',
-        color        : ({ viewAsTitle, theme })=> (theme == (Themes.LIGHT)) ? 
+        color        : ({ viewAsTitle })=> ( theme.palette.type == (Themes.LIGHT)) ? 
                             (!viewAsTitle?'#FFFFFF':'#000000') : 
                             '#FFFFFF',
         transition   : `all ${ANIM_INTERVAL}s ease-in`
@@ -153,9 +150,8 @@ const styleSheet = {
         fontSize     : '12.5pt',
         fontFamily   : 'roboto_regular',
         fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
-        color        :  ({ viewAsTitle, theme }) => ((theme == (Themes.LIGHT)) ? 
-                            ( !viewAsTitle? '#FFFFFF':'#000000' ) : 
-                            '#FFFFFF'
+        color        :  ({ viewAsTitle }) => ((theme.palette.type == (Themes.LIGHT)) ? 
+                            ( !viewAsTitle? '#FFF':'#000' ) : '#FFF'
         ),
         marginTop    : '0',
         marginBottom : '0px',
@@ -182,6 +178,6 @@ const styleSheet = {
         top           : '0%',
         opacity       : ({ viewAsTitle }) => (!viewAsTitle?1:0)
     }
-};
+}), { name : 'ProjectCard' });
 
-export default styleSheet
+export default useStyles

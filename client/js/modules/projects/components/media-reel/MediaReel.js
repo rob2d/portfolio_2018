@@ -1,12 +1,11 @@
-import React, { memo, PureComponent } from 'react'
-import { withStyles } from '@material-ui/styles'
-import { connect } from 'react-redux'
+import React, { PureComponent } from 'react'
+import { makeStyles } from '@material-ui/styles'
+import useViewportSizes from 'use-viewport-sizes'
 import MediaViewer from './MediaViewer'
 import ReelThumbs from './ReelThumbs'
 import PropTypes from 'prop-types'
 
-// TODO : css related constants should be in
-//        one place
+// TODO : css related constants should be together
 const REEL_ANIM_SPEED = 6500;
 
 /**
@@ -18,11 +17,11 @@ function getReelWidth ( width, maxWidth ) {
         ((width > maxWidth) ? maxWidth : width);
 }
 
-const styles = theme =>({
+const useStyles = makeStyles( theme => ({
     container : {
         display  : 'flex',
         overflow : 'visible',
-        maxWidth : ({ maxWidth })=> maxWidth,
+        maxWidth : ({ maxWidth }) => maxWidth,
         height   : ({ width, maxWidth, aspectRatio }) => (
             // 25% diff to account for reel and status boxes
             Math.round(
@@ -43,7 +42,7 @@ const styles = theme =>({
         width      : 'auto',
         maxWidth   : '100%',
         height     : 'auto',
-        maxHeight  : '100%',
+        maxHeight  : '10%',
         border     : '2px solid rgba(255,255,255,0)',
         transition : 'border-color 0.24s ease-in'
     },
@@ -88,7 +87,7 @@ const styles = theme =>({
         right    : '16px',
         bottom   : '16px'
     }
-});
+}), { name : 'MediaReel' });
 
 class MediaReel extends PureComponent {
 
@@ -248,9 +247,20 @@ MediaReel.propTypes = {
     })
 };
 
-export default (connect(
-    ({ core, viewport }, ownProps)=> ({ 
-        vpW  : viewport.vpW,
-        vpH : viewport.vpH
-    })
-)(withStyles(styles)(MediaReel)));
+// TODO : convert to hooks implementation
+
+function MediaReelContainer(props) {
+    const [vpW, vpH] = useViewportSizes();
+    const classes = useStyles({ ...props, vpW, vpH });
+
+    return (
+        <MediaReel
+            { ...props } 
+            classes={ classes } 
+            vpW={ vpW }  
+            vpH={ vpH }
+        />
+    );
+}
+
+export default MediaReelContainer

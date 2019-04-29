@@ -8,7 +8,7 @@ import projectsData from 'app-root/data/projectsData'
 import styles from './style/ProjectsPanelStyle'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
-import { projectIdOfUrl } from './../selectors'
+import { projectIdOfUrl } from '../selectors'
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -16,7 +16,10 @@ import {
     AFTER_FADE_POSITIONING,
     PROJECT_SCROLL_UP,
     PROJECT_VIEW
-} from './../constants/DisplayStates'
+} from '../constants/DisplayStates'
+import useViewportSizes from 'use-viewport-sizes'
+
+// TODO : convert to hooks
 
 class ProjectsPanel extends PureComponent {
     constructor(props) {
@@ -28,7 +31,7 @@ class ProjectsPanel extends PureComponent {
             wasSelectionViaUI : false
         };
     }
-    componentDidUpdate (prevProps, prevState) {
+    componentDidUpdate (prevProps) {
         const { projectIdOfUrl } = this.props;
         const prevProjectIdOfUrl =  prevProps.projectIdOfUrl;
 
@@ -116,7 +119,7 @@ class ProjectsPanel extends PureComponent {
                             displayState={ displayState }
                             isSelected={ (p.id == projectIdOfUrl) }
                             theme={ theme } 
-                            wasSelectionViaUI={ this.state.wasSelectionViaUI }
+                            wasSelectionViaUI={ wasSelectionViaUI }
                             vpW={vpW}
                         />
                     ))}
@@ -136,10 +139,15 @@ class ProjectsPanel extends PureComponent {
     }
 }
 
-export default withStyles(styles)(connect(
+function ProjectsPanelContainer (props) {
+    const [vpW, vpH] = useViewportSizes();
+
+    return (<ProjectsPanel {...props} vpW={vpW} />);
+}
+
+export default connect(
     (state, props) => ({ 
-        theme          : state.core.theme,
-        vpW  : state.viewport.vpW,
+        theme : state.core.theme,
         projectIdOfUrl : projectIdOfUrl(state,props) 
     })
-)(ProjectsPanel));
+)(withStyles(styles)(ProjectsPanelContainer));

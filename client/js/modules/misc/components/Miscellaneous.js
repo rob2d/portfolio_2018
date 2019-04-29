@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react'
-import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
+import useViewportSizes from 'use-viewport-sizes'
 import ButtonLink from 'utils/components/ButtonLink'
-import Themes from 'constants/Themes'
-import { misc as strings } from 'strings'
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ palette }) => ({
     mainContainer : {
         marginLeft     : 'auto',
         marginRight    : 'auto',
@@ -37,7 +35,7 @@ const useStyles = makeStyles( theme => ({
         minHeight : '190px',
         margin    : '0 auto',
         display   : 'block',
-        filter    : ((theme.theme == Themes.LIGHT) ? 
+        filter    : ((palette.type == 'light') ? 
             'invert(0%)' : 'invert(100%)'
         ),
         transition : 'filter 0.32s'
@@ -47,7 +45,7 @@ const useStyles = makeStyles( theme => ({
         width     : '292px',
         textAlign : 'left',
         margin    : '0 auto',
-        color     : ((theme.theme == Themes.LIGHT) ? 
+        color     : ((palette.type == 'light') ? 
             '#000000' : '#FFFFFF'
         ),
         transition : 'all 0.32s'
@@ -76,7 +74,7 @@ const useStyles = makeStyles( theme => ({
         display        : 'flex',
         maxWidth       : '32px',
         marginRight    : '16px',
-        color          : ((theme.theme == Themes.LIGHT) ? 
+        color          : ((palette.type == 'light') ? 
             '#000000' : '#FFFFFF'
         ),
         alignItems     : 'center',
@@ -94,10 +92,9 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'Miscellaneous' });
 
-function Miscellaneous ({ vpW }) {
+export default function Miscellaneous () {
+    const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpW });
-
-    console.log({ classes });
 
     return (
         <div className={classes.mainContainer}>
@@ -222,9 +219,3 @@ function Miscellaneous ({ vpW }) {
         </div>
     );
 };
-
-export default connect(
-    ({ viewport }, ownProps)=> ({ 
-        vpW : viewport.vpW 
-    })
-)(Miscellaneous);

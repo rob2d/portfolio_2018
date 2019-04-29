@@ -1,17 +1,16 @@
 import React, { useMemo } from 'react'
-import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import Avatar from '@material-ui/core/Avatar'
 import isPortrait  from 'utils/isPortrait'
 import DescriptiveText from './DescriptiveText'
 import SectionLinks from './SectionLinks'
 import SkillsOrbit from './SkillsOrbit'
+import useViewportSizes from 'use-viewport-sizes'
+
 
 const useStyles = makeStyles( theme => ({
     topContent : {
-        width : ({ vpW })=> (
-            (vpW<=420) ? '100%' : 'auto'
-        ),
+        width : ({ vpW })=> (vpW<=420) ? '100%' : 'auto',
         display : 'flex',
         justifyContent : 'center',
         alignItems : 'center'
@@ -139,7 +138,8 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'About' });
 
-function About ({ vpW, vpH, theme }) {
+function About ({ theme }) {
+    const [ vpW, vpH ] = useViewportSizes(500);
     const classes = useStyles({ vpW, vpH, theme });
 
     // check renderpixels on viewport for (general)
@@ -179,7 +179,4 @@ function About ({ vpW, vpH, theme }) {
     );
 }
 
-export default connect(({ viewport }) => ({ 
-    vpW : viewport.vpW, 
-    vpH : viewport.vpH 
-}))(About);
+export default About;

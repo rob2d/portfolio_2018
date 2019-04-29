@@ -1,9 +1,9 @@
-import React, { PureComponent, memo } from 'react'
-import { withStyles } from '@material-ui/styles'
+import React, { PureComponent } from 'react'
+import clsx from 'clsx'
 import Typography  from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import styles from './style/ProjectCardStyle'
+import useStyles from './style/ProjectCardStyle'
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -13,49 +13,54 @@ import {
     PROJECT_VIEW
 } from './../constants/DisplayStates'
 
-const ProjectCardLayout = withStyles(styles)(
-    function ProjectCardLayout({
-        data : { id, title, context, shortDescription }, 
-        pData, classes, onClick, parent, viewAsTitle
-    }) {
-        let containerClass = ( viewAsTitle ? 
-                                classes.cardContainerAsTitle : 
-                                classes.cardContainer );
+function ProjectCardLayout(props) {
+    const classes = useStyles(props);
 
-        return (
-            <div 
-                ref={ c => parent.R.container = c } 
-                className={ classes.container }
+    let containerClass = clsx((props.viewAsTitle && 
+        classes.cardContainerAsTitle 
+    ), classes.cardContainerBase);
+
+    const { 
+        data : { id, title, context, shortDescription }, 
+        pData, 
+        onClick, 
+        parent, 
+        viewAsTitle 
+    } = props;
+
+    return (
+        <div 
+            ref={ c => parent.R.container = c } 
+            className={ classes.container }
+        >
+            <Card 
+                className={ containerClass } 
+                onMouseDown={ onClick }
             >
-                <Card 
-                    className={ containerClass } 
-                    onMouseDown={ onClick }
-                >
-                    <div className={classes.cardMediaContent}>
-                        <img
-                            src={`/img/projects/${id}/${id}_thumb.png`}
-                            className={classes.cardMediaImg}
-                        />
-                        <div className={classes.titleOverlay}>
-                            <p className={classes.projectTitle}>
-                                { title }
-                            </p>
-                            <p className={classes.projectSubtitle}>
-                                { context } ({pData.year})
-                            </p>
-                            <div className={classes.moreInfoButton}>
-                                <i className={'mdi mdi-information-outline'} />
-                            </div>
+                <div className={classes.cardMediaContent}>
+                    <img
+                        src={`/img/projects/${id}/${id}_thumb.png`}
+                        className={classes.cardMediaImg}
+                    />
+                    <div className={classes.titleOverlay}>
+                        <p className={classes.projectTitle}>
+                            { title }
+                        </p>
+                        <p className={classes.projectSubtitle}>
+                            { context } ({pData.year})
+                        </p>
+                        <div className={classes.moreInfoButton}>
+                            <i className={'mdi mdi-information-outline'} />
                         </div>
                     </div>
-                    <CardContent className={ classes.cardContent }>
-                        <Typography component="p">{ shortDescription }</Typography>
-                    </CardContent>
-                </Card>
-            </div>
-        )
-    }
-);
+                </div>
+                <CardContent className={ classes.cardContent }>
+                    <Typography component="p">{ shortDescription }</Typography>
+                </CardContent>
+            </Card>
+        </div>
+    );
+}
 
 class ProjectCard extends PureComponent {
     
@@ -208,4 +213,4 @@ class ProjectCard extends PureComponent {
     }
 }
 
-export default ProjectCard;
+export default ProjectCard

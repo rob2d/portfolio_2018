@@ -1,14 +1,17 @@
 import React, { PureComponent } from 'react'
-import * as THREE from 'three'
+import { 
+    Object3D, Vector3, Mesh, 
+    SphereGeometry, MeshBasicMaterial,
+    DoubleSide, Scene, PerspectiveCamera, 
+    WebGLRenderer
+} from 'three'
+import { makeStyles, useTheme } from '@material-ui/styles'
 import { textAlign, SpriteText2D } from 'three-text2d'
-import { withStyles } from '@material-ui/styles'
-import { connect } from 'react-redux'
+import useViewportSizes from 'use-viewport-sizes'
 import { about as strings} from 'strings'
-import Themes from 'constants/Themes'
 import skillPoints from 'constants/skillPoints'
 import ShiftingValueMap from 'utils/data-structs/ShiftingValueMap'
 import SkillsOverlayText from './skills-orbit/SkillsOverlayText'
-import styles from './style/SkillsOrbitStyle'
 import FadingOrbitContainer from './skills-orbit/FadingOrbitContainer'
 
 const OUTER_RADIUS = 200,
@@ -31,7 +34,7 @@ function createSkillVertex({ radianAngle, value=1 }) {
 
 function createMesh (sources) {
     const { geometry, material } = sources;
-    return new THREE.Mesh(geometry, material);
+    return new Mesh(geometry, material);
 }
 
 /**
@@ -44,11 +47,11 @@ let distanceOpacityMap = new Map();
 const sources = {
     outerSphere : {
         type     : 'sphere',
-        geometry : new THREE.SphereGeometry( OUTER_RADIUS, 17, 17 ),
-        material : new THREE.MeshBasicMaterial({ 
+        geometry : new SphereGeometry( OUTER_RADIUS, 17, 17 ),
+        material : new MeshBasicMaterial({ 
             color       : 0xDCDCDC, 
             wireframe   : true,
-            side        : THREE.DoubleSide,
+            side        : DoubleSide,
             opacity     : 0.4,
             transparent : true,
             depthWrite  : false
@@ -58,11 +61,11 @@ const sources = {
 
     innerSphere : {
         type     : 'sphere',
-        geometry : new THREE.SphereGeometry( INNER_RADIUS, 7, 7 ),
-        material : new THREE.MeshBasicMaterial({ 
+        geometry : new SphereGeometry( INNER_RADIUS, 7, 7 ),
+        material : new MeshBasicMaterial({ 
             color       : 0xCC288D, 
             wireframe   : true,
-            side        : THREE.DoubleSide,
+            side        : DoubleSide,
             opacity     : 0.2,
             transparent : true,
         })
@@ -74,8 +77,8 @@ const sources = {
         generateParams : ({ value, theme }) => ({
             align     : textAlign.center, 
             font      : `${6+Math.round(34*value)}px roboto_bold`, 
-            fillStyle : (theme == Themes.LIGHT) ? '#333333' : '#FFFFFF',
-            side      : THREE.DoubleSide,
+            fillStyle : (theme == 'light') ? '#333333' : '#FFFFFF',
+            side      : DoubleSide,
             depthTest : false
         })
     },
@@ -83,22 +86,56 @@ const sources = {
         type : 'sphere',
         unmapped : true,
         generateParams : ({ value, theme }) => ({
-            geometry   : new THREE.SphereGeometry( 
+            geometry   : new SphereGeometry( 
                 getSkillSphereDiameter(value), 
                 6+Math.round(1.7*value), 
                 6+Math.round(1.7*value) 
             ),
-            material   : new THREE.MeshBasicMaterial({ 
+            material   : new MeshBasicMaterial({ 
                 color        : 0xC51162,
                 wireframe    : true,
-                side         : THREE.DoubleSide,
+                side         : DoubleSide,
                 transparent  : true,
-                opacity      : theme == Themes.LIGHT ? 0.1 : 0.2,
+                opacity      : theme == 'light' ? 0.1 : 0.2,
                 depthWrite   : false
             })
         })
     }
 };
+
+const useStyles = makeStyles( theme => ({
+    container : {
+        position       : 'relative',
+        display        : 'flex',
+        flexDirection  : 'column',
+        overflow       : 'hidden',
+        justifyContent : 'center',
+        alignItems     : 'center',
+        pointerEvents  : 'all',
+        cursor         : 'pointer'
+    },
+    meta3d : {
+        maxWidth  : '200px',
+        maxHeight : '200px',
+        overflow  : 'auto'
+    },
+    hintIcons : {
+        position : 'absolute',
+        margin   : '0px',
+        bottom   : '0px',
+        color    : theme.rc3.text
+    },
+    arrow : {
+        '&:before': {
+            transition : 'transform ease 0.5s'
+        }
+    },
+    arrowRotated : {
+        '&:before': {
+            transform : 'rotateZ(180deg)'
+        }
+    }
+}), { name : 'SkillsOrbit' });
 
 class SkillsOrbit extends PureComponent {
     constructor (props, context) {
@@ -273,8 +310,8 @@ class SkillsOrbit extends PureComponent {
 
             // instantiate renderer, scene, camera
             
-            this.scene = new THREE.Scene();
-            this.camera = new THREE.PerspectiveCamera(60, 1, 0.5, 2000);
+            this.scene = new Scene();
+            this.camera = new PerspectiveCamera(60, 1, 0.5, 2000);
 
             this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({ 
                 value : 720,
@@ -288,7 +325,7 @@ class SkillsOrbit extends PureComponent {
                 }
             }));
 
-            this.renderer = new THREE.WebGLRenderer({ 
+            this.renderer = new WebGLRenderer({ 
                 alpha : true, 
                 antialias : true 
             });
@@ -312,13 +349,13 @@ class SkillsOrbit extends PureComponent {
         let skillStrings = strings.skills;
 
         // base object which will rotate
-        this.O.rotationOrigin = new THREE.Object3D();
+        this.O.rotationOrigin = new Object3D();
 
         // needed for new API; must provide target vector,
         // or we get warnings. Luckily, we can just create 
         // one re-useable vector to satisfy the beast's needs
 
-        this.wpTargetVector = new THREE.Vector3();
+        this.wpTargetVector = new Vector3();
 
         // sphere creation/assignment 
 
@@ -528,11 +565,20 @@ class SkillsOrbit extends PureComponent {
     }
 }
 
+function SkillsOrbitContainer () {
+    const [vpW, vpH] = useViewportSizes();
+    const classes = useStyles({ vpW, vpH });
+    const theme = useTheme();
 
-export default connect(
-    ({ viewport : { vpW, vpH }, core : { theme } }) => ({ 
-        vpW,
-        vpH,
-        theme
-    })
-)(withStyles(styles)(SkillsOrbit));
+    return (
+        <SkillsOrbit 
+            vpW={ vpW } 
+            vpH={ vpH } 
+            classes={ classes }
+            theme={ theme.palette.type }    
+        />
+    );
+}
+
+
+export default SkillsOrbitContainer
