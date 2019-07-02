@@ -17,6 +17,15 @@ function generateMediaImages(projectId, mediaCount) {
 }
 
 export default { 
+    'thanos_slack_files' : {
+        year : '2019',
+        links : ['https://www.npmjs.com/package/thanos-slack-files'],
+        sourceCode : ['https://github.com/rob2d/thanos_slack_files'],
+        mediaAspectRatio : 1.36,
+        media : [
+            // N/A
+        ]
+    },
     'buildandwatch' : {
         year : '2018',
         links      : [

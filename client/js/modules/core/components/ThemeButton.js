@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { setTheme } from 'modules/core/actions'
 import Themes from 'constants/Themes'
@@ -8,21 +8,19 @@ import { makeStyles } from '@material-ui/styles'
 import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon'
 
 let themeTargets = {
-    [ Themes.LIGHT ] : {
+    [ 'light' ] : {
         name      : 'Dark',
         iconClass : 'mdi mdi-weather-night'
     }, 
-    [ Themes.DARK ] : {
+    [ 'dark' ] : {
         name      : 'Light',
         iconClass : 'mdi mdi-weather-sunny'
     }
 };
 
-function getFlipTheme (theme) {
-    return ((theme == Themes.LIGHT) ?  
-                Themes.DARK : Themes.LIGHT
-    );
-}
+const getFlipTheme = theme => (
+    (theme == 'light') ?  'dark' : 'light'
+);
 
 const useStyles = makeStyles( theme =>({
     container : {
@@ -48,8 +46,7 @@ function ThemeButton ({ theme, setTheme }) {
     // reflects theme state
     const [ themeState, setThemeState ] = useState(theme);
 
-    const onClick = e => {
-
+    const onClick = useMemo(()=> e => {
         // let the button anim play out a bit smoothly,
         // then begin the theme transition
 
@@ -57,17 +54,26 @@ function ThemeButton ({ theme, setTheme }) {
             setIsToggling(true);
             setThemeState(getFlipTheme(theme));
             setTimeout(()=> {
-                setTheme(getFlipTheme(theme));
+                setTheme(getFlipTheme(themeState));
+                console.log('setting is toggling to false');
                 setIsToggling(false);
             }, 750);
         }
-    }
+    }, [setTheme, isToggling]);
+    
+    const tooltipClasses = useMemo(()=> ({ 
+        tooltip : classes.tooltip 
+    }), [classes]);
+
+    const tooltipMessage = useMemo(()=> (
+        <span>Switch to the <b>{themeTargets[themeState].name}</b> theme</span>
+    ), [themeTargets[themeState.name]]);
 
     return (
         <Tooltip
             enterDelay={ 400 }
-            title={ <span>Switch to the <b>{themeTargets[themeState].name}</b> theme</span> }
-            classes={{ tooltip : classes.tooltip }}
+            title={ tooltipMessage }
+            classes={ tooltipClasses }
         >
             <Button 
                 onClick={ onClick }

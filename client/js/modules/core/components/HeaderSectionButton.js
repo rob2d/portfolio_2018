@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import { makeStyles } from '@material-ui/styles'
@@ -47,6 +47,10 @@ function HeaderSectionButton({
         onClick, domId, name, iconClass, 
         tooltipText, buttonDivRef, disabled 
     });
+
+    const tooltipClasses = useMemo(()=> ({ 
+        tooltip : classes.tooltip 
+    }), [classes]);
     
     return (
         <div 
@@ -56,7 +60,7 @@ function HeaderSectionButton({
             <Tooltip
                 enterDelay={ 400 }
                 title={ tooltipText }
-                classes={{ tooltip : classes.tooltip }}
+                classes={ tooltipClasses }
             >
                 <Button className={ classes.button }
                     disabled={ disabled }

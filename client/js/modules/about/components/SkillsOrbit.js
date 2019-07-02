@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { useMemo, useEffect, useLayoutEffect, useRef, PureComponent } from 'react'
 import { 
     Object3D, Vector3, Mesh, 
     SphereGeometry, MeshBasicMaterial,
@@ -13,6 +13,8 @@ import skillPoints from 'constants/skillPoints'
 import ShiftingValueMap from 'utils/data-structs/ShiftingValueMap'
 import SkillsOverlayText from './skills-orbit/SkillsOverlayText'
 import FadingOrbitContainer from './skills-orbit/FadingOrbitContainer'
+const ShiftingValueEntry = ShiftingValueMap.ValueEntry;
+const { skills } = strings;
 
 const OUTER_RADIUS = 200,
       INNER_RADIUS = 40,
@@ -137,129 +139,29 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'SkillsOrbit' });
 
-class SkillsOrbit extends PureComponent {
-    constructor (props, context) {
-        super(props, context);
-
-        /**
-         *  namespace for Three.JS objects
-         **/
-        this.O = {};
-        this._hasInstantiated = false;
-        this.lastFocusEvent    = performance.now();
-        this.tiltTimeProcessed = performance.now();
-        this.shiftingValuesMap = new ShiftingValueMap();
-
-        this.R = { 
-            canvas    : undefined,
-            container : undefined,
-            debugText : undefined
-        };
-
-        this._isMounted = false;
-        this.state = { isHighlighted : false };
-    }
-
-    componentDidMount () {
-        this._isMounted = true;
-        this.instantiateScene();
-        this.lastAnimated = performance.now();
-        window.addEventListener('mousemove', this.onMouseMove);
-    }
-
-    componentWillUnmount () {
-        window.removeEventListener('mousemove', this.onMouseMove);
-        this.freeResources();
-        this._isMounted = false;
-    }
-
-    onMouseMove = (e) => {
-        const { clientX, clientY } = e;
-        const timeDelta = performance.now() - this.tiltTimeProcessed; 
-        const valueMap = this.shiftingValuesMap;
-
-        if(timeDelta > 64 && this.R.canvas) {
-            this.tiltTimeProcessed = performance.now();
-
-            let mouseRelX = clientX / window.innerWidth,
-                mouseRelY = clientY / window.innerHeight;
-
-            if(valueMap.has('rotYSpeed')) {
-                let valueEntry = valueMap.get('rotYSpeed');
-                valueEntry.target = (mouseRelX - 0.5) * 0.6;
-            }
-
-            if(valueMap.has('rotXSpeed')) {
-                let valueEntry = valueMap.get('rotXSpeed');
-                valueEntry.target = (mouseRelY - 0.5) * 0.6;
-            }
-        }
-    };
-
-    onMouseEnter = e => {
-        if(!this.state.isHighlighted) {
-            this.setState({ isHighlighted : true });
-        }
-    };
-
-    onMouseLeave = e => {
-        if(this.state.isHighlighted) {
-            this.setState({ isHighlighted : false });
-        }
-    };
-
+function SkillsOrbitContainer () {
+    const [vpW, vpH] = useViewportSizes();
+    const classes = useStyles({ vpW, vpH });
+    const theme = useTheme();
+    const canvas = useRef();
     /**
-     * TODO : re-organize to use new 
-     *        "deriveStateFromProps" lifecycle event
-     * 
-     * @param {*} prevProps 
-     * @param {*} prevState 
+     * reference for collection of objects
+     * to center around central mesh
      */
-    componentDidUpdate(prevProps, prevState) {
+    const oRef = useRef(undefined);
+    const [scene, setScene] = useState(()=>{});
+    const [renderer, setRender] = useState(()=>{});
 
-        // if language has changed, we should also change the 
-        // content of the sphere text
+    const shiftingValuesMap = useMemo(()=> new ShiftingValuesMap(), []);
+    const lastAnimated = useRef(performance.now());
+    const tiltTimeProcessed = useRef(performance.now());
 
-        if(prevProps.theme != this.props.theme) {
-            this.instantiateScene();
-        } else {
-
-            // upon resize of window, recalculate the width of the renderer    
-
-            let maxDimension = Math.max(
-                    this.props.vpW,
-                    this.props.vpH
-                ),
-                prevMaxDimension = Math.max(
-                    prevProps.vpW, 
-                    prevProps.vpH
-                );
-                
-            if(maxDimension != prevMaxDimension) {
-                this.refreshRendererSize();
-            }
-        }
-
-        if(this.state.isHighlighted != prevState.isHighlighted && this.shiftingValuesMap) {
-            this.lastFocusEvent = performance.now();
-            const map =this.shiftingValuesMap;
-            
-            if(map.has('camPosZ')) {
-                let camPosZ = map.get('camPosZ');
-                if(this.state.isHighlighted) {
-                    camPosZ.target = 700;
-                } else {
-                    setTimeout(()=>( camPosZ.target = 550 ), 1000);
-                }
-            }
-        }
-    }
-
+    
     /**
      * Adjusts renderer size according
      * to current window dimensions
      */
-    refreshRendererSize = ()=> {
+    const refreshRendererSize = useMemo(()=> ()=> {
         let maxDimension = Math.max(window.innerWidth,window.innerHeight);
 
         let SIZE = (()=>{
@@ -282,139 +184,113 @@ class SkillsOrbit extends PureComponent {
         }
 
         // re-assign as Three.JS is a bit funny 
-        this.R.canvas = window.document.querySelector('#canvas3d canvas');
+        canvasRef.current = window.document.querySelector('#canvas3d canvas');
 
         // add event listener to newly created references
-        this.R.container.addEventListener('mouseenter', this.onMouseEnter);
-        this.R.container.addEventListener('mouseleave', this.onMouseLeave);  
-    };
+        containerRef.current.addEventListener('mouseenter', onMouseEnter);
+        containerRef.current.addEventListener('mouseleave', onMouseLeave);  
+    }, []);
 
-    freeResources = () => {
-        this.scene.remove(this.O.rotationOrigin);
-        this.O.rotationOrigin = undefined;
-        this.O.textSprites.length = 0;
-        this.O.skillPoints.length = 0;
-        this.O.outerSphere = undefined;
-        this.O.innerSphere = undefined;
+    const onMouseMove = useMemo(()=> e => {
+        const [isHighlighted, setHighlighted] = useState(false);
+        const timeDelta = performance.now() - tiltTimeProcessed.current;
+        const valueMap = shiftingValuesMap;
 
-        this.R.container.removeEventListener('mouseenter', this.onMouseEnter);        
-        this.R.container.removeEventListener('mouseleave', this.onMouseLeave);
-        this.R.canvas = undefined;
-    };
+        // shift tilt rotation speed 
+        // based on new mouse position
 
-    instantiateScene = () => {
-    
-        if(this.renderer) {
-            this.freeResources();
-        } else { 
+        if(timeDelta > 64 && canvas.current) {
+            tiltTimeProcessed.current = performance.now();
 
-            // instantiate renderer, scene, camera
-            
-            this.scene = new Scene();
-            this.camera = new PerspectiveCamera(60, 1, 0.5, 2000);
+            const mouseRelX = clientX / vpW;
+            const mouseRelY = clientY / vpH;
 
-            this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({ 
-                value : 720,
-                target : 550,
-                rate : 500,
-                onChange : camPosZ => {
-                    const { position } = this.camera;
-                    const { x, y } = position;
+            if(valueMap.has('rotYSpeed')) {
+                const valueEntry = valueMap.get('rotYSpeed');
+                valueEntry.target = (mouseRelX - 0.5) * 0.6;
+            }
 
-                    this.camera && (this.camera.position.set(x,y,camPosZ));
-                }
-            }));
-
-            this.renderer = new WebGLRenderer({ 
-                alpha : true, 
-                antialias : true 
-            });
+            if(valueMap.has('rotXSpeed')) {
+                const valueEntry = valueMap.get('rotXSpeed');
+                valueEntry.target = (mouseRelY - 0.5) * 0.6;
+            }
         }
+    }, []);
 
-        this.createOrbit();
+    const createOrbit = useMemo(()=> ()=>{
+        oRef.current = oRef.current || {};
+        const objs = oRef.current;
+        objs.rotationOrigin = new Object3D();
+        /**
+         * needed for Three.JS' "World Position" API
+         * as reference to inject/update
+         */
+        objs.wpTargetVector = new Vector3();
 
-        document.getElementById('canvas3d')
-                    .appendChild( this.renderer.domElement );
-        
-        this.refreshRendererSize();
-
-        if(!this._hasInstantiated) {
-            this._hasInstantiated = true;
-            window.requestAnimationFrame( this.animate );
-        }
-    };
-    
-    createOrbit = () => {
-        const { theme } = this.props;
-        let skillStrings = strings.skills;
-
-        // base object which will rotate
-        this.O.rotationOrigin = new Object3D();
-
-        // needed for new API; must provide target vector,
-        // or we get warnings. Luckily, we can just create 
-        // one re-useable vector to satisfy the beast's needs
-
-        this.wpTargetVector = new Vector3();
-
-        // sphere creation/assignment 
+        // sphere creation/assignment
 
         for(let [key, params] of Object.entries(sources)) {
             if(!params.nonMapped) {
                 switch(params.type) {
                     case 'sphere': 
-                        this.O[key] = createMesh(params);
-                        this.O.rotationOrigin.add(this.O[key]);
+                        objs[key] = createMesh(params);
+                        objs.rotationOrigin.add(objs[key]);
                         break;
                 }
             }
         }
 
-        this.O.outerSphere.rotation.y = Math.PI/2;
+        objs.outerSphere.rotation.y = Math.PI/2;
 
-        this.O.textSprites = [];
-        this.O.skillPoints = [];
-        this.skillAngles   = []; // much more efficient to
-                                 // track angle differences
-                                 // vs polar coordinates 
-                                 // for transparency effect with
-                                 // distance
+        objs.textSprites = [];
+        objs.skillPoints = [];
         
-        skillPoints.forEach( ({ namespace, value }, i, arr) => {
+        // ============================= //
+        // IMPLEMENTATION NOTE : 
+        //
+        // for angles, it is much more efficient to
+        // track angle differences
+        // vs polar coordinates 
+        // for transparency effect with
+        // distance
+        // ============================= //
+        
+        objs.skillAngles = []; 
 
-            let projectionAngle = (i/arr.length) * 1.0 * Math.PI*2;
-            this.skillAngles.push(projectionAngle);
+        skillPoints.forEach(({ namespace, value }, i, arr ) => {
+            let projectionAngle = (i/arr.length) * Math.PI*2.0;
+            objs.skillAngles.push(projectionAngle);
 
             let textSprite = new SpriteText2D(
-                skillStrings[namespace], 
+                skillStrings[namespace],
                 sources.skillText.generateParams({ value, theme })
             );
 
-            this.O.textSprites.push(textSprite);
-            this.O.rotationOrigin.add(textSprite);
+            objs.textSprites.push(textSprite);
+            objs.rotationOrigin.push(textSprite);
+        
+            // difference between outer and inner circle radius
 
-            // difference between outer and inner
-            // circle radius
-
-            let skillsVertex = createSkillVertex({ 
-                radianAngle : projectionAngle, 
+            let skillsVertex = createSkillVertex({
+                radianAngle : projectionAngle,
                 value 
             });
-            
+
             let [ x, y, z ] = skillsVertex;
 
             let skillPointObj = createMesh(
                 sources.skillPoint.generateParams({ value, theme })
             );
 
-            skillPointObj.position.set(x, y, z);
+            skillPointObj.position.set(x, y, z)
+
+            objs.skillPoints.push(skillPointObj);
+            objs.rotationOrigin.add(skillPointObj);
+
+
+            // offset by 2.5% rotation so that it stays
+            // within view
             
-            this.O.skillPoints.push(skillPointObj);
-            this.O.rotationOrigin.add(skillPointObj);
-
-            // offset text by 2.5% rotation so that
-            // it stays in view
-
             let [ textX, textY, textZ ] = createSkillVertex({
                 radianAngle : projectionAngle - (Math.PI*2*0.025),
                 value
@@ -423,152 +299,122 @@ class SkillsOrbit extends PureComponent {
             textSprite.position.set(textX, textY, textZ);
         });
 
-        this.scene.add(this.O.rotationOrigin);
-
-        this.shiftingValuesMap.set('rotationX', new ShiftingValueMap.ValueEntry({
-            value : 0,
-            target : 0,
-            rate : (Math.PI * 2)/4,
-            onChange : rotationX => {
-                if(this.O.rotationOrigin) {
-                    this.O.rotationOrigin.rotation.x = rotationX;
-                }
-            }
-        }));
-
+        scene.add(objs.rotationOrigin);
         
-        this.shiftingValuesMap.set('rotationY', new ShiftingValueMap.ValueEntry({
+        shiftingValuesMap.set('rotationX', new ShiftingValueEntry({
             value : 0,
             target : 0,
             rate : (Math.PI * 2)/4,
-            onChange : rotationY => {
-                if(this.O.rotationOrigin) {
-                    this.O.rotationOrigin.rotation.y = rotationY;
+            onChange : rX => {
+                if(objs.rotationOrigin) {
+                    objs.rotationOrigin.rotation.x = rX;
                 }
             }
         }));
 
-        this.shiftingValuesMap.set('rotXSpeed', new ShiftingValueMap.ValueEntry({ 
+        shiftingValuesMap.set('rotationY', new ShiftingValueEntry({
+            value : 0,
+            target : 0,
+            rate : (Math.PI * 2)/4,
+            onChange : rY => {
+                if(objs.rotationOrigin) {
+                    objs.rotationOrigin.rotation.y = rY;
+                }
+            }
+        }));
+
+        shiftingValuesMap.set('rotXSpeed', new ShiftingValueEntry({
             value : 0,
             target : 0.175,
             rate : 0.25,
-            onChange : rotXSpeed => {}
+            onChange : rXSpeed => {}
         }));
 
-        this.shiftingValuesMap.set('rotYSpeed', new ShiftingValueMap.ValueEntry({ 
-            value    : 0,
-            target   : 0.325,
-            rate     : 0.25,
-            onChange : rotSpeedY => {}
+        shiftingValuesMap.set('rotYSpeed', new ShiftingValueEntry({
+            value : 0,
+            target : 0.325,
+            rate : 0.25,
+            onChange : rYSpeed => {}
         }));
-    };
+    }, []);
 
-    animate = (timestamp)=> {
-        const valueMap = this.shiftingValuesMap; //quick ref
+    const onMouseEnter = useMemo(()=> e => (
+        !isHighlighted && setHighlighted(true) 
+    ), [isHighlighted]);
+
+    const onMouseLeave = useMemo(()=> e => (
+        isHighlighted && setHighlighted(false)
+    ));
+
+    const instantiateScene = useMemo(()=> {
+        if(renderer) {
+            freeResources();
+        } else {
+
+            // instantiate renderer, scene and camera
+
+            setScene(new Scene());
+            setCamera(new PerspectiveCamera(60,1,0.5,2000));
         
-        // calculate time since last call
-        let deltaTime = !this.lastAnimated ? 
-                            0 : timestamp - this.lastAnimated;
+            // attach callback to camera position
 
-        valueMap.tick(deltaTime);
+            shiftingValuesMap.set('camPosZ', new ShiftingValueEntry({
+                value : 720,
+                target : 520,
+                rate : 500,
+                onChange : camPosZ => {
+                    const { position : { x, y } } = camera;
+                    camera && camera.position.set(x,y,camPosZ);
+                }
+            }));
 
-        this.lastAnimated = timestamp;
+            // instantiaite new renderer
+            setRenderer(new WebGLRenderer({
+                alpha : true,
+                antialias : true
+            }));
+        }
+    }, []);
 
-        if(this.O.rotationOrigin) {
-            if(valueMap.has('rotXSpeed')) {
-                let rotationX = valueMap.get('rotationX');
-                rotationX.target = rotationX.value + valueMap.get('rotXSpeed').value / deltaTime;
+    const animate = useMemo(()=> timestamp => {
+        let deltaTime = lastAnimated.current ? 
+                            0 : timestamp - lastAnimated.current;
+        
+        shiftingValuesMap.tick(deltaTime);
+        lastAnimated.current = timestamp;
+
+        if(oRef.current.rotationOrigin) {
+            if(shiftingValuesMap.has('rotXSpeed')) {
+                let rX = valueMap.get('rotationX');
+                rX.target = rX.value + shiftingValuesMap.get('rotXSpeed');
             }
 
-            if(valueMap.has('rotYSpeed')) {
-                let rotationY = valueMap.get('rotationY');
-                rotationY.target = rotationY.value + valueMap.get('rotYSpeed').value / deltaTime;          
+            if(shiftingValuesMap.has('rotYSpeed')) {
+                let rY = valueMap.get('rotationY');
+                rY.target = rY.value + shiftingValuesMap.get('rotYSpeed');
             }
         }
+    }, []);
 
-        // only process sprite alpha updates once per 100 ms max as
-        // this is pretty intense on CPU
+    useEffect(()=> { instantiateScene() }, [theme]);
 
-        if(!this.lastSpriteUpdate || (performance.now() - this.lastSpriteUpdate > 200)) {
-            this.lastSpriteUpdate = performance.now();
+    useEffect(()=> { refreshRendererSize() }, [vpW, vpH]);
 
-            let cameraPosition = this.camera.position;
+    useEffect(()=> {
+        if(shiftingValuesMap) {
+            lastFocusEvent.current = performance.now();
             
-            this.O.textSprites.forEach( sprite => {
-                let distance = Math.round(cameraPosition.distanceTo(
-                    sprite.getWorldPosition(this.wpTargetVector)
-                ));
-
-                let opacity;
-
-                if(distanceOpacityMap.has(distance)) {
-                    opacity = distanceOpacityMap.get(distance);
+            if(shiftingValuesMap.has('camPosZ')) {
+                let camPosZ = shiftingValuesMap.get('camPosZ');
+                if(isHighlighted) {
+                    camPosZ.target = 700;
                 } else {
-                    opacity = Math.min(0.85, Math.max(0.15, (700-distance)/200));
-                    distanceOpacityMap.set(distance, opacity);
+                    setTimeout(()=>( camPosZ.target = 550 ), 1000);
                 }
-    
-                // darker theme requires less transparency
-                
-                sprite.material.opacity = opacity;
-            });
+            }
         }
+    }, [isHighlighted])
 
-        this.renderer.render( this.scene, this.camera );
-
-        if(this._isMounted) {
-            requestAnimationFrame( this.animate );
-        }
-    };
-
-    onClick = ()=> {
-        let eventTime = performance.now();
-        let eventTimeDelta = eventTime - this.lastFocusEvent;
-
-        // allow updating max every .35s from 
-        // another mouse event
-        
-        if(eventTimeDelta > 350) {
-            this.setState({ isHighlighted : !this.state.isHighlighted });
-        }
-    };
-
-    render () {
-        const { classes, theme } = this.props;
-        const { isHighlighted } = this.state;
-
-        const leftIconClass = `mdi mdi-${!isHighlighted ? 'cursor-pointer' : 'human'}`;
-        const arrowClass = `mdi mdi-arrow-right ${
-                classes.arrow} ${ 
-                isHighlighted ? classes.arrowRotated : '' 
-        }`;
-
-        return (
-            <div 
-                className={classes.container} 
-                ref={ c => this.R.container = c } 
-                onClick={this.onClick}
-            >
-                <FadingOrbitContainer isHighlighted={ isHighlighted } />
-                <SkillsOverlayText theme={ theme } isVisible={ isHighlighted } />
-                <p className={ classes.hintIcons }>
-                { 
-                    <span>
-                        <i className={ leftIconClass } />&nbsp;&nbsp;
-                        <i className={ arrowClass } />&nbsp;&nbsp;
-                        <i className="mdi mdi-information" />
-                    </span>
-                }
-                </p>
-            </div>
-        );
-    }
-}
-
-function SkillsOrbitContainer () {
-    const [vpW, vpH] = useViewportSizes();
-    const classes = useStyles({ vpW, vpH });
-    const theme = useTheme();
 
     return (
         <SkillsOrbit 

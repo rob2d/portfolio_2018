@@ -4,7 +4,7 @@ import Avatar from '@material-ui/core/Avatar'
 import isPortrait  from 'utils/isPortrait'
 import DescriptiveText from './DescriptiveText'
 import SectionLinks from './SectionLinks'
-import SkillsOrbit from './SkillsOrbit'
+import SkillsOrbit from './SkillsOrbit.1'
 import useViewportSizes from 'use-viewport-sizes'
 
 

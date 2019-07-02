@@ -69,7 +69,7 @@ const SectionClickEvents = Sections.map( section => {
    return  e => appHistory.goTo(section.basePath, e);
 });
 
-function AppHeader ({ pathIndex }) {
+function AppHeader ({ pathIndex, pathname }) {
     const [vpW, vpH] = useViewportSizes();
     const [hasInitialized, setInitialized] = useState(undefined);
 
@@ -103,7 +103,7 @@ function AppHeader ({ pathIndex }) {
             };
         } else return {
         }
-    }, [vpW, vpH, pathIndex, buttonRefs.current && buttonRefs.current[0]]);
+    }, [vpW, vpH, pathname, buttonRefs.current && buttonRefs.current[0]]);
 
     // set of callbacks to set individual refs
     // (to prevent 2x renders in SectionButtons)
@@ -111,7 +111,7 @@ function AppHeader ({ pathIndex }) {
     const refRetrievers = useMemo(()=> {
         return buttonRefs.current.map((_,i) => 
         el => buttonRefs.current[i]=el, [])
-    }, []);
+    }, [buttonRefs.current[0]]);
 
     const { 
         appBarHeight,

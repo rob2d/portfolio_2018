@@ -74,5 +74,9 @@ export default {
     'yeoman' : {
         displayName  : 'Yeoman',
         referenceUrl : 'http://yeoman.io'
+    },
+    'slack-api' : {
+        displayName : 'Slack API',
+        referenceUrl : 'https://api.slack.com/'
     }
 }

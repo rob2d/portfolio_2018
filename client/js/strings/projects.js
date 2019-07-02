@@ -5,10 +5,31 @@ export default {
     projectData :
     [
         {
+            id : 'thanos_slack_files',
+            title : 'Thanos Slack Files',
+            context : 'Independent',
+            roles : 'Maintainer, Designer, Developer',
+            shortDescription : 'simple app to easily remove the largest files and free up storage for your free-tier slack team/workspace.',
+            description : [
+                'When using the free tier Slack workspace, there are limitations on the amount of file size ' + 
+                'you are given. Considering the price of slack this could be quite prohibitive; to help out ' + 
+                'with a hobby community I was hanging out at online, I quickly created this plugin to easily ' + 
+                'remove half of a slack community\'s largest public files (with an entertaining dialog to accompany that',
+                'It is useful as both a standalone Node Server and can also integrate using a dedicated Slack bot.'  
+            ],
+            technologySet : new Set([
+                'javascript',
+                'nodejs',
+                'slack-api',
+            ]),
+            sourceCodeDescriptions : [ 'GitHub' ],
+            linkDescriptions : ['NPM Repo']
+        },
+        {
             id      : 'buildandwatch',
             title   : 'Build & Watch',
             context : 'Independent',
-            roles   : 'Maintainer, Designer and Developer',
+            roles   : 'Maintainer, Designer, Developer',
             shortDescription : 'A simple retro-Gameboy ROM development workflow tool built using NodeJS',
             description : [
                 
