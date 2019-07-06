@@ -111,8 +111,8 @@ const useStyles = makeStyles( theme => ({
     // make certain things larger on non-mobile devices
     '@media (min-width:901px)' : {
         avatar : {
-            width : '180px',
-            height : '180px'
+            width : '120px',
+            height : '120px'
         },
         mainContainer : {
             justifyContent : 'space-evenly',

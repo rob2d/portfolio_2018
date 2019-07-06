@@ -15,7 +15,7 @@ const isLandscape = (function() {
         if(!memoizedValues[hashKey]) {
             memoizedValues[hashKey] = (
                 vpH < 430 && (vpW > (vpH * 1.33))
-            );
+            ) || (vpH >= 430 && ((vpW >= vpH * 1.33)));
         }
 
         return memoizedValues[hashKey];
