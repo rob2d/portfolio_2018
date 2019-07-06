@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import { makeStyles } from '@material-ui/styles'
@@ -23,22 +23,12 @@ const useStyles = makeStyles( theme => ({
         position : 'relative',
         top      : '2px'
     },
-
-    // TODO : use constant to make
-    //        tooltip style DRY
-
-    tooltip : {
-        fontSize : '11pt !important',
-        padding  : '4px 8px !important',
-        minHeight: '20px !important',
-        lineHeight: '20px !important'
-    },
     '@media (max-width: 400px)': {
         button : { minWidth : '68px' }
     }
 }), 'HeaderSectionButton');
 
-function HeaderSectionButton({ 
+export default function HeaderSectionButton({ 
     onClick, domId, name, 
     iconClass, tooltipText, 
     buttonDivRef, disabled
@@ -47,10 +37,6 @@ function HeaderSectionButton({
         onClick, domId, name, iconClass, 
         tooltipText, buttonDivRef, disabled 
     });
-
-    const tooltipClasses = useMemo(()=> ({ 
-        tooltip : classes.tooltip 
-    }), [classes]);
     
     return (
         <div 
@@ -60,7 +46,6 @@ function HeaderSectionButton({
             <Tooltip
                 enterDelay={ 400 }
                 title={ tooltipText }
-                classes={ tooltipClasses }
             >
                 <Button className={ classes.button }
                     disabled={ disabled }
@@ -76,5 +61,3 @@ function HeaderSectionButton({
         </div>
     )
 }
-
-export default memo(HeaderSectionButton)

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles( theme => ({   
@@ -18,11 +18,9 @@ const useStyles = makeStyles( theme => ({
     }
 }), 'FadingOrbitContainer');
 
-const FadingOrbitContainer = function OrbitContainer ({ isHighlighted }) { 
+export default function OrbitContainer ({ isHighlighted }) { 
     const classes = useStyles({ isHighlighted });
     return (
         <div id="canvas3d" className={ classes.canvas3d } />
     );
 }
-
-export default memo(FadingOrbitContainer)

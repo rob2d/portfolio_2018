@@ -1,5 +1,7 @@
-import React, { useState, useMemo } from 'react'
-import { connect } from 'react-redux'
+import React, { 
+    useState, useMemo, useCallback
+} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { setTheme } from 'modules/core/actions'
 import Themes from 'constants/Themes'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -29,62 +31,47 @@ const useStyles = makeStyles( theme =>({
         fill : '#FFFFFF',
         stroke : '#FFFFFF'
     },
-    tooltip : {
-        fontSize   : '11pt !important',
-        padding    : '4px 8px !important',
-        minHeight  : '20px !important',
-        lineHeight : '20px !important'
-    },
     icon : {
         fontSize : '16pt'
     }
 }), 'ThemeButton');
 
-function ThemeButton ({ theme, setTheme }) {
-    const classes = useStyles();
+export default function ThemeButton () {
+    const dispatch = useDispatch();
+    const theme = useSelector( state => state.core.theme );
     const [ isToggling, setIsToggling ] = useState(false);
-    // reflects theme state
     const [ themeState, setThemeState ] = useState(theme);
 
-    const onClick = useMemo(()=> e => {
-        // let the button anim play out a bit smoothly,
-        // then begin the theme transition
+    const classes = useStyles();
 
+    /**
+     * upon clicking, launch sequence to toggle
+     * theme and provide some ample time
+     * for animation transition to smoothly play out
+     */
+    const onClick = useCallback( e => {
         if(!isToggling) {
             setIsToggling(true);
             setThemeState(getFlipTheme(theme));
             setTimeout(()=> {
-                setTheme(getFlipTheme(themeState));
-                console.log('setting is toggling to false');
+                dispatch(setTheme(getFlipTheme(themeState)));
                 setIsToggling(false);
             }, 750);
         }
-    }, [setTheme, isToggling]);
-    
-    const tooltipClasses = useMemo(()=> ({ 
-        tooltip : classes.tooltip 
-    }), [classes]);
 
-    const tooltipMessage = useMemo(()=> (
-        <span>Switch to the <b>{themeTargets[themeState].name}</b> theme</span>
+    }, [setTheme, isToggling]);
+
+    const tooltip = useMemo(()=> (
+        <span>Switch to the 
+            <b>{themeTargets[themeState].name}</b> theme
+        </span>
     ), [themeTargets[themeState.name]]);
 
     return (
-        <Tooltip
-            enterDelay={ 400 }
-            title={ tooltipMessage }
-            classes={ tooltipClasses }
-        >
-            <Button 
-                onClick={ onClick }
-                className={ classes.container } 
-            > <DayNightSVGIcon className={ themeState } />
+        <Tooltip enterDelay={ 400 } title={ tooltip } >
+            <Button onClick={ onClick } className={ classes.container } > 
+                <DayNightSVGIcon className={ themeState } />
             </Button>
         </Tooltip>
     );
 }
-
-export default connect(
-    ({ core }) => ({ theme : core.theme }), 
-    ({ setTheme })
-)(ThemeButton)

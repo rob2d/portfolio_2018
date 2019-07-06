@@ -172,7 +172,6 @@ function PDFViewer ({ fileURL }) {
                         id={`resume-pdf-download-tooltip`}
                         enterDelay={400} 
                         title='Download this PDF'
-                        classes={{ tooltip : classes.tooltip }}
                     >
                         <Fab 
                             className={classes.downloadButton}

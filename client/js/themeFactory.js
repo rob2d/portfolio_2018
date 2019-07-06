@@ -53,6 +53,12 @@ export const getTheme = theme => {
                     tooltip : {
                         backgroundColor : (theme == Themes.LIGHT) ? 
                             '#616161' : pink[900]
+                    },
+                    popper : {
+                        fontSize : '11pt',
+                        padding  : '4px 8px',
+                        minHeight: '20px',
+                        lineHeight: '20px'
                     }
                 },
                 MuiTypography : {

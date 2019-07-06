@@ -1,9 +1,7 @@
-import React, { memo, Fragment } from 'react'
+import React, { useMemo } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { about as strings} from 'strings'
 import skillPoints from 'constants/skillPoints'
-import Themes from 'constants/Themes'
-import { getTheme } from 'app-root/themeFactory'
 import ValueBar from './ValueBar'
 
 const useStyles = makeStyles( theme => ({
@@ -17,8 +15,8 @@ const useStyles = makeStyles( theme => ({
         justifyContent : 'center',
         pointerEvents  : 'none',
         flexDirection  : 'column',
-        opacity        : ({ isVisible }) => (isVisible ? 1.0 : 0.0),
-        transition     : ({ isVisible }) => `opacity 0.5s ease ${ !isVisible ? 1: 0 }s`,
+        opacity        : p => (p.isVisible ? 1.0 : 0.0),
+        transition     : p => `opacity 0.5s ease ${ !p.isVisible ? 1: 0 }s`,
         overflowX      : 'hidden',
         overflowY      : 'visible',
         color          : theme.rc3.text
@@ -49,33 +47,35 @@ const useStyles = makeStyles( theme => ({
     }
 }));
 
-function SkillsOverlayText({ isVisible }) {
+export default function SkillsOverlayText({ isVisible }) {
     const classes = useStyles({ isVisible });
     let skillStrings = strings.skills;
 
+    const skillContent = useMemo(()=> (
+        skillPoints.sort((sp1, sp2)=> (
+            sp2.value-sp1.value
+            )).map(({ namespace, value }, index) => (
+            <React.Fragment key={`skillText_${namespace}_${index}`}>
+                <div className={ classes.textItem }>
+                    <p className={ classes.namespace }>
+                        { skillStrings[namespace] } 
+                    </p> 
+                    <p className={ classes.value }>
+                        { parseFloat(value).toFixed(2) }
+                    </p>
+                </div>
+                <ValueBar 
+                    isVisible={isVisible}
+                    value={value} 
+                    index={index} 
+                />
+            </React.Fragment>
+        ))
+    ), [classes, skillPoints]);
+
     return (
-        <div className={classes.container}>
-            { skillPoints.sort((sp1, sp2)=> (
-                sp2.value-sp1.value
-                )).map(({ namespace, value }, index) => (
-                <Fragment key={`skillText_${namespace}_${index}`}>
-                    <div className={classes.textItem}>
-                        <p className={classes.namespace}>
-                            { skillStrings[namespace] } 
-                        </p> 
-                        <p className={classes.value}>
-                            { parseFloat(value).toFixed(2) }
-                        </p>
-                    </div>
-                    <ValueBar 
-                        isVisible={isVisible}
-                        value={value} 
-                        index={index} 
-                    />
-                </Fragment>
-            )) }
+        <div className={ classes.container }>
+            { skillContent }
         </div>
     );
 }
-
-export default memo(SkillsOverlayText)

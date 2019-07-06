@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import ButtonLink from 'utils/components/ButtonLink'
 import { menus as menuStrings } from 'strings'
@@ -75,16 +75,6 @@ const useStyles = makeStyles( theme => ({
         display : 'inline-block',
         color   : theme.rc3.text
     },
-    '@media (orientation:landscape)': {
-        avatar : {
-            margin : '16px 16px 8px'
-        },
-        mainContainer : {
-            padding : '16px',
-            flexDirection : 'row',
-            boxSizing : 'border-box'
-        }
-    },
 
     icon : {
         marginRight : ({ vpW, vpH }) => (
@@ -102,52 +92,47 @@ const useStyles = makeStyles( theme => ({
     }
 }), 'SectionLinks');
 
-const SectionLink = memo(function SectionLink ({ url, name, mdiClass, classes }) {
-    const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
-
-    return (
-        <ButtonLink 
-            url={url}
-            containerClass={classes.sectionLink}
-        >   <li className={classes.listItem}> 
-                <i className={iconClass} />&nbsp;{name}
-            </li>
-        </ButtonLink>
-    );
-});
-
-function SectionLinks ({ vpW, vpH }) {
+export default function SectionLinks ({ vpW, vpH }) {
     const classes = useStyles({ vpW, vpH })
-    const sectionLinkProps = {
-        vpW,
-        vpH,
-        classes
-    };
+    const sectionLinkProps = useMemo(()=> ({
+        vpW, vpH, classes
+    }, [vpW, vpH, classes]));
 
     const isInLandscape = isLandscape(vpW, vpH);
-    const isInPortrait = isPortrait(vpW, vpH);
+
+    const SectionLink = useCallback(({ url, name, mdiClass })=> {
+        const iconClass = `mdi mdi-${mdiClass} ${classes.icon}`;
+        
+        return (
+            <ButtonLink 
+                url={url}
+                containerClass={classes.sectionLink}
+            >   <li className={classes.listItem}> 
+                    <i className={iconClass} />&nbsp;{name}
+                </li>
+            </ButtonLink>
+        );
+    }, [classes])
+
     return (
-        <ul className={classes.sectionList}>
+        <ul className={ classes.sectionList }>
             <SectionLink 
-                name={menuStrings.main.projects} 
-                mdiClass={'briefcase'} 
-                url={'/projects'} 
-                { ...sectionLinkProps }
+                name={ menuStrings.main.projects } 
+                mdiClass={ 'briefcase' } 
+                url={ '/projects' } 
             />
             <SectionLink 
                 name={ isInLandscape ? 'Misc' : 'Miscellaneous' } 
-                mdiClass={'dice-multiple'} 
-                url={'/misc'} 
+                mdiClass={ 'dice-multiple' } 
+                url={ '/misc' } 
                 { ...sectionLinkProps }
             /> 
             <SectionLink
-                name={menuStrings.main.cv}
-                mdiClass={'file-document-box'}
+                name={ menuStrings.main.cv }
+                mdiClass={ 'file-document-box' }
                 url={'/cv'}
                 { ...sectionLinkProps }
             />
         </ul>
     );
 }
-
-export default memo(SectionLinks)
