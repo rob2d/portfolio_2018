@@ -9,12 +9,6 @@ import useViewportSizes from 'use-viewport-sizes'
 
 
 const useStyles = makeStyles( theme => ({
-    topContent : {
-        width : ({ vpW })=> (vpW<=420) ? '100%' : 'auto',
-        display : 'flex',
-        justifyContent : 'center',
-        alignItems : 'center'
-    },
     mainContainer : {
         marginLeft : 'auto',
         marginRight : 'auto',
@@ -24,11 +18,29 @@ const useStyles = makeStyles( theme => ({
         flexDirection  : 'column',
         justifyContent : 'center',
         padding : ({ vpW, vpH }) => (
-            isPortrait(vpW, vpH) ? '0px 16px' : '16px'
+            !isPortrait(vpW, vpH) ? '0px 16px' : '16px'
         ),
         alignItems : 'center',
         boxSizing : 'border-box' // for padding in landscape
     },
+
+    firstContainer : {
+        display : 'flex',
+        flexDirection : 'row',
+        alignItems : 'center',
+        justifyContent : 'space-evenly',
+        width : '100%'
+    },
+
+    topContent : {
+        width : ({ vpW })=> (vpW<=420) ? '100%' : '100%',
+        display : 'flex',
+        justifyContent : 'center',
+        alignItems : 'center',
+        flexDirection : 'row',
+        justifyContent : 'space-between'
+    },
+
     pText : {
         paddingLeft : '16px',
         paddingRight : '16px',
@@ -37,17 +49,20 @@ const useStyles = makeStyles( theme => ({
         textAlign : 'left',
         fontSize : '12pt',
         fontFamily : 'roboto_light',
+        lineHeight : '1.3rem',
+        letterSpacing : '0.01rem',
         color : theme.rc3.text
     },
     avatar : {
         width  : '128px',
         height : '128px',
-        margin : '32px auto'
+        margin : '32px'
     },
     skillsOrbit : {
+        display : 'none',
         position : 'relative',
-        minWidth : '200px',
-        minHeight : '200px'
+        width : '30vh',
+        height : '30vh'
     },
     // don't want the avatar to dominate the mobile screen:   
     ['@media (max-width: 700px) and (min-width : 341px) ' + 
@@ -72,13 +87,13 @@ const useStyles = makeStyles( theme => ({
         },
         mainContainer : {
             padding : '16px',
-            flexDirection : 'row',
             boxSizing : 'border-box'
         }
     },
     // for general mobile devices in landscape
     '@media (orientation:landscape) and (max-width:900px)': {
         avatar : {
+            margin : '24px 8px',
             width : '80px',
             height : '80px',
         },
@@ -100,7 +115,8 @@ const useStyles = makeStyles( theme => ({
             height : '180px'
         },
         mainContainer : {
-            maxWidth : '1100px'
+            justifyContent : 'space-evenly',
+            maxWidth : '1280px'
         },
         pText : {
             paddingLeft  : '32px',
@@ -112,14 +128,15 @@ const useStyles = makeStyles( theme => ({
             display : 'flex',
             flexDirection : 'column', 
             overflowY : 'auto',
-            zIndex : 5000,
-            flexGrow : 1
+            zIndex : 5000
         },
         skillsOrbit : {
-            display : 'flex',
+            display : 'none',
             flexDirection : 'column',
             overflowY : 'auto',
-            flexGrow : 1
+            flexGrow : 0,
+            width : '30vh',
+            height : '30vh'
         }
     },
     tech : {
@@ -139,41 +156,46 @@ const useStyles = makeStyles( theme => ({
 }), { name : 'About' });
 
 function About ({ theme }) {
-    const [ vpW, vpH ] = useViewportSizes(500);
-    const classes = useStyles({ vpW, vpH, theme });
+    const [ vpW, vpH ] = useViewportSizes();
+
 
     // check renderpixels on viewport for (general)
     // coverage of landscape; covers iPhone6-X
     // and most android devices
 
     const linkProps = useMemo(()=>({ vpW, vpH }), [vpW, vpH]);
+
+    const inPortrait = useMemo(()=>
+        isPortrait(vpW, vpH), 
+        [vpW, vpH]
+    );
+
+    const classes = useStyles({ vpW, vpH, theme, inPortrait });
     const techProps = useMemo(()=>(
         { containerClass : classes.tech }
     ), [ classes.tech ]);
 
-    const inPortrait = useMemo(()=>(
-        isPortrait(vpW, vpH), [vpW, vpH])
-    );
-
     return (
         <div className={ classes.mainContainer }>
-            <div className={ classes.topContent }>
-                <Avatar 
-                    alt={ 'Rob' } 
-                    src="img/about/me.jpg" 
-                    className={ classes.avatar } 
-                />
-                { inPortrait && <SectionLinks { ...linkProps } /> }
+            <div className={ classes.firstContainer } >
+                <div className={ classes.topContent }>
+                    <Avatar 
+                        alt={ 'Rob' } 
+                        src="img/about/me.jpg" 
+                        className={ classes.avatar } 
+                    />
+                    <SectionLinks { ...linkProps } />
+                </div>
+                <div className={ classes.skillsOrbit }>
+                        <SkillsOrbit />
+                </div>
             </div>
+           
             <div className={ classes.centerContent }>
                 <DescriptiveText 
                     techProps={ techProps } 
                     pClass={ classes.pText } 
                 />
-                { !inPortrait && <SectionLinks { ...linkProps } /> }
-            </div>
-            <div className={ classes.skillsOrbit }>
-                <SkillsOrbit />
             </div>
         </div>
     );

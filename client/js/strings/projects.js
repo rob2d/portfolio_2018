@@ -9,13 +9,13 @@ export default {
             title : 'Thanos Slack Files',
             context : 'Independent',
             roles : 'Maintainer, Designer, Developer',
-            shortDescription : 'simple app to easily remove the largest files and free up storage for your free-tier slack team/workspace.',
+            shortDescription : 'Simple utility to easily remove the largest files and free up storage for your free-tier slack team/workspace.',
             description : [
                 'When using the free tier Slack workspace, there are limitations on the amount of file size ' + 
-                'you are given. Considering the price of slack this could be quite prohibitive; to help out ' + 
-                'with a hobby community I was hanging out at online, I quickly created this plugin to easily ' + 
-                'remove half of a slack community\'s largest public files (with an entertaining dialog to accompany that',
-                'It is useful as both a standalone Node Server and can also integrate using a dedicated Slack bot.'  
+                'you are given. Considering the price of slack, the cost for something like a small hobby community can be ' + 
+                'pretty prohibitive; to help out with a group I was a part of on my free time, I quickly created this Slack app/plugin ' + 
+                'to easily remove half of a slack community\'s largest public files (with an entertaining dialog to accompany that).',
+                'It is useful as both a standalone Node Server and/or can integrate using a dedicated Slack bot.'  
             ],
             technologySet : new Set([
                 'javascript',

@@ -124,11 +124,8 @@ function SectionLinks ({ vpW, vpH }) {
         classes
     };
 
-    const linkDividerClass = `mdi mdi-circle-small ${classes.linkDivider}`;
     const isInLandscape = isLandscape(vpW, vpH);
     const isInPortrait = isPortrait(vpW, vpH);
-    const isSmallDevice = isInLandscape || isInPortrait;
-    
     return (
         <ul className={classes.sectionList}>
             <SectionLink 
@@ -137,15 +134,12 @@ function SectionLinks ({ vpW, vpH }) {
                 url={'/projects'} 
                 { ...sectionLinkProps }
             />
-            { isInLandscape  && <i className={linkDividerClass} /> }
             <SectionLink 
                 name={ isInLandscape ? 'Misc' : 'Miscellaneous' } 
                 mdiClass={'dice-multiple'} 
                 url={'/misc'} 
                 { ...sectionLinkProps }
             /> 
-
-            { isInLandscape  && <i className={linkDividerClass} /> }
             <SectionLink
                 name={menuStrings.main.cv}
                 mdiClass={'file-document-box'}

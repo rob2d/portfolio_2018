@@ -24,17 +24,21 @@ export const getTheme = theme => {
             theme,
             rc3 : {
                 text : (theme == 'light') ? 
-                            '#000000' : '#FFFFFF',
+                    '#000000' : '#FFFFFF',
                 contrastText : (theme == 'light') ? 
-                            '#FFFFFF' : grey['A100'],
+                    '#FFFFFF' : grey['A100'],
                 secondaryContrastText : '#FFFFFF',
                 background : (theme == 'light') ? 
-                            '#FFFFFF' : '#000000',
+                    '#FFFFFF' : '#000000',
                 footerIcon : (theme == 'light') ? 
-                                '#455A64' : grey[700]
+                    '#455A64' : grey[700]
             },
             palette: {
-                primary   : grey, 
+                primary   : {
+                    light : grey[700],
+                    main : grey['A100'],
+                    dark : grey[500]
+                }, 
                 secondary : pink,
                 error :  red,
                 text : { 
@@ -47,7 +51,8 @@ export const getTheme = theme => {
             overrides : {
                 MuiTooltip : {
                     tooltip : {
-                        backgroundColor : (theme == Themes.LIGHT) ? '#616161' : pink[900]
+                        backgroundColor : (theme == Themes.LIGHT) ? 
+                            '#616161' : pink[900]
                     }
                 },
                 MuiTypography : {
@@ -67,7 +72,7 @@ export const getTheme = theme => {
                 },
                 MuiButton : {
                     disabled : {
-                        color : (theme == Themes.LIGHT) ? 
+                        color : (theme == 'light') ? 
                                     'rgba(0, 0, 0, 0.26)' :
                                     'rgba(255, 255, 255, 0.26) !important'
                     }
@@ -75,7 +80,7 @@ export const getTheme = theme => {
                 MuiAppBar : {
                     colorPrimary : {
                         color : '#FFFFFF',
-                        backgroundColor : theme == Themes.LIGHT ? '#000000' : grey[800],
+                        backgroundColor : (theme == 'light') ? '#000000' : grey[800],
                         position        : 'relative',
                         minHeight       : '56px', // needed to prevent gutters 
                                                   // from resizing

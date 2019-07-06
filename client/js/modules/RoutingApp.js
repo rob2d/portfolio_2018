@@ -1,17 +1,14 @@
 import { Provider, connect } from 'react-redux'
 import React from 'react'
-import ThemeProvider from '@material-ui/styles/ThemeProvider'
-import { makeStyles } from '@material-ui/styles'
-import Route from 'react-router-dom/Route'
-import Switch from 'react-router-dom/Switch'
+import { makeStyles, ThemeProvider } from '@material-ui/styles'
+import { Route, Switch } from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router'
 import { getTheme } from 'app-root/themeFactory'
 import appHistory from 'utils/appHistory'
-import { ConnectedRouter } from 'connected-react-router'
 import store from '../store'
 import lazyLoadComponent from 'utils/lazyLoadComponent'
 import { AppHeader, AppFooter } from './core'
 import { hot } from 'react-hot-loader/root'
-import useViewportSizes from 'use-viewport-sizes'
 
 const useStyles = makeStyles(({ rc3 }) => ({
     appWrapper : {

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { useMemo } from 'react'
 import ButtonBase  from '@material-ui/core/ButtonBase'
 import { makeStyles } from '@material-ui/styles'
 import Themes      from 'constants/Themes'
@@ -24,7 +24,7 @@ function ButtonLink ({
     title=undefined, delay=250 
 }) {
     const classes = useStyles();
-    let isAbsoluteURL = url.indexOf('://') != -1;
+    let isAbsoluteURL = useMemo(()=> url.indexOf('://') != -1, [url]);
 
     const onClick = e => { 
         e.persist();

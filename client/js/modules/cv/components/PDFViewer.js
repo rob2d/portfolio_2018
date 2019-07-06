@@ -1,6 +1,7 @@
 import React, { memo, useMemo, useEffect, useState, useReducer } from 'react'
 import { makeStyles, useTheme } from '@material-ui/styles'
 import PDF from 'react-pdf-js'
+import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Fab from '@material-ui/core/fab'
 import shouldShowHoverContent from 'utils/shouldShowHoverContent'
@@ -173,16 +174,18 @@ function PDFViewer ({ fileURL }) {
                         title='Download this PDF'
                         classes={{ tooltip : classes.tooltip }}
                     >
-                        <Fab className={classes.downloadButton}>
+                        <Fab 
+                            className={classes.downloadButton}
+                            data-tip data-for={`resume-pdf-download-tooltip`}                        
+                        >
                             <i className={`mdi mdi-download ${classes.downloadIcon}`}/>
                         </Fab>
                     </Tooltip>
-                ) : (<Button
-                        variant="fab"
-                        data-tip data-for={`resume-pdf-download-tooltip`}
+                ) : (
+                <Fab
                         className={classes.downloadButton}
                     ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
-                </Button>
+                </Fab>
                 )}
             </a>
             <PDFViewerNav

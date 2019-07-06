@@ -62,6 +62,7 @@ function ProjectTechnologies({ technologySet }) {
                 url={ referenceUrl } 
                 containerClass={ classes.techContainer }
                 title={ displayName }
+                key={ `${displayName}_buttonLinkContainer`}
             >   <SVG 
                     className={ classes.techIcon }
                     src={`/img/techs/${tKey}.svg`}
