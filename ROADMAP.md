@@ -14,9 +14,9 @@ things that are less-than-ideal which I plan to get around to in the near future
 - fix some issues with YouTube player responsiveness on some mobile devices.
 
 ## Misc Refactors
-
-- inline SVG components from mdi library -- decreased page size + responsiveness.
-- remove Redux `connect` HOC and fade transitions in favor of hooks for speed + consistency.
+- deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that.
+- inline SVGs into components from mdi library -- decreased page size + responsiveness vs large webfont currently there.
+- remove Redux `connect` HOC and fade transitions in favor of hooks API for speed + consistency.
 
 ## Nice-to-haves
 
