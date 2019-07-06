@@ -14,65 +14,71 @@ function Tech ({ children, containerClass, url }) {
 function DescriptiveText ({ pClass, techProps }) {
     return (
         <>
-        <p className={ pClass }> 
-            Hi. My name is Rob, and I'm a software developer from NYC. Thanks for visiting my website.    
-        </p>
-        <p className={ pClass }>
-            I have always been a curious person who grew up developing a lot of introverted 
-            hobbies which included: creating websites, videogames, music and art 
-            (and these are things I still love today). 
-        </p>
-        <p className={ pClass }>
-            I joined the military out of highschool to get some practical work experience, and to take 
-            the more scenic route as I paid my way through undergraduate and graduate school for Computer
-            Science. I wasn't riding the wave, and there wasn't a get-rich-quick scheme involved in my choices; 
-            I just love what I do.
-        </p>
-        <p className={ pClass }>
-            This site is a small collection of projects and miscellaneous things I wish I had more time to 
-            devote to outside of class or work of many that got somewhere past the drawing board. You probably 
-            won't find the most beautiful code on this portfolio itself since I spend most of my energy at work -- or, 
-            at fun, or on hobbies, or just being a human and doing those things that they do, but I do 
-            update normally as it is good to document as I (hopefully) always learn new skills and try to 
-            push myself to consistently work on more interesting problems and ideas. 
-        </p>
-        <p className={ pClass }>
-            Oh, and by the way, this site was created using some of my favorite current web development 
-            technologies:&nbsp;
-            <Tech url={'https://reactjs.com'} { ...techProps }>React
-            </Tech>,&nbsp;
-            <Tech
-                 url={'https://redux.js.org'} 
-                 { ...techProps }
-            >Redux
-            </Tech>,&nbsp;
-            <Tech 
-                url={'https://threejs.org'} 
-                { ...techProps }
-            >THREE.js
-            </Tech>,&nbsp; 
-            <Tech 
-                url={'https://nodejs.org'} 
-                { ...techProps }
-            >Node
-            </Tech>,&nbsp; 
-            <Tech 
-                url={'https://webpack.js.org/'} 
-                { ...techProps }
-            >Webpack
-            </Tech>,&nbsp;
-            { strings.andDeployedUsing }
-            <Tech 
-                url={'http://nginx.org'} 
-                { ...techProps }
-            >NginX
-            </Tech> and&nbsp; 
-            <Tech 
-                url={'http://pm2.keymetrics.io/'} 
-                { ...techProps }
-            >PM2
-            </Tech>. Please feel free to check out some of the other sections linked above.
-        </p>
+            <p className={ pClass }> 
+                Hi. My name is Rob, and I'm a software developer from NYC. Thanks for visiting.
+            </p>
+
+            <p className={ pClass }>
+                This site was created using my stack of choice most days:&nbsp;
+                <Tech url={'https://reactjs.com'} { ...techProps }>React
+                </Tech>,&nbsp;
+                <Tech
+                    url={'https://redux.js.org'} 
+                    { ...techProps }
+                >Redux
+                </Tech>,&nbsp;
+                <Tech 
+                    url={'https://threejs.org'} 
+                    { ...techProps }
+                >THREE.js
+                </Tech>,&nbsp; 
+                <Tech 
+                    url={'https://nodejs.org'} 
+                    { ...techProps }
+                >Node
+                </Tech>,&nbsp; 
+                <Tech 
+                    url={'https://webpack.js.org/'} 
+                    { ...techProps }
+                >Webpack
+                </Tech>,&nbsp;
+                { strings.andDeployedUsing }
+                <Tech 
+                    url={'http://nginx.org'} 
+                    { ...techProps }
+                >NginX
+                </Tech> and&nbsp; 
+                <Tech 
+                    url={'http://pm2.keymetrics.io/'} 
+                    { ...techProps }
+                >PM2
+                </Tech>. I am always trying to evolve my workflow and understanding of things.. so 
+                hopefully the experience here is not aging too badly 🙃
+            </p>
+
+            <p className={ pClass }>
+                A little about me and why this page exists: I have always been a curious person who grew up dabbling
+                a lot of introverted hobbies which included: creating websites, videogames, apps, and designing UIs 
+                (all of which are things I still love today and all of which there isn't enough time in the day for). 
+                This site is a small collection of mostly self-driven projects that I wish I had more time to devote 
+                to (the ones which made it somewhere beyond the drawing board). 
+                You probably won't find the most beautiful code on this portfolio itself since I spend most of my 
+                energy at work -- or, at fun, or on hobbies, or just being a human and doing those things that they do, 
+                but I do try to update here and there.
+            </p>
+
+            <p className={ pClass }>
+                My background: I joined the Navy as an Electronic Technician out of highschool to get some practical experience, 
+                grow as a person, make the best of my situation, and to take the more scenic route and so that I could
+                also devote a lot of undivided attention to my studies and projects. Since completing graduate school in Computer 
+                Science, I have gotten to work in a variety of industries at various capacities including power/skyscraper 
+                infrastructure mapping and management, intellectual property, virtual reality tours, finance, as well as 
+                consistently on my own side projects which include development tools and small applications.
+            </p>
+
+            <p className={ pClass }>
+                Intros aside, feel free to check out the other sections here which should hopefully be a lot more interesting!
+            </p>
         </>
     );
 }
