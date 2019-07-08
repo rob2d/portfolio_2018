@@ -250,7 +250,7 @@ export default withFadeTransitions(function ProjectDetails ({ projectId }) {
                         </p>
                         <p className={ classes.sectionContent }>
                             <MediaReel 
-                                maxWidth={ 800 }
+                                maxWidth={ vpW * 0.80 }
                                 width={ Math.min(Math.round(vpW * 0.80), 800) }
                                 aspectRatio={ pData.mediaAspectRatio }
                                 projectId={projectId}

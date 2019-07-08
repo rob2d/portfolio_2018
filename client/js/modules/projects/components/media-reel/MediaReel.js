@@ -170,7 +170,8 @@ class MediaReel extends PureComponent {
             width, 
             maxWidth, 
             aspectRatio,
-            vpW
+            vpW,
+            vpH
         } = this.props;
 
         const { 
@@ -181,12 +182,13 @@ class MediaReel extends PureComponent {
         const highlightedMedia = media && media[selectedIndex];
 
         return (
-            <div className={classes.container}>
+            <div className={ classes.container }>
                 <MediaViewer 
                     { ...highlightedMedia }
                     width={ Math.floor(width*0.7) }
                     aspectRatio={ aspectRatio }
                     vpW={ vpW }
+                    vpH={ vpH }
                     onVideoPlay={ this.handleVideoPlay }
                     onVideoStop={ this.handleVideoStop }
                     onVideoPause={ undefined } //do not want reel to resume
@@ -208,7 +210,8 @@ class MediaReel extends PureComponent {
                                 )
                             }
                             onThumbClicked={this.handleItemClick}
-                            width={width}
+                            width={ width }
+                            vpH={ vpH }
                         />
                     }
                     <div className={ classes.reelPadding } />
@@ -235,21 +238,22 @@ class MediaReel extends PureComponent {
 MediaReel.propTypes = {
     vpW  : PropTypes.number.isRequired,
     vpH : PropTypes.number.isRequired,
-    width          : PropTypes.number,
-    maxWidth       : PropTypes.number,
-    aspectRatio    : PropTypes.number.isRequired,
-    projectId      : PropTypes.string.isRequired,
-    media          : PropTypes.shape({
-        type    : PropTypes.string.isRequired,
-        src     : PropTypes.string,
-        thumb   : PropTypes.string,
+    width : PropTypes.number,
+    maxWidth : PropTypes.number,
+    aspectRatio : PropTypes.number.isRequired,
+    projectId : PropTypes.string.isRequired,
+    media : PropTypes.shape({
+        type : PropTypes.string.isRequired,
+        src : PropTypes.string,
+        thumb : PropTypes.string,
         videoId : PropTypes.string
     })
 };
 
-// TODO : convert to hooks implementation
+// TODO : convert MediaViewer to hooks implementation
+// and do not rely on requiring a container
 
-function MediaReelContainer(props) {
+export default function MediaReelContainer(props) {
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ ...props, vpW, vpH });
 
@@ -262,5 +266,3 @@ function MediaReelContainer(props) {
         />
     );
 }
-
-export default MediaReelContainer

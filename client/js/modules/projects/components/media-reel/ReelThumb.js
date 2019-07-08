@@ -7,7 +7,7 @@ const useStyles = makeStyles( theme => ({
         display   : 'block',
         boxSizing : 'border-box',
         width     : '100%',
-        height    : '100%'
+        height    : ({ aspectRatio }) => `${((1/aspectRatio)*100).toFixed(2)}%`
     },
     reelThumbSelected : {
         border : '2px solid rgb(0,175,200) !important'
@@ -50,7 +50,7 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'ReelThumb' });
 
-const ReelThumb = memo(function ReelThumb ({ onClick,  isSelected, thumbHeight, item }) {
+export default function ReelThumb ({ onClick,  isSelected, thumbHeight, item }) {
     const classes = useStyles({ thumbHeight });
 
     return (
@@ -69,6 +69,4 @@ const ReelThumb = memo(function ReelThumb ({ onClick,  isSelected, thumbHeight, 
         }
         </div>
     );
-});
-
-export default ReelThumb
+}

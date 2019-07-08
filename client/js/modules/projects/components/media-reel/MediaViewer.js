@@ -1,10 +1,10 @@
-import React, { memo, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { withStyles } from '@material-ui/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import MediaTypes from 'constants/MediaTypes'
 import ButtonLink from 'utils/components/ButtonLink'
 import YouTube from 'react-youtube'
 import PropTypes from 'prop-types'
-import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = theme => ({
     container : {
@@ -14,6 +14,7 @@ const styles = theme => ({
         alignItems      : 'center',
         position        : 'relative',
         flexBasis       : '75%',
+        maxWidth        : '100%',
         height          : '100%',
         margin          : 0,
         padding         : 0
@@ -27,22 +28,27 @@ const styles = theme => ({
         '&:active' : {
             border : '2px solid #00b8d4;'
         },
-        width : 'auto',
-        height : 'auto'
+        maxWidth : ({ width }) =>(`${width}px`),
+        width : ({ width }) =>(`${width}px`)
     },
     image : {
-        width      : '100%',
-        height     : '100%',
+        maxWidth : ({ width }) =>(`${width}px`),
+        width : ({ width }) =>(`${width}px`),
+        height : ({ width, aspectRatio }) => (
+            `${(width / aspectRatio)}px`
+        ),
         transition : 'border-color 0.24s ease-in'
     },
     mediaContainer : {
+        maxWidth : ({ width }) =>(`${width}px`),
         width : ({ width }) =>(`${width}px`),
         height : ({ width, aspectRatio }) => (
             `${(width / aspectRatio)}px`
         ),
         cursor : 'pointer',
-        '& > span > iframe' : {
-            maxWidth : '100%',
+        '& iframe' : {
+            width : ({ width }) => `${width}px`,
+            maxWidth : ({ width }) => `${width}px`,
             maxHeight : '100%'
         }
     },
@@ -61,14 +67,14 @@ const styles = theme => ({
         display  : 'flex',
         pointerEvents : 'none',
         justifyContent : 'center',
-        alignItems     : 'center',
-        top      : '0',
-        left     : '0',
-        width    : '100%',
-        height   : '100%',
-        right    : '0',
-        bottom   : '0',
-        zIndex   : '1000'
+        alignItems : 'center',
+        top : '0',
+        left : '0',
+        width : '100%',
+        height : '100%',
+        right : '0',
+        bottom : '0',
+        zIndex : '1000'
     },
     circularProgress : {
         color : '#FFFFFF'
@@ -82,7 +88,7 @@ const styles = theme => ({
         caption : {
             fontSize :'10pt'
         }
-    },
+    }
 });
 
 class MediaViewer extends PureComponent {
@@ -134,6 +140,8 @@ class MediaViewer extends PureComponent {
            (props.src     != state.src)     ||
            (props.videoId != state.videoId) || 
            (props.width != state.width)     || 
+           (props.vpH != state.vpH) || 
+           (props.vpW != state.vpW) || 
            (props.aspectRatio != state.aspectRatio)
         )) {
 
@@ -142,8 +150,11 @@ class MediaViewer extends PureComponent {
                 src : props.src,
                 thumb : props.thumb,
                 videoId : props.videoId,
+                vpW : props.vpW,
+                vpH : props.vpH,
                 updateCount : props.updateCount,
                 height : props.width / props.aspectRatio,
+                ytOpts : { width : props.width, height : props.height },
                 itemDimensionStyle : { width : props.width+'px', height : props.height+'px' }
             };
 
@@ -188,8 +199,8 @@ class MediaViewer extends PureComponent {
                                 style={ newState.itemDimensionStyle }
                             > <img 
                                 style={ newState.itemDimensionStyle }
-                                className={props.classes.image} 
-                                src={props.src} 
+                                className={ props.classes.image } 
+                                src={ props.src } 
                             />
                             </ButtonLink>
                         );
@@ -211,18 +222,21 @@ class MediaViewer extends PureComponent {
                                 key={ itemKey }
                                 id={ itemKey }
                                 videoId={ videoId }
+                                containerClassName={ props.classes.mediaContainer }
+                                className={ props.classes.mediaContainer }
+                                opts={ newState.ytOpts }
                                 style={ newState.itemDimensionStyle }
                                 width={ newState.width }
                                 height={ newState.height }
-                                onReady={() => {
+                                onReady={ () => {
                                     let thisItem = cacheMap.get(itemKey);
                                     thisItem.isMediaLoading = false;
                                     props.onUpdate();
                                 }}
-                                onPlay={onVideoPlay}
-                                onStop={onVideoStop}
-                                onEnd={onVideoEnd}
-                                onPause={onVideoPause} 
+                                onPlay={ onVideoPlay }
+                                onStop={ onVideoStop }
+                                onEnd={ onVideoEnd }
+                                onPause={ onVideoPause } 
                                 onStateChange={ state =>
                                     MediaViewer.onYTStateChange(state, props)
                                 }
@@ -288,8 +302,8 @@ class MediaViewer extends PureComponent {
                 } else {
                     mediaElement = (
                         <ButtonLink 
-                            url={resource.url} 
-                            className={classes.mediaContainerButton}
+                            url={ resource.url } 
+                            className={ classes.mediaContainerButton }
                         >{ resource.domSegment }
                         </ButtonLink>
                     );
@@ -298,22 +312,20 @@ class MediaViewer extends PureComponent {
         }
 
         return (
-            <div className={classes.container}> 
-                <div className={classes.mediaContainer} style={ bgLoadingStyle} >
+            <div className={ classes.container }> 
+                <div className={ classes.mediaContainer } style={ bgLoadingStyle } >
                     { mediaElement }
                 </div>
-                {isMediaLoading &&
-                (<div className={classes.loader}>
+                { isMediaLoading &&
+                (<div className={ classes.loader }>
                     <CircularProgress 
-                        classes= {{
-                            colorPrimary : classes.circularProgress
-                        }}
-                        size={(vpW <= 800) ? 40 : 64} 
-                        color={`primary`} 
+                        classes={{ colorPrimary : classes.circularProgress }}
+                        size={ (vpW <= 800) ? 40 : 64 } 
+                        color={ `primary` } 
                     />
-                </div>)}
-                <div className={classes.caption}>
-                    {caption}
+                </div>) }
+                <div className={ classes.caption }>
+                    { caption }
                 </div>
             </div>
         );
@@ -330,7 +342,8 @@ MediaViewer.propTypes = {
     onVideoPlay : PropTypes.func.isRequired,
     onVideoStop : PropTypes.func.isRequired,
     disableCache  : PropTypes.bool,
-    vpW : PropTypes.number
+    vpW : PropTypes.number,
+    vpH : PropTypes.number
 };
 
-export default memo(withStyles(styles)(MediaViewer))
+export default withStyles(styles)(MediaViewer)

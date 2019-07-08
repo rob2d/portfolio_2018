@@ -1,10 +1,11 @@
 import React, { 
-    memo, useRef, useLayoutEffect, useCallback 
+    useRef, useLayoutEffect, useCallback 
 } from 'react'
 import { makeStyles } from '@material-ui/styles'
+import useViewportSizes from 'use-viewport-sizes'
 import ReelThumb from './ReelThumb'
 
-const useContainerStyles = makeStyles( theme => ({
+const useStyles = makeStyles( theme => ({
     reelThumbs : {
         position       : 'relative',
         display        : 'flex',
@@ -21,8 +22,11 @@ const useContainerStyles = makeStyles( theme => ({
     }
 }), { name : 'ReelThumbs' });
 
-function ReelThumbs ({ selectedIndex, media, thumbHeight, onThumbClicked }) {
-    const classes = useContainerStyles();
+export default function ReelThumbs ({ 
+    selectedIndex, media, thumbHeight, onThumbClicked 
+}) {
+    const [vpW, vpH] = useViewportSizes();
+    const classes = useStyles({ vpH });
     const containerElem = useRef(null);
     
     useLayoutEffect(()=> {
@@ -48,5 +52,3 @@ function ReelThumbs ({ selectedIndex, media, thumbHeight, onThumbClicked }) {
         </div>
     );
 }
-
-export default memo(ReelThumbs)
