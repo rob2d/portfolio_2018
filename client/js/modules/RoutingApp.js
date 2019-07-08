@@ -1,5 +1,6 @@
-import { Provider, connect } from 'react-redux'
 import React from 'react'
+import { Provider, useSelector } from 'react-redux'
+import useViewportSizes from 'use-viewport-sizes'
 import { makeStyles, ThemeProvider } from '@material-ui/styles'
 import { Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
@@ -12,13 +13,14 @@ import { hot } from 'react-hot-loader/root'
 
 const useStyles = makeStyles(({ rc3 }) => ({
     appWrapper : {
-        minHeight       : '100%',
-        margin          : '0px auto',
-        display         : 'flex',
-        flexDirection   : 'row',
-        textAlign       : 'center',
+        minHeight : '100%',
+        margin : '0px auto',
+        display : 'flex',
+        flexDirection : 'row',
+        textAlign : 'center',
         backgroundColor : rc3.background,
-        transition      : 'all 0.32s'
+        transition : 'all 0.32s',
+        boxSizing : 'border-box'
     },
     routeViewWrapper : {
         display       : 'flex',
@@ -62,6 +64,7 @@ const CV = lazyLoadComponent({
 
 function AppContent () {
     const classes = useStyles();
+    const [vpW, vpH] = useViewportSizes();
 
     return (  
         <div className={ classes.appWrapper }>
@@ -92,18 +95,18 @@ function AppContent () {
 }
 
 
-const ThemedApp = connect(({ core : { theme } })=> ({ theme }))(
-    function ThemedApp({ theme }) {
-        const themeApplied = getTheme(theme); 
+function ThemedApp() {
+    const theme = useSelector( state => state.core.theme );
+    const themeApplied = getTheme(theme); 
 
-        return (
-            <ThemeProvider theme={ themeApplied }>
-                <ConnectedRouter history={ appHistory }>
-                    <AppContent />
-                </ConnectedRouter>
-            </ThemeProvider>
-        )
-});
+    return (
+        <ThemeProvider theme={ themeApplied }>
+            <ConnectedRouter history={ appHistory }>
+                <AppContent />
+            </ConnectedRouter>
+        </ThemeProvider>
+    );
+}
 
 
 function RoutingApp(){ 

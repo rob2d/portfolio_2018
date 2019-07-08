@@ -1,12 +1,12 @@
 # ROADMAP #
 ## [ Roadmap All the Things ™ ] ##
-------------------------------
 
-Since this is just a one-man free-for-all on my free time here, just listing
-things that are less-than-ideal which I plan to get around to in the near future term.
+Since this is just a one-man free-for-all on my free time here, just listing things that are less-than-ideal which I plan to get around to in the near future term.
 
 ## About
 - complete new layout + re-add 3D skills and overview component to layout.
+- scroller for text as current format is TMI for certain types
+of users.
 
 ## Project Details
 - Use vertical space a bit better in the layout on wide screens.
@@ -16,7 +16,9 @@ things that are less-than-ideal which I plan to get around to in the near future
 ## Misc Refactors
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that.
 - inline SVGs into components from mdi library -- decreased page size + responsiveness vs large webfont currently there.
-- remove Redux `connect` HOC and fade transitions in favor of hooks API for speed + consistency.
+- remove Redux `connect` HOC and fade transitions in favor of hooks API for speed + consistency; if those are slower due
+to getting rid of the PureComponent wrappers + re-render,
+cut down with `useMemo`/`useCallback`
 
 ## Nice-to-haves
 

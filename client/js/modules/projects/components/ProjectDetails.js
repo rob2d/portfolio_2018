@@ -191,7 +191,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function ProjectDetails({ projectId }) { 
+export default withFadeTransitions(function ProjectDetails ({ projectId }) { 
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({  projectId, vpW });
     const project = findProjectStrings(projectId);
@@ -244,110 +244,116 @@ function ProjectDetails({ projectId }) {
             </div>
                 { pData && pData.media && pData.media.length > 0 && 
                 (
-                    <div className={classes.section}>
-                        <p className={classes.sectionHeader}>
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>
                             Media
                         </p>
-                        <p className={classes.sectionContent}>
+                        <p className={ classes.sectionContent }>
                             <MediaReel 
                                 maxWidth={ 800 }
                                 width={ Math.min(Math.round(vpW * 0.80), 800) }
                                 aspectRatio={ pData.mediaAspectRatio }
                                 projectId={projectId}
                                 media={media}
+                                
                             />
                         </p>
                     </div>
                 )}
                 { pData && pData.sourceCode && (
-                    <div className={classes.section}>
-                        <p className={classes.sectionHeader}>
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>
                             Source Code
                         </p>
-                        <p className={classes.sectionContent}>
-                            {pData.sourceCode.map((link,i)=>(
+                        <p className={ classes.sectionContent }>
+                            { pData.sourceCode.map((link,i)=>(
                             <ButtonLink
-                                url={link}
-                                containerClass={classes.linkContainer}
-                                key={`project_sourcecode_${i}`}
+                                url={ link }
+                                containerClass={ classes.linkContainer }
+                                key={ `project_sourcecode_${i}` }
                             >
-                                <i className={`mdi mdi-code-tags ${classes.linkIcon}`} />
-                                <p className={classes.linkText}>
-                                    {project.sourceCodeDescriptions[i]}
+                                <i className={ `mdi mdi-code-tags ${classes.linkIcon}` } />
+                                <p className={ classes.linkText }>
+                                    { project.sourceCodeDescriptions[i] }
                                 </p>
                             </ButtonLink>
-                            ))}
+                            )) }
                         </p>
                     </div>
                 )}
                 { pData && pData.documentation && (
-                    <div className={classes.section}>
-                        <p className={classes.sectionHeader}>
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>
                             Documentation
                         </p>
-                        <p className={classes.sectionContent}>
-                            {pData.documentation.map((link, i)=>(
+                        <p className={ classes.sectionContent }>
+                            { pData.documentation.map((link, i)=>(
                             <ButtonLink 
-                                url={link}
-                                containerClass={classes.linkContainer}
-                                key={`project_doclink_${i}`}
+                                url={ link }
+                                containerClass={ classes.linkContainer }
+                                key={ `project_doclink_${i}` }
                             >
-                                <i className={`mdi mdi-note-outline ${classes.linkIcon}`} />
-                                <p className={classes.linkText}>
-                                    {project.documentationDescriptions[i]}
+                                <i className={ `mdi mdi-note-outline ${classes.linkIcon}` } />
+                                <p className={ classes.linkText }>
+                                    { project.documentationDescriptions[i] }
                                 </p>
                             </ButtonLink>
-                            ))}
+                            )) }
                         </p>
                     </div>
-                )}
+                ) }
                 { pData && pData.downloads && (
-                <div className={classes.section}>
-                    <p className={classes.sectionHeader}>
+                <div className={ classes.section }>
+                    <p className={ classes.sectionHeader }>
                         Downloads
                     </p>
-                    <p className={classes.sectionContent}>
-                        {pData.downloads.map((link, i)=>(
+                    <p className={ classes.sectionContent }>
+                        { pData.downloads.map((link, i)=>(
                         <ButtonLink 
-                            url={link} 
-                            containerClass={classes.linkContainer}
-                            key={`project_downloads_${i}`}
+                            url={ link } 
+                            containerClass={ classes.linkContainer }
+                            key={ `project_downloads_${i}` }
                         >
-                            <i className={`mdi mdi-download ${classes.linkIcon}`} />
-                            <p className={classes.linkText}>
-                                {project.downloadDescriptions[i]}
+                            <i className={ `mdi mdi-download ${classes.linkIcon}` } />
+                            <p className={ classes.linkText }>
+                                { project.downloadDescriptions[i] }
                             </p>
                         </ButtonLink>
-                        ))}
+                        )) }
                     </p>
                 </div>
             )}
                 { pData && pData.links && (
-                    <div className={classes.section}>
-                        <p className={classes.sectionHeader}>
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>
                             Links
                         </p>
-                        <p className={classes.sectionContent}>
-                            {pData.links.map((link, i)=>(
+                        <p className={ classes.sectionContent }>
+                            { pData.links.map((link, i)=>(
                             <ButtonLink 
-                                url={link} 
-                                containerClass={classes.linkContainer}
-                                key={`project_links_${i}`}
+                                url={ link } 
+                                containerClass={ classes.linkContainer }
+                                key={ `project_links_${i}` }
                             >
-                                        <i className={`mdi mdi-link ${classes.linkIcon}`} />
-                                        <p className={classes.linkText}>
-                                            {project.linkDescriptions[i]}
+                                        <i className={ `mdi mdi-link ${classes.linkIcon}` } />
+                                        <p className={ classes.linkText }>
+                                            { project.linkDescriptions[i] }
                                         </p>
                             </ButtonLink>
-                            ))}
+                            )) }
                         </p>
                     </div>
                 )}
 
-                <ButtonLink containerClass={ classes.returnContainer } url={`/projects`}>
-                    <div className={classes.returnIcon}>
-                        <div className={classes.returnIconContainer}>
-                        <i className={`mdi mdi-arrow-left-box ${classes.linkIcon}`} />
+                <ButtonLink 
+                    containerClass={ classes.returnContainer } 
+                    url={`/projects`}
+                >
+                    <div className={ classes.returnIcon }>
+                        <div className={ classes.returnIconContainer }>
+                        <i className={ `mdi mdi-arrow-left-box ${
+                            classes.linkIcon}` } 
+                        />
                         </div>
                     </div>
                     <p className={ classes.returnText }>
@@ -357,6 +363,4 @@ function ProjectDetails({ projectId }) {
             </div>
         </div>
     );
-}
-
-export default withFadeTransitions(ProjectDetails)
+})

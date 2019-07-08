@@ -1,10 +1,10 @@
 import React, { useRef, useLayoutEffect, useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/styles'
 import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import ThemeButton from './ThemeButton'
-import { connect } from 'react-redux'
 import appHistory from 'utils/appHistory'
 import HeaderSectionButton from './HeaderSectionButton'
 import SectionHighlighter from './SectionHighlighter'
@@ -12,10 +12,9 @@ import AppSections from 'constants/AppSections'
 import withFadeTransitions from 'utils/withFadeTransitions'
 import { visitedPathIndex } from 'app-root/selectors'
 import useViewportSizes from 'use-viewport-sizes'
-const { SectionIndexes, Sections } = AppSections;
 
-const SECTION_COUNT   = Sections.length,
-      BUTTON_WIDTH_PX = 60;
+const { Sections } = AppSections;
+const BUTTON_WIDTH_PX = 60;
 
 const useStyles = makeStyles( theme => ({
     appBar : {
@@ -32,7 +31,7 @@ const useStyles = makeStyles( theme => ({
     },
     leftIconsWrapper : {
         position : 'relative',
-        width : `${SECTION_COUNT * BUTTON_WIDTH_PX}px`,
+        width : `${Sections.length * BUTTON_WIDTH_PX}px`,
         height : '100%',
         color : '#FFFFFF',
         justifyContent : 'center',
@@ -63,13 +62,21 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'AppHeader' });
 
-// determine what to do when sections are clicked
+/**
+ * callback events corresponding to each section
+ * in Sections list which navigate to desired
+ * section
+ */
+const SectionClickEvents = Sections.map( section => e => 
+    appHistory.goTo(section.basePath, e)
+);
 
-const SectionClickEvents = Sections.map( section => {
-   return  e => appHistory.goTo(section.basePath, e);
-});
-
-function AppHeader ({ pathIndex, pathname }) {
+export default withFadeTransitions(function AppHeader () {
+    const pathname = useSelector( state => 
+        state.router.location.pathname 
+    );
+    const pathIndex = useSelector(visitedPathIndex);
+    
     const [vpW, vpH] = useViewportSizes();
     const [hasInitialized, setInitialized] = useState(undefined);
 
@@ -156,9 +163,4 @@ function AppHeader ({ pathIndex, pathname }) {
             </Toolbar>
         </AppBar>
     );
-}
-
-export default withFadeTransitions(connect(({ router }) => ({ 
-    pathname : router.location.pathname,
-    pathIndex : visitedPathIndex({ router })
-}))(AppHeader))
+});

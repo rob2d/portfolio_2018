@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { makeStyles, useTheme } from '@material-ui/styles'
 import wait from 'utils/wait'
 import appHistory from 'utils/appHistory'
@@ -7,7 +7,9 @@ import projectsData from 'app-root/data/projectsData'
 import { projects } from 'strings'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
-import { projectIdOfUrl } from '../selectors'
+import { 
+    projectIdOfUrl as projectIdSelector 
+} from '../selectors'
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -56,10 +58,11 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'ProjectsPanel' });
 
-function ProjectsPanel ({ projectIdOfUrl }) {
+export default function ProjectsPanel () {
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles();
     const theme = useTheme();
+    const projectIdOfUrl = useSelector(projectIdSelector);
     const prevProjectIdOfUrl = usePrevious(projectIdOfUrl);
     const [ state, setState ] = useState(()=>({
         displayState :  !projectIdOfUrl ? VIEW_ALL : PROJECT_VIEW,
@@ -157,7 +160,3 @@ function ProjectsPanel ({ projectIdOfUrl }) {
         </div>
     );
 }
-
-export default connect((state, props) => ({ 
-    projectIdOfUrl : projectIdOfUrl(state, props) 
-}))(ProjectsPanel);

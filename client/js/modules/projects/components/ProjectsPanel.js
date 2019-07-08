@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { projects } from 'strings'
-import { withStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles'
 import appHistory from 'utils/appHistory'
 import wait from 'utils/wait'
 import projectsData from 'app-root/data/projectsData'
-import styles from './style/ProjectsPanelStyle'
 import ProjectCard from './ProjectCard'
 import ProjectDetails from './ProjectDetails'
-import { projectIdOfUrl } from '../selectors'
+import { 
+    projectIdOfUrl as projectIdSelector 
+} from '../selectors'
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -19,7 +20,48 @@ import {
 } from '../constants/DisplayStates'
 import useViewportSizes from 'use-viewport-sizes'
 
-// TODO : convert to hooks
+const useStyles = makeStyles( theme => ({
+    container : {
+        display        : 'block',
+        position       : 'relative',
+        flexGrow       : 1,
+        maxWidth       : '1100px',
+        margin         : '0 auto',
+        top            : '0px',
+        overflowX      : 'hidden'
+    },
+    content : {
+        display        : 'flex',
+        alignItems     : 'center',
+        justifyContent : 'center',
+        flexDirection  : 'row',
+        flexWrap       : 'wrap',
+        position       : 'relative',
+        marginTop      : '16px'
+    },
+    '@media (min-width: 600px)': {
+        mainContainer : {
+            padding : '32px',
+        },
+    },
+    '@media (max-height: 480px)': {
+        mainContainer : {
+            paddingTop : '0px'
+        }
+    },
+    emptyCard : {
+        display : 'block',
+        width   : '300px',
+        height  : '1px',
+        padding : '0px 32px'
+    }
+}), { name : 'ProjectsPanel' });
+
+
+// TODO : gradually convert the ProjectsPanel class itself 
+// to new hooks conventions vs wrapping in a 
+// container (started in ProjectsPanel2.js -- don't typically
+// do this but short on time and things work as-is)
 
 class ProjectsPanel extends PureComponent {
     constructor(props) {
@@ -34,7 +76,6 @@ class ProjectsPanel extends PureComponent {
     componentDidUpdate (prevProps) {
         const { projectIdOfUrl } = this.props;
         const prevProjectIdOfUrl =  prevProps.projectIdOfUrl;
-
         let stateUpdates = {};
 
         if(projectIdOfUrl && prevProjectIdOfUrl != projectIdOfUrl) {
@@ -59,6 +100,7 @@ class ProjectsPanel extends PureComponent {
         }
         
         // project selection has not changed
+
         else {     
 
             switch(this.state.displayState) {
@@ -125,13 +167,21 @@ class ProjectsPanel extends PureComponent {
                     ))}
                     {/* if we have a large viewport, fill in the space so
                         that we don't get oddly centered cards on the bottom
+                        
+                        
+                        { !projectIdOfUrl && (vpW > 1108) && (
+                            <div className={ classes.emptyCard} />
+                        ) }
+                        // ^^ UNNECESSARY; TODO : use logic to divide by 3 and
+                        // fill in -- OR use CSS Grid vs Flex here but this would
+                        // require re-working anims 
                     */}
-                    {!projectIdOfUrl && (vpW > 1108) && (
-                        <div className={classes.emptyCard} />
-                    )}
                     { typeof projectIdOfUrl != 'undefined' && 
                     (
-                        <ProjectDetails projectId={projectIdOfUrl} fadeInDelay={1000} />
+                        <ProjectDetails 
+                            projectId={ projectIdOfUrl } 
+                            fadeInDelay={ 1000 }
+                        />
                     )}
                 </div>
             </div>
@@ -139,15 +189,19 @@ class ProjectsPanel extends PureComponent {
     }
 }
 
-function ProjectsPanelContainer (props) {
+export default function ProjectsPanelContainer({ match }) {
     const [vpW, vpH] = useViewportSizes();
+    const projectIdOfUrl = useSelector(projectIdSelector); 
+    const location = useSelector( state => state.router.location );
+    const classes = useStyles();   
 
-    return (<ProjectsPanel {...props} vpW={vpW} />);
+    return (
+        <ProjectsPanel 
+            vpW={ vpW } 
+            projectIdOfUrl={ projectIdOfUrl }
+            classes={ classes }
+            location={ location }
+            match={ match }
+        />
+    );
 }
-
-export default connect(
-    (state, props) => ({ 
-        theme : state.core.theme,
-        projectIdOfUrl : projectIdOfUrl(state,props) 
-    })
-)(withStyles(styles)(ProjectsPanelContainer));
