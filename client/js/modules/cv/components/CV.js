@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import PDFViewer from './PDFViewer'
 
-const RESUME_URL = '/downloads/concepcion_resume_Q22019.pdf';
+const RESUME_URL = '/downloads/concepcion_resume_Q32019.pdf';
 
 const useStyles = makeStyles( theme => ({
     container : {
