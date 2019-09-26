@@ -62,10 +62,10 @@ export default function ThemeButton () {
     }, [setTheme, isToggling]);
 
     const tooltip = useMemo(()=> (
-        <span>Switch to the 
+        <span>Switch to the&nbsp;
             <b>{themeTargets[themeState].name}</b> theme
         </span>
-    ), [themeTargets[themeState.name]]);
+    ), [themeState]);
 
     return (
         <Tooltip enterDelay={ 400 } title={ tooltip } >
