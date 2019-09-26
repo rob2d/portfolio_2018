@@ -1,9 +1,14 @@
-import React, { useMemo, useCallback } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import ButtonLink from 'utils/components/ButtonLink'
-import { menus as menuStrings } from 'strings'
-import isLandscape from 'utils/isLandscape'
-import isPortrait from 'utils/isPortrait'
+import React, { useMemo, useCallback } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import { menus as menuStrings } from 'strings';
+import { isLandscape, isPortrait } from 'utils';
+import { ButtonLink } from 'utils/components';
+import { Icon } from '@mdi/react';
+import { 
+    mdiBriefcase,
+    mdiDiceMultiple,
+    mdiFileDocumentBox
+} from '@mdi/js';
 
 const useStyles = makeStyles( theme => ({
     sectionList : {
