@@ -1,20 +1,19 @@
 import React, { 
     useState, useMemo, useCallback
-} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setTheme } from 'modules/core/actions'
-import Themes from 'constants/Themes'
-import Tooltip from '@material-ui/core/Tooltip'
-import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/styles'
-import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon'
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTheme } from 'modules/core/actions';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/styles';
+import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
 
 let themeTargets = {
-    [ 'light' ] : {
+    ['light'] : {
         name      : 'Dark',
         iconClass : 'mdi mdi-weather-night'
     }, 
-    [ 'dark' ] : {
+    ['dark'] : {
         name      : 'Light',
         iconClass : 'mdi mdi-weather-sunny'
     }
@@ -27,12 +26,12 @@ const getFlipTheme = theme => (
 const useStyles = makeStyles( theme =>({
     container : {
         cursor : 'pointer',
-        color : '#FFFFFF',
-        fill : '#FFFFFF',
-        stroke : '#FFFFFF'
-    },
-    icon : {
-        fontSize : '16pt'
+        fontSize : '16pt',
+        '&,& *': {
+            color : '#FFF',
+            fill : '#FFF',
+            stroke : '#FFF'
+        }
     }
 }), 'ThemeButton');
 

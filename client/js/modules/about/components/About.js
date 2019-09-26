@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import Avatar from '@material-ui/core/Avatar'
-import isPortrait  from 'utils/isPortrait'
-import DescriptiveText from './DescriptiveText'
-import SectionLinks from './SectionLinks'
-import SkillsOrbit from './SkillsOrbit.1'
-import useViewportSizes from 'use-viewport-sizes'
+import React, { useMemo } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import Avatar from '@material-ui/core/Avatar';
+import isPortrait  from 'utils/isPortrait';
+import DescriptiveText from './DescriptiveText';
+import SectionLinks from './SectionLinks';
+import SkillsOrbit from './SkillsOrbit.1';
+import useViewportSizes from 'use-viewport-sizes';
 
 
 const useStyles = makeStyles( theme => ({
@@ -155,7 +155,7 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'About' });
 
-function About ({ theme }) {
+export default function About ({ theme }) {
     const [ vpW, vpH ] = useViewportSizes();
 
 
@@ -187,10 +187,10 @@ function About ({ theme }) {
                     <SectionLinks { ...linkProps } />
                 </div>
                 <div className={ classes.skillsOrbit }>
-                        <SkillsOrbit />
+                    <SkillsOrbit />
                 </div>
             </div>
-           
+
             <div className={ classes.centerContent }>
                 <DescriptiveText 
                     techProps={ techProps } 
@@ -199,6 +199,4 @@ function About ({ theme }) {
             </div>
         </div>
     );
-}
-
-export default About;
+};
