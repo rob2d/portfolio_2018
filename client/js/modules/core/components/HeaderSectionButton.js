@@ -1,27 +1,28 @@
-import React, { useMemo } from 'react'
-import Button from '@material-ui/core/Button'
-import Tooltip from '@material-ui/core/Tooltip'
-import { makeStyles } from '@material-ui/styles'
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/styles';
+import { Icon } from '@mdi/react';
 
 const useStyles = makeStyles( theme => ({
     container : {
         display : 'block'
     },
     button : {
-        display    : 'block',
-        color      : '#FFF',
-        height     : 'auto',
+        display : 'block',
+        height : 'auto',
         lineHeight : '24px',
-        padding    : '8px',
-        minWidth   : '60px'
-    },
-    buttonIconWrapper : {
-        display : 'block'
-    },
-    buttonIcon : {
-        fontSize : '18pt',
-        position : 'relative',
-        top      : '2px'
+        padding : '8px',
+        minWidth : '60px',
+        '& > *' : { // icon content
+            position : 'relative',
+            display : 'block',
+            top : '2px',
+        },
+        '& svg' : {
+            fontSize : '18pt',
+            fill : '#FFF'
+        }
     },
     '@media (max-width: 400px)': {
         button : { minWidth : '68px' }
@@ -30,14 +31,11 @@ const useStyles = makeStyles( theme => ({
 
 export default function HeaderSectionButton({ 
     onClick, domId, name, 
-    iconClass, tooltipText, 
+    iconPath, tooltipText, 
     buttonDivRef, disabled
 }){ 
-    const classes = useStyles({ 
-        onClick, domId, name, iconClass, 
-        tooltipText, buttonDivRef, disabled 
-    });
-    
+    const classes = useStyles();
+
     return (
         <div 
             ref={ buttonDivRef } 
@@ -53,11 +51,12 @@ export default function HeaderSectionButton({
                     onMouseDown={ onClick }
                     variant='text'
                 >
-                    <div className={ classes.buttonIconWrapper }>
-                        <i className={ `${iconClass} ${classes.buttonIcon}`} />
-                    </div>
+                    <Icon
+                        path={ iconPath }
+                        size={ 1.1 }
+                    />
                 </Button>
             </Tooltip>
         </div>
     )
-}
+};

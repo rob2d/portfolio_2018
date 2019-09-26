@@ -1,4 +1,6 @@
-import React, { useRef, useLayoutEffect, useMemo, useState } from 'react';
+import React, { 
+    useRef, useLayoutEffect, useMemo, useState 
+} from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
@@ -137,7 +139,7 @@ export default withFadeTransitions(function AppHeader () {
                             key={ `headerSectionButton${s.name}` }
                             name={ s.name }
                             disabled={ false }  
-                            iconClass={ s.iconClass }           
+                            iconPath={ s.iconPath }           
                             tooltipText={ s.getTooltipText() }
                             onClick={ SectionClickEvents[i] }
                             buttonDivRef={ refRetrievers[i] } 

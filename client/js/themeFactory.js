@@ -23,15 +23,11 @@ export const getTheme = theme => {
             // complex theming
             theme,
             rc3 : {
-                text : (theme == 'light') ? 
-                    '#000000' : '#FFFFFF',
-                contrastText : (theme == 'light') ? 
-                    '#FFFFFF' : grey['A100'],
-                secondaryContrastText : '#FFFFFF',
-                background : (theme == 'light') ? 
-                    '#FFFFFF' : '#000000',
-                footerIcon : (theme == 'light') ? 
-                    '#455A64' : grey[700]
+                text : (theme=='light') ? '#000' : '#FFF',
+                contrastText : (theme=='light') ? '#FFF' : grey['A100'],
+                secondaryContrastText : '#FFF',
+                background : (theme=='light') ? '#FFF' : '#000',
+                footerIcon : (theme=='light') ? '#455A64' : grey[700]
             },
             palette: {
                 primary   : {
@@ -42,17 +38,14 @@ export const getTheme = theme => {
                 secondary : pink,
                 error :  red,
                 text : { 
-                    primary : (theme == 'light') ? 
-                    '#000000' : '#FFFFFF'
+                    primary : (theme=='light') ? '#000' : '#FFF'
                 },
                 type : theme
-               
             },
             overrides : {
                 MuiTooltip : {
                     tooltip : {
-                        backgroundColor : (theme == Themes.LIGHT) ? 
-                            '#616161' : pink[900]
+                        backgroundColor : (theme=='light') ? '#616161' : pink[900]
                     },
                     popper : {
                         fontSize : '11pt',
@@ -67,8 +60,7 @@ export const getTheme = theme => {
                         fontSize   : '0.95rem'
                     },
                     root : {
-                        color : (theme == Themes.LIGHT) ? 
-                                    '#000000' : '#FFFFFF'
+                        color : (theme=='light') ? '#000' : '#FFF'
                     }
                 },
                 MuiToolbar : {
@@ -77,20 +69,23 @@ export const getTheme = theme => {
                     }
                 },
                 MuiButton : {
+                    label : {
+                        color : (theme=='light')?'#000':'#FFF',
+                        fill : (theme=='light')?'#000':'#FFF'
+                    },
                     disabled : {
-                        color : (theme == 'light') ? 
-                                    'rgba(0, 0, 0, 0.26)' :
-                                    'rgba(255, 255, 255, 0.26) !important'
+                        color : (theme=='light') ? 
+                                    'rgba(0,0,0,0.26)' :
+                                    'rgba(255,255,255,0.26)'
                     }
                 },
                 MuiAppBar : {
                     colorPrimary : {
-                        color : '#FFFFFF',
-                        backgroundColor : (theme == 'light') ? '#000000' : grey[800],
-                        position        : 'relative',
-                        minHeight       : '56px', // needed to prevent gutters 
-                                                  // from resizing
-                        transition      : '0.5s all'
+                        color : '#FFF',
+                        backgroundColor : (theme=='light') ? '#000' : grey[800],
+                        position : 'relative',
+                        minHeight : '56px',
+                        transition : '0.5s all'
                     },
                     positionFixed : {
                         
@@ -105,13 +100,13 @@ export const getTheme = theme => {
                         color : pink[400]
                     },
                     colorPrimary : {
-                        color : (theme == Themes.LIGHT) ? 
+                        color : (theme==Themes.LIGHT) ? 
                                     '#000000' : '#FFFFFF'
                     }
                 },
                 MuiPaper : {
                     root : {
-                        backgroundColor : (theme == Themes.LIGHT) ? 
+                        backgroundColor : (theme==Themes.LIGHT) ? 
                                 '#FFFFFF' : 
                                 '#000000'
                     },
@@ -124,7 +119,7 @@ export const getTheme = theme => {
                     },
                     elevation4 : {
                         boxShadow : (()=> {
-                            let rgbColor = ((theme == Themes.LIGHT) ? 
+                            let rgbColor = ((theme==Themes.LIGHT) ? 
                                 '0, 0, 0' : '120, 120, 120'
                             );
 
