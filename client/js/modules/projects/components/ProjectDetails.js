@@ -1,13 +1,13 @@
-import React from 'react'
-import useViewportSizes from 'use-viewport-sizes'
-import { makeStyles } from '@material-ui/styles'
-import { projects } from 'strings'
-import withFadeTransitions from 'utils/withFadeTransitions'
-import ButtonLink from 'utils/components/ButtonLink'
-import MediaReel from './media-reel/MediaReel'
-import ProjectTechnologies from './ProjectTechnologies'
-import projectsData from 'app-root/data/projectsData'
-import Themes from 'constants/Themes'
+import React from 'react';
+import useViewportSizes from 'use-viewport-sizes';
+import { makeStyles } from '@material-ui/styles';
+import { projects } from 'strings';
+import withFadeTransitions from 'utils/withFadeTransitions';
+import ButtonLink from 'utils/components/ButtonLink';
+import MediaReel from './media-reel/MediaReel';
+import ProjectTechnologies from './ProjectTechnologies';
+import projectsData from 'app-root/data/projectsData';
+import Themes from 'constants/Themes';
 
 const findProjectStrings = (projectId)=> (
     projects.projectData.find( p =>(p.id == projectId))
@@ -363,4 +363,4 @@ export default withFadeTransitions(function ProjectDetails ({ projectId }) {
             </div>
         </div>
     );
-})
+});
