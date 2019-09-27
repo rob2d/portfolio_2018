@@ -17,14 +17,12 @@ export const Sections = [
     {
         name : 'About',
         iconPath : mdiHumanGreeting,
-        iconClass : 'mdi mdi-human-greeting',
         getTooltipText : () => menus.main.about,
         basePath : '/',
     },
     {
         name : 'Projects',
         iconPath : mdiBriefcase,
-        iconClass : 'mdi mdi-briefcase',
         getTooltipText : ()=> menus.main.projects,
         basePath : '/projects'
     },

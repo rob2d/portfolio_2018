@@ -351,9 +351,7 @@ export default withFadeTransitions(function ProjectDetails ({ projectId }) {
                 >
                     <div className={ classes.returnIcon }>
                         <div className={ classes.returnIconContainer }>
-                        <i className={ `mdi mdi-arrow-left-box ${
-                            classes.linkIcon}` } 
-                        />
+                        <i className={ `mdi mdi-arrow-left-box ${classes.linkIcon}` } />
                         </div>
                     </div>
                     <p className={ classes.returnText }>
