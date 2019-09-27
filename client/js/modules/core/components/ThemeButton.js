@@ -11,11 +11,9 @@ import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
 let themeTargets = {
     'light' : {
         name : 'Dark',
-        iconClass : 'mdi mdi-weather-night'
     }, 
     'dark' : {
         name : 'Light',
-        iconClass : 'mdi mdi-weather-sunny'
     }
 };
 
