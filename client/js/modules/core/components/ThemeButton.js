@@ -9,12 +9,8 @@ import { makeStyles } from '@material-ui/styles';
 import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
 
 let themeTargets = {
-    'light' : {
-        name : 'Dark',
-    }, 
-    'dark' : {
-        name : 'Light',
-    }
+    'light' : { name : 'Dark' }, 
+    'dark' : { name : 'Light' }
 };
 
 const getFlipTheme = theme => (
@@ -27,8 +23,8 @@ const useStyles = makeStyles( theme => ({
         fontSize : '18pt',
         height : '48px',
         '& svg ' : {
-            width : '28px',
-            height : '28px'
+            width : '26px',
+            height : '26px'
         },
         '&,& *': {
             color : '#FFF',

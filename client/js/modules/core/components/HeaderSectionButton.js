@@ -53,7 +53,7 @@ export default function HeaderSectionButton({
                 >
                     <Icon
                         path={ iconPath }
-                        size={ 1.1 }
+                        size={ 1.025 }
                     />
                 </Button>
             </Tooltip>
