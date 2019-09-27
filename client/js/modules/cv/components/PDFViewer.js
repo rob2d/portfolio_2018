@@ -1,12 +1,16 @@
 import React, { memo, useMemo, useEffect, useState, useReducer } from 'react'
-import { makeStyles, useTheme } from '@material-ui/styles'
-import PDF from 'react-pdf-js'
-import Button from '@material-ui/core/Button'
-import Tooltip from '@material-ui/core/Tooltip'
-import Fab from '@material-ui/core/fab'
-import shouldShowHoverContent from 'utils/shouldShowHoverContent'
-import PDFViewerNav from './PDFViewerNav'
-import Themes from 'constants/Themes'
+import React, { 
+    useMemo, useCallback, useEffect, useReducer 
+} from 'react';
+import { makeStyles, useTheme } from '@material-ui/styles';
+import PDF from 'react-pdf-js';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import shouldShowHoverContent from 'utils/shouldShowHoverContent';
+import PDFViewerNav from './PDFViewerNav';
+import Themes from 'constants/Themes';
+import { Icon } from '@mdi/react';
+import { mdiDownload } from '@mdi/js';
 
 const useStyles = makeStyles(({ palette, rc3 }) => ({ 
     container : {
@@ -115,7 +119,7 @@ function reducer (state={ initialState }, action) {
     }
 }
 
-function PDFViewer ({ fileURL }) {
+export default function PDFViewer ({ fileURL }) {
     const classes = useStyles();
     const theme = useTheme();
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -152,6 +156,13 @@ function PDFViewer ({ fileURL }) {
             type : 'handle-document-complete',
             payload : pageCount
         }), []);
+        }), 
+    []);
+
+    const downloadIcon = useMemo(()=> ( 
+        <Icon path={ mdiDownload } className={ classes.downloadIcon } />
+    ), [classes.downloadIcon]);
+    
     return (
         <div className={ classes.container }>
             <div className={!state.isLoaded ? classes.loadingContent : undefined}>
@@ -163,27 +174,25 @@ function PDFViewer ({ fileURL }) {
                 />
             </div>
             <a
-                href={fileURL}
-                download={'RobertConcepcionResume'}
-                className={classes.downloadButtonContainer}>
+                href={ fileURL }
+                download={ 'RobertConcepcionResume' }
+                className={ classes.downloadButtonContainer }>
                 { shouldShowHoverContent ? 
                 (
                     <Tooltip
-                        id={`resume-pdf-download-tooltip`}
-                        enterDelay={400} 
-                        title='Download this PDF'
+                        id={ `resume-pdf-download-tooltip` }
+                        enterDelay={ 400 } 
+                        title={ `Download this PDF` }
                     >
                         <Fab 
-                            className={classes.downloadButton}
+                            className={ classes.downloadButton }
                             data-tip data-for={`resume-pdf-download-tooltip`}                        
-                        >
-                            <i className={`mdi mdi-download ${classes.downloadIcon}`}/>
+                        >{ downloadIcon }
                         </Fab>
                     </Tooltip>
                 ) : (
-                <Fab
-                        className={classes.downloadButton}
-                    ><i className={`mdi mdi-download ${classes.downloadIcon}`}/>
+                <Fab className={ classes.downloadButton }>
+                { downloadIcon }
                 </Fab>
                 )}
             </a>
@@ -198,5 +207,3 @@ function PDFViewer ({ fileURL }) {
         </div>
     );
 }
-
-export default memo(PDFViewer);
