@@ -26,7 +26,12 @@ const getFlipTheme = theme => (
 const useStyles = makeStyles( theme => ({
     container : {
         cursor : 'pointer',
-        fontSize : '16pt',
+        fontSize : '18pt',
+        height : '48px',
+        '& svg ' : {
+            width : '28px',
+            height : '28px'
+        },
         '&,& *': {
             color : '#FFF',
             fill : '#FFF',
@@ -89,22 +94,22 @@ const useStyles = makeStyles( theme => ({
     
         ['.light > .themeicon__stara1'] : {
             transform : 'scaleX(0.5) scaleY(0.6) translateX(29%) ' + 
-                       'translateY(-50%) rotateZ(-108deg)'
+                        'translateY(-50%) rotateZ(-108deg)'
         },
     
         ['.light > .themeicon__stara2'] : {
             transform : 'scaleX(0.5) scaleY(0.6) translateX(-75%) ' + 
-                       'translateY(-25%) rotateZ(-290deg)'
+                        'translateY(-25%) rotateZ(-290deg)'
         },
     
         ['.light > .themeicon__stara3'] : {
             transform : 'scaleX(0.5) scaleY(0.6) translateX(-75%) ' + 
-                       'translateY(40%) rotateZ(50deg)'
+                        'translateY(40%) rotateZ(50deg)'
         },
     
         ['.light > .themeicon__starb1'] : {
             transform : 'scaleX(0.7) scaleY(0.8) ' + 
-                       'translateX(25%) translateY(3%) rotateZ(-65deg)'
+                        'translateX(25%) translateY(3%) rotateZ(-65deg)'
         },
     
         ['.light > .themeicon__starb2'] : {
@@ -114,7 +119,7 @@ const useStyles = makeStyles( theme => ({
     
         ['.light > .themeicon__starb3'] : {
             transform : 'scaleX(0.7) scaleY(0.8) translateX(-5%) ' + 
-                       'translateY(66%) rotateZ(-73.5deg)'
+                        'translateY(66%) rotateZ(-73.5deg)'
         }
     }
 }), 'ThemeButton');
