@@ -1,73 +1,80 @@
-import React, { memo, PureComponent } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import Button from '@material-ui/core/Button'
-import LoadingComponent from 'utils/components/LoadingComponent'
+import React from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/styles';
+import Button from '@material-ui/core/Button';
+import LoadingComponent from 'utils/components/LoadingComponent';
+import { 
+    mdiSkipPrevious,
+    mdiSkipNext
+} from '@mdi/js';
+import Icon from '@mdi/react';
 
 const useStyles = makeStyles( theme => ({
     container : {
-        display        : 'flex',
-        flexDirection  : 'row',
+        display : 'flex',
+        flexDirection : 'row',
         justifyContent : 'center',
-        alignItems     : 'center',
-        fontSize       : '13pt',
-        width          : '100%',
-        textAlign      : 'center',
-        marginTop      : '16px',
-        color : theme.rc3.text
+        alignItems : 'center',
+        fontSize : '13pt',
+        width : '100%',
+        textAlign : 'center',
+        marginTop : '16px',
+        color : theme.rc3.text,
+        '& > *:nth-child(1)' : {
+            alignItems : 'flex-end'
+        },
+        '& > *:nth-child(3)' : {
+            alignItems : 'flex-start'
+        }
     },
     progress : {
         display : 'block',
         height : 'auto'
     },
-    buttonContainer : {
-        position       : 'relative',
-        display        : 'inline-flex',
-        justifyContent : 'center',
-        height         : '100%'
-    },
-    prevButton : {
-        alignItems : 'flex-end'
-    },
-    nextButton : {
-        alignItems : 'flex-start'
-    },
     button : {
+        position : 'relative',
+        display : 'inline-flex',
+        justifyContent : 'center',
+        height : '100%',
         fontSize : '17pt',
         minWidth : '48px'
     }
 }), { name : 'PDFViewerNav' });
 
-function PDFViewerNav ({
-    pageNumber, pageCount,
-    handleNextPage, handlePrevPage,
-    isLoaded
+export default function PDFViewerNav ({
+    pageNumber, pageCount, isLoaded, 
+    handleNextPage, handlePrevPage
 }) {
     const classes = useStyles();
 
     return (
         isLoaded ? 
         (
-            <div className={classes.container}>
-                <div className={`${classes.buttonContainer} ${classes.prevButton}`}>
-                    <Button
-                        className={classes.button}
-                        disabled={ !(pageNumber > 1) }
-                        onClick={ handlePrevPage }
-                    ><i className={`mdi mdi-skip-previous`}/>
-                    </Button>
-                </div>
-                { 
-                    ( pageCount > 0 ) &&
-                        (<div>{pageNumber}&nbsp;/&nbsp;{pageCount}</div>)
+            <div className={ classes.container }>
+                <Button
+                    className={ classes.button }
+                    disabled={ !(pageNumber > 1) }
+                    onClick={ handlePrevPage }
+                ><Icon
+                    path={ mdiSkipPrevious }
+                    size={ 1 }
+                />
+                </Button>
+                <div>{
+                    ( pageCount > 0 ) ?
+                    `${pageNumber} / ${pageCount}` : 
+                    '' 
                 }
-                <div className={`${classes.buttonContainer} ${classes.nextButton}`}>
-                    <Button
-                        className={classes.button}
-                        disabled={ !(pageNumber < pageCount) }
-                        onClick={ handleNextPage }
-                    ><i className={`mdi mdi-skip-next`}/>
-                    </Button>
                 </div>
+                <Button
+                    className={ classes.button }
+                    disabled={ !(pageNumber < pageCount) }
+                    onClick={ handleNextPage }
+                ><Icon
+                    path={ mdiSkipNext }
+                    size={ 1 }
+                />
+                </Button>
             </div>
         ) : (
             <div className={classes.container}>
@@ -76,7 +83,5 @@ function PDFViewerNav ({
                 </div>
             </div>
         )
-    )
+    );
 }
-
-export default memo(PDFViewerNav)

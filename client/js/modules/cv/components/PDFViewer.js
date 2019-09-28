@@ -1,6 +1,5 @@
-import React, { memo, useMemo, useEffect, useState, useReducer } from 'react'
 import React, { 
-    useMemo, useCallback, useEffect, useReducer 
+    useMemo, useCallback, useReducer 
 } from 'react';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import PDF from 'react-pdf-js';
@@ -8,7 +7,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
 import shouldShowHoverContent from 'utils/shouldShowHoverContent';
 import PDFViewerNav from './PDFViewerNav';
-import Themes from 'constants/Themes';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
 
@@ -29,9 +27,6 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
         display  : 'inline-block',
         padding  : 0,
         margin   : 0,
-        filter : ((palette.type == Themes.LIGHT) ? 
-            'none' : 'invert(100%)'
-        ),
 
         // resize pdf height according to 8.5x11
         
@@ -46,13 +41,16 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
         }
     },
     downloadP : {
-        paddingLeft: '12px',
-        paddingBottom: '12px',
-        paddingTop: '12px'
+        paddingLeft : '12px',
+        paddingBottom : '12px',
+        paddingTop : '12px'
     },
     downloadIcon : {
         fontSize : '24pt',
-        color : rc3.secondaryContrastText
+        color : rc3.secondaryContrastText,
+        fill : rc3.secondaryContrastText,
+        width : 'auto',
+        height : '32px'
     },
     downloadButtonContainer : {
         position : 'fixed',
@@ -72,8 +70,15 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
             backgroundColor : palette.secondary['400']
         }
     },
-    loadingContent : {
-        display : 'none'
+    pdfContainer : {
+        display : p => p.isLoading ? 'none' : 'block',
+        filter : ( l => 
+            `hue-rotate(${l?0:195}deg) ` + 
+            `invert(${l?0:100}%) ` + 
+            `saturate(${l?100:150}%) ` + 
+            `brightness(${l?100:85}%)`
+        )(palette.type == 'light'),
+        transitionDelay : '3s'
     }
 }), { name : 'PDFViewer' });
 
@@ -93,12 +98,6 @@ function reducer (state={ initialState }, action) {
         }
         case 'go-to-prev-page': {
             return { ...state, pageNumber : (state.pageNumber - 1) };
-        }
-        case 'retrigger-view': {
-            return { ...state, isRetriggering : true };
-        }
-        case 'reset-retrigger': {
-            return { ...state, isRetriggering : false };
         }
         case 'load-content' : {
             return { ...state, isLoaded : true };
@@ -120,58 +119,57 @@ function reducer (state={ initialState }, action) {
 }
 
 export default function PDFViewer ({ fileURL }) {
-    const classes = useStyles();
-    const theme = useTheme();
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    useEffect(()=> {
-        dispatch({ type : 'retrigger-view' });
-    }, [theme.palette.type]);
+    const classes = useStyles({ isLoading : state.isLoading });
+    const theme = useTheme();
 
-    useEffect(()=> {
-        if(state.isRetriggering) {
-            dispatch({ type : 'reset-retrigger' });
-        }
-    }, [state.isRetriggering]);
+    const handlePrevPage = useCallback( ()=>
+        (state.pageNumber > 1) && 
+            dispatch({ type : 'go-to-prev-page' })
+    , [state.pageNumber]);
 
-    const handlePrevPage = useMemo(()=> ()=> {
-        (state.pageNumber > 1 && 
-            dispatch({ type : 'go-to-prev-page' }));
-    }, [state.pageNumber]);
-
-    const handleNextPage = useMemo(()=> ()=>{
+    const handleNextPage = useCallback( ()=> 
         (state.pageNumber < state.pageCount) && 
         dispatch({ type : 'go-to-next-page' })
-    }, [state.pageNumber, state.pageCount]);
+    , [state.pageNumber, state.pageCount]);
 
-    const onPageComplete = useMemo(()=> 
-        pageNumber => dispatch({ 
+    const onPageComplete = useCallback( pageNumber => 
+        dispatch({ 
             type : 'handle-page-complete', 
             payload : pageNumber 
         }), 
     []);
 
-    const onDocumentComplete = useMemo(()=> 
-        pageCount => dispatch({ 
+    const onDocumentComplete = useCallback( pageCount => 
+        dispatch({ 
             type : 'handle-document-complete',
             payload : pageCount
-        }), []);
         }), 
     []);
 
     const downloadIcon = useMemo(()=> ( 
         <Icon path={ mdiDownload } className={ classes.downloadIcon } />
     ), [classes.downloadIcon]);
+
+    const pdfContent = useMemo(()=> (
+            <PDF file={ fileURL }
+                onDocumentComplete={ onDocumentComplete }
+                onPageComplete={ onPageComplete }
+                page={ state.pageNumber }
+                className={ classes.pdfContent }
+            />
+    ), [
+        classes.pdfContent, 
+        onDocumentComplete,
+        onPageComplete, 
+        state.pageNumber
+    ]);
     
     return (
         <div className={ classes.container }>
-            <div className={!state.isLoaded ? classes.loadingContent : undefined}>
-                <PDF file={ !state.isRetriggering && fileURL }
-                    onDocumentComplete={ onDocumentComplete }
-                    onPageComplete={ onPageComplete }
-                    page={ state.pageNumber }
-                    className={ classes.pdfContent }
-                />
+            <div className={ classes.pdfContainer }>
+                { pdfContent }
             </div>
             <a
                 href={ fileURL }
