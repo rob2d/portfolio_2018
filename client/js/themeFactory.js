@@ -69,14 +69,19 @@ export const getTheme = theme => {
                     }
                 },
                 MuiButton : {
+                    root : {
+                        '&$disabled $label' : {
+                            color : (theme=='light') ? 
+                                'rgba(0,0,0,0.26) !important' :
+                                'rgba(255,255,255,0.26) !important',
+                            fill : (theme=='light') ? 
+                                'rgba(0,0,0,0.26) !important' :
+                                'rgba(255,255,255,0.26) !important'
+                            }
+                    },
                     label : {
                         color : (theme=='light')?'#000':'#FFF',
-                        fill : (theme=='light')?'#000':'#FFF'
-                    },
-                    disabled : {
-                        color : (theme=='light') ? 
-                                    'rgba(0,0,0,0.26)' :
-                                    'rgba(255,255,255,0.26)'
+                        fill : (theme=='light')?'#000':'#FFF' 
                     }
                 },
                 MuiAppBar : {
@@ -126,8 +131,8 @@ export const getTheme = theme => {
                             let strength = 1;
                         
                             return `0px 2px 4px -1px rgba(${rgbColor}, ${0.2*strength}), ` + 
-                                   `0px 4px 5px 0px rgba(${rgbColor}, ${0.14*strength}), ` + 
-                                   `0px 1px 10px 0px rgba(${rgbColor}, ${0.12*strength})`;
+                                `0px 4px 5px 0px rgba(${rgbColor}, ${0.14*strength}), ` + 
+                                `0px 1px 10px 0px rgba(${rgbColor}, ${0.12*strength})`;
                         })()
                     }
                 },
