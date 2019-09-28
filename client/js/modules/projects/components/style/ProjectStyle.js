@@ -1,7 +1,7 @@
-const styles = theme => ({
-    mainContainer : {
-        margin : '32px'
-    }
-}));
-
-export default styles
+export default function styles(theme) { 
+    return {
+        mainContainer : {
+            margin : '32px'
+        }
+    };
+}
