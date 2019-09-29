@@ -1,34 +1,36 @@
-import React, { memo } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import MediaTypes from 'constants/MediaTypes'
+import React from 'react';
+import { makeStyles } from '@material-ui/styles';
+import MediaTypes from 'constants/MediaTypes';
+import { Icon } from '@mdi/react';
+import { mdiYoutube } from '@mdi/js';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(()=> ({
     reelThumbImg : {        
-        display   : 'block',
+        display : 'block',
         boxSizing : 'border-box',
-        width     : '100%',
-        height    : ({ aspectRatio }) => `${((1/aspectRatio)*100).toFixed(2)}%`
+        width : '100%',
+        height : p => `${((1/p.aspectRatio)*100).toFixed(2)}%`
     },
     reelThumbSelected : {
         border : '2px solid rgb(0,175,200) !important'
     },
     reelThumbContainer : {
-        position: 'relative',
+        position : 'relative',
         left : 0,
-        top  : 0,
+        top : 0,
         display : 'flex',
         alignItems : 'center',
         justifyContent : 'center',
         boxSizing   : 'border-box',
-        border       : '2px solid rgba(0,0,0,0)',
-        width        : '100%',
-        minHeight    : ({ thumbHeight })=>(`${thumbHeight}px !important`),
-        height       : ({ thumbHeight })=>(`${thumbHeight}px !important`),
-        marginTop    : '4px',
+        border : '2px solid rgba(0,0,0,0)',
+        width : '100%',
+        minHeight : p =>(`${p.thumbHeight}px !important`),
+        height : p =>(`${p.thumbHeight}px !important`),
+        marginTop : '4px',
         marginBottom : '4px',
-        cursor       : 'pointer'
+        cursor : 'pointer'
     },
-    reelThumbSelectedOverlay : {
+    thumbSelectedOverlay : {
         position : 'absolute',
         left : '0',
         top : '0',
@@ -38,9 +40,9 @@ const useStyles = makeStyles( theme => ({
         backgroundColor : 'rgba(0,175,200,0.5)',
         zIndex : 1
     },
-    youtubeThumbIcon : {
-        color : '#DD0000',
-        backgroundColor : '#FFFFFF',
+    ytThumbIcon : {
+        fill : '#D00',
+        backgroundColor : '#FFF',
         fontSize  : '28pt',
         width : '100%',
         height : '100%',
@@ -50,7 +52,7 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'ReelThumb' });
 
-export default function ReelThumb ({ onClick,  isSelected, thumbHeight, item }) {
+export default function ReelThumb ({ onClick, isSelected, thumbHeight, item }) {
     const classes = useStyles({ thumbHeight });
 
     return (
@@ -58,14 +60,17 @@ export default function ReelThumb ({ onClick,  isSelected, thumbHeight, item }) 
             isSelected?classes.reelThumbSelected:''}`}
             onClick={onClick}
         > {/* selected overlay if applicable */}
-        { isSelected && 
-            (<div className={classes.reelThumbSelectedOverlay}></div>)
-        }
+        { isSelected && (<div className={ classes.thumbSelectedOverlay } />) }
         { (item.type == MediaTypes.IMAGE) && 
-            (<img className={`${classes.reelThumbImg}`} src={item.thumb}/>)
+            (<img className={ classes.reelThumbImg } src={item.thumb}/>)
         }
-        { (item.type == MediaTypes.VIDEO) && 
-            (<i className={`mdi mdi-youtube ${classes.youtubeThumbIcon}`}/>)
+        { (item.type == MediaTypes.VIDEO) && (
+            <Icon 
+                path={ mdiYoutube }
+                className={ classes.ytThumbIcon }
+                size={ 2 }
+            />
+        )
         }
         </div>
     );

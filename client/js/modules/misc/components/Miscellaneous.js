@@ -10,7 +10,7 @@ import {
     mdiNote
 } from '@mdi/js'
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles(({ palette : { type } }) => ({
     mainContainer : {
         marginLeft : 'auto',
         marginRight : 'auto',
@@ -42,9 +42,7 @@ const useStyles = makeStyles(({ palette }) => ({
         minHeight : '190px',
         margin    : '0 auto',
         display   : 'block',
-        filter    : ((palette.type == 'light') ? 
-            'invert(0%)' : 'invert(100%)'
-        ),
+        filter    : `invert(${(type == 'light') ? 0 : 100 }%)`,
         transition : 'filter 0.32s'
     },
     rambling : {
@@ -52,7 +50,7 @@ const useStyles = makeStyles(({ palette }) => ({
         width     : '292px',
         textAlign : 'left',
         margin    : '0 auto',
-        color     : ((palette.type == 'light') ? 
+        color     : ((type == 'light') ? 
             '#000000' : '#FFFFFF'
         ),
         transition : 'all 0.32s'
@@ -72,18 +70,16 @@ const useStyles = makeStyles(({ palette }) => ({
         }
     },
     itemTitleText : {
-        flexGrow     : 1,
-        textAlign    : 'left',
-        fontFamily   : 'roboto_bold',
-        color        : '#c51162'
+        flexGrow : 1,
+        textAlign : 'left',
+        fontFamily : 'roboto_bold',
+        color : '#c51162'
     },
     itemTypeIcon : {
-        display        : 'flex',
-        maxWidth       : '32px',
-        marginRight    : '16px',
-        color          : ((palette.type == 'light') ? 
-            '#000000' : '#FFFFFF'
-        ),
+        display : 'flex',
+        maxWidth : '32px',
+        marginRight : '16px',
+        fill : (type == 'light') ? '#000' : '#FFF',
         alignItems     : 'center',
         justifyContent : 'center',
         transition : 'all 0.32s'
@@ -92,7 +88,6 @@ const useStyles = makeStyles(({ palette }) => ({
     // make certain things larger on non-mobile devices
     
     '@media (min-width:901px)' : {
-   
         mainContainer : {
             maxWidth : '1100px !important'
         }
@@ -179,7 +174,7 @@ export default function Miscellaneous () {
                         <b>Note (Sep '19):</b> while the technical things presented still make sense
                         and are accurate in the browser, some benefits are understated or not 
                         considered as <b>(1)</b> CSSinJS libraries were rapidly evolving and 
-                        <b>(2)</b> I was not fully aware of some things which 
+                        &nbsp;<b>(2)</b> I was not fully aware of some things which 
                         were possible (both with CSS and with patterns).
                         </span>,
                         
@@ -256,12 +251,12 @@ export default function Miscellaneous () {
                         This was one of the results of that.
                     </p>
                 </div>
-                {(vpW > 1036) && 
-                    <Fragment>
-                        <div className={ classes.item }></div>
+                {(vpW > 1036) && (
+                    <>
                         <div className={ classes.item } />
-                    </Fragment>
-                }
+                        <div className={ classes.item } />
+                    </>
+                ) }
             </div>
         </div>
     );
