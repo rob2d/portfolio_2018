@@ -222,9 +222,9 @@ class MediaReel extends PureComponent {
                             className={classes.statusBox} 
                             onClick={ ()=> this.handleItemClick(i) }
                         >
-                            <i className={`mdi mdi-square${ 
+                            <i className={ `mdi mdi-square${ 
                                 (i!=selectedIndex) ? '-outline':'' } ${
-                                classes.statusBoxIcon}`} 
+                                classes.statusBoxIcon}` } 
                             />
                         </div>
                     ))}

@@ -46,12 +46,12 @@ const useStyles = makeStyles(({ palette, rc3 }) =>({
             fill : '#fff !important'
         }
     }
-}), { name : 'ProjectTechnologies' });
+}), { name : 'ProjectTechs' });
 
-function ProjectTechnologies({ technologySet }) { 
-    const classes = useStyles({ technologySet });
+function ProjectTechs({ techSet }) { 
+    const classes = useStyles({ techSet });
 
-    return Array.from(technologySet).map( (tKey,i,arr) => {
+    return Array.from(techSet).map( (tKey,i,arr) => {
         const { 
             displayName, 
             referenceUrl 
@@ -72,4 +72,4 @@ function ProjectTechnologies({ technologySet }) {
     });
 }
 
-export default memo(ProjectTechnologies)
+export default memo(ProjectTechs)
