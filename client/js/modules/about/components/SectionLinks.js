@@ -69,7 +69,8 @@ const useStyles = makeStyles(({ rc3 }) => ({
         },
         '& svg' : {
             fontSize : '13pt',
-            color : rc3.text
+            color : rc3.text,
+            fill : rc3.text
         }
     },
     linkDivider : {
@@ -98,7 +99,10 @@ export default function SectionLinks ({ vpW, vpH }) {
                 url={ url }
                 containerClass={ classes.sectionLink }
             >   <li className={ classes.listItem }> 
-                    <Icon path={ iconPath } size={ 0.75 }/>&nbsp;{ name }
+                    <Icon 
+                        path={ iconPath } 
+                        size={ 0.75 }    
+                    />&nbsp;{ name }
                 </li>
             </ButtonLink>
     ), [classes]);

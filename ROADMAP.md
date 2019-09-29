@@ -13,6 +13,10 @@ of users.
 - cache instances of YouTube player while parent still mounted so that there's no need to reload iframe
 - fix some issues with YouTube player responsiveness on some mobile devices.
 
+## CV
+- replace PDF viewer lib with non deprecated version
+- use smoother transitions from different themes when we don't need to blit away CV div
+
 ## Misc Refactors
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that.
 - inline SVGs into components from mdi library -- decreased page size + responsiveness vs large webfont currently there.
