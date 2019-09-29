@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 
-const ANIM_INTERVAL = '0.32';
+const ANIM_DURATION_S = '0.32';
 const getTopMargin = vpW => vpW > 800 ? 32 : 16;
 
 export default makeStyles(({ palette : { type }}) => ({
@@ -8,16 +8,12 @@ export default makeStyles(({ palette : { type }}) => ({
         opacity : p => p.isShown ? 1 : 0,
         display : p => p.onScreen ? 'block' : 'none',
         position : p => p.hasAbsolutePosition ? 'absolute' : 'relative',
-        top : p => ((!p.hasAbsolutePosition && 'auto') || 
-            (p.offsetY - getTopMargin(p.vpW))
-        ),
-        left : p => ((!p.hasAbsolutePosition && 'auto') || 
-            p.offsetX
-        ),
+        top : p => p.hasAbsolutePosition ? (p.offsetY - getTopMargin(p.vpW)) : 'auto',
+        left : p => p.hasAbsolutePosition ? p.offsetX : 'auto',
         transition: p => (
             'opacity ${ANIM_INTERVAL}s, ' + ( p.hasAbsolutePosition ?
-                `left ${ANIM_INTERVAL*1.5}s, ` + 
-                `top ${ANIM_INTERVAL*1.5}s`:
+                `left ${ANIM_DURATION_S*1.5}s, ` + 
+                `top ${ANIM_DURATION_S*1.5}s`:
                 'left 0s, top 0s'
             )
         ),
@@ -59,7 +55,7 @@ export default makeStyles(({ palette : { type }}) => ({
         display : 'block',
         width : '100%',
         opacity : 1,
-        transition: `all ${ANIM_INTERVAL}s ease-out`,
+        transition: `all ${ANIM_DURATION_S}s ease-out`,
         height : p => (
             ((p.viewAsTitle && 100) || 
             (p.isHighlighted ? 324 : 180)) + 
@@ -86,10 +82,10 @@ export default makeStyles(({ palette : { type }}) => ({
                     `0px 2px 1px -1px rgba(${rgb}, ${0.12*shadowStrength})`
             );
         }, 
-        transition : `box-shadow ${ANIM_INTERVAL}s ease-out, ` +
-                        `transform ${ANIM_INTERVAL*2}s ` + 
+        transition : `box-shadow ${ANIM_DURATION_S}s ease-out, ` +
+                        `transform ${ANIM_DURATION_S*2}s ` + 
                         `cubic-bezier(0.25, 0.1, 0.5, 1), ` + 
-                        `background-color ${ANIM_INTERVAL}s !important`,
+                        `background-color ${ANIM_DURATION_S}s !important`,
         '@media (max-width: 400px)': {  // support for smaller devices
             width : '300px !important'
         }
@@ -102,7 +98,7 @@ export default makeStyles(({ palette : { type }}) => ({
     },
     cardContent : {
         height : '88px',
-        transition : `all ${ANIM_INTERVAL}s ease-out`,
+        transition : `all ${ANIM_DURATION_S}s ease-out`,
         opacity : p =>(!p.highlightedOnPanel) ? 1 : 0
     },
     titleOverlay : {
@@ -135,7 +131,7 @@ export default makeStyles(({ palette : { type }}) => ({
         color : p => ((type=='light') && 
             (!p.viewAsTitle ? '#FFF' : '#000' ) || '#FFF'
         ),
-        transition : `all ${ANIM_INTERVAL}s ease-in`
+        transition : `all ${ANIM_DURATION_S}s ease-in`
     },
     projectSubtitle : {
         display : 'block',
@@ -153,7 +149,7 @@ export default makeStyles(({ palette : { type }}) => ({
         marginBottom : '0px',
         lineHeight : p => p.isHighlighted ? '24px' : '0px',
         opacity : p => p.isHighlighted ? 1 : 0,
-        transition : `all ${ANIM_INTERVAL}s ease-in`,
+        transition : `all ${ANIM_DURATION_S}s ease-in`,
     },
     moreInfoButton : {
         position : 'absolute',
@@ -162,14 +158,14 @@ export default makeStyles(({ palette : { type }}) => ({
         fill : '#FFF',
         fontSize : '22pt',
         opacity : p => (p.isHighlighted && !p.viewAsTitle) ? 1 : 0,
-        transition : `all ${ANIM_INTERVAL}s ease-in`
+        transition : `all ${ANIM_DURATION_S}s ease-in`
     },
     cardMediaImg : {
         position : 'relative',
         width : p => (!p.viewAsTitle) ? 'auto' : '100%',
         height : '100%',
         verticalAlign : 'middle',
-        transition : `all ${ANIM_INTERVAL}s ease-out`,
+        transition : `all ${ANIM_DURATION_S}s ease-out`,
         margin : '0 auto',
         left : p => p.isHighlighted ? '-25%' : '0%',
         top : '0%',

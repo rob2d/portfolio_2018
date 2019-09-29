@@ -11,6 +11,8 @@ import { hot } from 'react-hot-loader/root';
 import { useLazyComponent } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
 
+const ANIM_DURATION_S = '0.32';
+
 const useStyles = makeStyles(({ rc3 }) => ({
     appWrapper : {
         minHeight : '100%',
@@ -19,7 +21,7 @@ const useStyles = makeStyles(({ rc3 }) => ({
         flexDirection : 'row',
         textAlign : 'center',
         backgroundColor : rc3.background,
-        transition : 'all 0.32s',
+        transition : `background-color ${ANIM_DURATION_S}s`,
         boxSizing : 'border-box'
     },
     routeViewWrapper : {
