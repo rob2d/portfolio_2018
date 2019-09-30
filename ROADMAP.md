@@ -19,11 +19,10 @@ of users.
 
 ## Misc Refactors
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that.
-- inline SVGs into components from mdi library -- decreased page size + responsiveness vs large webfont currently there.
 - remove Redux `connect` HOC and fade transitions in favor of hooks API for speed + consistency; if those are slower due
 to getting rid of the PureComponent wrappers + re-render,
 cut down with `useMemo`/`useCallback`
-- use new syntax conventions consistently: no lined-up colons, semicolons on imports, `export default function` for components, etc.
+- use new syntax conventions consistently: no lined-up colons, semicolons on imports, `export default function` for components, etc **(W.I.P.)**
 
 ## Nice-to-haves
 
