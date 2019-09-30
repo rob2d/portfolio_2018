@@ -24,6 +24,7 @@ const useStyles = makeStyles(({ palette, rc3 }) =>({
         height : '64px',
         transition: 'background-color 0.35s ease',
         backgroundColor : 'rgba(255,255,255,0)',
+        borderRadius : '4px',
         '&:hover' : {
             backgroundColor : '#ff4081'
         },
@@ -46,12 +47,12 @@ const useStyles = makeStyles(({ palette, rc3 }) =>({
             fill : '#fff !important'
         }
     }
-}), { name : 'ProjectTechnologies' });
+}), { name : 'ProjectTechs' });
 
-function ProjectTechnologies({ technologySet }) { 
-    const classes = useStyles({ technologySet });
+export default function ProjectTechs({ techSet }) { 
+    const classes = useStyles({ techSet });
 
-    return Array.from(technologySet).map( (tKey,i,arr) => {
+    return Array.from(techSet).map( (tKey,i,arr) => {
         const { 
             displayName, 
             referenceUrl 
@@ -71,5 +72,3 @@ function ProjectTechnologies({ technologySet }) {
         );
     });
 }
-
-export default memo(ProjectTechnologies)

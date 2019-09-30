@@ -1,9 +1,11 @@
-import React, { PureComponent } from 'react'
-import clsx from 'clsx'
-import Typography  from '@material-ui/core/Typography'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import useStyles from './style/ProjectCardStyle'
+import React, { PureComponent } from 'react';
+import clsx from 'clsx';
+import Typography  from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { Icon } from '@mdi/react';
+import { mdiInformationOutline } from '@mdi/js';
+import useStyles from './style/ProjectCardStyle';
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -11,17 +13,18 @@ import {
     AFTER_FADE_POSITIONING,
     PROJECT_SCROLL_UP,
     PROJECT_VIEW
-} from './../constants/DisplayStates'
+} from './../constants/DisplayStates';
 
-function ProjectCardLayout(props) {
+function ProjectCardLayout (props) {
     const classes = useStyles(props);
-
-    let containerClass = clsx((props.viewAsTitle && 
-        classes.cardContainerAsTitle 
-    ), classes.cardContainerBase);
-
+    
     const { 
-        data : { id, title, context, shortDescription }, 
+        data : { 
+            id, 
+            title, 
+            context, 
+            shortDescription 
+        }, 
         pData, 
         onClick, 
         parent, 
@@ -34,40 +37,48 @@ function ProjectCardLayout(props) {
             className={ classes.container }
         >
             <Card 
-                className={ containerClass } 
+                className={ clsx(
+                    viewAsTitle && 
+                    classes.cardContainerAsTitle, 
+                    classes.cardContainerBase
+                ) } 
                 onMouseDown={ onClick }
             >
-                <div className={classes.cardMediaContent}>
+                <div className={ classes.cardMediaContent }>
                     <img
-                        src={`/img/projects/${id}/${id}_thumb.png`}
-                        className={classes.cardMediaImg}
+                        src={ `/img/projects/${ id }/${ id }_thumb.png` }
+                        className={ classes.cardMediaImg }
                     />
-                    <div className={classes.titleOverlay}>
-                        <p className={classes.projectTitle}>
+                    <div className={ classes.titleOverlay }>
+                        <p className={ classes.title }>
                             { title }
                         </p>
-                        <p className={classes.projectSubtitle}>
-                            { context } ({pData.year})
+                        <p className={ classes.subtitle }>
+                            { context } ({ pData.year })
                         </p>
-                        <div className={classes.moreInfoButton}>
-                            <i className={'mdi mdi-information-outline'} />
-                        </div>
+                        <Icon 
+                            path={ mdiInformationOutline } 
+                            className={ classes.moreInfoButton }
+                            size={ 1.4 }
+                        />  
                     </div>
                 </div>
                 <CardContent className={ classes.cardContent }>
-                    <Typography component="p">{ shortDescription }</Typography>
+                    <Typography component="p">
+                        { shortDescription }
+                    </Typography>
                 </CardContent>
             </Card>
         </div>
     );
 }
 
-class ProjectCard extends PureComponent {
+export default class ProjectCard extends PureComponent {
     
     state = {
         hasAbsolutePosition : false,
-        viewAsTitle         : false,
-        onScreen            : true
+        viewAsTitle : false,
+        onScreen : true
     };
 
     R = { container : undefined };
@@ -212,5 +223,3 @@ class ProjectCard extends PureComponent {
         );
     }
 }
-
-export default ProjectCard

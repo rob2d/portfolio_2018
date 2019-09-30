@@ -1,17 +1,19 @@
-import React, { useRef, useLayoutEffect, useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { makeStyles } from '@material-ui/styles'
-import Typography from '@material-ui/core/Typography'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import ThemeButton from './ThemeButton'
-import appHistory from 'utils/appHistory'
-import HeaderSectionButton from './HeaderSectionButton'
-import SectionHighlighter from './SectionHighlighter'
-import AppSections from 'constants/AppSections'
-import withFadeTransitions from 'utils/withFadeTransitions'
-import { visitedPathIndex } from 'app-root/selectors'
-import useViewportSizes from 'use-viewport-sizes'
+import React, { 
+    useRef, useLayoutEffect, useMemo, useState 
+} from 'react';
+import { useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/styles';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import ThemeButton from './ThemeButton';
+import appHistory from 'utils/appHistory';
+import HeaderSectionButton from './HeaderSectionButton';
+import SectionHighlighter from './SectionHighlighter';
+import AppSections from 'constants/AppSections';
+import withFadeTransitions from 'utils/withFadeTransitions';
+import { visitedPathIndex } from 'app-root/selectors';
+import useViewportSizes from 'use-viewport-sizes';
 
 const { Sections } = AppSections;
 const BUTTON_WIDTH_PX = 60;
@@ -38,15 +40,6 @@ const useStyles = makeStyles( theme => ({
         alignItems : 'center',
         display : 'flex',
         flexDirection : 'row',
-    },
-    rightIconsWrapper : {
-        textAlign : 'right',
-        display : 'flex',
-        alignItems : 'center',
-        justifyContent : 'center',
-        flexDirection : 'row',
-        height : '100%',
-        color : '#FFFFFF'
     },
     centerPadder : {
         flex : 1,
@@ -146,7 +139,7 @@ export default withFadeTransitions(function AppHeader () {
                             key={ `headerSectionButton${s.name}` }
                             name={ s.name }
                             disabled={ false }  
-                            iconClass={ s.iconClass }           
+                            iconPath={ s.iconPath }           
                             tooltipText={ s.getTooltipText() }
                             onClick={ SectionClickEvents[i] }
                             buttonDivRef={ refRetrievers[i] } 

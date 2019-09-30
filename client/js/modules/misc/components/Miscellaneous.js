@@ -1,31 +1,38 @@
-import React, { Fragment } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import useViewportSizes from 'use-viewport-sizes'
-import ButtonLink from 'utils/components/ButtonLink'
+import React, { useCallback } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import useViewportSizes from 'use-viewport-sizes';
+import ButtonLink from 'utils/components/ButtonLink';
+import { Icon } from '@mdi/react';
+import {
+    mdiGamepadVariant,
+    mdiMessageVideo,
+    mdiMusic,
+    mdiNote
+} from '@mdi/js'
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles(({ palette : { type } }) => ({
     mainContainer : {
-        marginLeft     : 'auto',
-        marginRight    : 'auto',
-        maxWidth       : '700px',
-        flexGrow       : 1,
-        display        : 'flex',
-        flexDirection  : 'column',
+        marginLeft : 'auto',
+        marginRight : 'auto',
+        maxWidth : '700px',
+        flexGrow : 1,
+        display : 'flex',
+        flexDirection : 'column',
         justifyContent : 'center',
-        padding        : '16px',
-        alignItems     : 'center',
-        boxSizing      : 'border-box' // for padding in landscape
+        padding : '16px',
+        alignItems : 'center',
+        boxSizing : 'border-box' // for padding in landscape
     },
     item : {
-        padding  : '16px',
-        margin   : '8px 0px',
-        width    : '300px'
+        padding : '16px',
+        margin : '8px 0px',
+        width : '300px'
     },
     bodyContent : {
-        flexGrow      : 1,
-        display       : 'flex',
+        flexGrow : 1,
+        display : 'flex',
         flexDirection : 'row',
-        flexWrap      : 'wrap',
+        flexWrap : 'wrap',
         justifyContent : 'center'
     },
     articleImg : {
@@ -35,9 +42,7 @@ const useStyles = makeStyles(({ palette }) => ({
         minHeight : '190px',
         margin    : '0 auto',
         display   : 'block',
-        filter    : ((palette.type == 'light') ? 
-            'invert(0%)' : 'invert(100%)'
-        ),
+        filter    : `invert(${(type == 'light') ? 0 : 100 }%)`,
         transition : 'filter 0.32s'
     },
     rambling : {
@@ -45,7 +50,7 @@ const useStyles = makeStyles(({ palette }) => ({
         width     : '292px',
         textAlign : 'left',
         margin    : '0 auto',
-        color     : ((palette.type == 'light') ? 
+        color     : ((type == 'light') ? 
             '#000000' : '#FFFFFF'
         ),
         transition : 'all 0.32s'
@@ -65,18 +70,16 @@ const useStyles = makeStyles(({ palette }) => ({
         }
     },
     itemTitleText : {
-        flexGrow     : 1,
-        textAlign    : 'left',
-        fontFamily   : 'roboto_bold',
-        color        : '#c51162'
+        flexGrow : 1,
+        textAlign : 'left',
+        fontFamily : 'roboto_bold',
+        color : '#c51162'
     },
     itemTypeIcon : {
-        display        : 'flex',
-        maxWidth       : '32px',
-        marginRight    : '16px',
-        color          : ((palette.type == 'light') ? 
-            '#000000' : '#FFFFFF'
-        ),
+        display : 'flex',
+        maxWidth : '32px',
+        marginRight : '16px',
+        fill : (type == 'light') ? '#000' : '#FFF',
         alignItems     : 'center',
         justifyContent : 'center',
         transition : 'all 0.32s'
@@ -85,46 +88,64 @@ const useStyles = makeStyles(({ palette }) => ({
     // make certain things larger on non-mobile devices
     
     '@media (min-width:901px)' : {
-   
         mainContainer : {
             maxWidth : '1100px !important'
         }
     }
 }), { name : 'Miscellaneous' });
 
+const DISCLAIMER_C = '#F48';
+
 export default function Miscellaneous () {
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpW });
+
+    const Ramblings = useCallback(({ ramblings })=> 
+        ramblings.map((r,i)=> (
+            <p className={ classes.rambling }>{ r }</p>
+        )), 
+    [classes]);
 
     return (
         <div className={classes.mainContainer}>
             <div className={classes.bodyContent}>
                 <div className={classes.item}>
                     <ButtonLink
-                        url={'https://medium.com/@robftw/characteristics-of-an-ideal-react-architecture-883b9b92be0b'}
-                     >  <img 
+                        url={'https://medium.com/@robftw/characteristics-of-' + 
+                            'an-ideal-react-architecture-883b9b92be0b'
+                        }
+                    ><img 
                             src={ '/img/misc/rob_react_article_art.png' } 
                             className={ classes.articleImg } 
                         />
                     </ButtonLink>
                     <ButtonLink 
-                        url={'https://medium.com/@robftw/characteristics-of-an-ideal-react-architecture-883b9b92be0b'}
-                        containerClass={classes.itemTitle}
-                    ><i className={`mdi mdi-note ${classes.itemTypeIcon}`} /> 
+                        url={'https://medium.com/@robftw/characteristics-of-an-' + 
+                        'ideal-react-architecture-883b9b92be0b'}
+                        containerClass={ classes.itemTitle }
+                    ><Icon
+                        className={ classes.itemTypeIcon }
+                        path={ mdiNote }
+                        size={ 0.75 }
+                    />
                     <p className={classes.itemTitleText}>
                         Characteristics of an Ideal React Architecture
                     </p>
                     </ButtonLink>
-                    <p className={classes.rambling}>
-                        In this write-up, I clarify some misconceptions about React and identify central 
-                        characteristics that define a good use of React that large teams could adopt for easy 
-                        and lean scalability while cutting down on legacy cruft that is always inevitable. 
-                        A lot of this could be equally applicable for other Component-based view libraries on the web.
-                    </p>
-                    <p className={classes.rambling}>
-                        [note: the title is actually not serious, React is not an architecture in itself!]
-                    </p>
-
+                    <Ramblings ramblings={ [
+                        <span style={{ color : DISCLAIMER_C }}>
+                        <b>Note (Sep '19):</b> at this point in time, this is pretty outdated 
+                        from what I would recommend today with a new project -- 80+% may hold 
+                        true or be useful, but thanks to new paradigms such as Hooks and functional
+                        components and new context API, certain things such as emphasis on immutability
+                        is a little bit out of context in 2019.
+                        </span>,
+                        `[note: the title is actually not serious, React is not an architecture in itself!]`,
+                        `In this write-up, I clarify some misconceptions about React and identify central ` + 
+                        `characteristics that define a good use of React that large teams could adopt for easy ` +
+                        `and lean scalability while cutting down on legacy cruft that is always inevitable. ` + 
+                        `A lot of this could be equally applicable for other Component-based view libraries on the web.`,
+                    ] } />
                 </div>
                 <div className={classes.item}>
                     <iframe 
@@ -135,28 +156,41 @@ export default function Miscellaneous () {
                         allow="autoplay; encrypted-media" 
                         allowFullScreen >
                     </iframe>
-                        <ButtonLink 
-                            containerClass={classes.itemTitle}
-                            url={'https://www.youtube.com/watch?v=v1uJjYYvEPw'}
-                        >
-                            <i className={`mdi mdi-message-video ${classes.itemTypeIcon}`} /> 
-                            <p className={classes.itemTitleText}>
-                                JavaScript Styles in React : The Good Parts
-                            </p>
-                        </ButtonLink>
-                    <p className={classes.rambling}>
-                        A talk given at Spotify for ReactNYC which includes a presentation that 
-                        was completely written in React/JavaScript over a few days. 
-                    </p>
-                    <p className={classes.rambling}>
+                    <ButtonLink 
+                        containerClass={classes.itemTitle}
+                        url={ 'https://www.youtube.com/watch?v=v1uJjYYvEPw' }
+                    >
+                        <Icon
+                            className={ classes.itemTypeIcon }
+                            path={ mdiMessageVideo }
+                            size={ 0.75 }
+                        /> 
+                        <p className={ classes.itemTitleText }>
+                            JavaScript Styles in React : The Good Parts
+                        </p>
+                    </ButtonLink>
+                    <Ramblings ramblings={ [
+                        <span style={{ color : DISCLAIMER_C  } }>
+                        <b>Note (Sep '19):</b> while the technical things presented still make sense
+                        and are accurate in the browser, some benefits are understated or not 
+                        considered as <b>(1)</b> CSSinJS libraries were rapidly evolving and 
+                        &nbsp;<b>(2)</b> I was not fully aware of some things which 
+                        were possible (both with CSS and with patterns).
+                        </span>,
+                        
+                        `A talk given at Spotify for ReactNYC which includes a presentation ` + 
+                        `that was completely written in React/JavaScript over a few days. `,
+                        
+                        <>
                         Synopsis: 
-                        "<i>When using React out of the box, 
+                        <i>When using React out of the box, 
                         we have two styling workflow solutions to choose from: traditional CSS 
                         stylesheets and using inline-styles. This talk breaks down the issues 
                         with these approaches and presents a more React-friendly abstraction for 
                         CSS styling known as JSS, and another called ReactJSS designed to take 
-                        that even further.</i>"
-                    </p>
+                        that even further.</i>
+                        </>
+                    ] } />
                 </div>
                 <div className={classes.item}>
                     <iframe 
@@ -168,9 +202,13 @@ export default function Miscellaneous () {
                         allowFullScreen
                     ></iframe><br />
                         <ButtonLink 
-                            containerClass={classes.itemTitle}
-                            url={'https://www.youtube.com/watch?v=4KnJOvw9tLk'}
-                        >   <i className={`mdi mdi-gamepad-variant ${classes.itemTypeIcon}`} /> 
+                            containerClass={ classes.itemTitle }
+                            url={ 'https://www.youtube.com/watch?v=4KnJOvw9tLk' }
+                        > <Icon
+                                className={ classes.itemTypeIcon }
+                                path={ mdiGamepadVariant }
+                                size={ 0.75 }
+                            />    
                             <p className={classes.itemTitleText}>
                                 Crazy Cabbie Sonic
                             </p>
@@ -194,7 +232,11 @@ export default function Miscellaneous () {
                         url={'https://soundcloud.com/rob2d/high-wires-in-space'} 
                         containerClass={classes.itemTitle}
                     >
-                        <i className={`mdi mdi-music ${classes.itemTypeIcon}`} />
+                        <Icon
+                            className={ classes.itemTypeIcon }
+                            path={ mdiMusic }
+                            size={ 0.75 }
+                        /> 
                         <p className={classes.itemTitleText}>
                             ColorShafted: Highwires in Space
                         </p>
@@ -209,12 +251,12 @@ export default function Miscellaneous () {
                         This was one of the results of that.
                     </p>
                 </div>
-                {(vpW > 1036) && 
-                    <Fragment>
-                        <div className={ classes.item }></div>
+                {(vpW > 1036) && (
+                    <>
                         <div className={ classes.item } />
-                    </Fragment>
-                }
+                        <div className={ classes.item } />
+                    </>
+                ) }
             </div>
         </div>
     );

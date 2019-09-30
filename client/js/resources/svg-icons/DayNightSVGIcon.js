@@ -4,8 +4,6 @@ import classNames from 'classnames'
 export default ({ className })=> (
   <svg
    viewBox="0 0 24 24"
-   height="24"
-   width="24"
    version="1.1"
    className={ classNames('themeicon__star', className) }
   >

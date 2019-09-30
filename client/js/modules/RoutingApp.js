@@ -1,15 +1,17 @@
-import React from 'react'
-import { Provider, useSelector } from 'react-redux'
-import { makeStyles, ThemeProvider } from '@material-ui/styles'
-import { Route, Switch } from 'react-router-dom'
-import { ConnectedRouter } from 'connected-react-router'
-import { getTheme } from 'app-root/themeFactory'
-import appHistory from 'utils/appHistory'
-import store from '../store'
-import { AppHeader, AppFooter } from './core'
-import { hot } from 'react-hot-loader/root'
-import { useLazyComponent } from 'utils/hooks'
-import LoadingComponent from 'utils/components/LoadingComponent'
+import React, { useEffect } from 'react';
+import { Provider, useSelector } from 'react-redux';
+import { makeStyles, ThemeProvider } from '@material-ui/styles';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import { getTheme } from 'app-root/themeFactory';
+import appHistory from 'utils/appHistory';
+import store from '../store';
+import { AppHeader, AppFooter } from './core';
+import { hot } from 'react-hot-loader/root';
+import { useLazyComponent } from 'utils/hooks';
+import LoadingComponent from 'utils/components/LoadingComponent';
+
+const ANIM_DURATION_S = '0.32';
 
 const useStyles = makeStyles(({ rc3 }) => ({
     appWrapper : {
@@ -19,7 +21,7 @@ const useStyles = makeStyles(({ rc3 }) => ({
         flexDirection : 'row',
         textAlign : 'center',
         backgroundColor : rc3.background,
-        transition : 'all 0.32s',
+        transition : `background-color ${ANIM_DURATION_S}s`,
         boxSizing : 'border-box'
     },
     routeViewWrapper : {
@@ -75,11 +77,11 @@ function AppContent () {
                             component={ CV } 
                         />
                         <Route 
-                            path='(/projects|/projects/:projectId)' 
+                            path='/projects(/:projectId)?' 
                             component={ ProjectsPanel } 
                         />
                         <Route 
-                            path='(/misc)' 
+                            path='/misc' 
                             component={ Miscellaneous } 
                         />
                     </Switch>
@@ -112,4 +114,4 @@ function RoutingApp(){
     );
 }
 
-export default hot(RoutingApp)
+export default hot(RoutingApp);

@@ -1,4 +1,10 @@
-import { menus } from 'strings'
+import { menus } from 'strings';
+import { 
+    mdiHumanGreeting, 
+    mdiBriefcase,
+    mdiDiceMultiple,
+    mdiFileDocumentBox
+} from '@mdi/js';
 
 export const SectionIndexes = {
     WELCOME  : 0,
@@ -9,27 +15,26 @@ export const SectionIndexes = {
 
 export const Sections = [
     {
-        name            : 'About',
-        iconClass       : 'mdi mdi-human-greeting',
-        getTooltipText  : () => menus.main.about,
-        basePath        : '/',
-        svg             : ''
+        name : 'About',
+        iconPath : mdiHumanGreeting,
+        getTooltipText : () => menus.main.about,
+        basePath : '/',
     },
     {
-        name            : 'Projects',
-        iconClass       : 'mdi mdi-briefcase',
-        getTooltipText  : ()=> menus.main.projects,
-        basePath        : '/projects'
+        name : 'Projects',
+        iconPath : mdiBriefcase,
+        getTooltipText : ()=> menus.main.projects,
+        basePath : '/projects'
     },
     {
-        name           : 'Misc',
-        iconClass      : 'mdi mdi-dice-multiple',
+        name : 'Misc',
+        iconPath : mdiDiceMultiple,
         getTooltipText : ()=> menus.main.misc,
         basePath       : '/misc'
     },
     {
         name            : 'CV',
-        iconClass       : 'mdi mdi-file-document-box',
+        iconPath : mdiFileDocumentBox,
         getTooltipText  : ()=> menus.main.cv,
         basePath        : '/cv'
     }

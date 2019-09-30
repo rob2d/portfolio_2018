@@ -1,41 +1,40 @@
-import Themes from 'constants/Themes'
-import shouldShowHoverContent from 'utils/shouldShowHoverContent'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles';
 
-const ANIM_INTERVAL = '0.32';
+const ANIM_DURATION_S = '0.32';
+const getTopMargin = vpW => vpW > 800 ? 32 : 16;
 
-function getTopMargin (vpW) {
-    return vpW > 800 ? 32 : 16;
-}
-
-const useStyles = makeStyles( theme => ({
+export default makeStyles(({ palette : { type }}) => ({
     container : {
-        opacity: ({ isShown }) => (isShown ? '1' : '0'),
-        display: ({ onScreen })=>(onScreen ? 'block' : 'none'),
-        position: ({ hasAbsolutePosition })=>(
-            hasAbsolutePosition ? 'absolute' : 'relative'
-        ),
-        top: ({ hasAbsolutePosition, offsetY, vpW }) => (
-            hasAbsolutePosition ? (offsetY - getTopMargin(vpW)) : 'auto'
-        ),
-        left: ({hasAbsolutePosition, offsetX, data }) => (
-            hasAbsolutePosition ? offsetX : 'auto'
-        ),
-        transition: ({ hasAbsolutePosition })=>(
-            `opacity ${ANIM_INTERVAL}s, ${hasAbsolutePosition?
-                        `left ${ANIM_INTERVAL*1.5}s, top ${ANIM_INTERVAL*1.5}s`:
-                        'left 0s, top 0s'}`
-        ),
-        width        : ({ viewAsTitle })=> (viewAsTitle ? '400px' : '300px'),
-        height       : ({ viewAsTitle }) => (viewAsTitle ? '80px' : '324px'),
-        marginTop    : ({ vpW }) => (getTopMargin(vpW) + 'px'),
-        marginBottom : ({ viewAsTitle }) => (viewAsTitle ? '0px' : '32px'),
-        textAlign    : 'left',
-        cursor       : ({ viewAsTitle  }) => viewAsTitle ? 'text' : 'pointer',
-        // actively moving cards should be forced above existing relatively
-        // placed content
-        zIndex       : ({ hasAbsolutePosition })=>(hasAbsolutePosition? 1 : 0),
-        pointerEvents : ({ viewAsTitle })=> 'all',
+        opacity : p => p.isShown ? 1 : 0,
+        display : p => p.onScreen ? 'block' : 'none',
+        position : p => p.hasAbsolutePosition ? 'absolute' : 'relative',
+        top : p => p.hasAbsolutePosition ? (p.offsetY - getTopMargin(p.vpW)) : 'auto',
+        left : p => p.hasAbsolutePosition ? p.offsetX : 'auto',
+        transition: p => {
+            const moveTiming = (p.hasAbsolutePosition ? 
+                (ANIM_DURATION_S * 1.5) : 0
+            ) + 's';
+
+            console.log('cardContainer ->', `opacity ${ANIM_DURATION_S}s, ` + 
+            `left ${moveTiming}, top ${moveTiming}`);
+
+            return (
+                `opacity ${ANIM_DURATION_S}s, ` + 
+                `left ${moveTiming}, top ${moveTiming}`
+            );
+        },
+        width : p => p.viewAsTitle ? '400px' : '300px',
+        height : p => `${(p.viewAsTitle ? 80 : 324 )}px`,
+        marginTop : p => `${getTopMargin(p.vpW)}px`,
+        marginBottom : p => `${ p.viewAsTitle ? 0 : 32 }px`,
+        textAlign : 'left',
+        cursor : p => p.viewAsTitle ? 'text' : 'pointer',
+        
+        // actively moving cards should be forced above
+        // existing relatively-placed content
+
+        zIndex : p => p.hasAbsolutePosition? 1 : 0,
+        pointerEvents : 'all',
         overflow : 'hidden'
     },
     '@media (min-width: 800px)': {
@@ -46,138 +45,135 @@ const useStyles = makeStyles( theme => ({
     },
     '@media (max-width: 800px)': {
         container : {
-            paddingLeft  : '16px',
+            paddingLeft : '16px',
             paddingRight : '16px'
         }
     },
     '@media (max-width: 400px)': {
         container : {
-            paddingLeft: '8px',
-            paddingRight: '8px'
+            paddingLeft : '8px',
+            paddingRight : '8px'
         },
     },
     cardMediaContent : {
         position : 'relative',
-        display: 'block',
-        width    : '100%',
-        opacity  : 1,
-        transition: `all ${ANIM_INTERVAL}s ease-out`,
-        height    : ({ isHighlighted, viewAsTitle })=>{
-            if(!viewAsTitle) {
-                return isHighlighted?'324px':'180px';                
-            } else {
-                return '100px'; // width of content when title size
-            }
-        },
-        padding   : ({ isHighlighted })=>( isHighlighted?'0px':undefined ),
+        display : 'block',
+        width : '100%',
+        opacity : 1,
+        transition: `all ${ANIM_DURATION_S}s ease-out`,
+        height : p => (
+            ((p.viewAsTitle && 100) || 
+            (p.isHighlighted ? 324 : 180)) + 
+            'px'
+        ),
+        padding : p => p.isHighlighted && '0px',
         overflow  : 'hidden',
         border : 0
     },
     cardContainerBase : {
-        width         : '300px',
-        height        : '320px',
-        padding       : '0px !important',
-        display       : 'block !important',
+        width : '300px',
+        height : '320px',
+        padding : '0px !important',
+        display : 'block !important',
         flexDirection : 'column !important',
-        overflow      : 'hidden !important',
-        boxShadow     : () => {
-            let rgbColor = (theme.palette.type == Themes.LIGHT)? 
-                                '0,0,0' : '255,255,255';
+        overflow : 'hidden !important',
+        boxShadow : ()=> {
+            const l = type == 'light';
+            const rgb = l ? '0,0,0' : '255,255,255';
+            const shadowStrength = l ? 1 : 2;
 
-            let shadowStrength = (theme.palette.type == Themes.LIGHT) ? 
-                                    1 : 2;
-
-            return (`0px 1px 3px 0px rgba(${rgbColor}, ${0.2*shadowStrength}), ` +
-                    `0px 1px 1px 0px rgba(${rgbColor}, ${0.14*shadowStrength}), ` + 
-                    `0px 2px 1px -1px rgba(${rgbColor}, ${0.12*shadowStrength})`
+            return (`0px 1px 3px 0px rgba(${rgb}, ${0.2*shadowStrength}), ` +
+                    `0px 1px 1px 0px rgba(${rgb}, ${0.14*shadowStrength}), ` + 
+                    `0px 2px 1px -1px rgba(${rgb}, ${0.12*shadowStrength})`
             );
         }, 
-        transition : `box-shadow ${ANIM_INTERVAL}s ease-out, ` +
-                        `transform ${ANIM_INTERVAL*2}s ` + 
+        transition : `box-shadow ${ANIM_DURATION_S}s ease-out, ` +
+                        `transform ${ANIM_DURATION_S*2}s ` + 
                         `cubic-bezier(0.25, 0.1, 0.5, 1), ` + 
-                        `background-color ${ANIM_INTERVAL}s !important`,
+                        `background-color ${ANIM_DURATION_S}s !important`,
         '@media (max-width: 400px)': {  // support for smaller devices
             width : '300px !important'
         }
     },
     cardContainerAsTitle : {
         boxShadow : 'none !important',
-        width     : '420px !important',
-        height    : '80px !important',
+        width : '420px !important',
+        height : '80px !important',
         transform : 'rotateY(360deg) !important'
     },
     cardContent : {
-        height     : '88px',
-        transition : `all ${ANIM_INTERVAL}s ease-out`,
-        opacity    : ({ highlightedOnPanel })=>((!highlightedOnPanel) ? 1 : 0)
+        height : '88px',
+        transition : `all ${ANIM_DURATION_S}s ease-out`,
+        opacity : p =>(!p.highlightedOnPanel) ? 1 : 0
     },
     titleOverlay : {
-        display         : 'flex',
-        flexDirection   : 'column',
-        justifyContent  : 'center',
-        position        : 'absolute',
-        marginBottom    : '0px',
-        marginTop       : '0px',
-        bottom          : '0px',
-        width           : '100%',
-        height          : ({viewAsTitle})=>(!viewAsTitle?'40%':'100%'),
-        backgroundColor : ({viewAsTitle})=>(!viewAsTitle?'rgba(0,0,0,0.52)':'rgba(0,0,0,0)')
+        display : 'flex',
+        flexDirection : 'column',
+        justifyContent : 'center',
+        position : 'absolute',
+        marginBottom : '0px',
+        marginTop : '0px',
+        bottom : '0px',
+        width : '100%',
+        height : p => (!p.viewAsTitle ? 40 : 100)+'%',
+        backgroundColor : p => ( 'rgba(0,0,0,' + 
+            (!p.viewAsTitle?'0.52':'0') + ')'
+        )
     },
-    projectTitle : {
-        display      : 'block',
-        width        : '100%',
-        minWidth     : ({ viewAsTitle })=>(!viewAsTitle?'300px':'400px'),
+    title : {
+        display : 'block',
+        width : '100%',
+        minWidth : p => ((!p.viewAsTitle) ? 300 : 400) + 'px',
           '@media (max-width: 400px)': {  // adding support for smaller
-           fontSize : ({ viewAsTitle })=>(!viewAsTitle ? '16pt' : '20pt') // devices such as iPhone5
+           fontSize : p => (!p.viewAsTitle) ? '16pt' : '20pt' // iPhone5
         },
-        paddingLeft  : '16px',
-        fontFamily   : 'roboto_bold',
-        fontSize     : ({ viewAsTitle })=>( viewAsTitle ? '24pt' : '16pt' ),
-        fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
-        marginTop    : '0px',
+        paddingLeft : '16px',
+        fontFamily : 'roboto_bold',
+        fontSize : p => p.viewAsTitle ? '24pt' : '16pt',
+        fontWeight : p => p.viewAsTitle ? 700 : 500,
+        marginTop : '0px',
         marginBottom : '0px',
-        color        : ({ viewAsTitle })=> ( theme.palette.type == (Themes.LIGHT)) ? 
-                            (!viewAsTitle?'#FFFFFF':'#000000') : 
-                            '#FFFFFF',
-        transition   : `all ${ANIM_INTERVAL}s ease-in`
-    },
-    projectSubtitle : {
-        display      : 'block',
-        position     : 'relative',
-        left         : ({ viewAsTitle })=>( !viewAsTitle ? '0px' : '16px' ),
-        width        : '100%',
-        paddingLeft  : '16px',
-        fontSize     : '12.5pt',
-        fontFamily   : 'roboto_regular',
-        fontWeight   : ({ viewAsTitle })=>(viewAsTitle ? 700 : 500),
-        color        :  ({ viewAsTitle }) => ((theme.palette.type == (Themes.LIGHT)) ? 
-                            ( !viewAsTitle? '#FFF':'#000' ) : '#FFF'
+        color : p => ((type=='light') && 
+            (!p.viewAsTitle ? '#FFF' : '#000' ) || '#FFF'
         ),
-        marginTop    : '0',
+        transition : `all ${ANIM_DURATION_S}s ease-in`
+    },
+    subtitle : {
+        display : 'block',
+        position : 'relative',
+        left : p => (!p.viewAsTitle) ? '0px' : '2px',
+        width : '100%',
+        paddingLeft : '16px',
+        fontSize : '12.5pt',
+        fontFamily : 'roboto_regular',
+        fontWeight : p => p.viewAsTitle ? 700 : 500,
+        color :  p => ((type != ('light')) && '#FFF' ||
+            (!p.viewAsTitle? '#FFF':'#000')
+        ),
+        marginTop : '0',
         marginBottom : '0px',
-        lineHeight   : ({ isHighlighted })=>(isHighlighted?'24px':'0px'),
-        opacity      : ({ isHighlighted })=>(isHighlighted?1:0),
-        transition   : `all ${ANIM_INTERVAL}s ease-in`,
+        lineHeight : p => p.isHighlighted ? '24px' : '0px',
+        opacity : p => p.isHighlighted ? 1 : 0,
+        transition : `all ${ANIM_DURATION_S}s ease-in`,
     },
     moreInfoButton : {
-        position   : 'absolute',
-        right      : '16px',
-        color      : '#FFFFFF',
-        fontSize   : '22pt',
-        opacity    : ({ isHighlighted, viewAsTitle })=>(isHighlighted&&(!viewAsTitle)?1:0),
-        transition : `all ${ANIM_INTERVAL}s ease-in`
+        position : 'absolute',
+        right : '16px',
+        color : '#FFF',
+        fill : '#FFF',
+        fontSize : '22pt',
+        opacity : p => (p.isHighlighted && !p.viewAsTitle) ? 1 : 0,
+        transition : `all ${ANIM_DURATION_S}s ease-in`
     },
     cardMediaImg : {
-        position      : 'relative',
-        width         : ({ viewAsTitle }) => (!viewAsTitle?'auto':'100%'),
-        height        : '100%',
+        position : 'relative',
+        width : p => (!p.viewAsTitle) ? 'auto' : '100%',
+        height : '100%',
         verticalAlign : 'middle',
-        transition    : `all ${ANIM_INTERVAL}s ease-out`,
-        margin        : '0 auto',
-        left          : ({ isHighlighted }) => (isHighlighted?'-25%':'0%'),
-        top           : '0%',
-        opacity       : ({ viewAsTitle }) => (!viewAsTitle?1:0)
+        transition : `all ${ANIM_DURATION_S}s ease-out`,
+        margin : '0 auto',
+        left : p => p.isHighlighted ? '-25%' : '0%',
+        top : '0%',
+        opacity : p => (!p.viewAsTitle) ? 1 : 0
     }
-}), { name : 'ProjectCard' });
-
-export default useStyles
+}), { name : 'ProjectCard' })

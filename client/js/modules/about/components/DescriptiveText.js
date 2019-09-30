@@ -1,7 +1,7 @@
-import React from 'react'
-import { about as strings, } from 'strings'
-import ButtonLink from 'utils/components/ButtonLink'
-import withFadeTransitions from 'utils/withFadeTransitions'
+import React from 'react';
+import { about as strings } from 'strings';
+import { ButtonLink } from 'utils/components';
+import withFadeTransitions from 'utils/withFadeTransitions';
 
 function Tech ({ children, containerClass, url }) {
     return (

@@ -1,9 +1,14 @@
-import React, { PureComponent } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import useViewportSizes from 'use-viewport-sizes'
-import MediaViewer from './MediaViewer'
-import ReelThumbs from './ReelThumbs'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import useViewportSizes from 'use-viewport-sizes';
+import MediaViewer from './MediaViewer';
+import ReelThumbs from './ReelThumbs';
+import PropTypes from 'prop-types';
+import { Icon } from '@mdi/react';
+import {
+    mdiSquare,
+    mdiSquareOutline
+} from '@mdi/js';
 
 // TODO : css related constants should be together
 const REEL_ANIM_SPEED = 6500;
@@ -12,20 +17,20 @@ const REEL_ANIM_SPEED = 6500;
  * Retrieves the width for the entire media reel
  * (dependent on width, maxWidth props)
  */
-function getReelWidth ( width, maxWidth ) {
+function getReelWidth (width, maxWidth) {
     return maxWidth !== 'undefined' && 
         ((width > maxWidth) ? maxWidth : width);
 }
 
 const useStyles = makeStyles( theme => ({
     container : {
-        display  : 'flex',
+        display : 'flex',
         overflow : 'visible',
-        maxWidth : ({ maxWidth }) => maxWidth,
-        height   : ({ width, maxWidth, aspectRatio }) => (
+        maxWidth : p => p.maxWidth,
+        height : p => (
             // 25% diff to account for reel and status boxes
             Math.round(
-                (getReelWidth(width,maxWidth)/(aspectRatio)) * 0.75
+                (getReelWidth(p.width,p.maxWidth)/(p.aspectRatio)) * 0.75
             ) + 'px'
         ),
         margin : '0 auto 56px'
@@ -216,18 +221,21 @@ class MediaReel extends PureComponent {
                     }
                     <div className={ classes.reelPadding } />
                     <div className={ classes.statusBoxes }>
-                    {media.map((item, i)=>(
+                    { media.map((item, i)=>(
                         <div 
-                            key={`mediaReelItem${i}`}
-                            className={classes.statusBox} 
+                            key={ `mediaReelItem${i}` }
+                            className={ classes.statusBox } 
                             onClick={ ()=> this.handleItemClick(i) }
                         >
-                            <i className={`mdi mdi-square${ 
-                                (i!=selectedIndex) ? '-outline':'' } ${
-                                classes.statusBoxIcon}`} 
-                            />
+                        <Icon
+                            path={ ( i != selectedIndex )? 
+                                mdiSquareOutline : mdiSquare 
+                            }
+                            className={ classes.statusBoxIcon }
+                            size={ 0.5 }
+                        />
                         </div>
-                    ))}
+                    )) }
                 </div>       
                 </div>
             </div>

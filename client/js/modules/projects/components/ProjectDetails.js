@@ -1,33 +1,38 @@
-import React from 'react'
-import useViewportSizes from 'use-viewport-sizes'
-import { makeStyles } from '@material-ui/styles'
-import { projects } from 'strings'
-import withFadeTransitions from 'utils/withFadeTransitions'
-import ButtonLink from 'utils/components/ButtonLink'
-import MediaReel from './media-reel/MediaReel'
-import ProjectTechnologies from './ProjectTechnologies'
-import projectsData from 'app-root/data/projectsData'
-import Themes from 'constants/Themes'
+import React, { useMemo, useCallback } from 'react';
+import useViewportSizes from 'use-viewport-sizes';
+import { makeStyles } from '@material-ui/styles';
+import { projects } from 'strings';
+import { withFadeTransitions } from 'utils';
+import { ButtonLink } from 'utils/components';
+import MediaReel from './media-reel/MediaReel';
+import ProjectTechs from './ProjectTechs';
+import projectsData from 'app-root/data/projectsData';
+import { Icon } from '@mdi/react';
+import {
+    mdiArrowLeftBox,
+    mdiNoteOutline,
+    mdiCodeTags,
+    mdiLink,
+    mdiDownload
+} from '@mdi/js';
 
-const findProjectStrings = (projectId)=> (
-    projects.projectData.find( p =>(p.id == projectId))
+const findProjectStrings = projectId => (
+    projects.projectData.find( 
+        p => p.id == projectId 
+    )
 );
 
-const getTextColor = ({ theme }) => ((theme == Themes.LIGHT) ? 
-    '#000000' : '#FFFFFF'
-);
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(({ palette : { type } }) => ({
     mainContainer : {
-        flexGrow     : 1,
-        margin       : '0 auto',
-        textAlign    : 'left',
-        maxWidth     : '1024px',
-        marginTop    : '96px',
-        paddingLeft  : '32px',
+        flexGrow : 1,
+        margin : '0 auto',
+        textAlign : 'left',
+        maxWidth : '1024px',
+        marginTop : '96px',
+        paddingLeft : '32px',
         paddingRight : '32px',
         paddingBottom : '16px',
-        marginBottom  : '16px'
+        marginBottom : '16px'
     },
 
     '@media (max-width:800px)' : {
@@ -36,14 +41,12 @@ const useStyles = makeStyles(theme => ({
             paddingRight : '16px'
         }
     },
-
     '@media (max-width:400px)' : {
         mainContainer : {
-            paddingLeft  : '12px !important',
+            paddingLeft : '12px !important',
             paddingRight : '12px !important'
         }
     },
-
     contentContainer : {
         margin : '16px 0px',
         paddingLeft : '16px',
@@ -54,13 +57,11 @@ const useStyles = makeStyles(theme => ({
         textAlign : 'left'
     },
     description : {
-        fontSize     : '13pt',
-        textAlign    : 'left',
-        paddingLeft  : '16px',
+        fontSize : '13pt',
+        textAlign : 'left',
+        paddingLeft : '16px',
         paddingRight : '16px',
-        color : ((theme.theme == Themes.LIGHT) ? 
-            '#000000' : '#FFFFFF'
-        ),
+        color : (type == 'light') ? '#000' : '#FFF',
     },
 
     // only on tablet sized device+ or certain
@@ -72,7 +73,7 @@ const useStyles = makeStyles(theme => ({
             textAlign : 'justify !important'
         }
     },
-    screenshotsHeader : {
+    screenshotsectionHeader : {
         textPadding : '16px',
         textAlign : 'left',
         fontSize : '16pt',
@@ -80,11 +81,11 @@ const useStyles = makeStyles(theme => ({
     },
     screenshots : {
         display : 'inline-block',
-        width  : 'calc(100vw-64px)',
+        width : 'calc(100vw-64px)',
         height : 'auto',
         margin : '16px',
-        borderTop    : '#000000 2px solid',
-        borderBottom : '#000000 2px solid'
+        borderTop : '#000 2px solid',
+        borderBottom : '#000 2px solid'
     },
     screenshot : {
         minWidth : '56px',
@@ -93,14 +94,14 @@ const useStyles = makeStyles(theme => ({
         margin : '16px 8px'
     },
     returnContainer : {
-        display        : 'flex !important',
-        maxWidth       : '600px !important',
-        margin         : '40px 0px 16px !important',
-        padding        : '6px !important',
-        textAlign      : 'justify !important',
-        alignItems     : 'center !important',
+        display : 'flex !important',
+        maxWidth : '600px !important',
+        margin : '40px 0px 16px !important',
+        padding : '6px !important',
+        textAlign : 'justify !important',
+        alignItems : 'center !important',
         justifyContent : 'flex-start !important',
-        fontSize       : '13pt',
+        fontSize : '13pt',
         '&:hover $returnText' : {
             color : '#ff4081 !important'
         },
@@ -110,29 +111,27 @@ const useStyles = makeStyles(theme => ({
     },
     returnIcon : {
         fontSize : '22pt',
-    },
-    returnIconContainer : {
-        display        : 'flex',
-        alignItems     : 'center',
+        display : 'flex',
+        alignItems : 'center',
         justifyContent : 'center',
-        margin         : '0px',
-        color          : '#0000CC'
+        margin : '0px',
+        color : '#0000CC'
     },
     returnText : {
-        display      : 'inline-block',
-        cursor       : 'pointer',
-        marginTop    : '0px',
+        display : 'inline-block',
+        cursor : 'pointer',
+        marginTop : '0px',
         marginBottom : '0px',
-        fontSize     : '14pt',
-        textAlign    : 'left',
-        color        : '#c51162',
-        fontFamily   : 'roboto_bold',
-        fontSize     : '12pt'
+        fontSize : '14pt',
+        textAlign : 'left',
+        color : '#c51162',
+        fontFamily : 'roboto_bold',
+        fontSize : '12pt'
     },
     section : {
         margin : '16px 0px 32px',
-        color : ((theme.theme == Themes.LIGHT) ? 
-            '#000000' : '#FFFFFF'
+        color : ((type == 'light') ? 
+            '#000' : '#FFF'
         ),
     },
     sectionHeader : {
@@ -173,188 +172,199 @@ const useStyles = makeStyles(theme => ({
     bulletLink : {
         width : '100%'
     },
-    linkIcon : {
+    icon : {
         paddingRight : '16px',
-        color        : ((theme.theme == Themes.LIGHT) ? 
-            '#000000' : '#FFFFFF'
-        ),
+        fill : (type == 'light') ? '#000' : '#FFF',
         fontSize : '12pt'
     },
     // TODO : use a global style/theme for this,
     linkText : {
-        margin      : '12px 0px',
-        padding     : '0px',
-        color       : '#c51162',
-        fontFamily  : 'roboto_bold',
-        fontSize    : '12pt',
-        textAlign   : 'left'
+        margin : '12px 0px',
+        padding : '0px',
+        color : '#c51162',
+        fontFamily : 'roboto_bold',
+        fontSize : '12pt',
+        textAlign : 'left'
     }
 }));
 
 export default withFadeTransitions(function ProjectDetails ({ projectId }) { 
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({  projectId, vpW });
-    const project = findProjectStrings(projectId);
-    const pData = projectsData[projectId];
 
-    // TODO : use redux to hydrate media data
-    let media = (()=>{
-        if(pData && pData.media && pData.media.length > 0) {
-            // if media captions exist in project strings,
-            // concat those to our media
-            if(project.mediaCaptions && project.mediaCaptions.length > 0) {
-                return pData.media.map((item,i)=>({
-                    ...item,
-                    caption : project.mediaCaptions[i]
-                })); 
-            }
-            else return pData.media;
-        }
-    })();
+    const {
+        mediaCaptions,
+        roles,
+        techSet,
+        description,
+        shortDescription,
+        linkDescriptions,
+        sourceCodeDescriptions,
+        downloadDescriptions,
+        documentationDescriptions,
+        mediaAspectRatio
+    } = findProjectStrings(projectId);
+    
+    const { 
+        media, 
+        downloads, 
+        sourceCode, 
+        documentation,
+        links,
+    } = projectsData[projectId];
+
+    const mediaItems = useMemo(()=> (
+        media?.length && mediaCaptions?.length ? (
+            media.map((m,i)=> 
+                ({ ...m, caption : mediaCaptions[i] })
+            )) : media
+    ), [media, mediaCaptions]);
+
+    const LinkIcon = useCallback(({ path }) => (
+        <Icon
+            className={ classes.icon }
+            size={ 0.9 }
+            path={ path }
+        />
+    ), [classes.icon]);
     
     return (
         <div className={ classes.mainContainer }>
-            <div className={classes.contentContainer}>
-                { project && (
-                        <div className={classes.section}>
-                            <p className={classes.sectionRole}>
-                                {project.roles}
-                            </p>
-                        </div>
-                    )
-                }
-                {project.technologySet && project.technologySet.size && (
-                <div className={classes.section}>
-                    <p className={classes.sectionContent}>
-                        <ProjectTechnologies technologySet={project.technologySet} />
+            <div className={ classes.contentContainer }>
+                <div className={ classes.section }>
+                    <p className={ classes.sectionRole }>
+                        { roles }
                     </p>
                 </div>
-                )}
-                <div className={classes.section}>
-                {project.description && Array.isArray(project.description) ? 
-                    project.description.map((d, i)=>(
-                        <p className={classes.description} key={`project_description_${i}`}>
-                            {d}
+                { techSet?.size ? (
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionContent }>
+                            <ProjectTechs techSet={ techSet } />
                         </p>
-                    )) : (  
-                    <p className={classes.description} key={`project_description_${i}`}>
-                        {project.description || project.shortDescription}
-                    </p>)
+                    </div>
+                ) : (<></>) }
+                <div className={ classes.section }>
+                { description?.length ? 
+                    description.map((d, i)=> (
+                        <p 
+                            className={ classes.description } 
+                            key={ `description_${i}` }
+                        >{ d }
+                        </p>
+                    )) :
+                    (  
+                        <p 
+                            className={ classes.description } 
+                            key={ `sdescription_${i}` }>
+                            { description || shortDescription }
+                        </p>
+                    )
                 }
-            </div>
-                { pData && pData.media && pData.media.length > 0 && 
+                </div>
+                { media?.length ?
                 (
                     <div className={ classes.section }>
-                        <p className={ classes.sectionHeader }>
-                            Media
-                        </p>
+                        <p className={ classes.sectionHeader }>Media</p>
                         <p className={ classes.sectionContent }>
                             <MediaReel 
                                 maxWidth={ vpW * 0.80 }
                                 width={ Math.min(Math.round(vpW * 0.80), 800) }
-                                aspectRatio={ pData.mediaAspectRatio }
-                                projectId={projectId}
-                                media={media}
-                                
+                                aspectRatio={ mediaAspectRatio }
+                                projectId={ projectId }
+                                media={ mediaItems }
                             />
                         </p>
                     </div>
-                )}
-                { pData && pData.sourceCode && (
+                ) : (<></>) }
+                { sourceCode?.length ? (
                     <div className={ classes.section }>
                         <p className={ classes.sectionHeader }>
                             Source Code
                         </p>
                         <p className={ classes.sectionContent }>
-                            { pData.sourceCode.map((link,i)=>(
-                            <ButtonLink
-                                url={ link }
-                                containerClass={ classes.linkContainer }
-                                key={ `project_sourcecode_${i}` }
-                            >
-                                <i className={ `mdi mdi-code-tags ${classes.linkIcon}` } />
-                                <p className={ classes.linkText }>
-                                    { project.sourceCodeDescriptions[i] }
-                                </p>
-                            </ButtonLink>
+                            { sourceCode.map((link,i)=>(
+                                <ButtonLink
+                                    url={ link }
+                                    containerClass={ classes.linkContainer }
+                                    key={ `sourcecode_${i}` }
+                                >
+                                    <LinkIcon path={ mdiCodeTags } />
+                                    <p className={ classes.linkText }>
+                                        { sourceCodeDescriptions[i] }
+                                    </p>
+                                </ButtonLink>
                             )) }
                         </p>
                     </div>
-                )}
-                { pData && pData.documentation && (
+                ) : <></> }
+                { documentation ? (
                     <div className={ classes.section }>
                         <p className={ classes.sectionHeader }>
                             Documentation
                         </p>
                         <p className={ classes.sectionContent }>
-                            { pData.documentation.map((link, i)=>(
+                            { documentation.map((link, i)=>(
                             <ButtonLink 
                                 url={ link }
                                 containerClass={ classes.linkContainer }
-                                key={ `project_doclink_${i}` }
+                                key={ `doclink_${i}` }
                             >
-                                <i className={ `mdi mdi-note-outline ${classes.linkIcon}` } />
+                                <LinkIcon path={ mdiNoteOutline } />
                                 <p className={ classes.linkText }>
-                                    { project.documentationDescriptions[i] }
+                                    { documentationDescriptions[i] }
                                 </p>
                             </ButtonLink>
                             )) }
                         </p>
                     </div>
-                ) }
-                { pData && pData.downloads && (
-                <div className={ classes.section }>
-                    <p className={ classes.sectionHeader }>
-                        Downloads
-                    </p>
-                    <p className={ classes.sectionContent }>
-                        { pData.downloads.map((link, i)=>(
-                        <ButtonLink 
-                            url={ link } 
-                            containerClass={ classes.linkContainer }
-                            key={ `project_downloads_${i}` }
-                        >
-                            <i className={ `mdi mdi-download ${classes.linkIcon}` } />
-                            <p className={ classes.linkText }>
-                                { project.downloadDescriptions[i] }
-                            </p>
-                        </ButtonLink>
-                        )) }
-                    </p>
-                </div>
-            )}
-                { pData && pData.links && (
+                ) : (<></>) }
+                { downloads ? (
                     <div className={ classes.section }>
                         <p className={ classes.sectionHeader }>
-                            Links
+                            Downloads
                         </p>
                         <p className={ classes.sectionContent }>
-                            { pData.links.map((link, i)=>(
+                            { downloads.map((link, i)=>(
                             <ButtonLink 
                                 url={ link } 
                                 containerClass={ classes.linkContainer }
-                                key={ `project_links_${i}` }
+                                key={ `project_downloads_${i}` }
                             >
-                                        <i className={ `mdi mdi-link ${classes.linkIcon}` } />
-                                        <p className={ classes.linkText }>
-                                            { project.linkDescriptions[i] }
-                                        </p>
+                                <LinkIcon path={ mdiDownload } />
+                                <p className={ classes.linkText }>
+                                    { downloadDescriptions[i] }
+                                </p>
                             </ButtonLink>
                             )) }
                         </p>
                     </div>
-                )}
+                ) : (<></>)}
+                { links ? (
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>Links</p>
+                        <p className={ classes.sectionContent }>
+                            { links.map((link, i)=>(
+                                <ButtonLink 
+                                    url={ link } 
+                                    containerClass={ classes.linkContainer }
+                                    key={ `project_links_${i}` }
+                                >
+                                    <LinkIcon path={ mdiLink } />
+                                    <p className={ classes.linkText }>
+                                        { linkDescriptions[i] }
+                                    </p>
+                                </ButtonLink>
+                            )) }
+                        </p>
+                    </div>
+                ) : (<></>) }
 
                 <ButtonLink 
                     containerClass={ classes.returnContainer } 
                     url={`/projects`}
                 >
                     <div className={ classes.returnIcon }>
-                        <div className={ classes.returnIconContainer }>
-                        <i className={ `mdi mdi-arrow-left-box ${
-                            classes.linkIcon}` } 
-                        />
-                        </div>
+                        <LinkIcon path={ mdiArrowLeftBox } />
                     </div>
                     <p className={ classes.returnText }>
                         Back to Projects

@@ -17,7 +17,7 @@ export default {
                 'to easily remove half of a slack community\'s largest public files (with an entertaining dialog to accompany that).',
                 'It is useful as both a standalone Node Server and/or can integrate using a dedicated Slack bot.'  
             ],
-            technologySet : new Set([
+            techSet : new Set([
                 'javascript',
                 'nodejs',
                 'slack-api',
@@ -57,7 +57,7 @@ export default {
                 'Greg\'s Project Progress Video'
             ],
             sourceCodeDescriptions : [ 'Github' ],
-            technologySet : new Set([
+            techSet : new Set([
                 'javascript',
                 'nodejs',
                 'c'
@@ -100,7 +100,7 @@ export default {
                 definitely hideous (PMC was nice enough to let me post this and it would be unethical to include something I was 
                 not involved in afterwards).</i>)
             ],
-            technologySet : new Set([
+            techSet : new Set([
                'javascript',
                'react', 
                'fbflux',
@@ -146,7 +146,7 @@ export default {
                     'was started in Unity/C# and has significant work done which I would love to add here sometime ' + 
                     'when I have time outside of work to.'
                 ],
-                technologySet: new Set([
+                techSet: new Set([
                     'android_sdk',
                     'java',
                     'javascript',
@@ -207,7 +207,7 @@ export default {
                 'Demo (Windows OS)'
             ],
             documentationDescriptions : [ 'Blogger' ],
-            technologySet : new Set(['gml'])
+            techSet : new Set(['gml'])
         },
         {
             id       : 'chinesepoker',
@@ -233,7 +233,7 @@ export default {
                 'Managing a hand for a play'
             ],
             sourceCodeDescriptions : ['Github'],
-            technologySet : new Set([
+            techSet : new Set([
                 'android_sdk',
                 'java',
                 'mysql',
@@ -274,7 +274,7 @@ export default {
             mediaCaptions: [
                 (<i>"Look ma, no peeking into console!"</i>)
             ],
-            technologySet : new Set([
+            techSet : new Set([
                 'javascript',
                 'nodejs',
                 'gulp',
@@ -302,7 +302,7 @@ export default {
                 'and has a really convenient 2D sprite generator that even creates source code for you. ' +
                 'It is efficient, simple, consistent, extensible and supports all modern browsers.'
             ],
-            technologySet :  new Set([
+            techSet :  new Set([
                 'html',
                 'javascript',
                 'threejs',

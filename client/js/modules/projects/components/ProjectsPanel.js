@@ -1,15 +1,13 @@
-import React, { PureComponent } from 'react'
-import { useSelector } from 'react-redux'
-import { projects } from 'strings'
-import { makeStyles } from '@material-ui/styles'
-import appHistory from 'utils/appHistory'
-import wait from 'utils/wait'
-import projectsData from 'app-root/data/projectsData'
-import ProjectCard from './ProjectCard'
-import ProjectDetails from './ProjectDetails'
-import { 
-    projectIdOfUrl as projectIdSelector 
-} from '../selectors'
+import React, { PureComponent } from 'react';
+import { useSelector } from 'react-redux';
+import useViewportSizes from 'use-viewport-sizes';
+import { projects } from 'strings';
+import { makeStyles } from '@material-ui/styles';
+import { appHistory, wait } from 'utils';
+import projectsData from 'app-root/data/projectsData';
+import ProjectCard from './ProjectCard';
+import ProjectDetails from './ProjectDetails';
+import { projectIdOfUrl as projectIdSelector } from '../selectors';
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
@@ -17,27 +15,26 @@ import {
     AFTER_FADE_POSITIONING,
     PROJECT_SCROLL_UP,
     PROJECT_VIEW
-} from '../constants/DisplayStates'
-import useViewportSizes from 'use-viewport-sizes'
+} from '../constants/DisplayStates';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(()=> ({
     container : {
-        display        : 'block',
-        position       : 'relative',
-        flexGrow       : 1,
-        maxWidth       : '1100px',
-        margin         : '0 auto',
-        top            : '0px',
-        overflowX      : 'hidden'
+        display : 'block',
+        position : 'relative',
+        flexGrow : 1,
+        maxWidth : '1100px',
+        margin : '0 auto',
+        top : '0px',
+        overflowX : 'hidden'
     },
     content : {
-        display        : 'flex',
-        alignItems     : 'center',
+        display : 'flex',
+        alignItems : 'center',
         justifyContent : 'center',
-        flexDirection  : 'row',
-        flexWrap       : 'wrap',
-        position       : 'relative',
-        marginTop      : '16px'
+        flexDirection : 'row',
+        flexWrap : 'wrap',
+        position : 'relative',
+        marginTop : '16px'
     },
     '@media (min-width: 600px)': {
         mainContainer : {
@@ -51,8 +48,8 @@ const useStyles = makeStyles( theme => ({
     },
     emptyCard : {
         display : 'block',
-        width   : '300px',
-        height  : '1px',
+        width : '300px',
+        height : '1px',
         padding : '0px 32px'
     }
 }), { name : 'ProjectsPanel' });
@@ -146,10 +143,9 @@ class ProjectsPanel extends PureComponent {
         ) || !projectIdOfUrl;
 
         return (
-            <div className={classes.container}>
-                <div className={classes.content}>
-                    { projects.projectData.map( p => 
-                    (
+            <div className={ classes.container }>
+                <div className={ classes.content }>
+                    { projects.projectData.map( p => (
                         <ProjectCard
                             key={ `ProjectCard${p.id}` }
                             data={ p }
@@ -162,20 +158,9 @@ class ProjectsPanel extends PureComponent {
                             isSelected={ (p.id == projectIdOfUrl) }
                             theme={ theme } 
                             wasSelectionViaUI={ wasSelectionViaUI }
-                            vpW={vpW}
+                            vpW={ vpW }
                         />
-                    ))}
-                    {/* if we have a large viewport, fill in the space so
-                        that we don't get oddly centered cards on the bottom
-                        
-                        
-                        { !projectIdOfUrl && (vpW > 1108) && (
-                            <div className={ classes.emptyCard} />
-                        ) }
-                        // ^^ UNNECESSARY; TODO : use logic to divide by 3 and
-                        // fill in -- OR use CSS Grid vs Flex here but this would
-                        // require re-working anims 
-                    */}
+                    )) }
                     { typeof projectIdOfUrl != 'undefined' && 
                     (
                         <ProjectDetails 
