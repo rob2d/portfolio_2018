@@ -24,6 +24,7 @@ const useStyles = makeStyles(({ palette, rc3 }) =>({
         height : '64px',
         transition: 'background-color 0.35s ease',
         backgroundColor : 'rgba(255,255,255,0)',
+        borderRadius : '4px',
         '&:hover' : {
             backgroundColor : '#ff4081'
         },
@@ -48,7 +49,7 @@ const useStyles = makeStyles(({ palette, rc3 }) =>({
     }
 }), { name : 'ProjectTechs' });
 
-function ProjectTechs({ techSet }) { 
+export default function ProjectTechs({ techSet }) { 
     const classes = useStyles({ techSet });
 
     return Array.from(techSet).map( (tKey,i,arr) => {
@@ -71,5 +72,3 @@ function ProjectTechs({ techSet }) {
         );
     });
 }
-
-export default memo(ProjectTechs)

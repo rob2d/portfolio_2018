@@ -50,10 +50,10 @@ function ProjectCardLayout (props) {
                         className={ classes.cardMediaImg }
                     />
                     <div className={ classes.titleOverlay }>
-                        <p className={ classes.projectTitle }>
+                        <p className={ classes.title }>
                             { title }
                         </p>
-                        <p className={ classes.projectSubtitle }>
+                        <p className={ classes.subtitle }>
                             { context } ({ pData.year })
                         </p>
                         <Icon 

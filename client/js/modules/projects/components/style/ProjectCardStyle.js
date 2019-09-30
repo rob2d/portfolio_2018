@@ -10,13 +10,19 @@ export default makeStyles(({ palette : { type }}) => ({
         position : p => p.hasAbsolutePosition ? 'absolute' : 'relative',
         top : p => p.hasAbsolutePosition ? (p.offsetY - getTopMargin(p.vpW)) : 'auto',
         left : p => p.hasAbsolutePosition ? p.offsetX : 'auto',
-        transition: p => (
-            'opacity ${ANIM_INTERVAL}s, ' + ( p.hasAbsolutePosition ?
-                `left ${ANIM_DURATION_S*1.5}s, ` + 
-                `top ${ANIM_DURATION_S*1.5}s`:
-                'left 0s, top 0s'
-            )
-        ),
+        transition: p => {
+            const moveTiming = (p.hasAbsolutePosition ? 
+                (ANIM_DURATION_S * 1.5) : 0
+            ) + 's';
+
+            console.log('cardContainer ->', `opacity ${ANIM_DURATION_S}s, ` + 
+            `left ${moveTiming}, top ${moveTiming}`);
+
+            return (
+                `opacity ${ANIM_DURATION_S}s, ` + 
+                `left ${moveTiming}, top ${moveTiming}`
+            );
+        },
         width : p => p.viewAsTitle ? '400px' : '300px',
         height : p => `${(p.viewAsTitle ? 80 : 324 )}px`,
         marginTop : p => `${getTopMargin(p.vpW)}px`,
@@ -28,7 +34,6 @@ export default makeStyles(({ palette : { type }}) => ({
         // existing relatively-placed content
 
         zIndex : p => p.hasAbsolutePosition? 1 : 0,
-
         pointerEvents : 'all',
         overflow : 'hidden'
     },
@@ -115,7 +120,7 @@ export default makeStyles(({ palette : { type }}) => ({
             (!p.viewAsTitle?'0.52':'0') + ')'
         )
     },
-    projectTitle : {
+    title : {
         display : 'block',
         width : '100%',
         minWidth : p => ((!p.viewAsTitle) ? 300 : 400) + 'px',
@@ -133,10 +138,10 @@ export default makeStyles(({ palette : { type }}) => ({
         ),
         transition : `all ${ANIM_DURATION_S}s ease-in`
     },
-    projectSubtitle : {
+    subtitle : {
         display : 'block',
         position : 'relative',
-        left : p => (!p.viewAsTitle) ? '0px' : '16px',
+        left : p => (!p.viewAsTitle) ? '0px' : '2px',
         width : '100%',
         paddingLeft : '16px',
         fontSize : '12.5pt',
