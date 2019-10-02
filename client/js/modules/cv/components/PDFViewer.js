@@ -1,6 +1,5 @@
-import React, { 
-    useMemo, useCallback, useReducer 
-} from 'react';
+import React, { useMemo, useCallback, useReducer } from 'react';
+import C from 'color';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import PDF from 'react-pdf-js';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -10,23 +9,25 @@ import PDFViewerNav from './PDFViewerNav';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette, rc3 }) => ({ 
+const useStyles = makeStyles(({ palette : { 
+    secondary, common, type, text } 
+}) => ({ 
     container : {
-        position       : 'relative',
-        display        : 'flex',
-        flexDirection  : 'column',
-        width          : '100%',
-        height         : 'auto',
-        minHeight      : '60px',
-        alignItems     : 'center',
+        position : 'relative',
+        display : 'flex',
+        flexDirection : 'column',
+        width : '100%',
+        height : 'auto',
+        minHeight : '60px',
+        alignItems : 'center',
         justifyContent : 'center',
-        paddingTop     : '32px',
-        paddingBottom  : '16px'
+        paddingTop : '32px',
+        paddingBottom : '16px'
     },
     pdfContent : {
-        display  : 'inline-block',
-        padding  : 0,
-        margin   : 0,
+        display : 'inline-block',
+        padding : 0,
+        margin : 0,
 
         // resize pdf height according to 8.5x11
         
@@ -35,9 +36,9 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
             height : 'auto !important'
         },
         '@media (min-width: 900px)': {
-            width    : '100%',
+            width : '100%',
             maxWidth : '800px',
-            height   : 'auto !important'
+            height : 'auto !important'
         }
     },
     downloadP : {
@@ -47,27 +48,28 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
     },
     downloadIcon : {
         fontSize : '24pt',
-        color : rc3.secondaryContrastText,
-        fill : rc3.secondaryContrastText,
+        color : common.white,
+        fill : common.white,
         width : 'auto',
         height : '32px'
     },
     downloadButtonContainer : {
         position : 'fixed',
-        bottom   : '48px',
-        right    : '48px',
+        bottom : '48px',
+        right : '48px',
         '@media (max-width: 800px)': {
-            bottom   : '24px !important',
-            right    : '24px !important',
+            bottom : '24px !important',
+            right : '24px !important',
         }
     },
     downloadButton : {
-        backgroundColor : palette.secondary['400'],
+        backgroundColor : secondary.main,
+        color : text.secondary,
         '&:hover' : {
-            backgroundColor : palette.secondary['300']
+            backgroundColor : C(secondary.main).lighten(0.2).rgb()+''
         },
         '&:active' : {
-            backgroundColor : palette.secondary['400']
+            backgroundColor : common.active
         }
     },
     pdfContainer : {
@@ -77,7 +79,7 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
             `invert(${l?0:100}%) ` + 
             `saturate(${l?100:150}%) ` + 
             `brightness(${l?100:85}%)`
-        )(palette.type == 'light'),
+        )(type == 'light'),
         transitionDelay : '3s'
     }
 }), { name : 'PDFViewer' });

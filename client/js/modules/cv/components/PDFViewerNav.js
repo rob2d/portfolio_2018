@@ -19,7 +19,7 @@ const useStyles = makeStyles( theme => ({
         width : '100%',
         textAlign : 'center',
         marginTop : '16px',
-        color : theme.rc3.text,
+        color : theme.palette.text.primary,
         '& > *:nth-child(1)' : {
             alignItems : 'flex-end'
         },

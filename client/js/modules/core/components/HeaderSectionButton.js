@@ -3,8 +3,9 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/styles';
 import { Icon } from '@mdi/react';
+import C from 'color';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ palette : { common } }) => ({
     container : {
         display : 'block'
     },

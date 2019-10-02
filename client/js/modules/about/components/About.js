@@ -51,7 +51,7 @@ const useStyles = makeStyles( theme => ({
         fontFamily : 'roboto_light',
         lineHeight : '1.3rem',
         letterSpacing : '0.01rem',
-        color : theme.rc3.text
+        color : theme.palette.text.primary
     },
     avatar : {
         width  : '128px',
@@ -142,7 +142,7 @@ const useStyles = makeStyles( theme => ({
     tech : {
         display : 'inline-block',
         fontFamily : 'roboto_regular',
-        color : theme.rc3.text,
+        color : theme.palette.text.primary,
         verticalAlign : 'top',
         fontSize : '12pt',
         '@media (min-width:901px)' : {

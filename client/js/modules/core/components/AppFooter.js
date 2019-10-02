@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import clsx from 'clsx';
+import C from 'color';
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -12,19 +13,19 @@ import {
     mdiLinkedinBox
 } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette, rc3 }) => ({
+const useStyles = makeStyles(({ palette : { primary, secondary, common } }) => ({
     contactButton : {
         display : 'inline-flex',
         justifyContent : 'center',
         flexDirection  : 'column',
         height : '100%',
         '&:hover $icon': {
-            color : palette.primary[900],
-            fill : palette.primary[900]
+            color : secondary.dark,
+            fill : secondary.dark
         },
         '&:active $icon': {
-            color : '#00b8d4',
-            fill : '#00b8d4'
+            color : common.active,
+            fill : common.active
         }
     },
     '@media (max-width: 400px)': {
@@ -32,11 +33,12 @@ const useStyles = makeStyles(({ palette, rc3 }) => ({
     },
     icon : {
         fontSize : '18pt',
-        color : rc3.footerIcon,
-        fill : rc3.footerIcon,
+        color : primary.dark,
+        fill : primary.dark,
         transition : 'color 0.24s ease-in',
         lineHeight : '42px',
-        minHeight : '42px'
+        minHeight : '42px',
+        transition : 'color 0.48s ease, fill 0.48s ease'
     }
 }), { name : 'ContactButton' });
 

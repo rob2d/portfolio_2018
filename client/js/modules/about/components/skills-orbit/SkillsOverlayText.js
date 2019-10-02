@@ -19,7 +19,7 @@ const useStyles = makeStyles( theme => ({
         transition     : p => `opacity 0.5s ease ${ !p.isVisible ? 1: 0 }s`,
         overflowX      : 'hidden',
         overflowY      : 'visible',
-        color          : theme.rc3.text
+        color          : theme.palette.text.primary
     },
     textItem : {
         boxSizing      : 'border-box',

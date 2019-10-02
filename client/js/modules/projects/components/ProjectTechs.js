@@ -1,18 +1,18 @@
-import React, { memo } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import Technologies from 'constants/Technologies'
-import ButtonLink from 'utils/components/ButtonLink'
-import SVG from 'react-inlinesvg'
+import React from 'react';
+import { makeStyles } from '@material-ui/styles';
+import Technologies from 'constants/Technologies';
+import ButtonLink from 'utils/components/ButtonLink';
+import SVG from 'react-inlinesvg';
+import C from 'color';
 
-const useStyles = makeStyles(({ palette, rc3 }) =>({
+const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
     techContainer : {
         margin : '4px',
-        
         '&:hover $techText' : {
-            color : '#ff4081'
+            color : secondary.main
         },
         '&:active $techText' : {
-            color : '#00b8d4'
+            color : common.active
         }
     },
     techText : {
@@ -23,14 +23,14 @@ const useStyles = makeStyles(({ palette, rc3 }) =>({
         width : '64px',
         height : '64px',
         transition: 'background-color 0.35s ease',
-        backgroundColor : 'rgba(255,255,255,0)',
+        backgroundColor : C(common.contrast).alpha(0).rgba+'',
         borderRadius : '4px',
         '&:hover' : {
-            backgroundColor : '#ff4081'
+            backgroundColor : secondary.main
         },
 
         '&:active' : {
-            backgroundColor : '#00b8d4'
+            backgroundColor : common.active
         },
         
         '@media(max-width:800px)' : {
@@ -39,12 +39,12 @@ const useStyles = makeStyles(({ palette, rc3 }) =>({
         },
 
         '& polygon, & circle, & path' : {
-            fill : `${rc3.text} !important`,
+            fill : `${text.primary} !important`,
             transition: 'fill 0.35s ease'
         },
 
         '&:hover path, &:hover circle, &:hover polygon' : {
-            fill : '#fff !important'
+            fill : `${common.white} !important`
         }
     }
 }), { name : 'ProjectTechs' });
