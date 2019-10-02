@@ -19,12 +19,11 @@ of users.
 
 ## Misc Refactors
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that.
-- remove Redux `connect` HOC and fade transitions in favor of hooks API for speed + consistency; if those are slower due
-to getting rid of the PureComponent wrappers + re-render,
-cut down with `useMemo`/`useCallback`
+- use new hooks API to fade HOC which will improve speed + code consistency.
 - use new syntax conventions consistently: no lined-up colons, semicolons on imports, `export default function` for components, etc **(W.I.P.)**
 
 ## Nice-to-haves
 
 - allow filtering of techs in Projects view.
-- Add a React hook for routing + classNames to create nice section scroll left/right transitions.
+- Add a React hook for routing + classNames to create nice section 
+scroll left/right transitions.

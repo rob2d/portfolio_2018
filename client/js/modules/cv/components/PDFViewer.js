@@ -10,8 +10,8 @@ import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
 
 const useStyles = makeStyles(({ palette : { 
-    secondary, common, type, text } 
-}) => ({ 
+    secondary, common, type 
+} }) => ({ 
     container : {
         position : 'relative',
         display : 'flex',
@@ -64,7 +64,7 @@ const useStyles = makeStyles(({ palette : {
     },
     downloadButton : {
         backgroundColor : secondary.main,
-        color : text.secondary,
+        color : common.white,
         '&:hover' : {
             backgroundColor : C(secondary.main).lighten(0.2).rgb()+''
         },

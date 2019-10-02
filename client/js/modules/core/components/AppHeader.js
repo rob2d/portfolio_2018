@@ -2,6 +2,7 @@ import React, {
     useRef, useLayoutEffect, useMemo, useState 
 } from 'react';
 import { useSelector } from 'react-redux';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,7 +19,7 @@ import useViewportSizes from 'use-viewport-sizes';
 const { Sections } = AppSections;
 const BUTTON_WIDTH_PX = 60;
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ palette : { common } }) => ({
     appBar : {
         position : 'relative',
         minHeight : '56px' // needed to prevent gutters 
@@ -35,7 +36,6 @@ const useStyles = makeStyles( theme => ({
         position : 'relative',
         width : `${Sections.length * BUTTON_WIDTH_PX}px`,
         height : '100%',
-        color : '#FFFFFF',
         justifyContent : 'center',
         alignItems : 'center',
         display : 'flex',
@@ -51,7 +51,7 @@ const useStyles = makeStyles( theme => ({
         fontSize : '16pt !important',
         lineHeight : '17pt !important',
         display : 'block',
-        color : '#FFF'
+        color : common.white
     }
 }), { name : 'AppHeader' });
 
@@ -64,7 +64,7 @@ const SectionClickEvents = Sections.map( section => e =>
     appHistory.goTo(section.basePath, e)
 );
 
-export default withFadeTransitions(function AppHeader () {
+export default withFadeTransitions(function AppHeader ({ fadeContainerClass }) {
     const pathname = useSelector( state => 
         state.router.location.pathname 
     );
@@ -101,17 +101,18 @@ export default withFadeTransitions(function AppHeader () {
                 xPositions,
                 buttonW
             };
-        } else return {
         }
-    }, [vpW, vpH, pathname, buttonRefs.current && buttonRefs.current[0]]);
+        else return {};
+    }, [vpW, vpH, pathname, buttonRefs.current?.[0]]);
 
     // set of callbacks to set individual refs
     // (to prevent 2x renders in SectionButtons)
     
-    const refRetrievers = useMemo(()=> {
-        return buttonRefs.current.map((_,i) => 
-        el => buttonRefs.current[i]=el, [])
-    }, [buttonRefs.current[0]]);
+    const refRetrievers = useMemo(()=>  
+        buttonRefs.current.map((_,i) => 
+            el => buttonRefs.current[i]=el, []
+        ), 
+    [buttonRefs.current[0]]);
 
     const { 
         appBarH,
@@ -121,7 +122,7 @@ export default withFadeTransitions(function AppHeader () {
     } = visualState;
 
     return (
-        <AppBar className={ classes.appBar }>
+        <AppBar className={ clsx(classes.appBar, fadeContainerClass) }>
             <SectionHighlighter 
                 sectionIndex={ (pathIndex != -1) ? pathIndex : 1 } 
                 isSubsection={ pathIndex == -1 }
@@ -156,4 +157,4 @@ export default withFadeTransitions(function AppHeader () {
             </Toolbar>
         </AppBar>
     );
-});
+})

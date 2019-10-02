@@ -6,7 +6,7 @@ import ButtonLink from 'utils/components/ButtonLink'
 import YouTube from 'react-youtube'
 import PropTypes from 'prop-types'
 
-const styles = theme => ({
+const styles = ({ palette : { secondary, common } }) => ({
     container : {
         display         : 'flex',
         boxSizing       : 'border-box',
@@ -21,34 +21,32 @@ const styles = theme => ({
     },
     mediaContainerButton : {
         cursor : 'pointer',
-        border     : '2px solid #c51162',
+        border     : `2px solid ${secondary.dark}`,
         '&:hover' : {
-            border : '2px solid #ff4081'
+            border : `2px solid ${secondary.main}`
         },
         '&:active' : {
-            border : '2px solid #00b8d4;'
+            border : `2px solid ${common.active}`
         },
-        maxWidth : ({ width }) =>(`${width}px`),
-        width : ({ width }) =>(`${width}px`)
+        maxWidth : p =>`${p.width}px`,
+        width : p =>`${p.width}px`
     },
     image : {
-        maxWidth : ({ width }) =>(`${width}px`),
-        width : ({ width }) =>(`${width}px`),
-        height : ({ width, aspectRatio }) => (
-            `${(width / aspectRatio)}px`
-        ),
+        maxWidth : p => `${p.width}px`,
+        width : p => `${p.width}px`,
+        height : p => `${(p.width / p.aspectRatio)}px`,
         transition : 'border-color 0.24s ease-in'
     },
     mediaContainer : {
-        maxWidth : ({ width }) =>(`${width}px`),
-        width : ({ width }) =>(`${width}px`),
-        height : ({ width, aspectRatio }) => (
-            `${(width / aspectRatio)}px`
+        maxWidth : p => `${p.width}px`,
+        width : p => `${p.width}px`,
+        height : p => (
+            `${(p.width / p.aspectRatio)}px`
         ),
         cursor : 'pointer',
         '& iframe' : {
-            width : ({ width }) => `${width}px`,
-            maxWidth : ({ width }) => `${width}px`,
+            width : p => `${p.width}px`,
+            maxWidth : p => `${p.width}px`,
             maxHeight : '100%'
         }
     },
@@ -320,8 +318,7 @@ class MediaViewer extends PureComponent {
                 (<div className={ classes.loader }>
                     <CircularProgress 
                         classes={{ colorPrimary : classes.circularProgress }}
-                        size={ (vpW <= 800) ? 40 : 64 } 
-                        color={ `primary` } 
+                        size={ (vpW <= 800) ? 40 : 64 }
                     />
                 </div>) }
                 <div className={ classes.caption }>

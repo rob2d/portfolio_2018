@@ -1,28 +1,26 @@
-import React, { useMemo, useCallback } from 'react'
-import ButtonBase  from '@material-ui/core/ButtonBase'
-import { makeStyles } from '@material-ui/styles'
-import Themes      from 'constants/Themes'
-import appHistory  from 'utils/appHistory'
-import Tooltip   from '@material-ui/core/Tooltip'
+import React, { useMemo, useCallback } from 'react';
+import clsx from 'clsx';
+import ButtonBase  from '@material-ui/core/ButtonBase';
+import { makeStyles } from '@material-ui/styles';
+import appHistory  from 'utils/appHistory';
+import Tooltip   from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ palette : { text } }) => ({
+    container : {  
+        cursor : 'pointer'
+    },
     touchRipple : {
-        color : () => (theme.theme == Themes.LIGHT ? 
-            '#000000' : '#FFFFFF'
-        )
+        color : p => p.rippleColor || text.primary
     }
 }));
 
 function ButtonLink ({ 
     url, containerClass, children, 
-    title=undefined, delay=250 
+    title=undefined, delay=250, 
+    rippleColor, asButton=true
 }) {
-    const classes = useStyles();
-
-    let isAbsoluteURL = useMemo(()=> 
-        url.indexOf('://') != -1, [url]
-    );
-
+    const classes = useStyles({ rippleColor });
+    const isAbsoluteURL = useMemo(()=> url.indexOf('://') != -1, [url]);
     const onClick = useCallback( e => { 
         e.persist();
 
@@ -34,16 +32,20 @@ function ButtonLink ({
 
     title = title || (isAbsoluteURL?`${url}`:undefined);
 
-    const ButtonContent = useMemo(()=> (
+    const ButtonContent = useMemo(()=> asButton ? (
         <ButtonBase 
             focusRipple 
-            className={ containerClass }
+            className={ clsx(classes.container, containerClass) }
             onMouseDown={ onClick }
-            TouchRippleProps={{
-                classes : { ripple : classes.touchRipple }
-            }}
+            TouchRippleProps={{ classes : { ripple : classes.touchRipple } }}
         >{ children }
         </ButtonBase>
+    ) : (
+        <span 
+            className={ clsx(classes.container, containerClass) }
+            onMouseDown={ onClick }
+        >{ children }
+        </span>
     ), [children, classes, containerClass, onClick]);
 
     if(title && title.length) {
