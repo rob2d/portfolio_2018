@@ -123,7 +123,7 @@ const useStyles = makeStyles( theme => ({
         position : 'absolute',
         margin   : '0px',
         bottom   : '0px',
-        color    : theme.rc3.text
+        color    : theme.palette.text.primary
     },
     arrow : {
         '&:before': {

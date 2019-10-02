@@ -86,20 +86,20 @@ export default withFadeTransitions(function AppHeader () {
     const visualState = useMemo(()=> {
         if(buttonRefs.current && buttonRefs.current[0]) {
             const buttons = buttonRefs.current;
-            const buttonWidth = buttons[0] && buttons[0].offsetWidth;
+            const buttonW = buttons[0] && buttons[0].offsetWidth;
             const appBar = buttons[0].parentNode.parentNode;
-            const appBarHeight = appBar && appBar.clientHeight;
+            const appBarH = appBar && appBar.clientHeight;
             const leftPadding = window.getComputedStyle(appBar, null)
                                     .getPropertyValue('padding-left');
             const xPositions = buttons.map( b => ( 
-                b.offsetLeft + buttonWidth / 2 
+                b.offsetLeft + buttonW / 2 
             ));
     
             return {
-                appBarHeight,
+                appBarH,
                 leftPadding,
                 xPositions,
-                buttonWidth
+                buttonW
             };
         } else return {
         }
@@ -114,8 +114,8 @@ export default withFadeTransitions(function AppHeader () {
     }, [buttonRefs.current[0]]);
 
     const { 
-        appBarHeight,
-        buttonWidth,
+        appBarH,
+        buttonW,
         xPositions,
         leftPadding
     } = visualState;
@@ -126,10 +126,10 @@ export default withFadeTransitions(function AppHeader () {
                 sectionIndex={ (pathIndex != -1) ? pathIndex : 1 } 
                 isSubsection={ pathIndex == -1 }
                 vpW={ vpW }
-                buttonXPositions={ xPositions }
+                buttonXs={ xPositions }
                 leftPadding={ leftPadding }
-                buttonWidth={ buttonWidth }
-                appBarHeight={ appBarHeight } // needed for browser issues
+                buttonW={ buttonW }
+                appBarH={ appBarH } // needed for browser issues
             />
             <Toolbar className={ classes.toolbar }>
                 <div className={ classes.leftIconsWrapper }>

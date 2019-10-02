@@ -10,7 +10,7 @@ import {
     mdiFileDocumentBox
 } from '@mdi/js';
 
-const useStyles = makeStyles(({ rc3 }) => ({
+const useStyles = makeStyles(({ palette : { text } }) => ({
     sectionList : {
         paddingLeft : p => !isPortrait(p.vpW, p.vpH)?'16px':'0px',
         paddingRight : p => !isPortrait(p.vpW, p.vpH)?'16px':'0px',
@@ -69,13 +69,13 @@ const useStyles = makeStyles(({ rc3 }) => ({
         },
         '& svg' : {
             fontSize : '13pt',
-            color : rc3.text,
-            fill : rc3.text
+            color : text.primary,
+            fill : text.primary
         }
     },
     linkDivider : {
         display : 'inline-block',
-        color : rc3.text
+        color : text.primary
     },
 
     // make certain things larger on non-mobile devices

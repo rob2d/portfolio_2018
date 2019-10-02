@@ -1,26 +1,32 @@
-import React, { useEffect } from 'react';
-import { Provider, useSelector } from 'react-redux';
-import { makeStyles, ThemeProvider } from '@material-ui/styles';
+import React, { useMemo } from 'react';
+import { Provider } from 'react-redux';
+import { makeStyles } from '@material-ui/styles';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import { getTheme } from 'app-root/themeFactory';
 import appHistory from 'utils/appHistory';
-import store from '../store';
-import { AppHeader, AppFooter } from './core';
+import store from './store';
+import { AppHeader, AppFooter } from './modules/core';
 import { hot } from 'react-hot-loader/root';
 import { useLazyComponent } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
+import ThemeContextProvider from './ThemeContextProvider';
 
 const ANIM_DURATION_S = '0.32';
 
-const useStyles = makeStyles(({ rc3 }) => ({
+const useStyles = makeStyles(({ palette : { common } }) => ({
+    '@global' : {
+        body : {
+            backgroundColor : common.background1, 
+            transition : `background-color ${ANIM_DURATION_S}s ease`
+        }
+    },
     appWrapper : {
         minHeight : '100%',
         margin : '0px auto',
         display : 'flex',
         flexDirection : 'row',
         textAlign : 'center',
-        backgroundColor : rc3.background,
+        backgroundColor : common.background1,
         transition : `background-color ${ANIM_DURATION_S}s`,
         boxSizing : 'border-box'
     },
@@ -40,76 +46,57 @@ function AppContent () {
     const classes = useStyles();
 
     const About = useLazyComponent(
-        ()=> import( /* webpackChunkName: "about" */'./about')
+        ()=> import( /* webpackChunkName: "about" */'./modules/about')
         .then( m => ({ default : m.default.About }) ),
         <LoadingComponent />
     );
 
     const ProjectsPanel = useLazyComponent(
-        ()=> import( /* webpackChunkName: "projects" */'./projects')
+        ()=> import( /* webpackChunkName: "projects" */'./modules/projects')
         .then( m => ({ default : m.default.ProjectsPanel }) ),
         <LoadingComponent />
     );
 
     const Miscellaneous = useLazyComponent(
-        ()=> import( /* webpackChunkName: "misc" */'./misc')
+        ()=> import( /* webpackChunkName: "misc" */'./modules/misc')
         .then( m => ({ default : m.default.Miscellaneous }) ),
         <LoadingComponent />
     );
 
     const CV = useLazyComponent(
-        ()=> import( /* webpackChunkName: "cv" */'./cv')
+        ()=> import( /* webpackChunkName: "cv" */'./modules/cv')
         .then( m => ({ default : m.default.CV }) ),
         <LoadingComponent />
     );
+
+    const sectionContent = useMemo(()=>(
+        <Switch>
+            <Route exact path='(/about|/)' component={ About } />
+            <Route exact path='/cv' component={ CV } />
+            <Route path='/projects(/:projectId)?' component={ ProjectsPanel } />
+            <Route path='/misc' component={ Miscellaneous } />
+        </Switch>
+    ), [About, CV, ProjectsPanel, Miscellaneous]);
 
     return (  
         <div className={ classes.appWrapper }>
             <div className={ classes.routeViewWrapper }>
                 <AppHeader />
-                    <Switch>
-                        <Route 
-                            exact path='(/about|/)' 
-                            component={ About } 
-                        />
-                        <Route 
-                            exact path='/cv' 
-                            component={ CV } 
-                        />
-                        <Route 
-                            path='/projects(/:projectId)?' 
-                            component={ ProjectsPanel } 
-                        />
-                        <Route 
-                            path='/misc' 
-                            component={ Miscellaneous } 
-                        />
-                    </Switch>
+                    { sectionContent }
                 <AppFooter />
             </div>
         </div>
     );
 }
 
-
-function ThemedApp() {
-    const theme = useSelector( state => state.core.theme );
-    const themeApplied = getTheme(theme); 
-
-    return (
-        <ThemeProvider theme={ themeApplied }>
-            <ConnectedRouter history={ appHistory }>
-                <AppContent />
-            </ConnectedRouter>
-        </ThemeProvider>
-    );
-}
-
-
 function RoutingApp(){ 
     return (
         <Provider store={ store }>
-            <ThemedApp />
+            <ThemeContextProvider>
+                <ConnectedRouter history={ appHistory }>
+                    <AppContent />
+                </ConnectedRouter>
+            </ThemeContextProvider>
         </Provider>
     );
 }

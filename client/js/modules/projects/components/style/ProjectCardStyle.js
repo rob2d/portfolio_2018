@@ -15,9 +15,6 @@ export default makeStyles(({ palette : { type }}) => ({
                 (ANIM_DURATION_S * 1.5) : 0
             ) + 's';
 
-            console.log('cardContainer ->', `opacity ${ANIM_DURATION_S}s, ` + 
-            `left ${moveTiming}, top ${moveTiming}`);
-
             return (
                 `opacity ${ANIM_DURATION_S}s, ` + 
                 `left ${moveTiming}, top ${moveTiming}`

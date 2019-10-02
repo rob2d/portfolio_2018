@@ -1,23 +1,28 @@
 import React, { 
-    useState, useMemo, useCallback
+    useState, 
+    useMemo, 
+    useCallback,
+    useContext
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTheme } from 'modules/core/actions';
+import C from 'color';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
+import { ThemeContext } from 'app-root/ThemeContextProvider';
 
 let themeTargets = {
-    'light' : { name : 'Dark' }, 
-    'dark' : { name : 'Light' }
+    'light' : { 
+        name : 'Dark',
+        flipped : 'dark' 
+    }, 
+    'dark' : { 
+        name : 'Light',
+        flipped : 'light'
+    }
 };
 
-const getFlipTheme = theme => (
-    (theme == 'light') ?  'dark' : 'light'
-);
-
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ palette : { text } }) => ({
     container : {
         cursor : 'pointer',
         fontSize : '18pt',
@@ -27,32 +32,32 @@ const useStyles = makeStyles( theme => ({
             height : '26px'
         },
         '&,& *': {
-            color : '#FFF',
-            fill : '#FFF',
-            stroke : '#FFF'
+            color : text.secondary,
+            fill :  text.secondary,
+            stroke :  text.secondary
         }
     },
     '@global' : {
         ['.themeicon__star'] : {
             transformOrigin : '50% 50%',
-            stroke : 'rgba(0,0,0,0)',
+            stroke : C(text.secondary).alpha(0).rgb()+'',
             strokeWidth : '2px'
         },
     
         ['.themeicon__moon'] : {
-            stroke : 'rgba(255,255,255,1)',
+            stroke :  C(text.secondary).alpha(1).rgb()+'',
             fill : 'none'
         },
     
         ['.light .themeicon__star'] : { 
             transition : 'transform 0.35s ease-in 0.125s',
-            stroke : 'rgba(0,0,0,0)'
+            stroke : C(text.secondary).alpha(0).rgb()+'',
         },
     
     
         ['.dark .themeicon__star'] : { 
             transition: 'transform 0.35s ease-in 0s',
-            stroke: 'rgba(0,0,0,0)'
+            stroke: C(text.secondary).alpha(0).rgb()+'',
         },
     
         ['.light > .themeicon__moon'] : {
@@ -60,7 +65,7 @@ const useStyles = makeStyles( theme => ({
             transformOrigin : '50% 52%',
             transform : 'scale(0.475)',
             transition : 'opacity 0.5s ease 0.25s, transform 0.25s linear 0s',
-            stroke : 'rgba(255,255,255,1)',
+            stroke : C(text.secondary).alpha(1).rgb()+'',
             fill : 'none'
         },
     
@@ -68,21 +73,21 @@ const useStyles = makeStyles( theme => ({
             opacity : 1,
             transformOrigin : '50% 52%',
             transition : 'opacity 0.5s ease, transform 0.25s linear 0.20s',
-            stroke : 'rgba(255,255,255,1)',
+            stroke : C(text.secondary).alpha(1).rgb()+'',
             fill : 'none'
         },
     
         ['.dark > .themeicon__sun'] : {
             opacity : '0',
             transition : 'opacity 0.75s ease 0.1s',
-            stroke : 'rgba(255,255,255,1)',
+            stroke : C(text.secondary).alpha(1).rgb()+'',
             fill : 'none'
         },
     
         ['.light > .themeicon__sun'] : {
             opacity : 1,
             transition : 'opacity 0.75s ease 0.25s',
-            stroke : 'rgba(255,255,255,1)',
+            stroke : C(text.secondary).alpha(1).rgb()+'',
             fill : 'none'
         },
     
@@ -119,10 +124,9 @@ const useStyles = makeStyles( theme => ({
 }), 'ThemeButton');
 
 export default function ThemeButton () {
-    const dispatch = useDispatch();
-    const theme = useSelector( state => state.core.theme );
-    const [ isToggling, setIsToggling ] = useState(false);
-    const [ themeState, setThemeState ] = useState(theme);
+    const [isToggling, setIsToggling] = useState(false);
+    const [themeState, setThemeState] = useState(()=> 'light');
+    const { setThemeType, themeType } = useContext(ThemeContext);
 
     const classes = useStyles();
 
@@ -134,14 +138,14 @@ export default function ThemeButton () {
     const onClick = useCallback( e => {
         if(!isToggling) {
             setIsToggling(true);
-            setThemeState(getFlipTheme(theme));
+            setThemeState(themeTargets[themeType].flipped);
             setTimeout(()=> {
-                dispatch(setTheme(getFlipTheme(themeState)));
+                setThemeType(themeTargets[themeState].flipped);
                 setIsToggling(false);
             }, 750);
         }
 
-    }, [setTheme, isToggling]);
+    }, [setThemeType, themeType, isToggling]);
 
     const tooltip = useMemo(()=> (
         <span>Switch to the&nbsp;
