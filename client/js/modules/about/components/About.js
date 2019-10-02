@@ -1,14 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
+import clsx from 'clsx';
+import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
-import isPortrait  from 'utils/isPortrait';
-import DescriptiveText from './DescriptiveText';
+import { about as strings } from 'strings';
+import { isPortrait, withFadeTransitions } from 'utils';
+import { ButtonLink } from 'utils/components';
 import SectionLinks from './SectionLinks';
 //import SkillsOrbit from './SkillsOrbit.1';
-import useViewportSizes from 'use-viewport-sizes';
 
-
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ 
+    palette : { secondary, common, text } 
+}) => ({
     mainContainer : {
         marginLeft : 'auto',
         marginRight : 'auto',
@@ -17,11 +20,38 @@ const useStyles = makeStyles( theme => ({
         display : 'flex',
         flexDirection  : 'column',
         justifyContent : 'center',
-        padding : ({ vpW, vpH }) => (
-            !isPortrait(vpW, vpH) ? '0px 16px' : '16px'
-        ),
+        padding : p => `${!p.inPortrait ? '0 ' : '16'}px`,
         alignItems : 'center',
         boxSizing : 'border-box' // for padding in landscape
+    },
+
+    centerContent : {
+        display : 'inline-block',
+        fontFamily : 'roboto_regular',
+        color : text.primary,
+        verticalAlign : 'top',
+        fontSize : '12pt',
+        lineHeight : '1.3rem',
+        wordWrap : 'break-word',
+        textAlign : 'left',
+        fontFamily : 'roboto_light',
+        letterSpacing : '0.01rem',
+
+        '@media (min-width:901px)' : {
+            fontSize : '14pt'
+        },
+
+        // for general mobile devices in landscape
+        '@media (orientation:landscape) and (max-width:900px)' : {
+            fontSize : '11pt'
+        },
+        wordBreak : 'word-wrap',
+        '& p' : {
+            paddingLeft : '16px',
+            paddingRight : '16px',
+            paddingTop : '0px',
+            paddingBottom : '0px'
+        }
     },
 
     firstContainer : {
@@ -33,25 +63,34 @@ const useStyles = makeStyles( theme => ({
     },
 
     topContent : {
-        width : ({ vpW })=> (vpW<=420) ? '100%' : '100%',
+        width : '100%',
         display : 'flex',
         justifyContent : 'center',
         alignItems : 'center',
         flexDirection : 'row',
         justifyContent : 'space-between'
     },
+    tech : {
+        color : secondary.dark,
 
-    pText : {
-        paddingLeft : '16px',
-        paddingRight : '16px',
-        paddingTop : '0px',
-        paddingBottom : '0px',
-        textAlign : 'left',
-        fontSize : '12pt',
-        fontFamily : 'roboto_light',
-        lineHeight : '1.3rem',
-        letterSpacing : '0.01rem',
-        color : theme.palette.text.primary
+        '&:hover' : {
+            color : secondary.main
+        },
+
+        '&:active' : {
+            color : common.active
+        },
+
+        // commas following tech
+        '&:not(:nth-last-child(-n+2)) $techComma' : {
+            color : text.primary
+        },
+        '&:nth-last-child(-n+2) $techComma' : {
+            display : 'none'
+        }
+    },
+    techComma : {
+
     },
     avatar : {
         width  : '128px',
@@ -118,12 +157,6 @@ const useStyles = makeStyles( theme => ({
             justifyContent : 'space-evenly',
             maxWidth : '1280px'
         },
-        pText : {
-            paddingLeft  : '32px',
-            paddingRight : '32px',
-            fontSize : '14pt',
-            fontFamily : 'roboto_light'
-        },
         centerContent : {
             display : 'flex',
             flexDirection : 'column', 
@@ -138,45 +171,27 @@ const useStyles = makeStyles( theme => ({
             width : '30vh',
             height : '30vh'
         }
-    },
-    tech : {
-        display : 'inline-block',
-        fontFamily : 'roboto_regular',
-        color : theme.palette.text.primary,
-        verticalAlign : 'top',
-        fontSize : '12pt',
-        '@media (min-width:901px)' : {
-            fontSize : '14pt'
-        },
-        // for general mobile devices in landscape
-        '@media (orientation:landscape) and (max-width:900px)' : {
-            fontSize : '11pt'
-        }
     }
 }), { name : 'About' });
 
-export default function About ({ theme }) {
+export default withFadeTransitions(function About ({ theme, fadeContainerClass }) {
     const [ vpW, vpH ] = useViewportSizes();
-
-
-    // check renderpixels on viewport for (general)
-    // coverage of landscape; covers iPhone6-X
-    // and most android devices
-
     const linkProps = useMemo(()=>({ vpW, vpH }), [vpW, vpH]);
-
-    const inPortrait = useMemo(()=>
-        isPortrait(vpW, vpH), 
-        [vpW, vpH]
-    );
-
+    const inPortrait = useMemo(()=> isPortrait(vpW, vpH), [vpW, vpH]);
     const classes = useStyles({ vpW, vpH, theme, inPortrait });
-    const techProps = useMemo(()=>(
-        { containerClass : classes.tech }
-    ), [ classes.tech ]);
+
+    const Tech = useCallback(({ children, url })=> (
+        <ButtonLink 
+            containerClass={ classes.tech } 
+            url={ url } 
+            asButton={ false }
+        >{ children }
+        <span className={classes.techComma}>, </span>
+        </ButtonLink>
+    ), [classes.tech]);
 
     return (
-        <div className={ classes.mainContainer }>
+        <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
             <div className={ classes.firstContainer } >
                 <div className={ classes.topContent }>
                     <Avatar 
@@ -189,11 +204,45 @@ export default function About ({ theme }) {
             </div>
 
             <div className={ classes.centerContent }>
-                <DescriptiveText 
-                    techProps={ techProps } 
-                    pClass={ classes.pText } 
-                />
+                <p> 
+                    Hi. My name is Rob, and I'm a software developer from NYC. 
+                    Thanks for visiting.
+                </p>
+                <p>
+                    This site was created using my stack of choice most days:&nbsp;
+                    <Tech url={'https://reactjs.com'}>React</Tech>
+                    <Tech url={ 'https://redux.js.org' }>Redux</Tech>
+                    <Tech url={'https://threejs.org'}>THREE.js</Tech> 
+                    <Tech url={'https://nodejs.org'}>Node</Tech> 
+                    <Tech url={'https://webpack.js.org/'}>Webpack</Tech>
+                    { strings.andDeployedUsing }
+                    <Tech url={'http://nginx.org'}>NginX</Tech> and&nbsp; 
+                    <Tech url={'http://pm2.keymetrics.io/'}>PM2</Tech>. 
+                    I am always trying to evolve my workflow and understanding of things.. so 
+                    hopefully the experience here is not aging too badly 🙃
+                </p>
+                <p>
+                    A little about me and why this page exists: I have always been a curious person who grew up dabbling
+                    a lot of introverted hobbies which included: creating websites, videogames, apps, and designing UIs 
+                    (all of which are things I still love today and all of which there isn't enough time in the day for). 
+                    This site is a small collection of mostly self-driven projects that I wish I had more time to devote 
+                    to (the ones which made it somewhere beyond the drawing board). 
+                    You probably won't find the most beautiful code on this portfolio itself since I spend most of my 
+                    energy at work -- or, at fun, or on hobbies, or just being a human and doing those things that they do, 
+                    but I do try to update here and there.
+                </p>
+                <p>
+                    My background: I joined the Navy as an Electronic Technician out of highschool to get some practical experience, 
+                    grow as a person, make the best of my situation, and to take the more scenic route and so that I could
+                    also devote a lot of undivided attention to my studies and projects. Since completing graduate school in Computer 
+                    Science, I have gotten to work in a variety of industries at various capacities including power/skyscraper 
+                    infrastructure mapping and management, intellectual property, virtual reality tours, finance, as well as 
+                    consistently on my own side projects which include development tools and small applications.
+                </p>
+                <p>
+                    Intros aside, feel free to check out the other sections here which should hopefully be a lot more interesting!
+                </p>
             </div>
         </div>
     );
-};
+})

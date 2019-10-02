@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react'
 import componentFader from './componentFader'
 import getDisplayName from 'recompose/getDisplayName'
 
-// TODO : use propTypes with sensible defaults
-
 /**
  * When a component mounts or unmounts, or a criteria 
  * is not met, this HOC causes it to fade
@@ -17,7 +15,7 @@ import getDisplayName from 'recompose/getDisplayName'
  *                      a condition to mount/unmount; returns
  *                      true/false
  */
-function withFadeTransitions (WrappedComponent) {
+export default function withFadeTransitions (WrappedComponent) {
     const FadingComponent = componentFader(WrappedComponent);
     return class FadeTransitioner extends PureComponent {
         constructor (props) {
@@ -34,7 +32,7 @@ function withFadeTransitions (WrappedComponent) {
         componentWillReceiveProps(newProps) {
             this.processNewProps(newProps);
         }
-        processNewProps = (newProps)=> {
+        processNewProps = newProps => {
             const { 
                 checkIfMounted, 
                 ...propsChecked 
@@ -90,5 +88,3 @@ function withFadeTransitions (WrappedComponent) {
         }   
     }
 }
-
-export default withFadeTransitions

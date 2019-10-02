@@ -1,11 +1,10 @@
-import React, { memo } from 'react'
-import { makeStyles } from '@material-ui/styles'
+import React, { useMemo } from 'react';
+import { makeStyles } from '@material-ui/styles';
 
-const DEFAULT_FADETIME = 500;
+const DEFAULT_FADETIME = 320;
 
-const useStyles = makeStyles( theme => ({
-    fadeContainer :
-    {
+const useStyles = makeStyles(()=> ({
+    fadeContainer : {
         transition : ({ fadeTime = DEFAULT_FADETIME })=> {
             if(typeof fadeTime == 'number' && fadeTime == 0) {
                 return 'none';
@@ -14,32 +13,27 @@ const useStyles = makeStyles( theme => ({
             const time = (typeof fadeTime == 'number') ?
             fadeTime + 'ms' : fadeTime;
 
-            return `visibility ${time}, opacity ${time}`;
+            return `visibility ${time} ease-in, opacity ${time} ease-in`;
         },
-        visibility : ({ isShown })=> (isShown?'visible':'hidden'),
-        opacity    : ({ isShown })=> (isShown?1:0)
+        visibility : p => p.isShown ? 'visible' : 'hidden',
+        opacity : p => p.isShown ? 1 : 0
     }
-}), { name : 'componentFader' });
-
-// TODO | append displayName at appropriate points
-// TODO | when generating
-
+}), { name : 'ComponentFader' });
 
 /**
- * Simple HOC which fades components in and out;
- *
+ * Simple HOC which fades components in and out
  * accepts "isShown" and "fadeTime"(optional) as props
  */
-export const componentFader = WrappedComponent => memo(
-function ComponentFader({ fadeTime = DEFAULT_FADETIME, isShown, ...otherProps }) {
-    const classes= useStyles({ fadeTime, isShown });
-    return (
-        <div className={classes.fadeContainer}>
-            <WrappedComponent 
-                { ...otherProps } 
-                faderClasses={classes}     
+export default WrappedComponent => (
+    function ComponentFader({ fadeTime = DEFAULT_FADETIME, isShown, ...otherProps }) {
+        const classes= useStyles({ fadeTime, isShown });
+        const fadingContent = useMemo(()=> (
+            <WrappedComponent
+                { ...otherProps }
+                fadeContainerClass={ classes.fadeContainer }    
             />
-        </div>
-    )
-});
-export default componentFader
+        ), [classes, WrappedComponent]);
+
+        return fadingContent;
+    }
+)

@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import clsx from 'clsx';
-import C from 'color';
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -13,7 +12,9 @@ import {
     mdiLinkedinBox
 } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette : { primary, secondary, common } }) => ({
+const useStyles = makeStyles(({ 
+    palette : { secondary, common, text } 
+}) => ({
     contactButton : {
         display : 'inline-flex',
         justifyContent : 'center',
@@ -33,8 +34,8 @@ const useStyles = makeStyles(({ palette : { primary, secondary, common } }) => (
     },
     icon : {
         fontSize : '18pt',
-        color : primary.dark,
-        fill : primary.dark,
+        color : text.secondary,
+        fill : text.secondary,
         transition : 'color 0.24s ease-in',
         lineHeight : '42px',
         minHeight : '42px',
@@ -42,7 +43,7 @@ const useStyles = makeStyles(({ palette : { primary, secondary, common } }) => (
     }
 }), { name : 'ContactButton' });
 
-function AppFooter() {
+export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
     const classes = useStyles();
 
     const ContactButton = useCallback(({ url, iconClass, iconPath, tooltipContent }) => {
@@ -55,7 +56,7 @@ function AppFooter() {
             />)
         );
 
-        const onMouseDown = useCallback( e => appHistory.goTo(url, e), [url] );
+        const onMouseDown = useCallback( e => appHistory.goTo(url, e), [url]);
 
         return (
             <Tooltip
@@ -71,7 +72,7 @@ function AppFooter() {
     }, [classes]);
 
     return (
-        <div className="appFooter">
+        <div className={ clsx('appFooter', fadeContainerClass) }>
             <ContactButton
                 iconPath={ mdiGithubBox }
                 url={ 'https://github.com/rob2d' }
@@ -90,10 +91,8 @@ function AppFooter() {
             <ContactButton
                 iconPath={ mdiGmail }
                 url={ 'mailto:robert.concepcion.iii@gmail.com' }
-                tooltipContent={ <>Email me -- but no spam, please (❗)</> }
+                tooltipContent={ <><b>Email</b> me -- but no spam, please 🙏</> }
             />
         </div>
     );
-}
-
-export default withFadeTransitions(AppFooter)
+})

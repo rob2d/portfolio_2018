@@ -22,7 +22,7 @@ let themeTargets = {
     }
 };
 
-const useStyles = makeStyles(({ palette : { text } }) => ({
+const useStyles = makeStyles(({ palette : { common } }) => ({
     container : {
         cursor : 'pointer',
         fontSize : '18pt',
@@ -32,32 +32,32 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
             height : '26px'
         },
         '&,& *': {
-            color : text.secondary,
-            fill :  text.secondary,
-            stroke :  text.secondary
+            color : common.white,
+            fill :  common.white,
+            stroke :  common.white
         }
     },
     '@global' : {
         ['.themeicon__star'] : {
             transformOrigin : '50% 50%',
-            stroke : C(text.secondary).alpha(0).rgb()+'',
+            stroke : C(common.white).alpha(0).rgb()+'',
             strokeWidth : '2px'
         },
     
         ['.themeicon__moon'] : {
-            stroke :  C(text.secondary).alpha(1).rgb()+'',
+            stroke :  C(common.white).alpha(1).rgb()+'',
             fill : 'none'
         },
     
         ['.light .themeicon__star'] : { 
             transition : 'transform 0.35s ease-in 0.125s',
-            stroke : C(text.secondary).alpha(0).rgb()+'',
+            stroke : C(common.white).alpha(0).rgb()+'',
         },
     
     
         ['.dark .themeicon__star'] : { 
             transition: 'transform 0.35s ease-in 0s',
-            stroke: C(text.secondary).alpha(0).rgb()+'',
+            stroke: C(common.white).alpha(0).rgb()+'',
         },
     
         ['.light > .themeicon__moon'] : {
@@ -65,7 +65,7 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
             transformOrigin : '50% 52%',
             transform : 'scale(0.475)',
             transition : 'opacity 0.5s ease 0.25s, transform 0.25s linear 0s',
-            stroke : C(text.secondary).alpha(1).rgb()+'',
+            stroke : C(common.white).alpha(1).rgb()+'',
             fill : 'none'
         },
     
@@ -73,21 +73,21 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
             opacity : 1,
             transformOrigin : '50% 52%',
             transition : 'opacity 0.5s ease, transform 0.25s linear 0.20s',
-            stroke : C(text.secondary).alpha(1).rgb()+'',
+            stroke : C(common.white).alpha(1).rgb()+'',
             fill : 'none'
         },
     
         ['.dark > .themeicon__sun'] : {
             opacity : '0',
             transition : 'opacity 0.75s ease 0.1s',
-            stroke : C(text.secondary).alpha(1).rgb()+'',
+            stroke : C(common.white).alpha(1).rgb()+'',
             fill : 'none'
         },
     
         ['.light > .themeicon__sun'] : {
             opacity : 1,
             transition : 'opacity 0.75s ease 0.25s',
-            stroke : C(text.secondary).alpha(1).rgb()+'',
+            stroke : C(common.white).alpha(1).rgb()+'',
             fill : 'none'
         },
     

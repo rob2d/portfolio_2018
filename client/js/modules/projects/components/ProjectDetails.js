@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { projects } from 'strings';
 import { withFadeTransitions } from 'utils';
@@ -22,7 +23,7 @@ const findProjectStrings = projectId => (
     )
 );
 
-const useStyles = makeStyles(({ palette : { type } }) => ({
+const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
     mainContainer : {
         flexGrow : 1,
         margin : '0 auto',
@@ -61,7 +62,7 @@ const useStyles = makeStyles(({ palette : { type } }) => ({
         textAlign : 'left',
         paddingLeft : '16px',
         paddingRight : '16px',
-        color : (type == 'light') ? '#000' : '#FFF',
+        color : text.primary
     },
 
     // only on tablet sized device+ or certain
@@ -84,8 +85,8 @@ const useStyles = makeStyles(({ palette : { type } }) => ({
         width : 'calc(100vw-64px)',
         height : 'auto',
         margin : '16px',
-        borderTop : '#000 2px solid',
-        borderBottom : '#000 2px solid'
+        borderTop : `${text.primary} 2px solid`,
+        borderBottom : `${text.primary} 2px solid`
     },
     screenshot : {
         minWidth : '56px',
@@ -103,10 +104,10 @@ const useStyles = makeStyles(({ palette : { type } }) => ({
         justifyContent : 'flex-start !important',
         fontSize : '13pt',
         '&:hover $returnText' : {
-            color : '#ff4081 !important'
+            color : `${secondary.main} !important`
         },
         '&:active $returnText' : {
-            color : '#00b8d4 !important'
+            color : `${common.active} !important`
         }
     },
     returnIcon : {
@@ -124,38 +125,36 @@ const useStyles = makeStyles(({ palette : { type } }) => ({
         marginBottom : '0px',
         fontSize : '14pt',
         textAlign : 'left',
-        color : '#c51162',
+        color : secondary.dark,
         fontFamily : 'roboto_bold',
         fontSize : '12pt'
     },
     section : {
         margin : '16px 0px 32px',
-        color : ((type == 'light') ? 
-            '#000' : '#FFF'
-        ),
+        color : text.primary
     },
     sectionHeader : {
         fontFamily : 'roboto_bold',
-        fontSize   : '14pt',
+        fontSize : '14pt',
         fontWeight : 700,
-        textAlign  : 'left',
-        margin     : '16px 0px'
+        textAlign : 'left',
+        margin : '16px 0px'
     },
     sectionContent : {
-        fontSize     : '13pt',
-        textAlign    : 'left',
-        paddingLeft  : '16px',
+        fontSize : '13pt',
+        textAlign : 'left',
+        paddingLeft : '16px',
         paddingRight : '16px',
-        marginTop    : '0px'
+        marginTop : '0px'
     },
     sectionRole : {
-        fontSize     : '14pt',
-        paddingLeft  : '8px',
+        fontSize : '14pt',
+        paddingLeft : '8px',
         paddingRight : '16px',
-        paddingTop   : '8px',
-        fontWeight   : 'bold',
-        textAlign    : 'left',
-        fontFamily   : 'roboto_bold'
+        paddingTop : '8px',
+        fontWeight : 'bold',
+        textAlign : 'left',
+        fontFamily : 'roboto_bold'
     },
     linkContainer : {
         display : 'flex !important',
@@ -163,10 +162,10 @@ const useStyles = makeStyles(({ palette : { type } }) => ({
         alignItems : 'center !important',
         justifyContent : 'flex-start !important',
         '&:hover $linkText' : {
-            color : '#ff4081 !important'
+            color : `${secondary.main} !important`
         },
         '&:active $linkText' : {
-            color : '#00b8d4 !important'
+            color : `${common.active} !important`
         }
     },
     bulletLink : {
@@ -174,21 +173,21 @@ const useStyles = makeStyles(({ palette : { type } }) => ({
     },
     icon : {
         paddingRight : '16px',
-        fill : (type == 'light') ? '#000' : '#FFF',
+        fill : text.primary,
         fontSize : '12pt'
     },
     // TODO : use a global style/theme for this,
     linkText : {
         margin : '12px 0px',
         padding : '0px',
-        color : '#c51162',
+        color : secondary.dark,
         fontFamily : 'roboto_bold',
         fontSize : '12pt',
         textAlign : 'left'
     }
 }));
 
-export default withFadeTransitions(function ProjectDetails ({ projectId }) { 
+export default withFadeTransitions(function ProjectDetails ({ projectId, fadeContainerClass }) { 
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({  projectId, vpW });
 
@@ -229,7 +228,7 @@ export default withFadeTransitions(function ProjectDetails ({ projectId }) {
     ), [classes.icon]);
     
     return (
-        <div className={ classes.mainContainer }>
+        <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
             <div className={ classes.contentContainer }>
                 <div className={ classes.section }>
                     <p className={ classes.sectionRole }>

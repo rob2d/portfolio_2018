@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import C from 'color';
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import LoadingComponent from 'utils/components/LoadingComponent';
@@ -9,7 +10,7 @@ import {
 } from '@mdi/js';
 import Icon from '@mdi/react';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ palette : { text } }) => ({
     container : {
         display : 'flex',
         flexDirection : 'row',
@@ -19,7 +20,7 @@ const useStyles = makeStyles( theme => ({
         width : '100%',
         textAlign : 'center',
         marginTop : '16px',
-        color : theme.palette.text.primary,
+        color : text.primary,
         '& > *:nth-child(1)' : {
             alignItems : 'flex-end'
         },
@@ -37,7 +38,11 @@ const useStyles = makeStyles( theme => ({
         justifyContent : 'center',
         height : '100%',
         fontSize : '17pt',
-        minWidth : '48px'
+        minWidth : '48px',
+        fill : text.primary,
+        '&.Mui-disabled' : {
+            fill : C(text.primary).alpha(0.5).rgb()+''
+        }
     }
 }), { name : 'PDFViewerNav' });
 

@@ -80,7 +80,7 @@ themeDefs.light.push({
         },
         text : {
             primary : '#000',
-            secondary : '#FFF'
+            secondary : '#455A64'
         }
     },
     overrides : {
@@ -121,7 +121,7 @@ themeDefs.dark.push({
         },
         text : {
             primary : '#FFF',
-            secondary : '#FFF'
+            secondary : '#616161'
         }
     },
     overrides : {
