@@ -1,49 +1,48 @@
-import React, { useMemo } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import { about as strings} from 'strings'
-import skillPoints from 'constants/skillPoints'
-import ValueBar from './ValueBar'
+import React, { useMemo } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import skillPoints from 'constants/skillPoints';
+import ValueBar from './ValueBar';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(({ palette : { text } }) => ({
     container : {
-        position       : 'absolute',
-        bottom         : '0',
-        width          : '180px',
-        height         : '100%',
-        display        : 'flex',
-        alignItems     : 'center',
+        position : 'absolute',
+        bottom : '0',
+        width : '180px',
+        height : '100%',
+        display : 'flex',
+        alignItems : 'center',
         justifyContent : 'center',
-        pointerEvents  : 'none',
-        flexDirection  : 'column',
-        opacity        : p => (p.isVisible ? 1.0 : 0.0),
-        transition     : p => `opacity 0.5s ease ${ !p.isVisible ? 1: 0 }s`,
-        overflowX      : 'hidden',
-        overflowY      : 'visible',
-        color          : theme.palette.text.primary
+        pointerEvents : 'none',
+        flexDirection : 'column',
+        opacity : p => p.isVisible ? 1.0 : 0.0,
+        transition : p => `opacity 0.5s ease ${ !p.isVisible ? 1: 0 }s`,
+        overflowX : 'hidden',
+        overflowY : 'visible',
+        color : text.primary
     },
     textItem : {
-        boxSizing      : 'border-box',
-        display        : 'flex',
-        width          : '100%',
+        boxSizing : 'border-box',
+        display : 'flex',
+        width : '100%',
         justifyContent : 'flex-end',
-        alignItems     : 'center',
-        height         : (Math.round(100/skillPoints.length) * 0.62) + '%'
+        alignItems : 'center',
+        height : (Math.round(100/skillPoints.length) * 0.62) + '%'
     },
     namespace : {
-        display        : 'flex',
-        flexDirection  : 'row',
-        width          : '75%',
+        display : 'flex',
+        flexDirection : 'row',
+        width : '75%',
         justifyContent : 'flex-start',
-        fontFamily     : 'roboto_light',
-        fontSize       : '11pt'
+        fontFamily : 'roboto_light',
+        fontSize : '11pt'
     },
     value : {
-        display        : 'flex',
+        display : 'flex',
         flexDirection  : 'row',
-        width          : '25%',
+        width : '25%',
         justifyContent : 'flex-end',
-        fontFamily     : 'roboto_regular',
-        fontSize       : '11pt'
+        fontFamily : 'roboto_regular',
+        fontSize : '11pt'
     }
 }));
 

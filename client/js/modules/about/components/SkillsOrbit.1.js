@@ -8,7 +8,6 @@ import {
 import { makeStyles, useTheme } from '@material-ui/styles'
 import { textAlign, SpriteText2D } from 'three-text2d'
 import useViewportSizes from 'use-viewport-sizes'
-import { about as strings} from 'strings'
 import skillPoints from 'constants/skillPoints'
 import ShiftingValueMap from 'utils/data-structs/ShiftingValueMap'
 import SkillsOverlayText from './skills-orbit/SkillsOverlayText'

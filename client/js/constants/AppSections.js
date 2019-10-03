@@ -1,4 +1,3 @@
-import { menus } from 'strings';
 import { 
     mdiHumanGreeting, 
     mdiBriefcase,
@@ -7,36 +6,36 @@ import {
 } from '@mdi/js';
 
 export const SectionIndexes = {
-    WELCOME  : 0,
+    WELCOME : 0,
     PROJECTS : 1,
-    MISC     : 2,
-    CV       : 3
+    MISC : 2,
+    CV : 3
 };
 
 export const Sections = [
     {
         name : 'About',
         iconPath : mdiHumanGreeting,
-        getTooltipText : () => menus.main.about,
+        getTooltipText : () => 'About',
         basePath : '/',
     },
     {
         name : 'Projects',
         iconPath : mdiBriefcase,
-        getTooltipText : ()=> menus.main.projects,
+        getTooltipText : ()=> 'Projects',
         basePath : '/projects'
     },
     {
         name : 'Misc',
         iconPath : mdiDiceMultiple,
-        getTooltipText : ()=> menus.main.misc,
-        basePath       : '/misc'
+        getTooltipText : ()=> 'Miscellaneous',
+        basePath : '/misc'
     },
     {
-        name            : 'CV',
+        name : 'CV',
         iconPath : mdiFileDocumentBox,
-        getTooltipText  : ()=> menus.main.cv,
-        basePath        : '/cv'
+        getTooltipText  : ()=> 'CV',
+        basePath : '/cv'
     }
 ];
 

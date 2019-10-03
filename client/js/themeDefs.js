@@ -1,9 +1,10 @@
 import C from 'color';
 import { createMuiTheme } from '@material-ui/core/styles';
-import pink from '@material-ui/core/colors/pink';
 import grey from '@material-ui/core/colors/grey';
 import deepMerge from 'utils/themer/deepMerge';
 import createDerivedTheme from 'utils/themer/createDerivedTheme';
+
+console.log('grey ->', grey);
 
 let themeDefs = {
     light : [],
@@ -64,7 +65,7 @@ themeDefs.light.push({
     palette : {
         type : 'light',
         primary : {
-            main : grey['900'],
+            main : '#212121',
             dark : '#000'
         },
         secondary : {
@@ -105,8 +106,8 @@ themeDefs.dark.push({
     type : 'dark',
     palette : {
         primary : {
-            main : grey['A100'],
-            dark : grey['800']
+            main : '#d5d5d5',
+            dark : '#424242'
         },
         secondary : {
             main : '#ec407a',
