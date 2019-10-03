@@ -28,7 +28,7 @@ function createDirAliases (subPath) {
 }
 
 const rootJSAliases = createDirAliases('client/js');
-const reduxAliases  = createDirAliases('client/js/modules');
+const reduxAliases = createDirAliases('client/js/modules');
 
 module.exports = {
   entry : {
@@ -148,7 +148,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { 
         from    : './client/**/*.*',
-        to      : '',
+        to : '',
         transformPath : (targetPath, sourcePath) => {
           // cut off 'client/' from path
           return targetPath.substr(7);
