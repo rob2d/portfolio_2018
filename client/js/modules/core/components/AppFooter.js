@@ -72,7 +72,7 @@ export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
             />
             <ContactButton
                 iconPath={ rc3NpmBox }
-                url={'https://www.npmjs.com/~robftw'}
+                url={ 'https://www.npmjs.com/~robftw' }
                 tooltipContent={ <>Browse my <b>NPM</b> repos</> }
             />
             <ContactButton
