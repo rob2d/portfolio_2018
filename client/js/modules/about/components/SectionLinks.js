@@ -1,6 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { menus as menuStrings } from 'strings';
 import { isLandscape, isPortrait } from 'utils';
 import { ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
@@ -110,7 +109,7 @@ export default function SectionLinks ({ vpW, vpH }) {
     return (
         <ul className={ classes.sectionList }>
             <SectionLink 
-                name={ menuStrings.main.projects } 
+                name={ 'Projects' } 
                 iconPath={ mdiBriefcase } 
                 url={ '/projects' } 
             />
@@ -121,7 +120,7 @@ export default function SectionLinks ({ vpW, vpH }) {
                 { ...sectionLinkProps }
             /> 
             <SectionLink
-                name={ menuStrings.main.cv }
+                name={ 'CV' }
                 iconPath={ mdiFileDocumentBox }
                 url={ '/cv' }
                 { ...sectionLinkProps }

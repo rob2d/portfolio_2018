@@ -74,9 +74,6 @@ const styles = ({ palette : { secondary, common } }) => ({
         bottom : '0',
         zIndex : '1000'
     },
-    circularProgress : {
-        color : '#FFFFFF'
-    },
     '@media (max-width:400px)' : {
         caption : {
             fontSize :'8pt !important'
@@ -317,7 +314,7 @@ class MediaViewer extends PureComponent {
                 { isMediaLoading &&
                 (<div className={ classes.loader }>
                     <CircularProgress 
-                        classes={{ colorPrimary : classes.circularProgress }}
+                        color='secondary'
                         size={ (vpW <= 800) ? 40 : 64 }
                     />
                 </div>) }

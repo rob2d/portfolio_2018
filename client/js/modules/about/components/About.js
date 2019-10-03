@@ -3,11 +3,9 @@ import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
-import { about as strings } from 'strings';
 import { isPortrait, withFadeTransitions } from 'utils';
 import { ButtonLink } from 'utils/components';
 import SectionLinks from './SectionLinks';
-//import SkillsOrbit from './SkillsOrbit.1';
 
 const useStyles = makeStyles(({ 
     palette : { secondary, common, text } 
@@ -214,8 +212,8 @@ export default withFadeTransitions(function About ({ theme, fadeContainerClass }
                     <Tech url={ 'https://redux.js.org' }>Redux</Tech>
                     <Tech url={'https://threejs.org'}>THREE.js</Tech> 
                     <Tech url={'https://nodejs.org'}>Node</Tech> 
-                    <Tech url={'https://webpack.js.org/'}>Webpack</Tech>
-                    { strings.andDeployedUsing }
+                    <Tech url={'https://webpack.js.org/'}>Webpack</Tech>&nbsp;
+                    and deployed via&nbsp;
                     <Tech url={'http://nginx.org'}>NginX</Tech> and&nbsp; 
                     <Tech url={'http://pm2.keymetrics.io/'}>PM2</Tech>. 
                     I am always trying to evolve my workflow and understanding of things.. so 

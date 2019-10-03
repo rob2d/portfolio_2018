@@ -1,8 +1,8 @@
-import React, { memo } from 'react'
-import { makeStyles } from '@material-ui/styles'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import React from 'react';
+import { makeStyles } from '@material-ui/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles( ()=> ({
     container : {
         position : 'relative',
         display : 'flex',
@@ -18,7 +18,7 @@ const useStyles = makeStyles( theme => ({
     }
 }), 'LoadingComponent');
 
-function LoadingComponent ({ error, size=64 }) {
+export default function LoadingComponent ({ error, size=64 }) {
     const classes = useStyles({ error, size });
 
     if(error) {
@@ -30,11 +30,9 @@ function LoadingComponent ({ error, size=64 }) {
             <div className={ classes.container }>
                 <CircularProgress 
                     size={ size } 
-                    color='accent' 
+                    color={ 'secondary' } 
                 />
             </div>
         );
     }
 }
-
-export default memo(LoadingComponent)
