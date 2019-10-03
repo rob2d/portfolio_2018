@@ -1,6 +1,6 @@
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const TerserPlugin = require('terser-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
@@ -77,18 +77,25 @@ if(args && args.export_standalone) {
   console.log(`Creating an exportable production build at:\n\t${buildDir}`);
 
   config.plugins.push(
-    new CopyWebpackPlugin([
-      { 
-        from : 'server/public/**', 
-        to   : path.join(global.basePath, buildDir)
-      }, { 
-        from : 'server/*.js', 
-        to   : path.join(global.basePath, buildDir)
+    new FileManagerPlugin({
+      onStart : {
+        delete : ['server/public/**']
       },
-      {
-        from : 'package.json',
-        to   : path.join(global.basePath, buildDir, 'package.json')
-      }])
+      onEnd : { 
+        copy : [
+        { 
+          source : 'server/public/**', 
+          destination   : path.join(global.basePath, buildDir)
+        }, { 
+          source : 'server/*.js', 
+          destination   : path.join(global.basePath, buildDir)
+        },
+        {
+          source : 'package.json',
+          destination   : path.join(global.basePath, buildDir, 'package.json')
+        }]
+      }
+    })
   );
 
   // TODO : add args.zip flag for convenience
