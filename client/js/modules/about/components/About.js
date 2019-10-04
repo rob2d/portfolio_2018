@@ -25,14 +25,12 @@ const useStyles = makeStyles(({
 
     centerContent : {
         display : 'inline-block',
-        fontFamily : 'roboto_regular',
         color : text.primary,
         verticalAlign : 'top',
         fontSize : '12pt',
         lineHeight : '1.3rem',
         wordWrap : 'break-word',
         textAlign : 'left',
-        fontFamily : 'roboto_light',
         letterSpacing : '0.01rem',
 
         '@media (min-width:901px)' : {

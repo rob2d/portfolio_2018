@@ -10,7 +10,7 @@ import {
     mdiNote
 } from '@mdi/js'
 
-const useStyles = makeStyles(({ palette : { type } }) => ({
+const useStyles = makeStyles(({ palette : { common, secondary, type, text } }) => ({
     mainContainer : {
         marginLeft : 'auto',
         marginRight : 'auto',
@@ -46,41 +46,39 @@ const useStyles = makeStyles(({ palette : { type } }) => ({
         transition : 'filter 0.32s'
     },
     rambling : {
-        padding   : '8px 0px',
-        width     : '292px',
+        padding : '8px 0px',
+        width : '292px',
         textAlign : 'left',
-        margin    : '0 auto',
-        color     : ((type == 'light') ? 
-            '#000000' : '#FFFFFF'
-        ),
+        margin : '0 auto',
+        color : text.primary,
         transition : 'all 0.32s'
     },
     itemTitle : {
-        display      : 'flex !important',
-        direction    : 'row !important',
-        paddingLeft  : '8px !important',
-        paddingRight : '8px !important',
-        fontSize     : '12pt !important',
-        transition   : 'color 0.2s !important',
+        display : 'flex',
+        direction : 'row',
+        paddingLeft : '8px',
+        paddingRight : '8px',
+        fontSize : '12pt',
+        transition : 'color 0.2s',
         '&:hover $itemTitleText' : {
-            color : '#ff4081 !important'
+            color : `${secondary.main} !important`
         },
         '&:active $itemTitleText' : {
-            color : '#00b8d4 !important'
+            color : `${common.active} !important`
         }
     },
     itemTitleText : {
         flexGrow : 1,
         textAlign : 'left',
-        fontFamily : 'roboto_bold',
-        color : '#c51162'
+        color : secondary.dark,
+        fontWeight : 700
     },
     itemTypeIcon : {
         display : 'flex',
         maxWidth : '32px',
         marginRight : '16px',
-        fill : (type == 'light') ? '#000' : '#FFF',
-        alignItems     : 'center',
+        fill : text.primary,
+        alignItems : 'center',
         justifyContent : 'center',
         transition : 'all 0.32s'
     },
@@ -132,7 +130,7 @@ export default function Miscellaneous () {
                         Characteristics of an Ideal React Architecture
                     </p>
                     </ButtonLink>
-                    <Ramblings ramblings={ [
+                    <Ramblings ramblings={[
                         <span style={{ color : DISCLAIMER_C }}>
                         <b>Note (Sep '19):</b> at this point in time, this is pretty outdated 
                         from what I would recommend today with a new project -- 80+% may hold 

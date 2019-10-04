@@ -125,9 +125,8 @@ export default makeStyles(({ palette : { type }}) => ({
            fontSize : p => (!p.viewAsTitle) ? '16pt' : '20pt' // iPhone5
         },
         paddingLeft : '16px',
-        fontFamily : 'roboto_bold',
+        fontWeight : 700,
         fontSize : p => p.viewAsTitle ? '24pt' : '16pt',
-        fontWeight : p => p.viewAsTitle ? 700 : 500,
         marginTop : '0px',
         marginBottom : '0px',
         color : p => ((type=='light') && 
@@ -142,7 +141,6 @@ export default makeStyles(({ palette : { type }}) => ({
         width : '100%',
         paddingLeft : '16px',
         fontSize : '12.5pt',
-        fontFamily : 'roboto_regular',
         fontWeight : p => p.viewAsTitle ? 700 : 500,
         color :  p => ((type != ('light')) && '#FFF' ||
             (!p.viewAsTitle? '#FFF':'#000')

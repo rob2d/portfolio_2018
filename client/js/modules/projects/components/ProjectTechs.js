@@ -8,43 +8,30 @@ import C from 'color';
 const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
     techContainer : {
         margin : '4px',
-        '&:hover $techText' : {
-            color : secondary.main
+        '& *' : {
+            fill : `${text.primary} !important`,
+            stroke : `${text.primary} !important`,
+            transition: 'background-color 0.35s ease'  
         },
-        '&:active $techText' : {
-            color : common.active
+        '&:hover *' : {
+            fill : `${common.white} !important`,
+            stroke : `${common.white} !important`
+        },
+        '&:hover $techIcon' : {
+            backgroundColor : secondary.main,
+        },
+        '&:active $techIcon' : {
+            backgroundColor : common.active
         }
-    },
-    techText : {
-        fontSize : '12pt',
-        fontFamily : 'roboto_bold'
     },
     techIcon : {
         width : '64px',
         height : '64px',
-        transition: 'background-color 0.35s ease',
-        backgroundColor : C(common.contrast).alpha(0).rgba+'',
         borderRadius : '4px',
-        '&:hover' : {
-            backgroundColor : secondary.main
-        },
-
-        '&:active' : {
-            backgroundColor : common.active
-        },
-        
+        backgroundColor : C(common.contrast).alpha(0).rgb()+'',
         '@media(max-width:800px)' : {
             width : '48px',
             height : '48px'
-        },
-
-        '& polygon, & circle, & path' : {
-            fill : `${text.primary} !important`,
-            transition: 'fill 0.35s ease'
-        },
-
-        '&:hover path, &:hover circle, &:hover polygon' : {
-            fill : `${common.white} !important`
         }
     }
 }), { name : 'ProjectTechs' });
@@ -52,7 +39,7 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
 export default function ProjectTechs({ techSet }) { 
     const classes = useStyles({ techSet });
 
-    return Array.from(techSet).map( (tKey,i,arr) => {
+    return Array.from(techSet).map((tKey,i,arr) => {
         const { 
             displayName, 
             referenceUrl 

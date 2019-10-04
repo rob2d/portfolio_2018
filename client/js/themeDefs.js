@@ -1,10 +1,7 @@
 import C from 'color';
 import { createMuiTheme } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
 import deepMerge from 'utils/themer/deepMerge';
 import createDerivedTheme from 'utils/themer/createDerivedTheme';
-
-console.log('grey ->', grey);
 
 let themeDefs = {
     light : [],
@@ -23,7 +20,6 @@ const commonRules = {
         },
         MuiTypography : {
             body1 : {
-                fontFamily : 'roboto_light',
                 fontSize : '0.95rem'
             }
         },
@@ -95,7 +91,6 @@ themeDefs.light.push({
         },
         MuiTypography : {
             body1 : {
-                fontFamily : 'roboto_light',
                 fontSize : '0.95rem'
             }
         }
@@ -136,7 +131,6 @@ themeDefs.dark.push({
         },
         MuiTypography : {
             body1 : {
-                fontFamily : 'roboto_light',
                 fontSize : '0.95rem'
             }
         }

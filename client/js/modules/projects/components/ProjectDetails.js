@@ -53,10 +53,6 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         paddingLeft : '16px',
         paddingRight : '16px'
     },
-    title : {
-        fontSize : '22pt',
-        textAlign : 'left'
-    },
     description : {
         fontSize : '13pt',
         textAlign : 'left',
@@ -126,7 +122,7 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         fontSize : '14pt',
         textAlign : 'left',
         color : secondary.dark,
-        fontFamily : 'roboto_bold',
+        fontWeight : 700,
         fontSize : '12pt'
     },
     section : {
@@ -134,7 +130,6 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         color : text.primary
     },
     sectionHeader : {
-        fontFamily : 'roboto_bold',
         fontSize : '14pt',
         fontWeight : 700,
         textAlign : 'left',
@@ -152,9 +147,8 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         paddingLeft : '8px',
         paddingRight : '16px',
         paddingTop : '8px',
-        fontWeight : 'bold',
-        textAlign : 'left',
-        fontFamily : 'roboto_bold'
+        fontWeight : 700,
+        textAlign : 'left'
     },
     linkContainer : {
         display : 'flex !important',
@@ -176,13 +170,13 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         fill : text.primary,
         fontSize : '12pt'
     },
-    // TODO : use a global style/theme for this,
+
     linkText : {
         margin : '12px 0px',
         padding : '0px',
         color : secondary.dark,
-        fontFamily : 'roboto_bold',
         fontSize : '12pt',
+        fontWeight : 700,
         textAlign : 'left'
     }
 }));
