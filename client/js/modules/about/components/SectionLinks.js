@@ -9,22 +9,16 @@ import {
     mdiFileDocumentBox
 } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette : { text } }) => ({
+const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
     sectionList : {
         paddingLeft : p => !isPortrait(p.vpW, p.vpH)?'16px':'0px',
         paddingRight : p => !isPortrait(p.vpW, p.vpH)?'16px':'0px',
-        paddingTop    : '8px',
+        paddingTop : '8px',
         paddingBottom : '0px',
-        textAlign     : 'left',
+        textAlign : 'left',
         paddingInlineStart : p => {
-            if(isPortrait(p.vpW, p.vpH)) {
-                return '0px';
-            } 
-            else if(isLandscape(p.vpW, p.vpH)) {
-                return '16px';
-            } else {
-                return '40px';
-            }
+            if(isPortrait(p.vpW, p.vpH)) { return '0px' } 
+            else return `${isLandscape(p.vpW, p.vpH)? 6:40}px`
         },
         position : 'relative',
         left : p => {
@@ -40,21 +34,21 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
         display : p => `${isLandscape(p.vpW,p.vpH)?'inline-':''}block`,
         padding : '8px',
         '&:hover $listItem' : {
-            color : '#ff4081'
+            color : secondary.main
         },
         '&:active $listItem' : {
-            color : '#00b8d4'
+            color : common.active
         },
         '&:nth-of-type(odd)': {
-            left : p => `${isPortrait(p.vpW,p.vpH)?'-12':'0'}px`
+            left : p => `${isPortrait(p.vpW,p.vpH)?-12:0}px`
         }
     },
     listItem : {
         display : 'flex',
         listStyleType : 'none',
         cursor : 'pointer',
-        color : '#c51162',
-        fontFamily : 'roboto_bold',
+        color : secondary.dark,
+        fontWeight : 700,
         fontSize : '11pt',
         minWidth : p => (
             (!isPortrait(p.vpW, p.vpH) && 
@@ -87,9 +81,6 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
 
 export default function SectionLinks ({ vpW, vpH }) {
     const classes = useStyles({ vpW, vpH })
-    const sectionLinkProps = useMemo(()=> ({
-        vpW, vpH, classes
-    }, [vpW, vpH, classes]));
 
     const isInLandscape = isLandscape(vpW, vpH);
 
@@ -117,13 +108,11 @@ export default function SectionLinks ({ vpW, vpH }) {
                 name={ isInLandscape ? 'Misc' : 'Miscellaneous' } 
                 iconPath={ mdiDiceMultiple } 
                 url={ '/misc' } 
-                { ...sectionLinkProps }
             /> 
             <SectionLink
                 name={ 'CV' }
                 iconPath={ mdiFileDocumentBox }
                 url={ '/cv' }
-                { ...sectionLinkProps }
             />
         </ul>
     );

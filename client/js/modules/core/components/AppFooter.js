@@ -3,14 +3,15 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import appHistory from 'utils/appHistory';
-import withFadeTransitions from 'utils/withFadeTransitions';
 import { Icon } from '@mdi/react';
 import { 
     mdiGithubBox,
     mdiGmail,
     mdiLinkedinBox
 } from '@mdi/js';
+import appHistory from 'utils/appHistory';
+import withFadeTransitions from 'utils/withFadeTransitions';
+import { rc3NpmBox } from 'utils/icon-paths';
 
 const useStyles = makeStyles(({ 
     palette : { secondary, common, text } 
@@ -21,11 +22,9 @@ const useStyles = makeStyles(({
         flexDirection  : 'column',
         height : '100%',
         '&:hover $icon': {
-            color : secondary.dark,
             fill : secondary.dark
         },
         '&:active $icon': {
-            color : common.active,
             fill : common.active
         }
     },
@@ -34,28 +33,17 @@ const useStyles = makeStyles(({
     },
     icon : {
         fontSize : '18pt',
-        color : text.secondary,
         fill : text.secondary,
-        transition : 'color 0.24s ease-in',
         lineHeight : '42px',
         minHeight : '42px',
-        transition : 'color 0.48s ease, fill 0.48s ease'
+        transition : 'color 0.24s ease, fill 0.48s ease'
     }
 }), { name : 'ContactButton' });
 
 export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
     const classes = useStyles();
 
-    const ContactButton = useCallback(({ url, iconClass, iconPath, tooltipContent }) => {
-        const icon = ( iconClass ? 
-            (<i className={ clsx(iconClass, classes.icon) } />) : 
-            (<Icon 
-                className={ classes.icon } 
-                path={ iconPath } 
-                size={ 1 }  
-            />)
-        );
-
+    const ContactButton = useCallback(({ url, iconPath, tooltipContent }) => {
         const onMouseDown = useCallback( e => appHistory.goTo(url, e), [url]);
 
         return (
@@ -65,7 +53,11 @@ export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
                 ><Button
                     className={ classes.contactButton }
                     onMouseDown={ onMouseDown }
-                >{ icon }
+                ><Icon 
+                    className={ classes.icon } 
+                    path={ iconPath } 
+                    size={ 1 }  
+                />
                 </Button>
             </Tooltip>
         );
@@ -79,8 +71,8 @@ export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
                 tooltipContent={ <>Visit my <b>Github</b></> }
             />
             <ContactButton
-                iconClass={'rc3 rc3-npm-box'}
-                url={'https://www.npmjs.com/~robftw'}
+                iconPath={ rc3NpmBox }
+                url={ 'https://www.npmjs.com/~robftw' }
                 tooltipContent={ <>Browse my <b>NPM</b> repos</> }
             />
             <ContactButton

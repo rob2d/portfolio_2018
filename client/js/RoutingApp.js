@@ -15,9 +15,12 @@ const ANIM_DURATION_S = '0.32';
 
 const useStyles = makeStyles(({ palette : { common } }) => ({
     '@global' : {
-        body : {
+        'html,body' : {
+            fontFamily: `'Roboto', sans-serif`,
+            fontWeight : 300,
             backgroundColor : common.background1, 
-            transition : `background-color ${ANIM_DURATION_S}s ease`
+            transition : `background-color ${ANIM_DURATION_S}s ease`,
+            padding : 0
         }
     },
     appWrapper : {

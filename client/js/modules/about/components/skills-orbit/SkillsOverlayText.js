@@ -33,7 +33,7 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
         flexDirection : 'row',
         width : '75%',
         justifyContent : 'flex-start',
-        fontFamily : 'roboto_light',
+        fontWeight : 300,
         fontSize : '11pt'
     },
     value : {
@@ -41,7 +41,6 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
         flexDirection  : 'row',
         width : '25%',
         justifyContent : 'flex-end',
-        fontFamily : 'roboto_regular',
         fontSize : '11pt'
     }
 }));

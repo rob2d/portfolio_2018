@@ -74,10 +74,11 @@ const sources = {
         type : 'text2d',
         unmapped : true,
         generateParams : ({ value, theme }) => ({
-            align     : textAlign.center, 
-            font      : `${6+Math.round(34*value)}px roboto_bold`, 
+            align : textAlign.center, 
+            fontSize : `${6+Math.round(34*value)}px`,
+            fontWeight : 700, 
             fillStyle : (theme == 'light') ? '#333333' : '#FFFFFF',
-            side      : DoubleSide,
+            side : DoubleSide,
             depthTest : false
         })
     },
