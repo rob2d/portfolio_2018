@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = makeStyles( ()=> ({
+const useStyles = makeStyles( () => ({
     container : {
         position : 'relative',
         display : 'flex',
@@ -18,7 +18,7 @@ const useStyles = makeStyles( ()=> ({
     }
 }), 'LoadingComponent');
 
-export default function LoadingComponent ({ error, size=64 }) {
+export default function LoadingComponent({ error, size=64 }) {
     const classes = useStyles({ error, size });
 
     if(error) {
@@ -28,9 +28,9 @@ export default function LoadingComponent ({ error, size=64 }) {
     else {
         return (
             <div className={ classes.container }>
-                <CircularProgress 
-                    size={ size } 
-                    color={ 'secondary' } 
+                <CircularProgress
+                    size={ size }
+                    color={ 'secondary' }
                 />
             </div>
         );

@@ -6,6 +6,7 @@ const { Sections } = AppSections;
 const SITE_NAME = `Robert Concepción III`;
 
 const routeTitleMapper = store => next => action => {
+
     // if we detect an action of route changing,
     // label section appropriately
 

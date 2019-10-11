@@ -57,6 +57,7 @@
             "before" : true,
             "after" : true
         }],
+        "no-confusing-arrow" : 0,
         "space-before-blocks" : [2, "always"],
         "no-param-reassign" : 0,
         "padded-blocks" : 0,
@@ -77,14 +78,25 @@
             "children": "never"
         }],
         "react/jsx-indent-props" : [2, "first"],
-        "react/jsx-curly-spacing" : [ 2, { "when" : "always" } ],
+        "react/jsx-curly-spacing" : [2, {
+            "when" : "always",
+            "spacing" : {
+                "objectLiterals" : "never"
+            }
+        }],
+        "jsx-a11y/no-static-element-interactions" : 0,
         "react/jsx-closing-tag-location" : 0,
         "react/jsx-closing-bracket-location" : 0,
         "object-curly-newline" : 0,
         "object-property-newline" : 0,
         "react/no-unescaped-entities" : 0,
         "react-hooks/exhaustive-deps" : 0,
-        "no-restricted-syntax" : 0
+        "no-restricted-syntax" : 0,
+        "import/no-dynamic-require": 0,
+        "import/newline-after-import" : 0,
+        "import/prefer-default-export" : 0,
+        "global-require": 0,
+        "spaced-comment" : 0
     },
     "env" : {
         "jest" : true,
