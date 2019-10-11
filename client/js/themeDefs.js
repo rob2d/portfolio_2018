@@ -3,19 +3,24 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import deepMerge from 'utils/themer/deepMerge';
 import createDerivedTheme from 'utils/themer/createDerivedTheme';
 
-let themeDefs = {
-    light : [],
-    dark : []
-};
+const themeDefs = { light : [], dark : [] };
 
 const commonRules = {
     overrides : {
         MuiTooltip : {
             popper : {
                 fontSize : '11pt',
-                padding  : '4px 8px',
-                minHeight: '20px',
-                lineHeight: '20px'
+                padding : '4px 8px',
+                minHeight : '20px',
+                lineHeight : '20px',
+                opacity : 0.74
+            },
+            tooltip : {
+                fontSize : '11pt',
+                padding : '4px 8px',
+                letterSpacing : '0.04rem',
+                minHeight : '20px',
+                lineHeight : '20px'
             }
         },
         MuiTypography : {
@@ -30,7 +35,7 @@ const commonRules = {
                 transition : '0.5s all'
             },
             positionFixed : {
-                
+
                 // started off with previous version,
                 // so this keeps things playing nicely
 
@@ -40,18 +45,6 @@ const commonRules = {
         MuiPaper : {
             elevation1 : { // for card anims
                 boxShadow : 'none'
-            }
-        },
-        MuiTooltip : {
-            tooltip : {
-                fontSize : '11pt',
-                padding  : '4px 8px',
-                letterSpacing : '0.04rem',
-                minHeight: '20px',
-                lineHeight: '20px'
-            },
-            popper : {
-                opacity : 0.74
             }
         }
     }
@@ -145,20 +138,20 @@ Object.keys(themeDefs).forEach( type => {
     themeDefs[type][0].palette.type = type;
 
     // apply rules in common
-    
+
     themeDefs[type][0] = deepMerge(
-        commonRules, 
+        commonRules,
         themeDefs[type][0]
     );
-    
+
 });
 
-// generate next layer rules based 
-// on themes/common definitions 
+// generate next layer rules based
+// on themes/common definitions
 
 Object.keys(themeDefs).forEach( type => {
-    const [{ 
-        palette : { primary, secondary, common, text } 
+    const [{
+        palette : { primary, secondary, common, text }
     }] = themeDefs[type];
 
     themeDefs[type].push({
@@ -167,11 +160,11 @@ Object.keys(themeDefs).forEach( type => {
                 colorPrimary : {
                     backgroundColor : primary.dark,
                     '& .MuiButton-root' : {
-                        backgroundColor : C(common.white).alpha(0).rgb()+'',
+                        backgroundColor : `${C(common.white).alpha(0).rgb()}`,
                         transition : 'background-color 0.40s ease'
                     },
                     '& .MuiButton-root:hover' : {
-                        backgroundColor : C(common.white).alpha(0.16).rgb()+'',
+                        backgroundColor : `${C(common.white).alpha(0.16).rgb()}`,
                     }
                 }
             },
@@ -188,8 +181,8 @@ Object.keys(themeDefs).forEach( type => {
                     backgroundColor : common.background1
                 },
                 elevation4 : {
-                    boxShadow : `0px 2px 4px -1px ${C(common.shadow).alpha(0.2)}, ` + 
-                                `0px 4px 5px 0px ${C(common.shadow).alpha(0.14)}, ` + 
+                    boxShadow : `0px 2px 4px -1px ${C(common.shadow).alpha(0.2)}, ` +
+                                `0px 4px 5px 0px ${C(common.shadow).alpha(0.14)}, ` +
                                 `0px 1px 10px 0px ${C(common.shadow).alpha(0.12)}`
                 }
             },
@@ -199,7 +192,7 @@ Object.keys(themeDefs).forEach( type => {
                 }
             }
         }
-    })
+    });
 });
 
 const themes = {};
@@ -218,5 +211,5 @@ const getTheme = theme => {
     return themes[theme];
 };
 
-export default { themes, themeDefs, getTheme }
-export { themes, themeDefs, getTheme }
+export default { themes, themeDefs, getTheme };
+export { themes, themeDefs, getTheme };

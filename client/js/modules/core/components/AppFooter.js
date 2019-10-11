@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Icon } from '@mdi/react';
-import { 
+import {
     mdiGithubBox,
     mdiGmail,
     mdiLinkedinBox
@@ -13,9 +13,7 @@ import appHistory from 'utils/appHistory';
 import withFadeTransitions from 'utils/withFadeTransitions';
 import { rc3NpmBox } from 'utils/icon-paths';
 
-const useStyles = makeStyles(({ 
-    palette : { secondary, common, text } 
-}) => ({
+const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
     contactButton : {
         display : 'inline-flex',
         justifyContent : 'center',
@@ -44,19 +42,18 @@ export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
     const classes = useStyles();
 
     const ContactButton = useCallback(({ url, iconPath, tooltipContent }) => {
+        ContactButton.displayMode = 'ContactButton';
         const onMouseDown = useCallback( e => appHistory.goTo(url, e), [url]);
 
         return (
-            <Tooltip
-                enterDelay={ 350 }
-                title={ tooltipContent }
-                ><Button
+            <Tooltip enterDelay={ 350 } title={ tooltipContent }>
+                <Button
                     className={ classes.contactButton }
                     onMouseDown={ onMouseDown }
-                ><Icon 
-                    className={ classes.icon } 
-                    path={ iconPath } 
-                    size={ 1 }  
+                ><Icon
+                    className={ classes.icon }
+                    path={ iconPath }
+                    size={ 1 }
                 />
                 </Button>
             </Tooltip>
@@ -87,4 +84,4 @@ export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
             />
         </div>
     );
-})
+});

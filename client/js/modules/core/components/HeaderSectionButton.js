@@ -30,27 +30,28 @@ const useStyles = makeStyles(({ palette : { common } }) => ({
     }
 }), 'HeaderSectionButton');
 
-export default function HeaderSectionButton({ 
-    onClick, domId, name, 
-    iconPath, tooltipText, 
+export default function HeaderSectionButton({
+    onClick, domId, name,
+    iconPath, tooltipText,
     buttonDivRef, disabled
-}){ 
+}) {
     const classes = useStyles();
 
     return (
-        <div 
-            ref={ buttonDivRef } 
+        <div
+            ref={ buttonDivRef }
             className={ classes.container }
         >
             <Tooltip
                 enterDelay={ 400 }
                 title={ tooltipText }
             >
-                <Button className={ classes.button }
+                <Button
+                    className={ classes.button }
                     disabled={ disabled }
                     id={ domId }
                     onMouseDown={ onClick }
-                    variant='text'
+                    variant={ 'text' }
                 >
                     <Icon
                         path={ iconPath }
@@ -59,5 +60,5 @@ export default function HeaderSectionButton({
                 </Button>
             </Tooltip>
         </div>
-    )
-};
+    );
+}
