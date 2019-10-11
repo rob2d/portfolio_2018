@@ -1,9 +1,9 @@
-import MediaTypes from 'constants/MediaTypes'
+import MediaTypes from 'constants/MediaTypes';
 
 // simple function to quickly generate
 // new rows of images
 function generateMediaImages(projectId, mediaCount) {
-    let mediaImages = [];
+    const mediaImages = [];
 
     for(let i = 0; i < mediaCount; i++) {
         mediaImages.push({
@@ -16,7 +16,7 @@ function generateMediaImages(projectId, mediaCount) {
     return mediaImages;
 }
 
-export default { 
+export default {
     'thanos_slack_files' : {
         year : '2019',
         links : ['https://www.npmjs.com/package/thanos-slack-files'],
@@ -42,7 +42,7 @@ export default {
             },
             {
                 type    : MediaTypes.VIDEO,
-                videoId : 'f58abL3nUgM'    
+                videoId : 'f58abL3nUgM'
             }
         ],
     },
@@ -58,7 +58,7 @@ export default {
         year : '2014 - 2017',
         media : generateMediaImages('smartwalk', 5),
         mediaAspectRatio : 1.79,
-        links : [ 
+        links : [
             'https://smartwalk.tech/',
             'https://app.smartwalk.tech/'
         ]
@@ -73,7 +73,7 @@ export default {
             {
                 type : MediaTypes.VIDEO,
                 videoId   : 'F91K9oWimSg'
-            }, 
+            },
             ...generateMediaImages('chinesepoker', 4)
         ],
         mediaAspectRatio : 1.662337662337662,
@@ -84,13 +84,13 @@ export default {
         media : [
             {
                 type : MediaTypes.VIDEO,
-                videoId : 'zRZOLzTaJq4'    
+                videoId : 'zRZOLzTaJq4'
             },
             {
                 type   : MediaTypes.VIDEO,
                 videoId : 'HWJy0uLVfjU'
             },
-            ...generateMediaImages('sonicphysics', 4) 
+            ...generateMediaImages('sonicphysics', 4)
         ],
         mediaAspectRatio : 1.203,
         sourceCode :    [ 'https://github.com/rob2d/sonic_gml' ],
@@ -113,18 +113,18 @@ export default {
             'http://robftwcom.appspot.com/links/cs_web_preview/webview/achievements.html'
         ]
     },
-    'bamf' : { 
+    'bamf' : {
         year : '2012',
         media : [...generateMediaImages('bamf', 4)],
         mediaAspectRatio : 1.7777,
         sourceCode : [ 'https://github.com/rob2d/bamf' ],
-        documentation : [ 
-            'http://robftwcom.appspot.com/doc/bamf_midterm_presentation.ppt', 
-            'http://robftwcom.appspot.com/doc/bamf_final_presentation.pptx' 
+        documentation : [
+            'http://robftwcom.appspot.com/doc/bamf_midterm_presentation.ppt',
+            'http://robftwcom.appspot.com/doc/bamf_final_presentation.pptx'
         ],
-        links : [ 
+        links : [
             'http://whateversoftweb.appspot.com/demo/cs3d/web/cs3d.html',
             'http://bamfapi.appspot.com/wip_versions/v2/editor/web/sprite_editor.html'
-         ] 
+         ]
     }
 };

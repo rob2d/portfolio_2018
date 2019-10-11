@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import { isLandscape, isPortrait } from 'utils';
 import { ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
-import { 
+import {
     mdiBriefcase,
     mdiDiceMultiple,
     mdiFileDocumentBox
@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
         paddingBottom : '0px',
         textAlign : 'left',
         paddingInlineStart : p => {
-            if(isPortrait(p.vpW, p.vpH)) { return '0px' } 
+            if(isPortrait(p.vpW, p.vpH)) { return '0px' }
             else return `${isLandscape(p.vpW, p.vpH)? 6:40}px`
         },
         position : 'relative',
@@ -51,8 +51,8 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
         fontWeight : 700,
         fontSize : '11pt',
         minWidth : p => (
-            (!isPortrait(p.vpW, p.vpH) && 
-            !isLandscape(p.vpW,p.vpH)) ? 
+            (!isPortrait(p.vpW, p.vpH) &&
+            !isLandscape(p.vpW,p.vpH)) ?
                 '148px' : '1px'
         ),
         textAlign : 'left',
@@ -85,13 +85,13 @@ export default function SectionLinks ({ vpW, vpH }) {
     const isInLandscape = isLandscape(vpW, vpH);
 
     const SectionLink = useCallback(({ url, name, iconPath })=> (
-            <ButtonLink 
+            <ButtonLink
                 url={ url }
                 containerClass={ classes.sectionLink }
-            >   <li className={ classes.listItem }> 
-                    <Icon 
-                        path={ iconPath } 
-                        size={ 0.75 }    
+            >   <li className={ classes.listItem }>
+                    <Icon
+                        path={ iconPath }
+                        size={ 0.75 }
                     />&nbsp;{ name }
                 </li>
             </ButtonLink>
@@ -99,16 +99,16 @@ export default function SectionLinks ({ vpW, vpH }) {
 
     return (
         <ul className={ classes.sectionList }>
-            <SectionLink 
-                name={ 'Projects' } 
-                iconPath={ mdiBriefcase } 
-                url={ '/projects' } 
+            <SectionLink
+                name={ 'Projects' }
+                iconPath={ mdiBriefcase }
+                url={ '/projects' }
             />
-            <SectionLink 
-                name={ isInLandscape ? 'Misc' : 'Miscellaneous' } 
-                iconPath={ mdiDiceMultiple } 
-                url={ '/misc' } 
-            /> 
+            <SectionLink
+                name={ isInLandscape ? 'Misc' : 'Miscellaneous' }
+                iconPath={ mdiDiceMultiple }
+                url={ '/misc' }
+            />
             <SectionLink
                 name={ 'CV' }
                 iconPath={ mdiFileDocumentBox }

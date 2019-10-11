@@ -4,10 +4,10 @@ import { getTheme } from './themeDefs';
 
 export const ThemeContext = createContext();
 
-export default function ThemeContextProvider ({ children }) {
-    const [themeType, setThemeType] = useState(()=>'light');
-    const themeApplied = useMemo(()=> getTheme(themeType), [themeType]);
-    const context = useMemo(()=> ({
+export default function ThemeContextProvider({ children }) {
+    const [themeType, setThemeType] = useState(() => 'light');
+    const themeApplied = useMemo(() => getTheme(themeType), [themeType]);
+    const context = useMemo(() => ({
         themeType, setThemeType, themeApplied
     }), [themeType, setThemeType]);
 

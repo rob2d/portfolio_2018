@@ -8,9 +8,8 @@ import RoutingApp from './RoutingApp';
 // ugly but a bit inevitable
 
 if(process.env.NODE_ENV == 'production') {
-    console.warn = function(){}; 
+    console.warn = function warn() {};
 }
 
-ReactDOM.render((
-    <RoutingApp />
-), document.getElementById('app'));
+const appElem = document.getElementById('app');
+ReactDOM.render(<RoutingApp />, appElem);

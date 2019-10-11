@@ -79,4 +79,4 @@ export default {
         displayName : 'Slack API',
         referenceUrl : 'https://api.slack.com/'
     }
-}
+};
