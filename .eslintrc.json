@@ -84,7 +84,11 @@
         "object-property-newline" : 0,
         "react/no-unescaped-entities" : 0,
         "react-hooks/exhaustive-deps" : 0,
-        "no-restricted-syntax" : 0
+        "no-restricted-syntax" : 0,
+        "import/no-dynamic-require": 0,
+        "import/newline-after-import" : 0,
+        "global-require": 0,
+        "spaced-comment" : 0
     },
     "env" : {
         "jest" : true,
