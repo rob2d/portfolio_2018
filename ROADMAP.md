@@ -8,22 +8,24 @@ Since this is just a one-man free-for-all on my free time here, just listing thi
 - scroller for text as current format is TMI for certain types
 of users.
 
-## Project Details
-- Use vertical space a bit better in the layout on wide screens.
+## Projects
+- centralize/simplify project data layouts... which has been overdue for about 2 years now ☠ (actually now W.I.P. in `refactors/merge-and-simplify-projects` locally)
+- Use vertical space a bit better in the Details layout on wide screens.
 - cache instances of YouTube player while parent still mounted so that there's no need to reload iframe
 - fix some issues with YouTube player responsiveness on some mobile devices.
 
 ## CV
-- replace PDF viewer lib with non deprecated version
-- use smoother transitions from different themes when we don't need to blit away CV div
+- re-write to use new canvas-based PDF system which is much lighter, faster and better at calculating changing heights.
+- use smoother transitions from different themes when we don't need to blit away CV div (point above satisfied)
 
-## Misc Refactors
-- deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that.
+## Misc
+- deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that. (W.I.P. -- just need to use new simple Projects data format).
 - use new hooks API to fade HOC which will improve speed + code consistency.
-- use new syntax conventions consistently: no lined-up colons, semicolons on imports, `export default function` for components, etc **(W.I.P.)**
+- apply new ESLint rules on everything for consistent syntax conventions (W.I.P.)
 
 ## Nice-to-haves
 
 - allow filtering of techs in Projects view.
-- Add a React hook for routing + classNames to create nice section 
+- Add a React hook for routing + classNames to create nice section
 scroll left/right transitions.
+- Testing (!). At least some basic coverage once current W.I.P. list is about 50% complete -- but thankfully I'm not insane and indeed regression test manually/visually inspect before any deployments.
