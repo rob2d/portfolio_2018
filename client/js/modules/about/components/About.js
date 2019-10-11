@@ -5,10 +5,11 @@ import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { isPortrait, withFadeTransitions } from 'utils';
 import { ButtonLink } from 'utils/components';
+import { useDocumentTitle } from 'utils/hooks';
 import SectionLinks from './SectionLinks';
 
-const useStyles = makeStyles(({ 
-    palette : { secondary, common, text } 
+const useStyles = makeStyles(({
+    palette : { secondary, common, text }
 }) => ({
     mainContainer : {
         marginLeft : 'auto',
@@ -61,7 +62,6 @@ const useStyles = makeStyles(({
     topContent : {
         width : '100%',
         display : 'flex',
-        justifyContent : 'center',
         alignItems : 'center',
         flexDirection : 'row',
         justifyContent : 'space-between'
@@ -99,16 +99,16 @@ const useStyles = makeStyles(({
         width : '30vh',
         height : '30vh'
     },
-    // don't want the avatar to dominate the mobile screen:   
-    ['@media (max-width: 700px) and (min-width : 341px) ' + 
-    'and (orientation:portrait)']: {        
+    // don't want the avatar to dominate the mobile screen:
+    ['@media (max-width: 700px) and (min-width : 341px) ' +
+    'and (orientation:portrait)']: {
         avatar : {
             margin : '24px auto 16px',
             width : '116px',
             height : '116px'
         }
-    },       
-    // accomodations for micro phones like iP5    
+    },
+    // accomodations for micro phones like iP5
     '@media (max-width: 340px) and (orientation:portrait)': {
         avatar : {
             margin : '16px auto 8px',
@@ -155,7 +155,7 @@ const useStyles = makeStyles(({
         },
         centerContent : {
             display : 'flex',
-            flexDirection : 'column', 
+            flexDirection : 'column',
             overflowY : 'auto',
             zIndex : 5000
         },
@@ -170,75 +170,86 @@ const useStyles = makeStyles(({
     }
 }), { name : 'About' });
 
-export default withFadeTransitions(function About ({ theme, fadeContainerClass }) {
-    const [ vpW, vpH ] = useViewportSizes();
-    const linkProps = useMemo(()=>({ vpW, vpH }), [vpW, vpH]);
-    const inPortrait = useMemo(()=> isPortrait(vpW, vpH), [vpW, vpH]);
+export default withFadeTransitions(function About({ theme, fadeContainerClass }) {
+    useDocumentTitle({ title : `${SITE_NAME} -- About` });
+    const [vpW, vpH] = useViewportSizes();
+    const linkProps = useMemo(() => ({ vpW, vpH }), [vpW, vpH]);
+    const inPortrait = useMemo(() => isPortrait(vpW, vpH), [vpW, vpH]);
     const classes = useStyles({ vpW, vpH, theme, inPortrait });
 
-    const Tech = useCallback(({ children, url })=> (
-        <ButtonLink 
-            containerClass={ classes.tech } 
-            url={ url } 
+    const Tech = useCallback(({ children, url }) => (
+        <ButtonLink
+            containerClass={ classes.tech }
+            url={ url }
             asButton={ false }
-        >{ children }
-        <span className={classes.techComma}>, </span>
+        >   { children }
+            <span className={ classes.techComma }>, </span>
         </ButtonLink>
     ), [classes.tech]);
 
     return (
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
-            <div className={ classes.firstContainer } >
+            <div className={ classes.firstContainer }>
                 <div className={ classes.topContent }>
-                    <Avatar 
-                        alt={ 'Rob' } 
-                        src="img/about/me.jpg" 
-                        className={ classes.avatar } 
+                    <Avatar
+                        alt={ 'Rob' }
+                        src={ 'img/about/me.jpg' }
+                        className={ classes.avatar }
                     />
                     <SectionLinks { ...linkProps } />
                 </div>
             </div>
 
             <div className={ classes.centerContent }>
-                <p> 
-                    Hi. My name is Rob, and I'm a software developer from NYC. 
+                <p>
+                    Hi. My name is Rob, and I'm a software developer from NYC.
                     Thanks for visiting.
                 </p>
                 <p>
                     This site was created using my stack of choice most days:&nbsp;
-                    <Tech url={'https://reactjs.com'}>React</Tech>
+                    <Tech url={ 'https://reactjs.com' }>React</Tech>
                     <Tech url={ 'https://redux.js.org' }>Redux</Tech>
-                    <Tech url={'https://threejs.org'}>THREE.js</Tech> 
-                    <Tech url={'https://nodejs.org'}>Node</Tech> 
-                    <Tech url={'https://webpack.js.org/'}>Webpack</Tech>&nbsp;
+                    <Tech url={ 'https://threejs.org' }>THREE.js</Tech>
+                    <Tech url={ 'https://nodejs.org' }>Node</Tech>
+                    <Tech url={ 'https://webpack.js.org/' }>Webpack</Tech>&nbsp;
                     and deployed via&nbsp;
-                    <Tech url={'http://nginx.org'}>NginX</Tech> and&nbsp; 
-                    <Tech url={'http://pm2.keymetrics.io/'}>PM2</Tech>. 
-                    I am always trying to evolve my workflow and understanding of things.. so 
+                    <Tech url={ 'http://nginx.org' }>NginX</Tech> and&nbsp;
+                    <Tech url={ 'http://pm2.keymetrics.io/' }>PM2</Tech>.
+                    I am always trying to evolve my workflow and understanding of things.. so
                     hopefully the experience here is not aging too badly 🙃
                 </p>
                 <p>
-                    A little about me and why this page exists: I have always been a curious person who grew up dabbling
-                    a lot of introverted hobbies which included: creating websites, videogames, apps, and designing UIs 
-                    (all of which are things I still love today and all of which there isn't enough time in the day for). 
-                    This site is a small collection of mostly self-driven projects that I wish I had more time to devote 
-                    to (the ones which made it somewhere beyond the drawing board). 
-                    You probably won't find the most beautiful code on this portfolio itself since I spend most of my 
-                    energy at work -- or, at fun, or on hobbies, or just being a human and doing those things that they do, 
-                    but I do try to update here and there.
+                    A little about me and why this page exists: I have always
+                    been a curious person who grew up dabbling a lot of
+                    introverted hobbies which included: creating websites,
+                    videogames, apps, and designing UIs (all of which are things
+                    I still love today and all of which there isn't enough time
+                    in the day for). This site is a small collection of mostly
+                    self-driven projects that I wish I had more time to devote
+                    to (the ones which made it somewhere beyond the drawing board).
+                    You probably won't find the most beautiful code on this
+                    portfolio itself since I spend most of my energy at work --
+                    on hobbies, or just being a human and doing those things
+                    that they do, but I do try to update here and there.
                 </p>
                 <p>
-                    My background: I joined the Navy as an Electronic Technician out of highschool to get some practical experience, 
-                    grow as a person, make the best of my situation, and to take the more scenic route and so that I could
-                    also devote a lot of undivided attention to my studies and projects. Since completing graduate school in Computer 
-                    Science, I have gotten to work in a variety of industries at various capacities including power/skyscraper 
-                    infrastructure mapping and management, intellectual property, virtual reality tours, finance, as well as 
-                    consistently on my own side projects which include development tools and small applications.
+                    My background: I joined the Navy as an Electronic Technician
+                    out of highschool to get some practical experience, grow as
+                    a person, make the best of my situation, and to take the more
+                    scenic route and so that I could also devote a lot of
+                    undivided attention to my studies and projects. Since
+                    completing graduate school in Computer Science, I have
+                    gotten to work in a variety of industries at various
+                    capacities including power/skyscraper infrastructure
+                    mapping and management, intellectual property, virtual
+                    reality tours, finance, as well as consistently on my own
+                    side projects which include development tools and small applications.
                 </p>
                 <p>
-                    Intros aside, feel free to check out the other sections here which should hopefully be a lot more interesting!
+                    Intros aside, feel free to check out the other sections here
+                    which should hopefully be a lot more interesting!
                 </p>
             </div>
         </div>
     );
-})
+});

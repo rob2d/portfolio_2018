@@ -67,12 +67,11 @@
         "react/jsx-one-expression-per-line" : 0,
         "react/prop-types" : 0,
         "react/jsx-indent" : [2, 4, {
-            "checkAttributes": true,
+            "checkAttributes": false,
             "indentLogicalExpressions": true
         }],
-        "react/jsx-curly-newline" : [2, {
-            "multiline" : "consistent"
-        }],
+        "react/jsx-props-no-spreading" : 0,
+        "react/jsx-curly-newline" : 0,
         "react/jsx-curly-brace-presence" : [2, {
             "props": "always",
             "children": "never"
@@ -103,5 +102,8 @@
         "es6" : true,
         "browser" : true
     },
-    "parser" : "babel-eslint"
+    "parser" : "babel-eslint",
+    "globals": {
+        "SITE_NAME": "readonly"
+    }
 }

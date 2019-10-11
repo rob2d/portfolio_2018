@@ -1,10 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
+import { useDocumentTitle } from 'utils/hooks';
 import PDFViewer from './PDFViewer';
 
 const RESUME_URL = '/downloads/concepcion_resume_102019.pdf';
 
-const useStyles = makeStyles(()=> ({
+const useStyles = makeStyles(() => ({
     container : {
         marginLeft : 'auto',
         marginRight : 'auto',
@@ -16,7 +17,8 @@ const useStyles = makeStyles(()=> ({
     }
 }));
 
-export default function CV () {
+export default function CV() {
+    useDocumentTitle({ title : `${SITE_NAME} -- CV` });
     const classes = useStyles();
 
     return (

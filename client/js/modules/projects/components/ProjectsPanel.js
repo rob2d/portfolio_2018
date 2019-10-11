@@ -4,6 +4,7 @@ import useViewportSizes from 'use-viewport-sizes';
 import { projects } from 'strings';
 import { makeStyles } from '@material-ui/styles';
 import { appHistory, wait } from 'utils';
+import { useDocumentTitle } from 'utils/hooks';
 import projectsData from 'app-root/data/projectsData';
 import ProjectCard from './ProjectCard';
 import ProjectDetails from './ProjectDetails';
@@ -17,7 +18,7 @@ import {
     PROJECT_VIEW
 } from '../constants/DisplayStates';
 
-const useStyles = makeStyles(()=> ({
+const useStyles = makeStyles(() => ({
     container : {
         display : 'block',
         position : 'relative',
@@ -55,8 +56,8 @@ const useStyles = makeStyles(()=> ({
 }), { name : 'ProjectsPanel' });
 
 
-// TODO : gradually convert the ProjectsPanel class itself 
-// to new hooks conventions vs wrapping in a 
+// TODO : gradually convert the ProjectsPanel class itself
+// to new hooks conventions vs wrapping in a
 // container (started in ProjectsPanel2.js -- don't typically
 // do this but short on time and things work as-is)
 
@@ -70,10 +71,12 @@ class ProjectsPanel extends PureComponent {
             wasSelectionViaUI : false
         };
     }
-    componentDidUpdate (prevProps) {
+
+    componentDidUpdate(prevProps) {
         const { projectIdOfUrl } = this.props;
-        const prevProjectIdOfUrl =  prevProps.projectIdOfUrl;
-        let stateUpdates = {};
+        const { displayState } = this.state;
+        const prevProjectIdOfUrl = prevProps.projectIdOfUrl;
+        const stateUpdates = {};
 
         if(projectIdOfUrl && prevProjectIdOfUrl != projectIdOfUrl) {
             stateUpdates.displayState = PROJECT_FADE_TO;
@@ -85,7 +88,7 @@ class ProjectsPanel extends PureComponent {
 
         // update state to reflect project selected when detected
         if(!prevProjectIdOfUrl && projectIdOfUrl) {
-            wait(50).then(()=> { // wait for half sec and then jump to next phase
+            wait(50).then(() => { // wait for half sec and then jump to next phase
                 this.setState({ displayState : OFFSET_CALCULATION });
             });
         }
@@ -95,29 +98,28 @@ class ProjectsPanel extends PureComponent {
             stateUpdates.displayState = VIEW_ALL;
             stateUpdates.wasSelectionViaUI = true;
         }
-        
+
         // project selection has not changed
 
-        else {     
-
-            switch(this.state.displayState) {
-                case OFFSET_CALCULATION : 
-                    wait(200).then(()=>{
+        else {
+            switch (displayState) {
+                case OFFSET_CALCULATION :
+                    wait(200).then(() => {
                         this.setState({ displayState : AFTER_FADE_POSITIONING });
                     });
                     break;
-                
-                case AFTER_FADE_POSITIONING : 
-                    wait(200).then(()=>{
-                        window.scrollTo(0,0); 
+                case AFTER_FADE_POSITIONING :
+                    wait(200).then(() => {
+                        window.scrollTo(0,0);
                         this.setState({ displayState : PROJECT_SCROLL_UP });
                     });
                     break;
-
                 case PROJECT_SCROLL_UP :
-                    wait(50).then(()=>{ 
-                    this.setState({ displayState : PROJECT_VIEW });                    
+                    wait(50).then(() => {
+                        this.setState({ displayState : PROJECT_VIEW });
                     });
+                    break;
+                default :
                     break;
             }
         }
@@ -126,19 +128,20 @@ class ProjectsPanel extends PureComponent {
             this.setState(stateUpdates);
         }
     }
-    render () {
-        const { 
-            projectIdOfUrl, language, theme, classes, 
-            vpW, location, match 
+
+    render() {
+        const {
+            projectIdOfUrl, language, theme, classes,
+            vpW, location, match
         } = this.props;
 
-        const { 
-            displayState, 
-            wasSelectionViaUI 
+        const {
+            displayState,
+            wasSelectionViaUI
         } = this.state;
 
         const areAllShown = (
-            projectIdOfUrl && wasSelectionViaUI && 
+            projectIdOfUrl && wasSelectionViaUI &&
             displayState != PROJECT_VIEW
         ) || !projectIdOfUrl;
 
@@ -156,15 +159,15 @@ class ProjectsPanel extends PureComponent {
                             onScreen={ areAllShown || (p.id == projectIdOfUrl) }
                             displayState={ displayState }
                             isSelected={ (p.id == projectIdOfUrl) }
-                            theme={ theme } 
+                            theme={ theme }
                             wasSelectionViaUI={ wasSelectionViaUI }
                             vpW={ vpW }
                         />
                     )) }
-                    { typeof projectIdOfUrl != 'undefined' && 
+                    { typeof projectIdOfUrl != 'undefined' &&
                     (
-                        <ProjectDetails 
-                            projectId={ projectIdOfUrl } 
+                        <ProjectDetails
+                            projectId={ projectIdOfUrl }
                             fadeInDelay={ 1000 }
                         />
                     )}
@@ -176,13 +179,17 @@ class ProjectsPanel extends PureComponent {
 
 export default function ProjectsPanelContainer({ match }) {
     const [vpW, vpH] = useViewportSizes();
-    const projectIdOfUrl = useSelector(projectIdSelector); 
+    const projectIdOfUrl = useSelector(projectIdSelector);
     const location = useSelector( state => state.router.location );
-    const classes = useStyles();   
+    const classes = useStyles();
+    useDocumentTitle({
+        title : !projectIdOfUrl ?
+            `${SITE_NAME} -- Projects` : undefined
+    });
 
     return (
-        <ProjectsPanel 
-            vpW={ vpW } 
+        <ProjectsPanel
+            vpW={ vpW }
             projectIdOfUrl={ projectIdOfUrl }
             classes={ classes }
             location={ location }

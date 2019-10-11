@@ -2,7 +2,10 @@ import React, { useMemo } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
-import { useLazyComponent } from 'utils/hooks';
+import {
+    useLazyComponent,
+    useDocumentTitle
+} from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/styles';
 import { ConnectedRouter } from 'connected-react-router';
@@ -93,6 +96,8 @@ function AppContent() {
 }
 
 function RoutingApp() {
+    useDocumentTitle({ title : SITE_NAME });
+
     return (
         <Provider store={ store }>
             <ThemeContextProvider>

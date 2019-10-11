@@ -2,12 +2,6 @@ import React, { useMemo, useCallback } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { projects } from 'strings';
-import { withFadeTransitions } from 'utils';
-import { ButtonLink } from 'utils/components';
-import MediaReel from './media-reel/MediaReel';
-import ProjectTechs from './ProjectTechs';
-import projectsData from 'app-root/data/projectsData';
 import { Icon } from '@mdi/react';
 import {
     mdiArrowLeftBox,
@@ -16,11 +10,16 @@ import {
     mdiLink,
     mdiDownload
 } from '@mdi/js';
+import { projects } from 'strings';
+import { withFadeTransitions } from 'utils';
+import { ButtonLink } from 'utils/components';
+import { useDocumentTitle } from 'utils/hooks';
+import projectsData from 'app-root/data/projectsData';
+import MediaReel from './media-reel/MediaReel';
+import ProjectTechs from './ProjectTechs';
 
 const findProjectStrings = projectId => (
-    projects.projectData.find( 
-        p => p.id == projectId 
-    )
+    projects.projectData.find( p => p.id == projectId )
 );
 
 const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
@@ -64,7 +63,7 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
     // only on tablet sized device+ or certain
     // large screens in landscape should we
     // begin to justify text
-    
+
     '@media (min-width:800px)' : {
         description : {
             textAlign : 'justify !important'
@@ -111,15 +110,13 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         display : 'flex',
         alignItems : 'center',
         justifyContent : 'center',
-        margin : '0px',
-        color : '#0000CC'
+        margin : '0px'
     },
     returnText : {
         display : 'inline-block',
         cursor : 'pointer',
         marginTop : '0px',
         marginBottom : '0px',
-        fontSize : '14pt',
         textAlign : 'left',
         color : secondary.dark,
         fontWeight : 700,
@@ -182,7 +179,7 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
 }));
 
 export default withFadeTransitions(
-    function ProjectDetails ({ projectId, fadeContainerClass }) { 
+    function ProjectDetails({ projectId, fadeContainerClass }) {
         const [vpW, vpH] = useViewportSizes();
         const classes = useStyles({ projectId, vpW });
 
@@ -196,32 +193,30 @@ export default withFadeTransitions(
             sourceCodeDescriptions,
             downloadDescriptions,
             documentationDescriptions,
-            mediaAspectRatio
+            mediaAspectRatio,
+            title
         } = findProjectStrings(projectId);
-        
-        const { 
-            media, 
-            downloads, 
-            sourceCode, 
+
+        const {
+            media,
+            downloads,
+            sourceCode,
             documentation,
             links,
         } = projectsData[projectId];
 
-        const mediaItems = useMemo(()=> (
+        useDocumentTitle({ title : title && `${SITE_NAME} -- ${title}` });
+
+        const mediaItems = useMemo(() => (
             media?.length && mediaCaptions?.length ? (
-                media.map((m,i)=> 
-                    ({ ...m, caption : mediaCaptions[i] })
-                )) : media
+                media.map((m,i) => ({ ...m, caption : mediaCaptions[i] }))) :
+                media
         ), [media, mediaCaptions]);
 
         const LinkIcon = useCallback(({ path }) => (
-            <Icon
-                className={ classes.icon }
-                size={ 0.9 }
-                path={ path }
-            />
+            <Icon className={ classes.icon } size={ 0.9 } path={ path } />
         ), [classes.icon]);
-        
+
         return (
             <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
                 <div className={ classes.contentContainer }>
@@ -238,49 +233,50 @@ export default withFadeTransitions(
                         </div>
                     ) : (<></>) }
                     <div className={ classes.section }>
-                    { description?.length ? 
-                        description.map((d, i)=> (
-                            <p 
-                                className={ classes.description } 
-                                key={ `description_${i}` }
-                            >{ d }
-                            </p>
-                        )) :
-                        (  
-                            <p 
-                                className={ classes.description } 
-                                key={ `sdescription_${i}` }>
-                                { description || shortDescription }
-                            </p>
-                        )
-                    }
+                        { description?.length ?
+                            description.map((d, i) => (
+                                <p
+                                    className={ classes.description }
+                                    key={ `description_${i+1}` }
+                                >{ d }
+                                </p>
+                            )) :
+                            (
+                                <p
+                                    className={ classes.description }
+                                    key={ `sdescription` }>
+                                    { description || shortDescription }
+                                </p>
+                            )
+                        }
                     </div>
                     { media?.length ?
-                    (
-                        <div className={ classes.section }>
-                            <p className={ classes.sectionHeader }>Media</p>
-                            <p className={ classes.sectionContent }>
-                                <MediaReel 
-                                    maxWidth={ vpW * 0.80 }
-                                    width={ Math.min(Math.round(vpW * 0.80), 800) }
-                                    aspectRatio={ mediaAspectRatio }
-                                    projectId={ projectId }
-                                    media={ mediaItems }
-                                />
-                            </p>
-                        </div>
-                    ) : (<></>) }
+                        (
+                            <div className={ classes.section }>
+                                <p className={ classes.sectionHeader }>Media</p>
+                                <p className={ classes.sectionContent }>
+                                    <MediaReel
+                                        maxWidth={ vpW * 0.80 }
+                                        width={ Math.min(Math.round(vpW * 0.80), 800) }
+                                        aspectRatio={ mediaAspectRatio }
+                                        projectId={ projectId }
+                                        media={ mediaItems }
+                                    />
+                                </p>
+                            </div>
+                        ) : (<></>)
+                    }
                     { sourceCode?.length ? (
                         <div className={ classes.section }>
                             <p className={ classes.sectionHeader }>
                                 Source Code
                             </p>
                             <p className={ classes.sectionContent }>
-                                { sourceCode.map((link,i)=>(
+                                { sourceCode.map((link,i) => (
                                     <ButtonLink
                                         url={ link }
                                         containerClass={ classes.linkContainer }
-                                        key={ `sourcecode_${i}` }
+                                        key={ `sourcecode_${i+1}` }
                                     >
                                         <LinkIcon path={ mdiCodeTags } />
                                         <p className={ classes.linkText }>
@@ -297,17 +293,17 @@ export default withFadeTransitions(
                                 Documentation
                             </p>
                             <p className={ classes.sectionContent }>
-                                { documentation.map((link, i)=>(
-                                <ButtonLink 
-                                    url={ link }
-                                    containerClass={ classes.linkContainer }
-                                    key={ `doclink_${i}` }
-                                >
-                                    <LinkIcon path={ mdiNoteOutline } />
-                                    <p className={ classes.linkText }>
-                                        { documentationDescriptions[i] }
-                                    </p>
-                                </ButtonLink>
+                                { documentation.map((link, i) => (
+                                    <ButtonLink
+                                        url={ link }
+                                        containerClass={ classes.linkContainer }
+                                        key={ `doclink_${i+1}` }
+                                    >
+                                        <LinkIcon path={ mdiNoteOutline } />
+                                        <p className={ classes.linkText }>
+                                            { documentationDescriptions[i] }
+                                        </p>
+                                    </ButtonLink>
                                 )) }
                             </p>
                         </div>
@@ -318,30 +314,30 @@ export default withFadeTransitions(
                                 Downloads
                             </p>
                             <p className={ classes.sectionContent }>
-                                { downloads.map((link, i)=>(
-                                <ButtonLink 
-                                    url={ link } 
-                                    containerClass={ classes.linkContainer }
-                                    key={ `project_downloads_${i}` }
-                                >
-                                    <LinkIcon path={ mdiDownload } />
-                                    <p className={ classes.linkText }>
-                                        { downloadDescriptions[i] }
-                                    </p>
-                                </ButtonLink>
+                                { downloads.map((link, i) => (
+                                    <ButtonLink
+                                        url={ link }
+                                        containerClass={ classes.linkContainer }
+                                        key={ `project_downloads_${i+1}` }
+                                    >
+                                        <LinkIcon path={ mdiDownload } />
+                                        <p className={ classes.linkText }>
+                                            { downloadDescriptions[i] }
+                                        </p>
+                                    </ButtonLink>
                                 )) }
                             </p>
                         </div>
-                    ) : (<></>)}
+                    ) : (<></>) }
                     { links ? (
                         <div className={ classes.section }>
                             <p className={ classes.sectionHeader }>Links</p>
                             <p className={ classes.sectionContent }>
-                                { links.map((link, i)=>(
-                                    <ButtonLink 
-                                        url={ link } 
+                                { links.map((link, i) => (
+                                    <ButtonLink
+                                        url={ link }
                                         containerClass={ classes.linkContainer }
-                                        key={ `project_links_${i}` }
+                                        key={ `project_links_${i+1}` }
                                     >
                                         <LinkIcon path={ mdiLink } />
                                         <p className={ classes.linkText }>
@@ -351,11 +347,12 @@ export default withFadeTransitions(
                                 )) }
                             </p>
                         </div>
-                    ) : (<></>) }
+                    ) :
+                    (<></>) }
 
-                    <ButtonLink 
-                        containerClass={ classes.returnContainer } 
-                        url={`/projects`}
+                    <ButtonLink
+                        containerClass={ classes.returnContainer }
+                        url={ `/projects` }
                     >
                         <div className={ classes.returnIcon }>
                             <LinkIcon path={ mdiArrowLeftBox } />
@@ -367,4 +364,5 @@ export default withFadeTransitions(
                 </div>
             </div>
         );
-})
+    }
+);
