@@ -5,13 +5,12 @@ import React, {
     useState
 } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
-import { useSelector } from 'react-redux';
 import clsx from 'clsx';
+import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { visitedPathIndex } from 'app-root/selectors';
 import AppSections from 'constants/AppSections';
 import withFadeTransitions from 'utils/withFadeTransitions';
 import appHistory from 'utils/appHistory';
@@ -19,7 +18,10 @@ import ThemeButton from './ThemeButton';
 import HeaderSectionButton from './HeaderSectionButton';
 import SectionHighlighter from './SectionHighlighter';
 
-const { Sections } = AppSections;
+const {
+    Sections,
+    pathIndexLookup
+} = AppSections;
 const BUTTON_WIDTH_PX = 60;
 
 const useStyles = makeStyles(({ palette : { common } }) => ({
@@ -67,11 +69,13 @@ const SectionClickEvents = Sections.map( section => e =>
     appHistory.goTo(section.basePath, e)
 );
 
-export default withFadeTransitions(function AppHeader({ fadeContainerClass }) {
-    const pathname = useSelector( state =>
-        state.router.location.pathname
-    );
-    const pathIndex = useSelector(visitedPathIndex);
+export default function AppHeader({ fadeContainerClass }) {
+    const location = useLocation();
+    const { pathname } = location;
+    const pathIndex = useMemo(() =>
+        (typeof pathIndexLookup[pathname] !== 'undefined') ?
+            pathIndexLookup[pathname] : -1,
+    [pathname]);
 
     const [vpW, vpH] = useViewportSizes();
     const [hasInitialized, setInitialized] = useState(undefined);
@@ -158,4 +162,4 @@ export default withFadeTransitions(function AppHeader({ fadeContainerClass }) {
             </Toolbar>
         </AppBar>
     );
-});
+}

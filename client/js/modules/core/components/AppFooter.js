@@ -10,7 +10,6 @@ import {
     mdiLinkedinBox
 } from '@mdi/js';
 import appHistory from 'utils/appHistory';
-import withFadeTransitions from 'utils/withFadeTransitions';
 import { rc3NpmBox } from 'utils/icon-paths';
 
 const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
@@ -38,7 +37,7 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
     }
 }), { name : 'ContactButton' });
 
-export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
+export default function AppFooter({ fadeContainerClass }) {
     const classes = useStyles();
 
     const ContactButton = useCallback(({ url, iconPath, tooltipContent }) => {
@@ -84,4 +83,4 @@ export default withFadeTransitions(function AppFooter({ fadeContainerClass }) {
             />
         </div>
     );
-});
+}

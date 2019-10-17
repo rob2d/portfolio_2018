@@ -1,4 +1,4 @@
-import Miscellaneous   from './components/Miscellaneous'
+import Miscellaneous from './components/Miscellaneous';
 
-export default { Miscellaneous }
-export { Miscellaneous }
+export default { Miscellaneous };
+export { Miscellaneous };

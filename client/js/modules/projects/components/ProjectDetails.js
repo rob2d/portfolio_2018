@@ -11,7 +11,6 @@ import {
     mdiDownload
 } from '@mdi/js';
 import { projects } from 'strings';
-import { withFadeTransitions } from 'utils';
 import { ButtonLink } from 'utils/components';
 import { useDocumentTitle } from 'utils/hooks';
 import projectsData from 'app-root/data/projectsData';
@@ -19,7 +18,7 @@ import MediaReel from './media-reel/MediaReel';
 import ProjectTechs from './ProjectTechs';
 
 const findProjectStrings = projectId => (
-    projects.projectData.find( p => p.id == projectId )
+    projects.find( p => p.id == projectId )
 );
 
 const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
@@ -178,191 +177,190 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
     }
 }));
 
-export default withFadeTransitions(
-    function ProjectDetails({ projectId, fadeContainerClass }) {
-        const [vpW, vpH] = useViewportSizes();
-        const classes = useStyles({ projectId, vpW });
 
-        const {
-            mediaCaptions,
-            roles,
-            techSet,
-            description,
-            shortDescription,
-            linkDescriptions,
-            sourceCodeDescriptions,
-            downloadDescriptions,
-            documentationDescriptions,
-            mediaAspectRatio,
-            title
-        } = findProjectStrings(projectId);
+export default function ProjectDetails({ projectId, fadeContainerClass }) {
+    const [vpW, vpH] = useViewportSizes();
+    const classes = useStyles({ projectId, vpW });
 
-        const {
-            media,
-            downloads,
-            sourceCode,
-            documentation,
-            links,
-        } = projectsData[projectId];
+    const {
+        mediaCaptions,
+        roles,
+        techSet,
+        description,
+        shortDescription,
+        linkDescriptions,
+        sourceCodeDescriptions,
+        downloadDescriptions,
+        documentationDescriptions,
+        mediaAspectRatio,
+        title
+    } = findProjectStrings(projectId);
 
-        useDocumentTitle({ title : title && `${SITE_NAME} -- ${title}` });
+    const {
+        media,
+        downloads,
+        sourceCode,
+        documentation,
+        links,
+    } = projectsData[projectId];
 
-        const mediaItems = useMemo(() => (
-            media?.length && mediaCaptions?.length ? (
-                media.map((m,i) => ({ ...m, caption : mediaCaptions[i] }))) :
-                media
-        ), [media, mediaCaptions]);
+    useDocumentTitle({ title : title && `${SITE_NAME} -- ${title}` });
 
-        const LinkIcon = useCallback(({ path }) => (
-            <Icon className={ classes.icon } size={ 0.9 } path={ path } />
-        ), [classes.icon]);
+    const mediaItems = useMemo(() => (
+        media?.length && mediaCaptions?.length ? (
+            media.map((m,i) => ({ ...m, caption : mediaCaptions[i] }))) :
+            media
+    ), [media, mediaCaptions]);
 
-        return (
-            <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
-                <div className={ classes.contentContainer }>
-                    <div className={ classes.section }>
-                        <p className={ classes.sectionRole }>
-                            { roles }
-                        </p>
-                    </div>
-                    { techSet?.size ? (
-                        <div className={ classes.section }>
-                            <p className={ classes.sectionContent }>
-                                <ProjectTechs techSet={ techSet } />
-                            </p>
-                        </div>
-                    ) : (<></>) }
-                    <div className={ classes.section }>
-                        { description?.length ?
-                            description.map((d, i) => (
-                                <p
-                                    className={ classes.description }
-                                    key={ `description_${i+1}` }
-                                >{ d }
-                                </p>
-                            )) :
-                            (
-                                <p
-                                    className={ classes.description }
-                                    key={ `sdescription` }>
-                                    { description || shortDescription }
-                                </p>
-                            )
-                        }
-                    </div>
-                    { media?.length ?
-                        (
-                            <div className={ classes.section }>
-                                <p className={ classes.sectionHeader }>Media</p>
-                                <p className={ classes.sectionContent }>
-                                    <MediaReel
-                                        maxWidth={ vpW * 0.80 }
-                                        width={ Math.min(Math.round(vpW * 0.80), 800) }
-                                        aspectRatio={ mediaAspectRatio }
-                                        projectId={ projectId }
-                                        media={ mediaItems }
-                                    />
-                                </p>
-                            </div>
-                        ) : (<></>)
-                    }
-                    { sourceCode?.length ? (
-                        <div className={ classes.section }>
-                            <p className={ classes.sectionHeader }>
-                                Source Code
-                            </p>
-                            <p className={ classes.sectionContent }>
-                                { sourceCode.map((link,i) => (
-                                    <ButtonLink
-                                        url={ link }
-                                        containerClass={ classes.linkContainer }
-                                        key={ `sourcecode_${i+1}` }
-                                    >
-                                        <LinkIcon path={ mdiCodeTags } />
-                                        <p className={ classes.linkText }>
-                                            { sourceCodeDescriptions[i] }
-                                        </p>
-                                    </ButtonLink>
-                                )) }
-                            </p>
-                        </div>
-                    ) : <></> }
-                    { documentation ? (
-                        <div className={ classes.section }>
-                            <p className={ classes.sectionHeader }>
-                                Documentation
-                            </p>
-                            <p className={ classes.sectionContent }>
-                                { documentation.map((link, i) => (
-                                    <ButtonLink
-                                        url={ link }
-                                        containerClass={ classes.linkContainer }
-                                        key={ `doclink_${i+1}` }
-                                    >
-                                        <LinkIcon path={ mdiNoteOutline } />
-                                        <p className={ classes.linkText }>
-                                            { documentationDescriptions[i] }
-                                        </p>
-                                    </ButtonLink>
-                                )) }
-                            </p>
-                        </div>
-                    ) : (<></>) }
-                    { downloads ? (
-                        <div className={ classes.section }>
-                            <p className={ classes.sectionHeader }>
-                                Downloads
-                            </p>
-                            <p className={ classes.sectionContent }>
-                                { downloads.map((link, i) => (
-                                    <ButtonLink
-                                        url={ link }
-                                        containerClass={ classes.linkContainer }
-                                        key={ `project_downloads_${i+1}` }
-                                    >
-                                        <LinkIcon path={ mdiDownload } />
-                                        <p className={ classes.linkText }>
-                                            { downloadDescriptions[i] }
-                                        </p>
-                                    </ButtonLink>
-                                )) }
-                            </p>
-                        </div>
-                    ) : (<></>) }
-                    { links ? (
-                        <div className={ classes.section }>
-                            <p className={ classes.sectionHeader }>Links</p>
-                            <p className={ classes.sectionContent }>
-                                { links.map((link, i) => (
-                                    <ButtonLink
-                                        url={ link }
-                                        containerClass={ classes.linkContainer }
-                                        key={ `project_links_${i+1}` }
-                                    >
-                                        <LinkIcon path={ mdiLink } />
-                                        <p className={ classes.linkText }>
-                                            { linkDescriptions[i] }
-                                        </p>
-                                    </ButtonLink>
-                                )) }
-                            </p>
-                        </div>
-                    ) :
-                    (<></>) }
+    const LinkIcon = useCallback(({ path }) => (
+        <Icon className={ classes.icon } size={ 0.9 } path={ path } />
+    ), [classes.icon]);
 
-                    <ButtonLink
-                        containerClass={ classes.returnContainer }
-                        url={ `/projects` }
-                    >
-                        <div className={ classes.returnIcon }>
-                            <LinkIcon path={ mdiArrowLeftBox } />
-                        </div>
-                        <p className={ classes.returnText }>
-                            Back to Projects
-                        </p>
-                    </ButtonLink>
+    return (
+        <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
+            <div className={ classes.contentContainer }>
+                <div className={ classes.section }>
+                    <p className={ classes.sectionRole }>
+                        { roles }
+                    </p>
                 </div>
+                { techSet?.size ? (
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionContent }>
+                            <ProjectTechs techSet={ techSet } />
+                        </p>
+                    </div>
+                ) : (<></>) }
+                <div className={ classes.section }>
+                    { description?.length ?
+                        description.map((d, i) => (
+                            <p
+                                className={ classes.description }
+                                key={ `description_${i+1}` }
+                            >{ d }
+                            </p>
+                        )) :
+                        (
+                            <p
+                                className={ classes.description }
+                                key={ `sdescription` }>
+                                { description || shortDescription }
+                            </p>
+                        )
+                    }
+                </div>
+                { media?.length ?
+                    (
+                        <div className={ classes.section }>
+                            <p className={ classes.sectionHeader }>Media</p>
+                            <p className={ classes.sectionContent }>
+                                <MediaReel
+                                    maxWidth={ vpW * 0.80 }
+                                    width={ Math.min(Math.round(vpW * 0.80), 800) }
+                                    aspectRatio={ mediaAspectRatio }
+                                    projectId={ projectId }
+                                    media={ mediaItems }
+                                />
+                            </p>
+                        </div>
+                    ) : (<></>)
+                }
+                { sourceCode?.length ? (
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>
+                            Source Code
+                        </p>
+                        <p className={ classes.sectionContent }>
+                            { sourceCode.map((link,i) => (
+                                <ButtonLink
+                                    url={ link }
+                                    containerClass={ classes.linkContainer }
+                                    key={ `sourcecode_${i+1}` }
+                                >
+                                    <LinkIcon path={ mdiCodeTags } />
+                                    <p className={ classes.linkText }>
+                                        { sourceCodeDescriptions[i] }
+                                    </p>
+                                </ButtonLink>
+                            )) }
+                        </p>
+                    </div>
+                ) : <></> }
+                { documentation ? (
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>
+                            Documentation
+                        </p>
+                        <p className={ classes.sectionContent }>
+                            { documentation.map((link, i) => (
+                                <ButtonLink
+                                    url={ link }
+                                    containerClass={ classes.linkContainer }
+                                    key={ `doclink_${i+1}` }
+                                >
+                                    <LinkIcon path={ mdiNoteOutline } />
+                                    <p className={ classes.linkText }>
+                                        { documentationDescriptions[i] }
+                                    </p>
+                                </ButtonLink>
+                            )) }
+                        </p>
+                    </div>
+                ) : (<></>) }
+                { downloads ? (
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>
+                            Downloads
+                        </p>
+                        <p className={ classes.sectionContent }>
+                            { downloads.map((link, i) => (
+                                <ButtonLink
+                                    url={ link }
+                                    containerClass={ classes.linkContainer }
+                                    key={ `project_downloads_${i+1}` }
+                                >
+                                    <LinkIcon path={ mdiDownload } />
+                                    <p className={ classes.linkText }>
+                                        { downloadDescriptions[i] }
+                                    </p>
+                                </ButtonLink>
+                            )) }
+                        </p>
+                    </div>
+                ) : (<></>) }
+                { links ? (
+                    <div className={ classes.section }>
+                        <p className={ classes.sectionHeader }>Links</p>
+                        <p className={ classes.sectionContent }>
+                            { links.map((link, i) => (
+                                <ButtonLink
+                                    url={ link }
+                                    containerClass={ classes.linkContainer }
+                                    key={ `project_links_${i+1}` }
+                                >
+                                    <LinkIcon path={ mdiLink } />
+                                    <p className={ classes.linkText }>
+                                        { linkDescriptions[i] }
+                                    </p>
+                                </ButtonLink>
+                            )) }
+                        </p>
+                    </div>
+                ) :
+                (<></>) }
+
+                <ButtonLink
+                    containerClass={ classes.returnContainer }
+                    url={ `/projects` }
+                >
+                    <div className={ classes.returnIcon }>
+                        <LinkIcon path={ mdiArrowLeftBox } />
+                    </div>
+                    <p className={ classes.returnText }>
+                        Back to Projects
+                    </p>
+                </ButtonLink>
             </div>
-        );
-    }
-);
+        </div>
+    );
+}

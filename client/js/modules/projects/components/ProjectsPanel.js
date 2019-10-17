@@ -1,22 +1,34 @@
-import React, { PureComponent } from 'react';
-import { useSelector } from 'react-redux';
+import React, {
+    useMemo,
+    useEffect,
+    useReducer
+} from 'react';
+import {
+    useLocation,
+    useRouteMatch
+} from 'react-router-dom';
 import useViewportSizes from 'use-viewport-sizes';
 import { projects } from 'strings';
 import { makeStyles } from '@material-ui/styles';
 import { appHistory, wait } from 'utils';
-import { useDocumentTitle } from 'utils/hooks';
+import {
+    useDocumentTitle,
+    usePrevious
+} from 'utils/hooks';
 import projectsData from 'app-root/data/projectsData';
 import ProjectCard from './ProjectCard';
 import ProjectDetails from './ProjectDetails';
-import { projectIdOfUrl as projectIdSelector } from '../selectors';
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,
-    OFFSET_CALCULATION,
+    OFFSET_CALC,
     AFTER_FADE_POSITIONING,
     PROJECT_SCROLL_UP,
     PROJECT_VIEW
 } from '../constants/DisplayStates';
+import useProjectIdOfUrl from '../hooks/useProjectIdOfUrl';
+
+const SECTION_ROOT = '/projects';
 
 const useStyles = makeStyles(() => ({
     container : {
@@ -55,145 +67,135 @@ const useStyles = makeStyles(() => ({
     }
 }), { name : 'ProjectsPanel' });
 
+const nextStateDict = {
+    [VIEW_ALL] : OFFSET_CALC,
+    [OFFSET_CALC] : AFTER_FADE_POSITIONING,
+    [AFTER_FADE_POSITIONING] : PROJECT_SCROLL_UP,
+    [PROJECT_SCROLL_UP] : PROJECT_VIEW
+};
 
-// TODO : gradually convert the ProjectsPanel class itself
-// to new hooks conventions vs wrapping in a
-// container (started in ProjectsPanel2.js -- don't typically
-// do this but short on time and things work as-is)
+const transitionTimes = {
+    [VIEW_ALL] : 50,
+    [OFFSET_CALC] : 25,
+    [AFTER_FADE_POSITIONING] : 0,
+    [PROJECT_SCROLL_UP] : 100
+};
 
-class ProjectsPanel extends PureComponent {
-    constructor(props) {
-        super(props);
-        const { projectIdOfUrl } = props;
-
-        this.state = {
-            displayState : !projectIdOfUrl ? VIEW_ALL : PROJECT_VIEW,
-            wasSelectionViaUI : false
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        const { projectIdOfUrl } = this.props;
-        const { displayState } = this.state;
-        const prevProjectIdOfUrl = prevProps.projectIdOfUrl;
-        const stateUpdates = {};
-
-        if(projectIdOfUrl && prevProjectIdOfUrl != projectIdOfUrl) {
-            stateUpdates.displayState = PROJECT_FADE_TO;
-
-            if(projectIdOfUrl && !prevProjectIdOfUrl) {
-                stateUpdates.wasSelectionViaUI = true;
-            }
+const projectsReducer = (state, { type, payload }) => {
+    console.log('type ->', type);
+    switch (type) {
+        case 'selectProjectViaUI' :
+            return {
+                ...state,
+                wasSelectionViaUI : true,
+                // begins transitions
+                displayState : nextStateDict[state.displayState] || state.displayState
+            };
+        case 'advanceDisplayState' : {
+            return {
+                ...state,
+                displayState : nextStateDict[state.displayState]
+            };
         }
-
-        // update state to reflect project selected when detected
-        if(!prevProjectIdOfUrl && projectIdOfUrl) {
-            wait(50).then(() => { // wait for half sec and then jump to next phase
-                this.setState({ displayState : OFFSET_CALCULATION });
-            });
+        case 'viewAllProjects' : {
+            return {
+                ...state,
+                displayState : VIEW_ALL,
+                wasSelectionViaUI : false
+            };
         }
-
-        // project was unselected (user went back or navigated to base route)
-        else if(prevProjectIdOfUrl && !projectIdOfUrl) {
-            stateUpdates.displayState = VIEW_ALL;
-            stateUpdates.wasSelectionViaUI = true;
-        }
-
-        // project selection has not changed
-
-        else {
-            switch (displayState) {
-                case OFFSET_CALCULATION :
-                    wait(200).then(() => {
-                        this.setState({ displayState : AFTER_FADE_POSITIONING });
-                    });
-                    break;
-                case AFTER_FADE_POSITIONING :
-                    wait(200).then(() => {
-                        window.scrollTo(0,0);
-                        this.setState({ displayState : PROJECT_SCROLL_UP });
-                    });
-                    break;
-                case PROJECT_SCROLL_UP :
-                    wait(50).then(() => {
-                        this.setState({ displayState : PROJECT_VIEW });
-                    });
-                    break;
-                default :
-                    break;
-            }
-        }
-
-        if(Object.keys(stateUpdates).length) {
-            this.setState(stateUpdates);
+        default : {
+            return { ...state };
         }
     }
+};
 
-    render() {
-        const {
-            projectIdOfUrl, language, theme, classes,
-            vpW, location, match
-        } = this.props;
-
-        const {
-            displayState,
-            wasSelectionViaUI
-        } = this.state;
-
-        const areAllShown = (
-            projectIdOfUrl && wasSelectionViaUI &&
-            displayState != PROJECT_VIEW
-        ) || !projectIdOfUrl;
-
-        return (
-            <div className={ classes.container }>
-                <div className={ classes.content }>
-                    { projects.projectData.map( p => (
-                        <ProjectCard
-                            key={ `ProjectCard${p.id}` }
-                            data={ p }
-                            pData={ projectsData[p.id] }
-                            language={ language }
-                            onClick={ e => appHistory.goTo(`/projects/${p.id}`, e) }
-                            isShown={ (!projectIdOfUrl) || (projectIdOfUrl == p.id) }
-                            onScreen={ areAllShown || (p.id == projectIdOfUrl) }
-                            displayState={ displayState }
-                            isSelected={ (p.id == projectIdOfUrl) }
-                            theme={ theme }
-                            wasSelectionViaUI={ wasSelectionViaUI }
-                            vpW={ vpW }
-                        />
-                    )) }
-                    { typeof projectIdOfUrl != 'undefined' &&
-                    (
-                        <ProjectDetails
-                            projectId={ projectIdOfUrl }
-                            fadeInDelay={ 1000 }
-                        />
-                    )}
-                </div>
-            </div>
-        );
-    }
-}
-
-export default function ProjectsPanelContainer({ match }) {
+export default function ProjectsPanel() {
     const [vpW, vpH] = useViewportSizes();
-    const projectIdOfUrl = useSelector(projectIdSelector);
-    const location = useSelector( state => state.router.location );
+    const [projectId, location, match] = useProjectIdOfUrl();
+    const prevProjectId = usePrevious(projectId);
     const classes = useStyles();
+
     useDocumentTitle({
-        title : !projectIdOfUrl ?
-            `${SITE_NAME} -- Projects` : undefined
+        title : !projectId &&
+                `${SITE_NAME} -- Projects`
     });
 
+    const initialState = useMemo(() => ({
+        displayState : !projectId ? VIEW_ALL : PROJECT_VIEW,
+        wasSelectionViaUI : false
+    }), []);
+
+    console.log('initialState ->', initialState);
+
+
+    const [state, dispatch] = useReducer(projectsReducer, initialState);
+    const { wasSelectionViaUI, displayState } = state;
+
+    console.log('state ->', state);
+
+    const areAllShown = (
+        projectId && wasSelectionViaUI &&
+        (displayState != PROJECT_VIEW)
+    ) || !projectId;
+
+    const projectSelectionCbs = useMemo(() => Object.fromEntries(
+        projects.map(({ id }) =>
+            [id, e => {
+                appHistory.goTo(`/projects/${id}`, e);
+                dispatch({ type : 'selectProjectViaUI', payload : id });
+            }]
+        )),
+    []);
+
+    useEffect(() => {
+        if(!prevProjectId && projectId && !wasSelectionViaUI) {
+            dispatch({ type : 'selectProjectViaUI' });
+        }
+        else if(!projectId) {
+            dispatch({ type : 'viewAllProjects' });
+        }
+    }, [projectId]);
+
+    useEffect(() => {
+        switch (displayState) {
+            case VIEW_ALL :
+                break;
+            default : {
+                wait(transitionTimes[displayState] || 200).then(() => {
+                    if(displayState != PROJECT_VIEW) {
+                        dispatch({ type : 'advanceDisplayState' });
+                    }
+                });
+                break;
+            }
+        }
+    }, [displayState]);
+
     return (
-        <ProjectsPanel
-            vpW={ vpW }
-            projectIdOfUrl={ projectIdOfUrl }
-            classes={ classes }
-            location={ location }
-            match={ match }
-        />
+        <div className={ classes.container }>
+            <div className={ classes.content }>
+                { projects.map( p => (
+                    <ProjectCard
+                        key={ `ProjectCard_${p.id}` }
+                        data={ p }
+                        pData={ projectsData[p.id] }
+                        onClick={ projectSelectionCbs[p.id] }
+                        isShown={ (!projectId) || (projectId == p.id) }
+                        onScreen={ areAllShown || (p.id == projectId) }
+                        displayState={ displayState }
+                        isSelected={ (p.id == projectId) }
+                        wasSelectionViaUI={ wasSelectionViaUI }
+                        vpW={ vpW }
+                    />
+                )) }
+                { typeof projectId != 'undefined' && (
+                    <ProjectDetails
+                        projectId={ projectId }
+                        fadeInDelay={ 1000 }
+                    />
+                ) }
+            </div>
+        </div>
     );
 }
