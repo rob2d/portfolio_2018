@@ -20,6 +20,7 @@ const ANIM_DURATION_S = '0.32';
 
 const useStyles = makeStyles(({ palette : { common } }) => ({
     '@global' : {
+        '@import' : `url('https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap')`,
         'html,body' : {
             fontFamily: `'Roboto', sans-serif`,
             fontWeight : 300,
