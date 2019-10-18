@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import useViewportSizes from 'use-viewport-sizes';
-import ButtonLink from 'utils/components/ButtonLink';
+import { ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
 import {
     mdiGamepadVariant,
@@ -9,7 +10,10 @@ import {
     mdiMusic,
     mdiNote
 } from '@mdi/js';
-import { useDocumentTitle } from 'utils/hooks';
+import {
+    useDocumentTitle,
+    useAutoFaderClass
+} from 'utils/hooks';
 
 const useStyles = makeStyles(({ palette : { common, secondary, type, text } }) => ({
     mainContainer : {
@@ -99,13 +103,14 @@ export default function Miscellaneous() {
     useDocumentTitle({ title : `${SITE_NAME} -- Miscellaneous` });
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpW });
+    const fadeContainerClass = useAutoFaderClass();
 
     const Ramblings = useCallback(({ ramblings }) =>
         ramblings.map((r,i) => (<p className={ classes.rambling }>{ r }</p>)),
     [classes]);
 
     return (
-        <div className={ classes.mainContainer }>
+        <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
             <div className={ classes.bodyContent }>
                 <div className={ classes.item }>
                     <ButtonLink

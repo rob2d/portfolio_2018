@@ -12,7 +12,10 @@ import {
 } from '@mdi/js';
 import { projects } from 'strings';
 import { ButtonLink } from 'utils/components';
-import { useDocumentTitle } from 'utils/hooks';
+import {
+    useDocumentTitle,
+    useAutoFaderClass
+} from 'utils/hooks';
 import projectsData from 'app-root/data/projectsData';
 import MediaReel from './media-reel/MediaReel';
 import ProjectTechs from './ProjectTechs';
@@ -178,9 +181,10 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
 }));
 
 
-export default function ProjectDetails({ projectId, fadeContainerClass }) {
+export default function ProjectDetails({ projectId }) {
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ projectId, vpW });
+    const fadeContainerClass = useAutoFaderClass(undefined, 1000);
 
     const {
         mediaCaptions,

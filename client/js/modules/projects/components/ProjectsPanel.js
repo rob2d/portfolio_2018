@@ -1,17 +1,12 @@
-import React, {
-    useMemo,
-    useEffect,
-    useReducer
-} from 'react';
-import {
-    useLocation,
-    useRouteMatch
-} from 'react-router-dom';
+import React, { useMemo, useEffect, useReducer } from 'react';
+import clsx from 'clsx';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import useViewportSizes from 'use-viewport-sizes';
 import { projects } from 'strings';
 import { makeStyles } from '@material-ui/styles';
 import { appHistory, wait } from 'utils';
 import {
+    useAutoFaderClass,
     useDocumentTitle,
     usePrevious
 } from 'utils/hooks';
@@ -82,7 +77,6 @@ const transitionTimes = {
 };
 
 const projectsReducer = (state, { type, payload }) => {
-    console.log('type ->', type);
     switch (type) {
         case 'selectProjectViaUI' :
             return {
@@ -115,28 +109,20 @@ export default function ProjectsPanel() {
     const [projectId, location, match] = useProjectIdOfUrl();
     const prevProjectId = usePrevious(projectId);
     const classes = useStyles();
+    const fadeContainerClass = useAutoFaderClass();
 
-    useDocumentTitle({
-        title : !projectId &&
-                `${SITE_NAME} -- Projects`
-    });
+    useDocumentTitle({ title : !projectId && `${SITE_NAME} -- Projects` });
 
     const initialState = useMemo(() => ({
         displayState : !projectId ? VIEW_ALL : PROJECT_VIEW,
         wasSelectionViaUI : false
     }), []);
 
-    console.log('initialState ->', initialState);
-
-
     const [state, dispatch] = useReducer(projectsReducer, initialState);
     const { wasSelectionViaUI, displayState } = state;
 
-    console.log('state ->', state);
-
     const areAllShown = (
-        projectId && wasSelectionViaUI &&
-        (displayState != PROJECT_VIEW)
+        projectId && wasSelectionViaUI && (displayState != PROJECT_VIEW)
     ) || !projectId;
 
     const projectSelectionCbs = useMemo(() => Object.fromEntries(
@@ -173,7 +159,7 @@ export default function ProjectsPanel() {
     }, [displayState]);
 
     return (
-        <div className={ classes.container }>
+        <div className={ clsx(classes.container, fadeContainerClass) }>
             <div className={ classes.content }>
                 { projects.map( p => (
                     <ProjectCard
@@ -190,10 +176,7 @@ export default function ProjectsPanel() {
                     />
                 )) }
                 { typeof projectId != 'undefined' && (
-                    <ProjectDetails
-                        projectId={ projectId }
-                        fadeInDelay={ 1000 }
-                    />
+                    <ProjectDetails projectId={ projectId } />
                 ) }
             </div>
         </div>

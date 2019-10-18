@@ -12,8 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppSections from 'constants/AppSections';
-import withFadeTransitions from 'utils/withFadeTransitions';
-import appHistory from 'utils/appHistory';
+import { appHistory } from 'utils';
+import { useAutoFaderClass } from 'utils/hooks';
 import ThemeButton from './ThemeButton';
 import HeaderSectionButton from './HeaderSectionButton';
 import SectionHighlighter from './SectionHighlighter';
@@ -69,7 +69,8 @@ const SectionClickEvents = Sections.map( section => e =>
     appHistory.goTo(section.basePath, e)
 );
 
-export default function AppHeader({ fadeContainerClass }) {
+export default function AppHeader() {
+    const fadeContainerClass = useAutoFaderClass();
     const location = useLocation();
     const { pathname } = location;
     const pathIndex = useMemo(() =>

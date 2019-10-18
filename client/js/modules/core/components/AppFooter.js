@@ -9,7 +9,8 @@ import {
     mdiGmail,
     mdiLinkedinBox
 } from '@mdi/js';
-import appHistory from 'utils/appHistory';
+import { useAutoFaderClass } from 'utils/hooks';
+import { appHistory } from 'utils';
 import { rc3NpmBox } from 'utils/icon-paths';
 
 const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
@@ -37,8 +38,9 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
     }
 }), { name : 'ContactButton' });
 
-export default function AppFooter({ fadeContainerClass }) {
+export default function AppFooter() {
     const classes = useStyles();
+    const fadeContainerClass = useAutoFaderClass();
 
     const ContactButton = useCallback(({ url, iconPath, tooltipContent }) => {
         ContactButton.displayMode = 'ContactButton';
@@ -60,7 +62,7 @@ export default function AppFooter({ fadeContainerClass }) {
     }, [classes]);
 
     return (
-        <div className={ clsx('appFooter', fadeContainerClass) }>
+        <div className={ fadeContainerClass }>
             <ContactButton
                 iconPath={ mdiGithubBox }
                 url={ 'https://github.com/rob2d' }
