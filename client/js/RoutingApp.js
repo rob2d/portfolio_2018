@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react';
-import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import {
+    Router,
+    Route,
+    Switch,
+    useLocation
+} from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 import {
     useLazyComponent,
@@ -8,9 +12,7 @@ import {
 } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/styles';
-import { ConnectedRouter } from 'connected-react-router';
 import appHistory from 'utils/appHistory';
-import store from './store';
 import { AppHeader, AppFooter } from './modules/core';
 import ThemeContextProvider from './ThemeContextProvider';
 
@@ -46,7 +48,7 @@ const useStyles = makeStyles(({ palette : { common } }) => ({
         display : 'flex',
         flexDirection : 'column'
     }
-}));
+}), { name : 'RoutingApp' });
 
 function AppContent() {
     const classes = useStyles();
@@ -75,20 +77,31 @@ function AppContent() {
         <LoadingComponent />
     );
 
-    const sectionContent = useMemo(() => (
-        <Switch>
-            <Route exact path={ '(/about|/)' } component={ About } />
-            <Route exact path={ '/cv' } component={ CV } />
-            <Route path={ '/projects(/:projectId)?' } component={ ProjectsPanel } />
-            <Route path={ '/misc' } component={ Miscellaneous } />
-        </Switch>
-    ), [About, CV, ProjectsPanel, Miscellaneous]);
-
     return (
         <div className={ classes.appWrapper }>
             <div className={ classes.routeViewWrapper }>
                 <AppHeader />
-                { sectionContent }
+                <Switch>
+                    <Route
+                        exact
+                        path={ '(/about|/)' }
+                        render={ () => <About /> }
+                    />
+                    <Route
+                        exact
+                        path={ '/cv' }
+                        render={ () => <CV /> }
+                    />
+                    <Route
+                        path={ '/projects/:projectId?' }
+                        render={ () => <ProjectsPanel /> }
+                    />
+                    <Route
+                        exact
+                        path={ '/misc' }
+                        render={ () => <Miscellaneous /> }
+                    />
+                </Switch>
                 <AppFooter />
             </div>
         </div>
@@ -99,13 +112,11 @@ function RoutingApp() {
     useDocumentTitle({ title : SITE_NAME });
 
     return (
-        <Provider store={ store }>
-            <ThemeContextProvider>
-                <ConnectedRouter history={ appHistory }>
-                    <AppContent />
-                </ConnectedRouter>
-            </ThemeContextProvider>
-        </Provider>
+        <ThemeContextProvider>
+            <Router history={ appHistory }>
+                <AppContent />
+            </Router>
+        </ThemeContextProvider>
     );
 }
 

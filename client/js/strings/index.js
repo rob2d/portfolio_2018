@@ -1,7 +1,4 @@
 import projects from './projects';
 
-export { projects }
-
-export default {
-    projects
-}
+export { projects };
+export default { projects };

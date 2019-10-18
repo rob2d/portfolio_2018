@@ -7,6 +7,7 @@
         "babel"
     ],
     "rules" : {
+        "camelcase" : [1, { "allow" : ["^UNSAFE_"] } ],
         "strict" : 0,
         "eqeqeq" : 0,
         "no-plusplus" : 0,
@@ -70,6 +71,7 @@
             "checkAttributes": false,
             "indentLogicalExpressions": true
         }],
+        "react/state-in-constructor" : 0,
         "react/jsx-props-no-spreading" : 0,
         "react/jsx-curly-newline" : 0,
         "react/jsx-curly-brace-presence" : [2, {

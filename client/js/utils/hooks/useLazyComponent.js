@@ -10,7 +10,7 @@ import React, { useMemo, lazy, Suspense } from 'react';
  * @param {Boolean} watchResolver flag to watch resolver for memoization
  */
 export default function useLazyComponent(resolver, loadingContent, watchResolver=false) {
-    const Component = useMemo(() => lazy(resolver), [watchResolver && resolver]);
+    const Component = useMemo(() => lazy(resolver), []);
 
     return () => (
         <Suspense fallback={ loadingContent }>

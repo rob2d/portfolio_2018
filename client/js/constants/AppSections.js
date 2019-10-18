@@ -1,5 +1,5 @@
-import { 
-    mdiHumanGreeting, 
+import {
+    mdiHumanGreeting,
     mdiBriefcase,
     mdiDiceMultiple,
     mdiFileDocumentBox
@@ -22,24 +22,30 @@ export const Sections = [
     {
         name : 'Projects',
         iconPath : mdiBriefcase,
-        getTooltipText : ()=> 'Projects',
+        getTooltipText : () => 'Projects',
         basePath : '/projects'
     },
     {
         name : 'Misc',
         iconPath : mdiDiceMultiple,
-        getTooltipText : ()=> 'Miscellaneous',
+        getTooltipText : () => 'Miscellaneous',
         basePath : '/misc'
     },
     {
         name : 'CV',
         iconPath : mdiFileDocumentBox,
-        getTooltipText  : ()=> 'CV',
+        getTooltipText  : () => 'CV',
         basePath : '/cv'
     }
 ];
 
-export default { 
+
+export const pathIndexLookup = Object.fromEntries(
+    Sections.map((s,i) => ([s.basePath, i]))
+);
+
+export default {
     SectionIndexes,
-    Sections
+    Sections,
+    pathIndexLookup
 };

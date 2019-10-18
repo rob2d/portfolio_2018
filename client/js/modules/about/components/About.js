@@ -3,9 +3,12 @@ import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
-import { isPortrait, withFadeTransitions } from 'utils';
+import { isPortrait } from 'utils';
 import { ButtonLink } from 'utils/components';
-import { useDocumentTitle } from 'utils/hooks';
+import {
+    useDocumentTitle,
+    useAutoFaderClass
+} from 'utils/hooks';
 import SectionLinks from './SectionLinks';
 
 const useStyles = makeStyles(({
@@ -170,12 +173,13 @@ const useStyles = makeStyles(({
     }
 }), { name : 'About' });
 
-export default withFadeTransitions(function About({ theme, fadeContainerClass }) {
+export default function About() {
     useDocumentTitle({ title : `${SITE_NAME} -- About` });
+    const fadeContainerClass = useAutoFaderClass();
     const [vpW, vpH] = useViewportSizes();
     const linkProps = useMemo(() => ({ vpW, vpH }), [vpW, vpH]);
     const inPortrait = useMemo(() => isPortrait(vpW, vpH), [vpW, vpH]);
-    const classes = useStyles({ vpW, vpH, theme, inPortrait });
+    const classes = useStyles({ vpW, vpH, inPortrait });
 
     const Tech = useCallback(({ children, url }) => (
         <ButtonLink
@@ -252,4 +256,4 @@ export default withFadeTransitions(function About({ theme, fadeContainerClass })
             </div>
         </div>
     );
-});
+}

@@ -1,10 +1,10 @@
-import { createBrowserHistory } from 'history'
-let appHistory = createBrowserHistory();
+import { createBrowserHistory } from 'history';
+const appHistory = createBrowserHistory();
 
-appHistory.goTo = function(url, e) {
-    
+appHistory.goTo = function goTo(url, e) {
+
     // extract actual event from React API
-    
+
     const event = e.nativeEvent;
     const isAbsoluteUrl = (
         (url.indexOf('https://') != -1) ||
@@ -14,29 +14,29 @@ appHistory.goTo = function(url, e) {
 
     // normal left click/touch behavior;
 
-    if(!event.defaultPrevented && 
-      !(event.button == 1 || event.button == 2 || 
+    if(!event.defaultPrevented &&
+      !(event.button == 1 || event.button == 2 ||
        event.metaKey || event.ctrlKey)
     ) {
         // push to app history for in-app routing
 
         if(!isAbsoluteUrl) {
             appHistory.push({ pathname : url });
-        } 
-        // open in new tab 
-        
+        }
+        // open in new tab
+
         else {
             window.open(url, '_blank');
         }
-    } 
+    }
 
-    // if we discover that it was a middle click 
-    // (or special click), simply open URL in new 
+    // if we discover that it was a middle click
+    // (or special click), simply open URL in new
     // tab and do not push to history
 
-    else if((event.button == 1 || event.ctrlKey)){
-        window.open(url, '_blank'); 
+    else if((event.button == 1 || event.ctrlKey)) {
+        window.open(url, '_blank');
     }
 };
 
-export default appHistory
+export default appHistory;

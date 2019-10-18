@@ -3,20 +3,20 @@ import { makeStyles } from '@material-ui/styles';
 const ANIM_DURATION_S = '0.32';
 const getTopMargin = vpW => vpW > 800 ? 32 : 16;
 
-export default makeStyles(({ palette : { type }}) => ({
+export default makeStyles(({ palette : { type } }) => ({
     container : {
         opacity : p => p.isShown ? 1 : 0,
         display : p => p.onScreen ? 'block' : 'none',
         position : p => p.hasAbsolutePosition ? 'absolute' : 'relative',
-        top : p => p.hasAbsolutePosition ? (p.offsetY - getTopMargin(p.vpW)) : 'auto',
-        left : p => p.hasAbsolutePosition ? p.offsetX : 'auto',
+        top : p => p.hasAbsolutePosition ? (p.offsetTop - getTopMargin(p.vpW)) : 'auto',
+        left : p => p.hasAbsolutePosition ? p.offsetLeft : 'auto',
         transition: p => {
-            const moveTiming = (p.hasAbsolutePosition ? 
+            const moveTiming = `${(p.hasAbsolutePosition ?
                 (ANIM_DURATION_S * 1.5) : 0
-            ) + 's';
+            )}s`;
 
             return (
-                `opacity ${ANIM_DURATION_S}s, ` + 
+                `opacity ${ANIM_DURATION_S}s, ` +
                 `left ${moveTiming}, top ${moveTiming}`
             );
         },
@@ -26,7 +26,7 @@ export default makeStyles(({ palette : { type }}) => ({
         marginBottom : p => `${ p.viewAsTitle ? 0 : 32 }px`,
         textAlign : 'left',
         cursor : p => p.viewAsTitle ? 'text' : 'pointer',
-        
+
         // actively moving cards should be forced above
         // existing relatively-placed content
 
@@ -59,8 +59,8 @@ export default makeStyles(({ palette : { type }}) => ({
         opacity : 1,
         transition: `all ${ANIM_DURATION_S}s ease-out`,
         height : p => (
-            ((p.viewAsTitle && 100) || 
-            (p.isHighlighted ? 324 : 180)) + 
+            ((p.viewAsTitle && 100) ||
+            (p.isHighlighted ? 324 : 180)) +
             'px'
         ),
         padding : p => p.isHighlighted && '0px',
@@ -80,13 +80,13 @@ export default makeStyles(({ palette : { type }}) => ({
             const shadowStrength = l ? 1 : 2;
 
             return (`0px 1px 3px 0px rgba(${rgb}, ${0.2*shadowStrength}), ` +
-                    `0px 1px 1px 0px rgba(${rgb}, ${0.14*shadowStrength}), ` + 
+                    `0px 1px 1px 0px rgba(${rgb}, ${0.14*shadowStrength}), ` +
                     `0px 2px 1px -1px rgba(${rgb}, ${0.12*shadowStrength})`
             );
-        }, 
+        },
         transition : `box-shadow ${ANIM_DURATION_S}s ease-out, ` +
-                        `transform ${ANIM_DURATION_S*2}s ` + 
-                        `cubic-bezier(0.25, 0.1, 0.5, 1), ` + 
+                        `transform ${ANIM_DURATION_S*2}s ` +
+                        `cubic-bezier(0.25, 0.1, 0.5, 1), ` +
                         `background-color ${ANIM_DURATION_S}s !important`,
         '@media (max-width: 400px)': {  // support for smaller devices
             width : '300px !important'
@@ -113,7 +113,7 @@ export default makeStyles(({ palette : { type }}) => ({
         bottom : '0px',
         width : '100%',
         height : p => (!p.viewAsTitle ? 40 : 100)+'%',
-        backgroundColor : p => ( 'rgba(0,0,0,' + 
+        backgroundColor : p => ( 'rgba(0,0,0,' +
             (!p.viewAsTitle?'0.52':'0') + ')'
         )
     },
@@ -129,7 +129,7 @@ export default makeStyles(({ palette : { type }}) => ({
         fontSize : p => p.viewAsTitle ? '24pt' : '16pt',
         marginTop : '0px',
         marginBottom : '0px',
-        color : p => ((type=='light') && 
+        color : p => ((type=='light') &&
             (!p.viewAsTitle ? '#FFF' : '#000' ) || '#FFF'
         ),
         transition : `all ${ANIM_DURATION_S}s ease-in`
@@ -171,4 +171,4 @@ export default makeStyles(({ palette : { type }}) => ({
         top : '0%',
         opacity : p => (!p.viewAsTitle) ? 1 : 0
     }
-}), { name : 'ProjectCard' })
+}), { name : 'ProjectCard' });
