@@ -81,14 +81,7 @@ module.exports = {
             }, {
                 loader : 'css-loader',
                 options: {
-                    sourceMap: true,
-                    sourceMapContents: false
-                }
-            }, {
-                loader : 'sass-loader',
-                options: {
-                    sourceMap: true,
-                    sourceMapContents: false
+                    sourceMap: false
                 }
             }]
         },
