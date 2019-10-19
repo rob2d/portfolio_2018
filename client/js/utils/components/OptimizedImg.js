@@ -41,7 +41,7 @@ export default function OptimizedImg({ src, className, ...props }) {
 
         return exts.map( ext => (
             <source
-                srcSet={ src }
+                srcSet={ `${filePrefix}.${ext}` }
                 type={ mimeTypeDict[ext] }
                 { ...props }
             />
