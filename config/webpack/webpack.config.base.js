@@ -71,6 +71,7 @@ module.exports = {
                 }
             }]
         },
+        /*
         {
             test: /\.(sa|sc|c)ss$/,
             exclude: /img/,
@@ -85,6 +86,7 @@ module.exports = {
                 }
             }]
         },
+        */
         {
             test: /\.svg$/,
             exclude: /fonts/,
