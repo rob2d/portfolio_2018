@@ -212,7 +212,6 @@ export default function About() {
                 <p>
                     This site was created using my stack of choice most days:&nbsp;
                     <Tech url={ 'https://reactjs.com' }>React</Tech>
-                    <Tech url={ 'https://redux.js.org' }>Redux</Tech>
                     <Tech url={ 'https://threejs.org' }>THREE.js</Tech>
                     <Tech url={ 'https://nodejs.org' }>Node</Tech>
                     <Tech url={ 'https://webpack.js.org/' }>Webpack</Tech>&nbsp;
