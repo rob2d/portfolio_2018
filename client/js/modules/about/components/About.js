@@ -4,7 +4,10 @@ import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { isPortrait } from 'utils';
-import { ButtonLink } from 'utils/components';
+import {
+    ButtonLink,
+    OptimizedImg
+} from 'utils/components';
 import {
     useDocumentTitle,
     useAutoFaderClass
@@ -195,11 +198,9 @@ export default function About() {
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
             <div className={ classes.firstContainer }>
                 <div className={ classes.topContent }>
-                    <Avatar
-                        alt={ 'Rob' }
-                        src={ 'img/about/me.jpg' }
-                        className={ classes.avatar }
-                    />
+                    <Avatar className={ classes.avatar }>
+                        <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
+                    </Avatar>
                     <SectionLinks { ...linkProps } />
                 </div>
             </div>

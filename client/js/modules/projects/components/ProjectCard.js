@@ -13,6 +13,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { Icon } from '@mdi/react';
 import { mdiInformationOutline } from '@mdi/js';
+import { OptimizedImg } from 'utils/components';
 import useStyles from './style/ProjectCardStyle';
 import {
     VIEW_ALL,
@@ -209,7 +210,7 @@ export default function ProjectCardLayout(props) {
                 onMouseDown={ onClick }
             >
                 <div className={ classes.cardMediaContent }>
-                    <img
+                    <OptimizedImg
                         src={ `/img/projects/${id}/${id}_thumb.png` }
                         className={ classes.cardMediaImg }
                         alt={ '' }

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import useViewportSizes from 'use-viewport-sizes';
-import { ButtonLink } from 'utils/components';
+import { OptimizedImg, ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
 import {
     mdiGamepadVariant,
@@ -118,10 +118,10 @@ export default function Miscellaneous() {
                             'https://medium.com/@robftw/characteristics-of-' +
                             'an-ideal-react-architecture-883b9b92be0b'
                         }
-                    >   <img
+                    >
+                        <OptimizedImg
                             src={ '/img/misc/rob_react_article_art.png' }
                             className={ classes.articleImg }
-                            alt={ '' }
                         />
                     </ButtonLink>
                     <ButtonLink
