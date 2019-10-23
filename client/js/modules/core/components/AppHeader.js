@@ -7,7 +7,7 @@ import React, {
 import useViewportSizes from 'use-viewport-sizes';
 import clsx from 'clsx';
 import { useLocation } from 'react-router-dom';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const mimeTypeDict = {
     'webp' : 'image/webp',
@@ -12,9 +12,14 @@ const mimeTypeDict = {
 
 const useStyles = makeStyles( theme => ({
     container : {
-        '& img' : {
+        '& img, & source, & picture' : {
+            position : 'absolute',
+            top : 0,
+            left : 0,
+            right : 0,
+            bottom : 0,
             width : '100%',
-            height : 'auto'
+            height : '100%'
         }
     }
 }), { name : 'OptimizedImg' });
@@ -33,7 +38,7 @@ export default function OptimizedImg({ src, className, ...props }) {
         const filePrefix = src.substring(0,extIndex);
         const srcExt = src.substring(extIndex+1);
 
-        const exts = ['webp'];
+        const exts = process.env.NODE_ENV != 'development' ? ['webp'] : [];
 
         if(srcExt != 'webp') {
             exts.push(srcExt);
@@ -49,9 +54,11 @@ export default function OptimizedImg({ src, className, ...props }) {
     }, [src, Object.keys(props).sort().map( k => props[k] )]);
 
     return (
-        <picture className={ clsx(className, classes.container) }>
-            { sourceElems }
-            <img src={ src } { ...props } />
-        </picture>
+        <div className={ clsx(classes.container, className) }>
+            <picture className={ classes.picture }>
+                { sourceElems }
+                <img src={ src } { ...props } />
+            </picture>
+        </div>
     );
 }

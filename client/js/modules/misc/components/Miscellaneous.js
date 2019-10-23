@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import useViewportSizes from 'use-viewport-sizes';
 import { OptimizedImg, ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
@@ -40,7 +40,11 @@ const useStyles = makeStyles(({ palette : { common, secondary, type, text } }) =
         flexWrap : 'wrap',
         justifyContent : 'center'
     },
+    imgBtn : {
+        width : '100%'
+    },
     articleImg : {
+        position : 'relative',
         width     : '80%',
         maxWidth  : '300px',
         height    : 'auto',
@@ -118,6 +122,7 @@ export default function Miscellaneous() {
                             'https://medium.com/@robftw/characteristics-of-' +
                             'an-ideal-react-architecture-883b9b92be0b'
                         }
+                        containerClass={ classes.imgBtn }
                     >
                         <OptimizedImg
                             src={ '/img/misc/rob_react_article_art.png' }

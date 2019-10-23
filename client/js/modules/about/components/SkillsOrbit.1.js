@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
-import { 
-    Object3D, Vector3, Mesh, 
+import {
+    Object3D, Vector3, Mesh,
     SphereGeometry, MeshBasicMaterial,
-    DoubleSide, Scene, PerspectiveCamera, 
+    DoubleSide, Scene, PerspectiveCamera,
     WebGLRenderer
 } from 'three'
-import { makeStyles, useTheme } from '@material-ui/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { textAlign, SpriteText2D } from 'three-text2d'
 import useViewportSizes from 'use-viewport-sizes'
 import skillPoints from 'constants/skillPoints'
@@ -23,10 +23,10 @@ function createSkillVertex({ radianAngle, value=1 }) {
     let vRadius = getSkillSphereDiameter(value)/2,
         xWidth = Math.cos(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius),
         yWidth = Math.sin(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius);
-    
+
     return [
-        Math.cos(radianAngle) * INNER_RADIUS + xWidth, 
-        Math.sin(radianAngle) * INNER_RADIUS + yWidth, 
+        Math.cos(radianAngle) * INNER_RADIUS + xWidth,
+        Math.sin(radianAngle) * INNER_RADIUS + yWidth,
         0
     ];
 }
@@ -47,8 +47,8 @@ const sources = {
     outerSphere : {
         type     : 'sphere',
         geometry : new SphereGeometry( OUTER_RADIUS, 17, 17 ),
-        material : new MeshBasicMaterial({ 
-            color       : 0xDCDCDC, 
+        material : new MeshBasicMaterial({
+            color       : 0xDCDCDC,
             wireframe   : true,
             side        : DoubleSide,
             opacity     : 0.4,
@@ -61,8 +61,8 @@ const sources = {
     innerSphere : {
         type     : 'sphere',
         geometry : new SphereGeometry( INNER_RADIUS, 7, 7 ),
-        material : new MeshBasicMaterial({ 
-            color       : 0xCC288D, 
+        material : new MeshBasicMaterial({
+            color       : 0xCC288D,
             wireframe   : true,
             side        : DoubleSide,
             opacity     : 0.2,
@@ -74,9 +74,9 @@ const sources = {
         type : 'text2d',
         unmapped : true,
         generateParams : ({ value, theme }) => ({
-            align : textAlign.center, 
+            align : textAlign.center,
             fontSize : `${6+Math.round(34*value)}px`,
-            fontWeight : 700, 
+            fontWeight : 700,
             fillStyle : (theme == 'light') ? '#333333' : '#FFFFFF',
             side : DoubleSide,
             depthTest : false
@@ -86,12 +86,12 @@ const sources = {
         type : 'sphere',
         unmapped : true,
         generateParams : ({ value, theme }) => ({
-            geometry   : new SphereGeometry( 
-                getSkillSphereDiameter(value), 
-                6+Math.round(1.7*value), 
-                6+Math.round(1.7*value) 
+            geometry   : new SphereGeometry(
+                getSkillSphereDiameter(value),
+                6+Math.round(1.7*value),
+                6+Math.round(1.7*value)
             ),
-            material   : new MeshBasicMaterial({ 
+            material   : new MeshBasicMaterial({
                 color        : 0xC51162,
                 wireframe    : true,
                 side         : DoubleSide,
@@ -150,7 +150,7 @@ class SkillsOrbit extends PureComponent {
         this.tiltTimeProcessed = performance.now();
         this.shiftingValuesMap = new ShiftingValueMap();
 
-        this.R = { 
+        this.R = {
             canvas    : undefined,
             container : undefined,
             debugText : undefined
@@ -175,7 +175,7 @@ class SkillsOrbit extends PureComponent {
 
     onMouseMove = (e) => {
         const { clientX, clientY } = e;
-        const timeDelta = performance.now() - this.tiltTimeProcessed; 
+        const timeDelta = performance.now() - this.tiltTimeProcessed;
         const valueMap = this.shiftingValuesMap;
 
         if(timeDelta > 64 && this.R.canvas) {
@@ -209,11 +209,11 @@ class SkillsOrbit extends PureComponent {
     };
 
     /**
-     * TODO : re-organize to use new 
+     * TODO : re-organize to use new
      *        "deriveStateFromProps" lifecycle event
-     * 
-     * @param {*} prevProps 
-     * @param {*} prevState 
+     *
+     * @param {*} prevProps
+     * @param {*} prevState
      */
     componentDidUpdate(prevProps, prevState) {
 
@@ -221,17 +221,17 @@ class SkillsOrbit extends PureComponent {
             this.instantiateScene();
         } else {
 
-            // upon resize of window, recalculate the width of the renderer    
+            // upon resize of window, recalculate the width of the renderer
 
             let maxDimension = Math.max(
                     this.props.vpW,
                     this.props.vpH
                 ),
                 prevMaxDimension = Math.max(
-                    prevProps.vpW, 
+                    prevProps.vpW,
                     prevProps.vpH
                 );
-                
+
             if(maxDimension != prevMaxDimension) {
                 this.refreshRendererSize();
             }
@@ -240,7 +240,7 @@ class SkillsOrbit extends PureComponent {
         if(this.state.isHighlighted != prevState.isHighlighted && this.shiftingValuesMap) {
             this.lastFocusEvent = performance.now();
             const map =this.shiftingValuesMap;
-            
+
             if(map.has('camPosZ')) {
                 let camPosZ = map.get('camPosZ');
                 if(this.state.isHighlighted) {
@@ -260,13 +260,13 @@ class SkillsOrbit extends PureComponent {
         let maxDimension = Math.max(window.innerWidth,window.innerHeight);
 
         let SIZE = (()=>{
-            if(maxDimension <= 800) { return 180; } 
+            if(maxDimension <= 800) { return 180; }
             if(maxDimension <= 960) { return 200; }
             return 240;
         })();
 
         this.renderer.setSize(SIZE*3, SIZE*3);
-        
+
         // THREE.js tends to re-assign sizes for the canvas element,
         // (as well as is a bit funky with destroying/instantiating that),
         // so be sure to re-style with flexible definitions with guaranteed
@@ -278,12 +278,12 @@ class SkillsOrbit extends PureComponent {
             canvas.style.height="auto";
         }
 
-        // re-assign as Three.JS is a bit funny 
+        // re-assign as Three.JS is a bit funny
         this.R.canvas = window.document.querySelector('#canvas3d canvas');
 
         // add event listener to newly created references
         this.R.container.addEventListener('mouseenter', this.onMouseEnter);
-        this.R.container.addEventListener('mouseleave', this.onMouseLeave);  
+        this.R.container.addEventListener('mouseleave', this.onMouseLeave);
     };
 
     freeResources = () => {
@@ -294,23 +294,23 @@ class SkillsOrbit extends PureComponent {
         this.O.outerSphere = undefined;
         this.O.innerSphere = undefined;
 
-        this.R.container.removeEventListener('mouseenter', this.onMouseEnter);        
+        this.R.container.removeEventListener('mouseenter', this.onMouseEnter);
         this.R.container.removeEventListener('mouseleave', this.onMouseLeave);
         this.R.canvas = undefined;
     };
 
     instantiateScene = () => {
-    
+
         if(this.renderer) {
             this.freeResources();
-        } else { 
+        } else {
 
             // instantiate renderer, scene, camera
-            
+
             this.scene = new Scene();
             this.camera = new PerspectiveCamera(60, 1, 0.5, 2000);
 
-            this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({ 
+            this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({
                 value : 720,
                 target : 550,
                 rate : 500,
@@ -322,9 +322,9 @@ class SkillsOrbit extends PureComponent {
                 }
             }));
 
-            this.renderer = new WebGLRenderer({ 
-                alpha : true, 
-                antialias : true 
+            this.renderer = new WebGLRenderer({
+                alpha : true,
+                antialias : true
             });
         }
 
@@ -332,7 +332,7 @@ class SkillsOrbit extends PureComponent {
 
         document.getElementById('canvas3d')
                     .appendChild( this.renderer.domElement );
-        
+
         this.refreshRendererSize();
 
         if(!this._hasInstantiated) {
@@ -340,7 +340,7 @@ class SkillsOrbit extends PureComponent {
             window.requestAnimationFrame( this.animate );
         }
     };
-    
+
     createOrbit = () => {
         const { theme } = this.props;
         let skillStrings = strings.skills;
@@ -349,17 +349,17 @@ class SkillsOrbit extends PureComponent {
         this.O.rotationOrigin = new Object3D();
 
         // needed for new API; must provide target vector,
-        // or we get warnings. Luckily, we can just create 
+        // or we get warnings. Luckily, we can just create
         // one re-useable vector to satisfy the beast's needs
 
         this.wpTargetVector = new Vector3();
 
-        // sphere creation/assignment 
+        // sphere creation/assignment
 
         for(let [key, params] of Object.entries(sources)) {
             if(!params.nonMapped) {
                 switch(params.type) {
-                    case 'sphere': 
+                    case 'sphere':
                         this.O[key] = createMesh(params);
                         this.O.rotationOrigin.add(this.O[key]);
                         break;
@@ -373,17 +373,17 @@ class SkillsOrbit extends PureComponent {
         this.O.skillPoints = [];
         this.skillAngles   = []; // much more efficient to
                                  // track angle differences
-                                 // vs polar coordinates 
+                                 // vs polar coordinates
                                  // for transparency effect with
                                  // distance
-        
+
         skillPoints.forEach( ({ namespace, value }, i, arr) => {
 
             let projectionAngle = (i/arr.length) * 1.0 * Math.PI*2;
             this.skillAngles.push(projectionAngle);
 
             let textSprite = new SpriteText2D(
-                skillStrings[namespace], 
+                skillStrings[namespace],
                 sources.skillText.generateParams({ value, theme })
             );
 
@@ -393,11 +393,11 @@ class SkillsOrbit extends PureComponent {
             // difference between outer and inner
             // circle radius
 
-            let skillsVertex = createSkillVertex({ 
-                radianAngle : projectionAngle, 
-                value 
+            let skillsVertex = createSkillVertex({
+                radianAngle : projectionAngle,
+                value
             });
-            
+
             let [ x, y, z ] = skillsVertex;
 
             let skillPointObj = createMesh(
@@ -405,7 +405,7 @@ class SkillsOrbit extends PureComponent {
             );
 
             skillPointObj.position.set(x, y, z);
-            
+
             this.O.skillPoints.push(skillPointObj);
             this.O.rotationOrigin.add(skillPointObj);
 
@@ -433,7 +433,7 @@ class SkillsOrbit extends PureComponent {
             }
         }));
 
-        
+
         this.shiftingValuesMap.set('rotationY', new ShiftingValueMap.ValueEntry({
             value : 0,
             target : 0,
@@ -445,14 +445,14 @@ class SkillsOrbit extends PureComponent {
             }
         }));
 
-        this.shiftingValuesMap.set('rotXSpeed', new ShiftingValueMap.ValueEntry({ 
+        this.shiftingValuesMap.set('rotXSpeed', new ShiftingValueMap.ValueEntry({
             value : 0,
             target : 0.175,
             rate : 0.25,
             onChange : rotXSpeed => {}
         }));
 
-        this.shiftingValuesMap.set('rotYSpeed', new ShiftingValueMap.ValueEntry({ 
+        this.shiftingValuesMap.set('rotYSpeed', new ShiftingValueMap.ValueEntry({
             value    : 0,
             target   : 0.325,
             rate     : 0.25,
@@ -462,9 +462,9 @@ class SkillsOrbit extends PureComponent {
 
     animate = (timestamp)=> {
         const valueMap = this.shiftingValuesMap; //quick ref
-        
+
         // calculate time since last call
-        let deltaTime = !this.lastAnimated ? 
+        let deltaTime = !this.lastAnimated ?
                             0 : timestamp - this.lastAnimated;
 
         valueMap.tick(deltaTime);
@@ -479,7 +479,7 @@ class SkillsOrbit extends PureComponent {
 
             if(valueMap.has('rotYSpeed')) {
                 let rotationY = valueMap.get('rotationY');
-                rotationY.target = rotationY.value + valueMap.get('rotYSpeed').value / deltaTime;          
+                rotationY.target = rotationY.value + valueMap.get('rotYSpeed').value / deltaTime;
             }
         }
 
@@ -490,7 +490,7 @@ class SkillsOrbit extends PureComponent {
             this.lastSpriteUpdate = performance.now();
 
             let cameraPosition = this.camera.position;
-            
+
             this.O.textSprites.forEach( sprite => {
                 let distance = Math.round(cameraPosition.distanceTo(
                     sprite.getWorldPosition(this.wpTargetVector)
@@ -504,9 +504,9 @@ class SkillsOrbit extends PureComponent {
                     opacity = Math.min(0.85, Math.max(0.15, (700-distance)/200));
                     distanceOpacityMap.set(distance, opacity);
                 }
-    
+
                 // darker theme requires less transparency
-                
+
                 sprite.material.opacity = opacity;
             });
         }
@@ -522,9 +522,9 @@ class SkillsOrbit extends PureComponent {
         let eventTime = performance.now();
         let eventTimeDelta = eventTime - this.lastFocusEvent;
 
-        // allow updating max every .35s from 
+        // allow updating max every .35s from
         // another mouse event
-        
+
         if(eventTimeDelta > 350) {
             this.setState({ isHighlighted : !this.state.isHighlighted });
         }
@@ -536,20 +536,20 @@ class SkillsOrbit extends PureComponent {
 
         const leftIconClass = `mdi mdi-${!isHighlighted ? 'cursor-pointer' : 'human'}`;
         const arrowClass = `mdi mdi-arrow-right ${
-                classes.arrow} ${ 
-                isHighlighted ? classes.arrowRotated : '' 
+                classes.arrow} ${
+                isHighlighted ? classes.arrowRotated : ''
         }`;
 
         return (
-            <div 
-                className={classes.container} 
-                ref={ c => this.R.container = c } 
+            <div
+                className={classes.container}
+                ref={ c => this.R.container = c }
                 onClick={this.onClick}
             >
                 <FadingOrbitContainer isHighlighted={ isHighlighted } />
                 <SkillsOverlayText theme={ theme } isVisible={ isHighlighted } />
                 <p className={ classes.hintIcons }>
-                { 
+                {
                     <span>
                         <i className={ leftIconClass } />&nbsp;&nbsp;
                         <i className={ arrowClass } />&nbsp;&nbsp;
@@ -568,11 +568,11 @@ function SkillsOrbitContainer () {
     const theme = useTheme();
 
     return (
-        <SkillsOrbit 
-            vpW={ vpW } 
-            vpH={ vpH } 
+        <SkillsOrbit
+            vpW={ vpW }
+            vpH={ vpH }
             classes={ classes }
-            theme={ theme.palette.type }    
+            theme={ theme.palette.type }
         />
     );
 }

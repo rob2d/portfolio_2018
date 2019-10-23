@@ -1,11 +1,11 @@
 import React, { useMemo, useEffect, useLayoutEffect, useRef, PureComponent } from 'react'
-import { 
-    Object3D, Vector3, Mesh, 
+import {
+    Object3D, Vector3, Mesh,
     SphereGeometry, MeshBasicMaterial,
-    DoubleSide, Scene, PerspectiveCamera, 
+    DoubleSide, Scene, PerspectiveCamera,
     WebGLRenderer
 } from 'three'
-import { makeStyles, useTheme } from '@material-ui/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { textAlign, SpriteText2D } from 'three-text2d'
 import useViewportSizes from 'use-viewport-sizes'
 import skillPoints from 'constants/skillPoints'
@@ -33,10 +33,10 @@ function createSkillVertex({ radianAngle, value=1 }) {
     let vRadius = getSkillSphereDiameter(value)/2,
         xWidth = Math.cos(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius),
         yWidth = Math.sin(radianAngle) * value * (RADIUS_DIFFERENCE-vRadius);
-    
+
     return [
-        Math.cos(radianAngle) * INNER_RADIUS + xWidth, 
-        Math.sin(radianAngle) * INNER_RADIUS + yWidth, 
+        Math.cos(radianAngle) * INNER_RADIUS + xWidth,
+        Math.sin(radianAngle) * INNER_RADIUS + yWidth,
         0
     ];
 }
@@ -57,8 +57,8 @@ const sources = {
     outerSphere : {
         type     : 'sphere',
         geometry : new SphereGeometry( OUTER_RADIUS, 17, 17 ),
-        material : new MeshBasicMaterial({ 
-            color       : 0xDCDCDC, 
+        material : new MeshBasicMaterial({
+            color       : 0xDCDCDC,
             wireframe   : true,
             side        : DoubleSide,
             opacity     : 0.4,
@@ -71,8 +71,8 @@ const sources = {
     innerSphere : {
         type     : 'sphere',
         geometry : new SphereGeometry( INNER_RADIUS, 7, 7 ),
-        material : new MeshBasicMaterial({ 
-            color       : 0xCC288D, 
+        material : new MeshBasicMaterial({
+            color       : 0xCC288D,
             wireframe   : true,
             side        : DoubleSide,
             opacity     : 0.2,
@@ -84,8 +84,8 @@ const sources = {
         type : 'text2d',
         unmapped : true,
         generateParams : ({ value, theme }) => ({
-            align     : textAlign.center, 
-            font      : `${6+Math.round(34*value)}px roboto_bold`, 
+            align     : textAlign.center,
+            font      : `${6+Math.round(34*value)}px roboto_bold`,
             fillStyle : (theme == 'light') ? '#333333' : '#FFFFFF',
             side      : DoubleSide,
             depthTest : false
@@ -95,12 +95,12 @@ const sources = {
         type : 'sphere',
         unmapped : true,
         generateParams : ({ value, theme }) => ({
-            geometry   : new SphereGeometry( 
-                getSkillSphereDiameter(value), 
-                6+Math.round(1.7*value), 
-                6+Math.round(1.7*value) 
+            geometry   : new SphereGeometry(
+                getSkillSphereDiameter(value),
+                6+Math.round(1.7*value),
+                6+Math.round(1.7*value)
             ),
-            material   : new MeshBasicMaterial({ 
+            material   : new MeshBasicMaterial({
                 color        : 0xC51162,
                 wireframe    : true,
                 side         : DoubleSide,
@@ -163,7 +163,7 @@ function SkillsOrbitContainer () {
     const lastAnimated = useRef(performance.now());
     const tiltTimeProcessed = useRef(performance.now());
 
-    
+
     /**
      * Adjusts renderer size according
      * to current window dimensions
@@ -172,13 +172,13 @@ function SkillsOrbitContainer () {
         let maxDimension = Math.max(window.innerWidth,window.innerHeight);
 
         let SIZE = (()=>{
-            if(maxDimension <= 800) { return 180; } 
+            if(maxDimension <= 800) { return 180; }
             if(maxDimension <= 960) { return 200; }
             return 240;
         })();
 
         this.renderer.setSize(SIZE*3, SIZE*3);
-        
+
         // THREE.js tends to re-assign sizes for the canvas element,
         // (as well as is a bit funky with destroying/instantiating that),
         // so be sure to re-style with flexible definitions with guaranteed
@@ -190,12 +190,12 @@ function SkillsOrbitContainer () {
             canvas.style.height="auto";
         }
 
-        // re-assign as Three.JS is a bit funny 
+        // re-assign as Three.JS is a bit funny
         canvasRef.current = window.document.querySelector('#canvas3d canvas');
 
         // add event listener to newly created references
         containerRef.current.addEventListener('mouseenter', onMouseEnter);
-        containerRef.current.addEventListener('mouseleave', onMouseLeave);  
+        containerRef.current.addEventListener('mouseleave', onMouseLeave);
     }, []);
 
     const onMouseMove = useMemo(()=> e => {
@@ -203,7 +203,7 @@ function SkillsOrbitContainer () {
         const timeDelta = performance.now() - tiltTimeProcessed.current;
         const valueMap = shiftingValuesMap;
 
-        // shift tilt rotation speed 
+        // shift tilt rotation speed
         // based on new mouse position
 
         if(timeDelta > 64 && canvas.current) {
@@ -239,7 +239,7 @@ function SkillsOrbitContainer () {
         for(let [key, params] of Object.entries(sources)) {
             if(!params.nonMapped) {
                 switch(params.type) {
-                    case 'sphere': 
+                    case 'sphere':
                         objs[key] = createMesh(params);
                         objs.rotationOrigin.add(objs[key]);
                         break;
@@ -251,18 +251,18 @@ function SkillsOrbitContainer () {
 
         objs.textSprites = [];
         objs.skillPoints = [];
-        
+
         // ============================= //
-        // IMPLEMENTATION NOTE : 
+        // IMPLEMENTATION NOTE :
         //
         // for angles, it is much more efficient to
         // track angle differences
-        // vs polar coordinates 
+        // vs polar coordinates
         // for transparency effect with
         // distance
         // ============================= //
-        
-        objs.skillAngles = []; 
+
+        objs.skillAngles = [];
 
         skillPoints.forEach(({ namespace, value }, i, arr ) => {
             let projectionAngle = (i/arr.length) * Math.PI*2.0;
@@ -275,12 +275,12 @@ function SkillsOrbitContainer () {
 
             objs.textSprites.push(textSprite);
             objs.rotationOrigin.push(textSprite);
-        
+
             // difference between outer and inner circle radius
 
             let skillsVertex = createSkillVertex({
                 radianAngle : projectionAngle,
-                value 
+                value
             });
 
             let [ x, y, z ] = skillsVertex;
@@ -297,7 +297,7 @@ function SkillsOrbitContainer () {
 
             // offset by 2.5% rotation so that it stays
             // within view
-            
+
             let [ textX, textY, textZ ] = createSkillVertex({
                 radianAngle : projectionAngle - (Math.PI*2*0.025),
                 value
@@ -307,7 +307,7 @@ function SkillsOrbitContainer () {
         });
 
         scene.add(objs.rotationOrigin);
-        
+
         shiftingValuesMap.set('rotationX', new ShiftingValueEntry({
             value : 0,
             target : 0,
@@ -346,7 +346,7 @@ function SkillsOrbitContainer () {
     }, []);
 
     const onMouseEnter = useMemo(()=> e => (
-        !isHighlighted && setHighlighted(true) 
+        !isHighlighted && setHighlighted(true)
     ), [isHighlighted]);
 
     const onMouseLeave = useMemo(()=> e => (
@@ -362,7 +362,7 @@ function SkillsOrbitContainer () {
 
             setScene(new Scene());
             setCamera(new PerspectiveCamera(60,1,0.5,2000));
-        
+
             // attach callback to camera position
 
             shiftingValuesMap.set('camPosZ', new ShiftingValueEntry({
@@ -384,9 +384,9 @@ function SkillsOrbitContainer () {
     }, []);
 
     const animate = useMemo(()=> timestamp => {
-        let deltaTime = lastAnimated.current ? 
+        let deltaTime = lastAnimated.current ?
                             0 : timestamp - lastAnimated.current;
-        
+
         shiftingValuesMap.tick(deltaTime);
         lastAnimated.current = timestamp;
 
@@ -410,7 +410,7 @@ function SkillsOrbitContainer () {
     useEffect(()=> {
         if(shiftingValuesMap) {
             lastFocusEvent.current = performance.now();
-            
+
             if(shiftingValuesMap.has('camPosZ')) {
                 let camPosZ = shiftingValuesMap.get('camPosZ');
                 if(isHighlighted) {
@@ -424,11 +424,11 @@ function SkillsOrbitContainer () {
 
 
     return (
-        <SkillsOrbit 
-            vpW={ vpW } 
-            vpH={ vpH } 
+        <SkillsOrbit
+            vpW={ vpW }
+            vpH={ vpH }
             classes={ classes }
-            theme={ theme.palette.type }    
+            theme={ theme.palette.type }
         />
     );
 }

@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useReducer } from 'react';
 import C from 'color';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import PDF from 'react-pdf-js';
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
@@ -9,9 +9,9 @@ import PDFViewerNav from './PDFViewerNav';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette : { 
-    secondary, common, type 
-} }) => ({ 
+const useStyles = makeStyles(({ palette : {
+    secondary, common, type
+} }) => ({
     container : {
         position : 'relative',
         display : 'flex',
@@ -30,7 +30,7 @@ const useStyles = makeStyles(({ palette : {
         margin : 0,
 
         // resize pdf height according to 8.5x11
-        
+
         '@media (max-width: 900px)': {
             maxWidth : '100%',
             height : 'auto !important'
@@ -74,10 +74,10 @@ const useStyles = makeStyles(({ palette : {
     },
     pdfContainer : {
         display : p => p.isLoading ? 'none' : 'block',
-        filter : ( l => 
-            `hue-rotate(${l?0:195}deg) ` + 
-            `invert(${l?0:100}%) ` + 
-            `saturate(${l?100:150}%) ` + 
+        filter : ( l =>
+            `hue-rotate(${l?0:195}deg) ` +
+            `invert(${l?0:100}%) ` +
+            `saturate(${l?100:150}%) ` +
             `brightness(${l?100:85}%)`
         )(type == 'light'),
         transitionDelay : '3s'
@@ -108,10 +108,10 @@ function reducer (state={ initialState }, action) {
             return { ...state, isLoaded : false };
         }
         case 'handle-document-complete' : {
-            return { ...state, 
+            return { ...state,
                 pageCount : payload,
                 pageNumber : 1,
-                isLoaded : true 
+                isLoaded : true
             };
         }
         default : {
@@ -127,30 +127,30 @@ export default function PDFViewer ({ fileURL }) {
     const theme = useTheme();
 
     const handlePrevPage = useCallback( ()=>
-        (state.pageNumber > 1) && 
+        (state.pageNumber > 1) &&
             dispatch({ type : 'go-to-prev-page' })
     , [state.pageNumber]);
 
-    const handleNextPage = useCallback( ()=> 
-        (state.pageNumber < state.pageCount) && 
+    const handleNextPage = useCallback( ()=>
+        (state.pageNumber < state.pageCount) &&
         dispatch({ type : 'go-to-next-page' })
     , [state.pageNumber, state.pageCount]);
 
-    const onPageComplete = useCallback( pageNumber => 
-        dispatch({ 
-            type : 'handle-page-complete', 
-            payload : pageNumber 
-        }), 
+    const onPageComplete = useCallback( pageNumber =>
+        dispatch({
+            type : 'handle-page-complete',
+            payload : pageNumber
+        }),
     []);
 
-    const onDocumentComplete = useCallback( pageCount => 
-        dispatch({ 
+    const onDocumentComplete = useCallback( pageCount =>
+        dispatch({
             type : 'handle-document-complete',
             payload : pageCount
-        }), 
+        }),
     []);
 
-    const downloadIcon = useMemo(()=> ( 
+    const downloadIcon = useMemo(()=> (
         <Icon path={ mdiDownload } className={ classes.downloadIcon } />
     ), [classes.downloadIcon]);
 
@@ -162,12 +162,12 @@ export default function PDFViewer ({ fileURL }) {
                 className={ classes.pdfContent }
             />
     ), [
-        classes.pdfContent, 
+        classes.pdfContent,
         onDocumentComplete,
-        onPageComplete, 
+        onPageComplete,
         state.pageNumber
     ]);
-    
+
     return (
         <div className={ classes.container }>
             <div className={ classes.pdfContainer }>
@@ -177,16 +177,16 @@ export default function PDFViewer ({ fileURL }) {
                 href={ fileURL }
                 download={ 'RobertConcepcionResume' }
                 className={ classes.downloadButtonContainer }>
-                { shouldShowHoverContent ? 
+                { shouldShowHoverContent ?
                 (
                     <Tooltip
                         id={ `resume-pdf-download-tooltip` }
-                        enterDelay={ 400 } 
+                        enterDelay={ 400 }
                         title={ `Download this PDF` }
                     >
-                        <Fab 
+                        <Fab
                             className={ classes.downloadButton }
-                            data-tip data-for={`resume-pdf-download-tooltip`}                        
+                            data-tip data-for={`resume-pdf-download-tooltip`}
                         >{ downloadIcon }
                         </Fab>
                     </Tooltip>

@@ -1,7 +1,7 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles( theme => ({   
+const useStyles = makeStyles( theme => ({
     canvas3d : {
         position       : 'relative',
         display        : 'flex',
@@ -11,14 +11,14 @@ const useStyles = makeStyles( theme => ({
         pointerEvents  : 'all',
         paddingBottom  : '16px',
         opacity        : ({ isHighlighted }) => (isHighlighted ? 0 : 1),
-        transition     : ({ isHighlighted }) => (isHighlighted ? 
+        transition     : ({ isHighlighted }) => (isHighlighted ?
             '0.75s ease opacity 0s' :
             '0.75s ease opacity 1s'
         )
     }
 }), 'FadingOrbitContainer');
 
-export default function OrbitContainer ({ isHighlighted }) { 
+export default function OrbitContainer ({ isHighlighted }) {
     const classes = useStyles({ isHighlighted });
     return (
         <div id="canvas3d" className={ classes.canvas3d } />

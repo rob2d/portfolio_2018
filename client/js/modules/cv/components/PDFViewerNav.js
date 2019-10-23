@@ -1,10 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import C from 'color';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import LoadingComponent from 'utils/components/LoadingComponent';
-import { 
+import {
     mdiSkipPrevious,
     mdiSkipNext
 } from '@mdi/js';
@@ -47,13 +47,13 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
 }), { name : 'PDFViewerNav' });
 
 export default function PDFViewerNav ({
-    pageNumber, pageCount, isLoaded, 
+    pageNumber, pageCount, isLoaded,
     handleNextPage, handlePrevPage
 }) {
     const classes = useStyles();
 
     return (
-        isLoaded ? 
+        isLoaded ?
         (
             <div className={ classes.container }>
                 <Button
@@ -67,8 +67,8 @@ export default function PDFViewerNav ({
                 </Button>
                 <div>{
                     ( pageCount > 0 ) ?
-                    `${pageNumber} / ${pageCount}` : 
-                    '' 
+                    `${pageNumber} / ${pageCount}` :
+                    ''
                 }
                 </div>
                 <Button

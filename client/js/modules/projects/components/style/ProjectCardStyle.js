@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const ANIM_DURATION_S = '0.32';
 const getTopMargin = vpW => vpW > 800 ? 32 : 16;
@@ -162,13 +162,25 @@ export default makeStyles(({ palette : { type } }) => ({
     },
     cardMediaImg : {
         position : 'relative',
-        width : p => (!p.viewAsTitle) ? 'auto' : '100%',
-        height : '100%',
+        width : p => {
+            if(!p.viewAsTitle) { return 'auto' }
+            else { return `${p.isHighlighted?125:100}%` }
+        },
         verticalAlign : 'middle',
-        transition : `all ${ANIM_DURATION_S}s ease-out`,
         margin : '0 auto',
-        left : p => p.isHighlighted ? '-25%' : '0%',
+        left : p => `${p.isHighlighted?-25:0}%`,
         top : '0%',
-        opacity : p => (!p.viewAsTitle) ? 1 : 0
+        opacity : p => (!p.viewAsTitle) ? 1 : 0,
+        height : p => (
+            ((p.viewAsTitle && 100) ||
+            (p.isHighlighted ? 324 : 180)) +
+            'px'
+        ),
+        transition : `all ${ANIM_DURATION_S}s ease-out`,
+        '& *' : {
+            width : 'auto !important',
+            height : '100% !important',
+            transition : `all ${ANIM_DURATION_S}s ease-out`
+        }
     }
 }), { name : 'ProjectCard' });

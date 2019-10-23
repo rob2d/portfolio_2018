@@ -11,7 +11,7 @@ import {
     useDocumentTitle
 } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import appHistory from 'utils/appHistory';
 import { AppHeader, AppFooter } from './modules/core';
 import ThemeContextProvider from './ThemeContextProvider';

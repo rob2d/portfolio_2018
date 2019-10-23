@@ -1,5 +1,5 @@
 import React, { memo, Fragment } from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 function getBarXsition ({ index }) {
     const attribs = `0.30s linear ${
@@ -9,7 +9,7 @@ function getBarXsition ({ index }) {
 }
 
 const useValueBarStyles = makeStyles( theme => ({
-    container : { 
+    container : {
         width : '100%',
         transition : 'border-color 0.5s',
         height : '4px'

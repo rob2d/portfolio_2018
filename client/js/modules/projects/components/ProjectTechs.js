@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Technologies from 'constants/Technologies';
 import ButtonLink from 'utils/components/ButtonLink';
 import SVG from 'react-inlinesvg';
@@ -11,7 +11,7 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
         '& *' : {
             fill : `${text.primary} !important`,
             stroke : `${text.primary} !important`,
-            transition: 'background-color 0.35s ease'  
+            transition: 'background-color 0.35s ease'
         },
         '&:hover *' : {
             fill : `${common.white} !important`,
@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
         width : '64px',
         height : '64px',
         borderRadius : '4px',
-        backgroundColor : C(common.contrast).alpha(0).rgb()+'',
+        backgroundColor : `${C(common.contrast).alpha(0).rgb()}`,
         '@media(max-width:800px)' : {
             width : '48px',
             height : '48px'
@@ -36,24 +36,24 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
     }
 }), { name : 'ProjectTechs' });
 
-export default function ProjectTechs({ techSet }) { 
+export default function ProjectTechs({ techSet }) {
     const classes = useStyles({ techSet });
 
     return Array.from(techSet).map((tKey,i,arr) => {
-        const { 
-            displayName, 
-            referenceUrl 
+        const {
+            displayName,
+            referenceUrl
         } = Technologies[tKey];
 
         return (
-            <ButtonLink 
-                url={ referenceUrl } 
+            <ButtonLink
+                url={ referenceUrl }
                 containerClass={ classes.techContainer }
                 title={ displayName }
-                key={ `${displayName}_buttonLinkContainer`}
-            >   <SVG 
+                key={ `${displayName}_buttonLinkContainer` }
+            >   <SVG
                     className={ classes.techIcon }
-                    src={`/img/techs/${tKey}.svg`}
+                    src={ `/img/techs/${tKey}.svg` }
                 />
             </ButtonLink>
         );

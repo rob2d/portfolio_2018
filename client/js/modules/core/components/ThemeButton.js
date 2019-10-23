@@ -7,7 +7,7 @@ import React, {
 import C from 'color';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
 import { ThemeContext } from 'app-root/ThemeContextProvider';
 

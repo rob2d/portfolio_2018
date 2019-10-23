@@ -41,6 +41,7 @@ module.exports = {
         chunkFilename: '[name].bundle.js'
     },
     optimization : {
+        runtimeChunk : 'single',
         splitChunks : {
             name : true,
             cacheGroups: {
@@ -59,7 +60,8 @@ module.exports = {
                     minChunks: 2
                 }
             }
-        }
+        },
+        usedExports: true
     },
     module : {
         rules : [{

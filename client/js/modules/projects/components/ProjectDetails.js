@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
 import {
     mdiArrowLeftBox,
