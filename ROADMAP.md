@@ -20,8 +20,6 @@ of users.
 
 ## Misc
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that. (W.I.P. -- just need to use new simple Projects data format).
-- use new hooks API to fade HOC which will improve speed + code consistency.
-- apply new ESLint rules on everything for consistent syntax conventions (W.I.P.)
 
 ## Nice-to-haves
 

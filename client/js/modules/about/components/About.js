@@ -1,10 +1,13 @@
 import React, { useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { isPortrait } from 'utils';
-import { ButtonLink } from 'utils/components';
+import {
+    ButtonLink,
+    OptimizedImg
+} from 'utils/components';
 import {
     useDocumentTitle,
     useAutoFaderClass
@@ -195,11 +198,9 @@ export default function About() {
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
             <div className={ classes.firstContainer }>
                 <div className={ classes.topContent }>
-                    <Avatar
-                        alt={ 'Rob' }
-                        src={ 'img/about/me.jpg' }
-                        className={ classes.avatar }
-                    />
+                    <Avatar className={ classes.avatar }>
+                        <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
+                    </Avatar>
                     <SectionLinks { ...linkProps } />
                 </div>
             </div>
@@ -212,10 +213,8 @@ export default function About() {
                 <p>
                     This site was created using my stack of choice most days:&nbsp;
                     <Tech url={ 'https://reactjs.com' }>React</Tech>
-                    <Tech url={ 'https://redux.js.org' }>Redux</Tech>
-                    <Tech url={ 'https://threejs.org' }>THREE.js</Tech>
                     <Tech url={ 'https://nodejs.org' }>Node</Tech>
-                    <Tech url={ 'https://webpack.js.org/' }>Webpack</Tech>&nbsp;
+                    <Tech url={ 'https://webpack.js.org/' }>Webpack</Tech>
                     and deployed via&nbsp;
                     <Tech url={ 'http://nginx.org' }>NginX</Tech> and&nbsp;
                     <Tech url={ 'http://pm2.keymetrics.io/' }>PM2</Tech>.

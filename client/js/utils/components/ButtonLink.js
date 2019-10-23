@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import appHistory from 'utils/appHistory';
 import Tooltip from '@material-ui/core/Tooltip';
 

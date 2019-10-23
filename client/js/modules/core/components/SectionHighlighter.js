@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
     highlighter : {

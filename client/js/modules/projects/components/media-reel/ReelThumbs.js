@@ -1,7 +1,7 @@
-import React, { 
-    useRef, useLayoutEffect, useCallback 
+import React, {
+    useRef, useLayoutEffect, useCallback
 } from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import useViewportSizes from 'use-viewport-sizes'
 import ReelThumb from './ReelThumb'
 
@@ -22,27 +22,27 @@ const useStyles = makeStyles( theme => ({
     }
 }), { name : 'ReelThumbs' });
 
-export default function ReelThumbs ({ 
-    selectedIndex, media, thumbHeight, onThumbClicked 
+export default function ReelThumbs ({
+    selectedIndex, media, thumbHeight, onThumbClicked
 }) {
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpH });
     const containerElem = useRef(null);
-    
+
     useLayoutEffect(()=> {
         if(containerElem.current) {
             containerElem.current.scrollTop = ((thumbHeight+8) * selectedIndex);
         }
     }, [selectedIndex]);
 
-    return ( 
-        <div 
-            className={ classes.reelThumbs } 
+    return (
+        <div
+            className={ classes.reelThumbs }
             ref={ containerElem }>
-            { media.map((item, i) => (   
-                <ReelThumb 
+            { media.map((item, i) => (
+                <ReelThumb
                     key={`reelThumbsSetItem${i}`}
-                    onClick={ useCallback(()=> onThumbClicked(i), [i]) } 
+                    onClick={ useCallback(()=> onThumbClicked(i), [i]) }
                     thumbHeight={ thumbHeight }
                     item={ item }
                     isSelected={ selectedIndex == i }

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import skillPoints from 'constants/skillPoints';
 import ValueBar from './ValueBar';
 
@@ -56,16 +56,16 @@ export default function SkillsOverlayText({ isVisible }) {
             <React.Fragment key={`skillText_${namespace}_${index}`}>
                 <div className={ classes.textItem }>
                     <p className={ classes.namespace }>
-                        { skillStrings[namespace] } 
-                    </p> 
+                        { skillStrings[namespace] }
+                    </p>
                     <p className={ classes.value }>
                         { parseFloat(value).toFixed(2) }
                     </p>
                 </div>
-                <ValueBar 
+                <ValueBar
                     isVisible={isVisible}
-                    value={value} 
-                    index={index} 
+                    value={value}
+                    index={index}
                 />
             </React.Fragment>
         ))

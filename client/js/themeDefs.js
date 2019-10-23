@@ -13,7 +13,7 @@ const commonRules = {
                 padding : '4px 8px',
                 minHeight : '20px',
                 lineHeight : '20px',
-                opacity : 0.74
+                opacity : 0.74,
             },
             tooltip : {
                 fontSize : '11pt',
@@ -72,21 +72,6 @@ themeDefs.light.push({
             primary : '#000',
             secondary : '#455A64'
         }
-    },
-    overrides : {
-        MuiTooltip : {
-            popper : {
-                fontSize : '11pt',
-                padding  : '4px 8px',
-                minHeight: '20px',
-                lineHeight: '20px'
-            }
-        },
-        MuiTypography : {
-            body1 : {
-                fontSize : '0.95rem'
-            }
-        }
     }
 });
 
@@ -111,21 +96,6 @@ themeDefs.dark.push({
         text : {
             primary : '#FFF',
             secondary : '#616161'
-        }
-    },
-    overrides : {
-        MuiTooltip : {
-            popper : {
-                fontSize : '11pt',
-                padding  : '4px 8px',
-                minHeight: '20px',
-                lineHeight: '20px'
-            }
-        },
-        MuiTypography : {
-            body1 : {
-                fontSize : '0.95rem'
-            }
         }
     }
 });

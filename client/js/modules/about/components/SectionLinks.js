@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { isLandscape, isPortrait } from 'utils';
 import { ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';

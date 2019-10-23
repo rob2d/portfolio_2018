@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import useViewportSizes from 'use-viewport-sizes';
 import MediaViewer from './MediaViewer';
 import ReelThumbs from './ReelThumbs';
@@ -18,7 +18,7 @@ const REEL_ANIM_SPEED = 6500;
  * (dependent on width, maxWidth props)
  */
 function getReelWidth (width, maxWidth) {
-    return maxWidth !== 'undefined' && 
+    return maxWidth !== 'undefined' &&
         ((width > maxWidth) ? maxWidth : width);
 }
 
@@ -64,8 +64,8 @@ const useStyles = makeStyles( theme => ({
         display       : 'flex',
         flexDirection :'row'
     },
-    reelPadding : { 
-        flexBasis : '10%' 
+    reelPadding : {
+        flexBasis : '10%'
     },
     statusBoxes : {
         flexBasis  : '5%',
@@ -163,23 +163,23 @@ class MediaReel extends PureComponent {
     };
     autoplayToNextItem = () => {
         if(!this.state.isVideoPlaying) {
-            const selectedIndex = (this.state.selectedIndex + 1) % 
+            const selectedIndex = (this.state.selectedIndex + 1) %
                                     this.props.media.length;
             this.setState({ selectedIndex });
         }
     };
     render () {
-        const { 
-            classes, 
-            media, 
-            width, 
-            maxWidth, 
+        const {
+            classes,
+            media,
+            width,
+            maxWidth,
             aspectRatio,
             vpW,
             vpH
         } = this.props;
 
-        const { 
+        const {
             selectedIndex,
             updateCount
         } = this.state;
@@ -188,7 +188,7 @@ class MediaReel extends PureComponent {
 
         return (
             <div className={ classes.container }>
-                <MediaViewer 
+                <MediaViewer
                     { ...highlightedMedia }
                     width={ Math.floor(width*0.7) }
                     aspectRatio={ aspectRatio }
@@ -204,13 +204,13 @@ class MediaReel extends PureComponent {
                 <div className={ classes.reel }>
                     <div className={ classes.reelPadding } />
                     {
-                        vpW > 740 && 
-                        <ReelThumbs 
+                        vpW > 740 &&
+                        <ReelThumbs
                             media={media}
                             selectedIndex={selectedIndex}
                             thumbHeight ={
                                 Math.round((
-                                    getReelWidth(width,maxWidth)*0.25*0.75) / 
+                                    getReelWidth(width,maxWidth)*0.25*0.75) /
                                     aspectRatio
                                 )
                             }
@@ -222,21 +222,21 @@ class MediaReel extends PureComponent {
                     <div className={ classes.reelPadding } />
                     <div className={ classes.statusBoxes }>
                     { media.map((item, i)=>(
-                        <div 
+                        <div
                             key={ `mediaReelItem${i}` }
-                            className={ classes.statusBox } 
+                            className={ classes.statusBox }
                             onClick={ ()=> this.handleItemClick(i) }
                         >
                         <Icon
-                            path={ ( i != selectedIndex )? 
-                                mdiSquareOutline : mdiSquare 
+                            path={ ( i != selectedIndex )?
+                                mdiSquareOutline : mdiSquare
                             }
                             className={ classes.statusBoxIcon }
                             size={ 0.5 }
                         />
                         </div>
                     )) }
-                </div>       
+                </div>
                 </div>
             </div>
             );
@@ -267,9 +267,9 @@ export default function MediaReelContainer(props) {
 
     return (
         <MediaReel
-            { ...props } 
-            classes={ classes } 
-            vpW={ vpW }  
+            { ...props }
+            classes={ classes }
+            vpW={ vpW }
             vpH={ vpH }
         />
     );

@@ -1,7 +1,4 @@
-// standard core-js polyfills; not intending 
-// to support legacy browsers such as IE11 
-// in my portfolio here, but certain things 
-// which make no sense in the world such as 
-// iUsers/Safari requires this
-
-import entries from 'core-js/modules/es.object.entries.js'
+import 'core-js/modules/es.object.keys'; // IE
+import 'core-js/modules/es.object.assign'; // IE, Safari
+import 'core-js/modules/es.object.from-entries'; // IE, Safari
+import 'core-js/modules/es.object.entries'; // IE, Edge & Safari

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, createContext } from 'react';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { getTheme } from './themeDefs';
 
 export const ThemeContext = createContext();

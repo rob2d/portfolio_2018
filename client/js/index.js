@@ -1,4 +1,7 @@
-import 'core-js/fn/object/entries'; // Safari polyfill
+// support for Object.entries and Object.fromEntries
+// with minimal overhead (for Safari and Edge users)
+import './utils/polyfills/coreJsPolyfills';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RoutingApp from './RoutingApp';

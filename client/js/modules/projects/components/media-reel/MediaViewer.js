@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import MediaTypes from 'constants/MediaTypes'
 import ButtonLink from 'utils/components/ButtonLink'
@@ -92,8 +92,8 @@ class MediaViewer extends PureComponent {
         super(props);
 
         const { disableCache } = props;
-        this.state = { 
-            cacheMap : disableCache ? undefined : new Map() 
+        this.state = {
+            cacheMap : disableCache ? undefined : new Map()
         };
     }
 
@@ -115,28 +115,28 @@ class MediaViewer extends PureComponent {
         const { type, src, videoId } = props;
 
         switch(props.type) {
-            case MediaTypes.IMAGE : 
+            case MediaTypes.IMAGE :
                 return `${type}_${src}`;
-            case MediaTypes.VIDEO : 
+            case MediaTypes.VIDEO :
                 return `${type}_${videoId}`
-            default : 
+            default :
                 throw new Error('Invalid Media Type');
         }
     }
 
     static getDerivedStateFromProps(props, state) {
-        
+
         // when a prop related to resources change,
         // our isMediaLoading state should
         // reset to true (and update trailing props
         // which allow us to re-flag)
 
-        if(((props.type    != state.type)   || 
+        if(((props.type    != state.type)   ||
            (props.src     != state.src)     ||
-           (props.videoId != state.videoId) || 
-           (props.width != state.width)     || 
-           (props.vpH != state.vpH) || 
-           (props.vpW != state.vpW) || 
+           (props.videoId != state.videoId) ||
+           (props.width != state.width)     ||
+           (props.vpH != state.vpH) ||
+           (props.vpW != state.vpW) ||
            (props.aspectRatio != state.aspectRatio)
         )) {
 
@@ -159,7 +159,7 @@ class MediaViewer extends PureComponent {
             if(cacheMap && cacheMap.has(itemKey)) {
                 let { resource, isMediaLoading } = cacheMap.get(itemKey);
                 switch(props.type) {
-                    case MediaTypes.VIDEO : 
+                    case MediaTypes.VIDEO :
                         // TODO : we should be saving
                         //        video element so that
                         //        it does not need to
@@ -176,7 +176,7 @@ class MediaViewer extends PureComponent {
                 };
 
                 switch(props.type) {
-                    case MediaTypes.IMAGE : 
+                    case MediaTypes.IMAGE :
                         resource.img = new Image();
                         resource.img.src = props.src;
                         resource.img.onload = ()=> {
@@ -187,20 +187,20 @@ class MediaViewer extends PureComponent {
                         resource.thumb = props.thumb;
                         resource.url = `${location.protocol}//${location.host}${props.src}`;
                         resource.domSegment =  (
-                            <ButtonLink 
+                            <ButtonLink
                                 url={resource.url}
                                 title={ 'Open full res image in new tab' }
                                 containerClass={ props.classes.mediaContainerButton }
                                 style={ newState.itemDimensionStyle }
-                            > <img 
+                            > <img
                                 style={ newState.itemDimensionStyle }
-                                className={ props.classes.image } 
-                                src={ props.src } 
+                                className={ props.classes.image }
+                                src={ props.src }
                             />
                             </ButtonLink>
                         );
                         break;
-                    case MediaTypes.VIDEO : 
+                    case MediaTypes.VIDEO :
 
                         const {
                             onVideoPlay,
@@ -209,7 +209,7 @@ class MediaViewer extends PureComponent {
                             onVideoEnd,
                             videoId
                         } = props;
-                        
+
                         resource.url = `https://youtube.com/watch?v=${videoId}`;
                         resource.thumb = `https://img.youtube.com/vi/${videoId}/default.jpg`
                         resource.domSegment = (
@@ -231,14 +231,14 @@ class MediaViewer extends PureComponent {
                                 onPlay={ onVideoPlay }
                                 onStop={ onVideoStop }
                                 onEnd={ onVideoEnd }
-                                onPause={ onVideoPause } 
+                                onPause={ onVideoPause }
                                 onStateChange={ state =>
                                     MediaViewer.onYTStateChange(state, props)
                                 }
                             />
                         );
                         break;
-                    default : 
+                    default :
                         throw new Error('Invalid media type ->', props.type);
                 }
 
@@ -260,17 +260,17 @@ class MediaViewer extends PureComponent {
     render () {
         const { cacheMap } = this.state;
 
-        const { 
-            type, src, thumb, videoId, 
+        const {
+            type, src, thumb, videoId,
             caption, classes, vpW
         } = this.props;
 
         const itemKey = MediaViewer.getItemKey(this.props);
 
-        const isMediaLoading = (cacheMap && cacheMap.get(itemKey)) ? 
+        const isMediaLoading = (cacheMap && cacheMap.get(itemKey)) ?
                                     cacheMap.get(itemKey).isMediaLoading : true;
 
-        let { resource } = cacheMap.get(itemKey);                    
+        let { resource } = cacheMap.get(itemKey);
 
         let bgLoadingStyle= (isMediaLoading) ? {
             backgroundImage  : `url(${resource.thumb})`,
@@ -284,7 +284,7 @@ class MediaViewer extends PureComponent {
         let mediaElement;
 
         switch(type) {
-            case MediaTypes.IMAGE : 
+            case MediaTypes.IMAGE :
                 if(!isMediaLoading) {
                     mediaElement = resource.domSegment;
                 } else {
@@ -296,8 +296,8 @@ class MediaViewer extends PureComponent {
                     mediaElement =  resource.domSegment;
                 } else {
                     mediaElement = (
-                        <ButtonLink 
-                            url={ resource.url } 
+                        <ButtonLink
+                            url={ resource.url }
                             className={ classes.mediaContainerButton }
                         >{ resource.domSegment }
                         </ButtonLink>
@@ -307,13 +307,13 @@ class MediaViewer extends PureComponent {
         }
 
         return (
-            <div className={ classes.container }> 
+            <div className={ classes.container }>
                 <div className={ classes.mediaContainer } style={ bgLoadingStyle } >
                     { mediaElement }
                 </div>
                 { isMediaLoading &&
                 (<div className={ classes.loader }>
-                    <CircularProgress 
+                    <CircularProgress
                         color='secondary'
                         size={ (vpW <= 800) ? 40 : 64 }
                     />

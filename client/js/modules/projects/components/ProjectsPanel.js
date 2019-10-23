@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import useViewportSizes from 'use-viewport-sizes';
 import { projects } from 'strings';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { appHistory, wait } from 'utils';
 import {
     useAutoFaderClass,
