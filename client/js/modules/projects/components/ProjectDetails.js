@@ -126,7 +126,8 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
     },
     section : {
         margin : '16px 0px 32px',
-        color : text.primary
+        color : text.primary,
+        fill : text.primary
     },
     sectionHeader : {
         fontSize : '14pt',

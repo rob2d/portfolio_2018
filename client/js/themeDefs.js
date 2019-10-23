@@ -80,21 +80,21 @@ themeDefs.dark.push({
     palette : {
         primary : {
             main : '#d5d5d5',
-            dark : '#424242'
+            dark : '#343434'
         },
         secondary : {
             main : '#ec407a',
             dark : '#c51162'
         },
         common : {
-            background1 : '#000',
+            background1 : '#121212',
             white : '#FFF',
             active : '#00b8d4',
-            shadow : '#787878',
+            shadow : '#232323',
             contrast : '#FFF'
         },
         text : {
-            primary : '#FFF',
+            primary : '#CACACA',
             secondary : '#616161'
         }
     }

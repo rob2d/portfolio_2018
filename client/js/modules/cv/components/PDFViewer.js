@@ -22,7 +22,11 @@ const useStyles = makeStyles(({ palette : {
         alignItems : 'center',
         justifyContent : 'center',
         paddingTop : '32px',
-        paddingBottom : '16px'
+        paddingBottom : '16px',
+        // use explicit black to get rid of the awkwardness,
+        // until there's time to convert CV to HTML and translate
+        // that to PDF vs vice versa
+        backgroundColor : (type == 'light') ? common.background1 : '#000'
     },
     pdfContent : {
         display : 'inline-block',
@@ -77,7 +81,7 @@ const useStyles = makeStyles(({ palette : {
         filter : ( l =>
             `hue-rotate(${l?0:195}deg) ` +
             `invert(${l?0:100}%) ` +
-            `saturate(${l?100:150}%) ` +
+            `saturate(${l?100:85}%) ` +
             `brightness(${l?100:85}%)`
         )(type == 'light'),
         transitionDelay : '3s'
