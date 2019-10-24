@@ -37,6 +37,11 @@ const useStyles = makeStyles(({ palette : { common } }) => ({
             stroke :  common.white
         }
     },
+    tooltip : {
+        '& > div' : {
+            display : 'block'
+        }
+    },
     '@global' : {
         '.themeicon__star' : {
             transformOrigin : '50% 50%',
@@ -125,8 +130,8 @@ const useStyles = makeStyles(({ palette : { common } }) => ({
 
 export default function ThemeButton() {
     const [isToggling, setIsToggling] = useState(false);
-    const [themeState, setThemeState] = useState(() => 'light');
     const { setThemeType, themeType } = useContext(ThemeContext);
+    const [themeState, setThemeState] = useState(() => themeType );
 
     const classes = useStyles();
 
@@ -147,9 +152,14 @@ export default function ThemeButton() {
     }, [setThemeType, themeType, isToggling]);
 
     const tooltip = useMemo(() => (
-        <span>Switch to the&nbsp;
-            <b>{themeTargets[themeState].name}</b> theme
-        </span>
+        <div className={ classes.tooltip }>
+            <div>Switch to the&nbsp;
+                <b>{themeTargets[themeState].name}</b> theme
+            </div>
+            <div>
+                <i>(default is your native OS' theme if set)</i>
+            </div>
+        </div>
     ), [themeState]);
 
     return (
