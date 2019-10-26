@@ -16,7 +16,8 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
 
 export default function ButtonLink({
     url, containerClass, children,title=undefined,
-    delay=250, rippleColor, asButton=true
+    delay=250, rippleColor, asButton=true,
+    name=children
 }) {
     const classes = useStyles({ rippleColor });
     const isAbsoluteURL = useMemo(() => url.indexOf('://') != -1, [url]);
@@ -37,6 +38,7 @@ export default function ButtonLink({
             className={ clsx(classes.container, containerClass) }
             onMouseDown={ onClick }
             TouchRippleProps={{ classes : { ripple : classes.touchRipple } }}
+            aria-label={ name }
         >{ children }
         </ButtonBase>
     ) : (

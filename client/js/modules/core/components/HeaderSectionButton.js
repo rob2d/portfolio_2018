@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ palette : { common } }) => ({
 }), 'HeaderSectionButton');
 
 export default function HeaderSectionButton({
-    onClick, domId, name,
+    onClick, domId, description,
     iconPath, tooltipText,
     buttonDivRef, disabled
 }) {
@@ -52,11 +52,9 @@ export default function HeaderSectionButton({
                     id={ domId }
                     onMouseDown={ onClick }
                     variant={ 'text' }
+                    aria-label={ description }
                 >
-                    <Icon
-                        path={ iconPath }
-                        size={ 1.025 }
-                    />
+                    <Icon path={ iconPath } size={ 1.025 } />
                 </Button>
             </Tooltip>
         </div>

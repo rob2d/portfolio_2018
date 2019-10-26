@@ -18,12 +18,14 @@ import ThemeContextProvider from './ThemeContextProvider';
 
 const ANIM_DURATION_S = '0.32';
 
-const useStyles = makeStyles(({ palette : { common } }) => ({
+const useStyles = makeStyles(({ palette : { common, text } }) => ({
     '@global' : {
         '@import' : `url('https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap')`,
         'html,body' : {
             fontFamily: `'Roboto', sans-serif`,
             fontWeight : 300,
+            color : text.primary,
+            fill : text.primary,
             backgroundColor : common.background1,
             transition : `background-color ${ANIM_DURATION_S}s ease`,
             padding : 0

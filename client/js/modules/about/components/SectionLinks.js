@@ -27,48 +27,39 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
             } else {
                 return '0px';
             }
-        }
-    },
-    sectionLink : {
-        position : 'relative',
-        display : p => `${isLandscape(p.vpW,p.vpH)?'inline-':''}block`,
-        padding : '8px',
-        '&:hover $listItem' : {
-            color : secondary.main
         },
-        '&:active $listItem' : {
-            color : common.active
+        '& > button' : {
+            position : 'relative',
+            display : p => `${isLandscape(p.vpW,p.vpH)?'inline-':''}block`,
+            padding : '8px',
+            '&:hover > li' : {
+                color : secondary.main
+            },
+            '&:active > li' : {
+                color : common.active
+            },
+            '&:nth-of-type(odd)': {
+                left : p => `${isPortrait(p.vpW,p.vpH)?-12:0}px`
+            }
         },
-        '&:nth-of-type(odd)': {
-            left : p => `${isPortrait(p.vpW,p.vpH)?-12:0}px`
-        }
-    },
-    listItem : {
-        display : 'flex',
-        listStyleType : 'none',
-        cursor : 'pointer',
-        color : secondary.dark,
-        fontWeight : 700,
-        fontSize : '11pt',
-        minWidth : p => (
-            (!isPortrait(p.vpW, p.vpH) &&
-            !isLandscape(p.vpW,p.vpH)) ?
-                '148px' : '1px'
-        ),
-        textAlign : 'left',
-        transition : 'color 0.21s',
-        '& > *' : {
+        '& > button > li' : {
+            display : 'flex',
+            listStyleType : 'none',
+            cursor : 'pointer',
+            color : secondary.dark,
+            fontWeight : 700,
+            fontSize : '11pt',
+            minWidth : p => (
+                (!isPortrait(p.vpW, p.vpH) &&
+                !isLandscape(p.vpW,p.vpH)) ?
+                    '148px' : '1px'
+            ),
+            textAlign : 'left',
+            transition : 'color 0.21s',
+        },
+        '& > button > li > *' :{
             marginRight : p => !isLandscape(p.vpW,p.vpH)?'16px':'6px'
-        },
-        '& svg' : {
-            fontSize : '13pt',
-            color : text.primary,
-            fill : text.primary
         }
-    },
-    linkDivider : {
-        display : 'inline-block',
-        color : text.primary
     },
 
     // make certain things larger on non-mobile devices
@@ -79,23 +70,21 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
     }
 }), 'SectionLinks');
 
-export default function SectionLinks ({ vpW, vpH }) {
+export default function SectionLinks({ vpW, vpH }) {
     const classes = useStyles({ vpW, vpH })
 
     const isInLandscape = isLandscape(vpW, vpH);
 
-    const SectionLink = useCallback(({ url, name, iconPath })=> (
+    const SectionLink = useCallback(({ url, name, iconPath }) => {
+        SectionLink.displayName='SectionLink';
+        return (
             <ButtonLink
                 url={ url }
-                containerClass={ classes.sectionLink }
-            >   <li className={ classes.listItem }>
-                    <Icon
-                        path={ iconPath }
-                        size={ 0.75 }
-                    />&nbsp;{ name }
-                </li>
+                name={ name }
+            ><li><Icon path={ iconPath } size={ 0.75 } />&nbsp;{ name }</li>
             </ButtonLink>
-    ), [classes]);
+        );
+    }, [classes]);
 
     return (
         <ul className={ classes.sectionList }>
@@ -116,4 +105,4 @@ export default function SectionLinks ({ vpW, vpH }) {
             />
         </ul>
     );
-};
+}

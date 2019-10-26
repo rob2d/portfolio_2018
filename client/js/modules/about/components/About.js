@@ -4,20 +4,12 @@ import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import { isPortrait } from 'utils';
-import {
-    ButtonLink,
-    OptimizedImg
-} from 'utils/components';
-import {
-    useDocumentTitle,
-    useAutoFaderClass
-} from 'utils/hooks';
+import { ButtonLink, OptimizedImg } from 'utils/components';
+import { useDocumentTitle, useAutoFaderClass } from 'utils/hooks';
 import SectionLinks from './SectionLinks';
 
-const useStyles = makeStyles(({
-    palette : { secondary, common, text }
-}) => ({
-    mainContainer : {
+const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
+    container : {
         marginLeft : 'auto',
         marginRight : 'auto',
         maxWidth : '700px',
@@ -25,20 +17,20 @@ const useStyles = makeStyles(({
         display : 'flex',
         flexDirection  : 'column',
         justifyContent : 'center',
-        padding : p => `${!p.inPortrait ? '0 ' : '16'}px`,
+        padding : p => `${!p.inPortrait ?0:16}px`,
         alignItems : 'center',
-        boxSizing : 'border-box' // for padding in landscape
-    },
-
-    centerContent : {
-        display : 'inline-block',
-        color : text.primary,
-        verticalAlign : 'top',
-        fontSize : '12pt',
+        boxSizing : 'border-box', // for padding in landscape
         lineHeight : '1.3rem',
         wordWrap : 'break-word',
         textAlign : 'left',
         letterSpacing : '0.01rem',
+
+        '& p' : {
+            paddingLeft : '16px',
+            paddingRight : '16px',
+            paddingTop : '0px',
+            paddingBottom : '0px'
+        },
 
         '@media (min-width:901px)' : {
             fontSize : '14pt'
@@ -48,40 +40,32 @@ const useStyles = makeStyles(({
         '@media (orientation:landscape) and (max-width:900px)' : {
             fontSize : '11pt'
         },
-        wordBreak : 'word-wrap',
-        '& p' : {
-            paddingLeft : '16px',
-            paddingRight : '16px',
-            paddingTop : '0px',
-            paddingBottom : '0px'
+
+        '& > div:nth-of-type(1)' : {
+            display : 'flex',
+            flexDirection : 'row',
+            alignItems : 'center',
+            width : '100%',
+            justifyContent : 'space-between'
+        },
+
+        '& > div:nth-of-type(2)': {
+            display : 'inline-block',
+            verticalAlign : 'top',
+            fontSize : '12pt',
+            wordWrap : 'break-word',
+            textAlign : 'left',
+            letterSpacing : '0.01rem',
+            wordBreak : 'word-wrap'
         }
     },
 
-    firstContainer : {
-        display : 'flex',
-        flexDirection : 'row',
-        alignItems : 'center',
-        justifyContent : 'space-evenly',
-        width : '100%'
-    },
-
-    topContent : {
-        width : '100%',
-        display : 'flex',
-        alignItems : 'center',
-        flexDirection : 'row',
-        justifyContent : 'space-between'
-    },
     tech : {
         color : secondary.dark,
 
-        '&:hover' : {
-            color : secondary.main
-        },
+        '&:hover' : { color : secondary.main },
 
-        '&:active' : {
-            color : common.active
-        },
+        '&:active' : { color : common.active },
 
         // commas following tech
         '&:not(:nth-last-child(-n+2)) $techComma' : {
@@ -91,9 +75,7 @@ const useStyles = makeStyles(({
             display : 'none'
         }
     },
-    techComma : {
-
-    },
+    techComma : {},
     avatar : {
         width  : '128px',
         height : '128px',
@@ -126,7 +108,7 @@ const useStyles = makeStyles(({
         avatar : {
             margin : '16px 16px 8px'
         },
-        mainContainer : {
+        container : {
             padding : '16px',
             boxSizing : 'border-box'
         }
@@ -137,16 +119,6 @@ const useStyles = makeStyles(({
             margin : '24px 8px',
             width : '80px',
             height : '80px',
-        },
-        pText : {
-            fontSize : '11pt'
-        }
-    },
-    // again, for iPhone5
-    '@media (orientation:landscape) and (max-height:320px)': {
-        pText : {
-            marginTop : '8px',
-            marginBottom : '8px'
         }
     },
     // make certain things larger on non-mobile devices
@@ -155,7 +127,7 @@ const useStyles = makeStyles(({
             width : '120px',
             height : '120px'
         },
-        mainContainer : {
+        container : {
             justifyContent : 'space-evenly',
             maxWidth : '1280px'
         },
@@ -164,14 +136,6 @@ const useStyles = makeStyles(({
             flexDirection : 'column',
             overflowY : 'auto',
             zIndex : 5000
-        },
-        skillsOrbit : {
-            display : 'none',
-            flexDirection : 'column',
-            overflowY : 'auto',
-            flexGrow : 0,
-            width : '30vh',
-            height : '30vh'
         }
     }
 }), { name : 'About' });
@@ -184,25 +148,26 @@ export default function About() {
     const inPortrait = useMemo(() => isPortrait(vpW, vpH), [vpW, vpH]);
     const classes = useStyles({ vpW, vpH, inPortrait });
 
-    const Tech = useCallback(({ children, url }) => (
-        <ButtonLink
-            containerClass={ classes.tech }
-            url={ url }
-            asButton={ false }
-        >   { children }
-            <span className={ classes.techComma }>, </span>
-        </ButtonLink>
-    ), [classes.tech]);
+    const Tech = useCallback(({ children, url }) => {
+        Tech.displayName = 'Tech';
+        return (
+            <ButtonLink
+                containerClass={ classes.tech }
+                url={ url }
+                asButton={ false }
+            >   { children }
+                <span className={ classes.techComma }>, </span>
+            </ButtonLink>
+        );
+    }, [classes.tech]);
 
     return (
-        <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
+        <div className={ clsx(classes.container, fadeContainerClass) }>
             <div className={ classes.firstContainer }>
-                <div className={ classes.topContent }>
-                    <Avatar className={ classes.avatar }>
-                        <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
-                    </Avatar>
-                    <SectionLinks { ...linkProps } />
-                </div>
+                <Avatar className={ classes.avatar }>
+                    <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
+                </Avatar>
+                <SectionLinks { ...linkProps } />
             </div>
 
             <div className={ classes.centerContent }>

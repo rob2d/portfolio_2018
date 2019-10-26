@@ -42,7 +42,7 @@ export default function AppFooter() {
     const classes = useStyles();
     const fadeContainerClass = useAutoFaderClass();
 
-    const ContactButton = useCallback(({ url, iconPath, tooltipContent }) => {
+    const ContactButton = useCallback(({ url, iconPath, tooltipContent, description }) => {
         ContactButton.displayMode = 'ContactButton';
         const onMouseDown = useCallback( e => appHistory.goTo(url, e), [url]);
 
@@ -51,6 +51,7 @@ export default function AppFooter() {
                 <Button
                     className={ classes.contactButton }
                     onMouseDown={ onMouseDown }
+                    aria-label={ description }
                 ><Icon
                     className={ classes.icon }
                     path={ iconPath }
@@ -67,21 +68,25 @@ export default function AppFooter() {
                 iconPath={ mdiGithubBox }
                 url={ 'https://github.com/rob2d' }
                 tooltipContent={ <>Visit my <b>Github</b></> }
+                description={ 'Visit Github Account' }
             />
             <ContactButton
                 iconPath={ rc3NpmBox }
                 url={ 'https://www.npmjs.com/~robftw' }
                 tooltipContent={ <>Browse my <b>NPM</b> repos</> }
+                description={ 'Visit NPM Repos' }
             />
             <ContactButton
                 iconPath={ mdiLinkedinBox }
                 url={ 'https://www.linkedin.com/in/robert-concepci%C3%B3n-iii-66bb7114/' }
                 tooltipContent={ <>Connect with me on <b>LinkedIn</b> 🧐</> }
+                description={ 'Visit LinkedIn Account' }
             />
             <ContactButton
                 iconPath={ mdiGmail }
                 url={ 'mailto:robert.concepcion.iii@gmail.com' }
                 tooltipContent={ <><b>Email</b> me -- but no spam, please 🙏</> }
+                description={ 'Write an Email' }
             />
         </div>
     );
