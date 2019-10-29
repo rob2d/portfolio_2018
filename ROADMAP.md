@@ -20,6 +20,8 @@ of users.
 
 ## Misc
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that. (W.I.P. -- just need to use new simple Projects data format).
+- auto-generate sitemap.xml using react-router library.
+- generate meta data for content on serverside (possibly integrated with point right above).
 
 ## Nice-to-haves
 

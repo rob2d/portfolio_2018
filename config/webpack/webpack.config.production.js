@@ -84,7 +84,7 @@ if(args && args.export_standalone) {
                 copy : [
                     {
                         source : 'server/public/**',
-                        destination   : path.join(global.basePath, buildDir)
+                        destination : path.join(global.basePath, buildDir)
                     }, {
                         source : 'server/*.js',
                         destination   : path.join(global.basePath, buildDir)

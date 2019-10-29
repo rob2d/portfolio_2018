@@ -130,12 +130,6 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
         container : {
             justifyContent : 'space-evenly',
             maxWidth : '1280px'
-        },
-        centerContent : {
-            display : 'flex',
-            flexDirection : 'column',
-            overflowY : 'auto',
-            zIndex : 5000
         }
     }
 }), { name : 'About' });
@@ -163,14 +157,14 @@ export default function About() {
 
     return (
         <div className={ clsx(classes.container, fadeContainerClass) }>
-            <div className={ classes.firstContainer }>
+            <div>
                 <Avatar className={ classes.avatar }>
                     <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
                 </Avatar>
                 <SectionLinks { ...linkProps } />
             </div>
 
-            <div className={ classes.centerContent }>
+            <div>
                 <p>
                     Hi. My name is Rob, and I'm a software developer from NYC.
                     Thanks for visiting.

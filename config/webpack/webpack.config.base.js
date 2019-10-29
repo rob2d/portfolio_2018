@@ -142,6 +142,12 @@ module.exports = {
             transformPath : (targetPath, sourcePath) =>
                 // cut off 'client/' from path
                 targetPath.substr(7)
+        }, {
+            from : './client/robots.txt',
+            to : ''
+        }, {
+            from : './client/sitemap.xml',
+            to : ''
         }], {
             ignore : [
                 'client/*.*',
@@ -160,7 +166,7 @@ module.exports = {
             ...reduxAliases,
             'img' : global.resolvePath('client/img'),
             'app-root' : global.resolvePath('client/js'),
-            common : global.resolvePath('server/utils/common')
+            'common' : global.resolvePath('server/utils/common')
         }
     }
 };
