@@ -9,6 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 // we solve with BEM convention here
 
 
+const defaultStarXform = 'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)';
+
 const useStyles = makeStyles(({ palette : { common } }) => {
 
     // use RGBA computation for transitions
@@ -56,37 +58,37 @@ const useStyles = makeStyles(({ palette : { common } }) => {
         starA1 : {
             transform : p => !p.dark ?
                 'scaleX(0.5) scaleY(0.6) translateX(29%) translateY(-50%) rotateZ(-108deg)' :
-                'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)'
+                defaultStarXform
         },
 
         starA2 : {
             transform : p => !p.dark ?
                 'scaleX(0.5) scaleY(0.6) translateX(-75%) translateY(-25%) rotateZ(-290deg)' :
-                'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)'
+                defaultStarXform
         },
 
         starA3 : {
             transform : p => !p.dark ?
                 'scaleX(0.5) scaleY(0.6) translateX(-75%) translateY(40%) rotateZ(50deg)' :
-                'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)'
+                defaultStarXform
         },
 
         starB1 : {
             transform : p => !p.dark ?
                 'scaleX(0.7) scaleY(0.8) translateX(25%) translateY(3%) rotateZ(-65deg)' :
-                'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)'
+                defaultStarXform
         },
 
         starB2 : {
             transform : p => !p.dark ?
                 'scaleX(0.7) scaleY(0.8) translateX(30%) translateY(40%) rotateZ(-60deg)' :
-                'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)'
+                defaultStarXform
         },
 
         starB3 : {
             transform : p => !p.dark ?
                 'scaleX(0.7) scaleY(0.8) translateX(-5%) translateY(66%) rotateZ(-73.5deg)' :
-                'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)'
+                defaultStarXform
         }
     };
 }, { name : 'DayNightSVGIcon' });
@@ -94,7 +96,6 @@ const useStyles = makeStyles(({ palette : { common } }) => {
 export default function DayNightSVGIcon({ selection }) {
     const classes = useStyles({ dark : selection == 'dark' });
 
-    console.log('classes ->', classes);
     return (
         <svg viewBox={ "0 0 24 24" } className={ clsx(classes.star, classes.container) }>
             <path
