@@ -9,6 +9,9 @@
     "dev": "webpack --mode development ./client/js/index.js --output ./server/public/main.js",
     "build": "webpack --mode production --export_standalone=true --zip=true"
   },
+  "browserslist" : [
+    "defaults"
+  ],
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
