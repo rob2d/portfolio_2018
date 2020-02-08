@@ -127,13 +127,6 @@ export default function PDFViewer({ fileURL }) {
         dispatch({ type : 'go-to-next-page' }),
     [state.pageNumber, state.pageCount]);
 
-    const onPageComplete = useCallback( pageNumber =>
-        dispatch({
-            type : 'handle-page-complete',
-            payload : pageNumber
-        }),
-    []);
-
     const onDocumentLoadSuccess = useCallback(({ numPages }) =>
         dispatch({ type : 'handle-document-complete', payload : numPages }),
     []);
