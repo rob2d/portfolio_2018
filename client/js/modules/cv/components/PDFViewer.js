@@ -1,17 +1,22 @@
 import React, { useMemo, useCallback, useReducer } from 'react';
 import C from 'color';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import PDF from 'react-pdf-js';
-import Tooltip from '@material-ui/core/Tooltip';
-import Fab from '@material-ui/core/Fab';
-import shouldShowHoverContent from 'utils/shouldShowHoverContent';
-import PDFViewerNav from './PDFViewerNav';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fab from '@material-ui/core/Fab';
+import { usePrevious } from 'utils/hooks';
+import shouldShowHoverContent from 'utils/shouldShowHoverContent';
+import PDFViewerNav from './PDFViewerNav';
 
-const useStyles = makeStyles(({ palette : {
-    secondary, common, type
-} }) => ({
+const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
+    '@global' : {
+        '.react-pdf__Page__textContent' : {
+            display : 'none !important',
+            pointerEvents : 'none !important'
+        }
+    },
     container : {
         position : 'relative',
         display : 'flex',
@@ -22,11 +27,7 @@ const useStyles = makeStyles(({ palette : {
         alignItems : 'center',
         justifyContent : 'center',
         paddingTop : '32px',
-        paddingBottom : '16px',
-        // use explicit black to get rid of the awkwardness,
-        // until there's time to convert CV to HTML and translate
-        // that to PDF vs vice versa
-        backgroundColor : (type == 'light') ? common.background1 : '#000'
+        paddingBottom : '16px'
     },
     pdfContent : {
         display : 'inline-block',
@@ -70,7 +71,7 @@ const useStyles = makeStyles(({ palette : {
         backgroundColor : secondary.main,
         color : common.white,
         '&:hover' : {
-            backgroundColor : C(secondary.main).lighten(0.2).rgb()+''
+            backgroundColor : `${C(secondary.main).lighten(0.2).rgb()}`
         },
         '&:active' : {
             backgroundColor : common.active
@@ -78,12 +79,6 @@ const useStyles = makeStyles(({ palette : {
     },
     pdfContainer : {
         display : p => p.isLoading ? 'none' : 'block',
-        filter : ( l =>
-            `hue-rotate(${l?0:195}deg) ` +
-            `invert(${l?0:100}%) ` +
-            `saturate(${l?100:85}%) ` +
-            `brightness(${l?100:85}%)`
-        )(type == 'light'),
         transitionDelay : '3s'
     }
 }), { name : 'PDFViewer' });
@@ -95,21 +90,15 @@ const initialState = {
     isRetriggering : false
 };
 
-function reducer (state={ initialState }, action) {
+function reducer(state={ initialState }, action) {
     const { type, payload } = action;
 
-    switch(type) {
-        case 'go-to-next-page': {
+    switch (type) {
+        case 'go-to-next-page' : {
             return { ...state, pageNumber : (state.pageNumber + 1) };
         }
-        case 'go-to-prev-page': {
+        case 'go-to-prev-page' : {
             return { ...state, pageNumber : (state.pageNumber - 1) };
-        }
-        case 'load-content' : {
-            return { ...state, isLoaded : true };
-        }
-        case 'unload-content' : {
-            return { ...state, isLoaded : false };
         }
         case 'handle-document-complete' : {
             return { ...state,
@@ -124,21 +113,19 @@ function reducer (state={ initialState }, action) {
     }
 }
 
-export default function PDFViewer ({ fileURL }) {
+export default function PDFViewer({ fileURL }) {
     const [state, dispatch] = useReducer(reducer, initialState);
-
     const classes = useStyles({ isLoading : state.isLoading });
     const theme = useTheme();
 
-    const handlePrevPage = useCallback( ()=>
-        (state.pageNumber > 1) &&
-            dispatch({ type : 'go-to-prev-page' })
-    , [state.pageNumber]);
+    const handlePrevPage = useCallback(() =>
+        (state.pageNumber > 1) && dispatch({ type : 'go-to-prev-page' }),
+    [state.pageNumber]);
 
-    const handleNextPage = useCallback( ()=>
+    const handleNextPage = useCallback(() =>
         (state.pageNumber < state.pageCount) &&
-        dispatch({ type : 'go-to-next-page' })
-    , [state.pageNumber, state.pageCount]);
+        dispatch({ type : 'go-to-next-page' }),
+    [state.pageNumber, state.pageCount]);
 
     const onPageComplete = useCallback( pageNumber =>
         dispatch({
@@ -147,30 +134,35 @@ export default function PDFViewer ({ fileURL }) {
         }),
     []);
 
-    const onDocumentComplete = useCallback( pageCount =>
-        dispatch({
-            type : 'handle-document-complete',
-            payload : pageCount
-        }),
+    const onDocumentLoadSuccess = useCallback(({ numPages }) =>
+        dispatch({ type : 'handle-document-complete', payload : numPages }),
     []);
 
-    const downloadIcon = useMemo(()=> (
+    const downloadIcon = useMemo(() => (
         <Icon path={ mdiDownload } className={ classes.downloadIcon } />
     ), [classes.downloadIcon]);
 
-    const pdfContent = useMemo(()=> (
-            <PDF file={ fileURL }
-                onDocumentComplete={ onDocumentComplete }
-                onPageComplete={ onPageComplete }
-                page={ state.pageNumber }
-                className={ classes.pdfContent }
-            />
-    ), [
-        classes.pdfContent,
-        onDocumentComplete,
-        onPageComplete,
-        state.pageNumber
-    ]);
+    const prevPageNumber = usePrevious(state.pageNumber);
+
+    const pageNumber = useMemo(() => {
+        if(state.pageNumber !== undefined) {
+            return state.pageNumber;
+        }
+        else if(prevPageNumber !== undefined) {
+            return prevPageNumber;
+        }
+        else return undefined;
+    }, [prevPageNumber, state.pageNumber]);
+
+    const pdfContent = useMemo(() => (
+        <Document
+            file={ fileURL }
+            onLoadSuccess={ onDocumentLoadSuccess }
+            className={ classes.pdfContent }
+            renderTextLayer={ false }
+        ><Page pageNumber={ pageNumber } />
+        </Document>
+    ), [pageNumber, fileURL]);
 
     return (
         <div className={ classes.container }>
@@ -190,24 +182,27 @@ export default function PDFViewer ({ fileURL }) {
                     >
                         <Fab
                             className={ classes.downloadButton }
-                            data-tip data-for={`resume-pdf-download-tooltip`}
+                            data-tip
+                            data-for={ `resume-pdf-download-tooltip` }
                         >{ downloadIcon }
                         </Fab>
                     </Tooltip>
                 ) : (
-                <Fab className={ classes.downloadButton }>
-                { downloadIcon }
-                </Fab>
+                    <Fab className={ classes.downloadButton }>
+                        { downloadIcon }
+                    </Fab>
                 )}
             </a>
-            <PDFViewerNav
-                pageNumber={ state.pageNumber }
-                pageCount={ state.pageCount }
-                handleNextPage={ handleNextPage }
-                handlePrevPage={ handlePrevPage }
-                isLoaded={ state.isLoaded }
-                theme={ theme }
-            />
+            { !state.isLoading && (
+                <PDFViewerNav
+                    pageNumber={ state.pageNumber }
+                    pageCount={ state.pageCount }
+                    handleNextPage={ handleNextPage }
+                    handlePrevPage={ handlePrevPage }
+                    isLoaded={ state.isLoaded }
+                    theme={ theme }
+                />
+            ) }
         </div>
     );
 }

@@ -9,7 +9,7 @@
     "dev": "webpack --mode development ./client/js/index.js --output ./server/public/main.js",
     "build": "webpack --mode production --export_standalone=true --zip=true"
   },
-  "browserslist" : [
+  "browserslist": [
     "defaults"
   ],
   "devDependencies": {
@@ -20,7 +20,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
-    "@material-ui/core": "^4.5.1",
+    "@material-ui/core": "^4.8.3",
     "@mdi/js": "^4.5.95",
     "@mdi/react": "^1.2.1",
     "babel-eslint": "^10.0.3",
@@ -52,7 +52,7 @@
     "react-dom": "^16.11.0",
     "react-hot-loader": "^4.12.15",
     "react-inlinesvg": "^1.1.7",
-    "react-pdf-js": "^3.0.8",
+    "react-pdf": "^5.0.0-beta.2",
     "react-router-dom": "^5.1.2",
     "react-youtube": "^7.9.0",
     "recompose": "^0.30.0",
