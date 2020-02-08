@@ -29,9 +29,9 @@ const commonRules = {
             }
         },
         MuiAppBar : {
-            colorPrimary : {
+            root : {
                 position : 'relative',
-                minHeight : '56px',
+                minHeight : '48px',
                 transition : '0.5s all'
             },
             positionFixed : {

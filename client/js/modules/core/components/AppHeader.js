@@ -25,10 +25,6 @@ const {
 const BUTTON_WIDTH_PX = 60;
 
 const useStyles = makeStyles(({ palette : { common } }) => ({
-    appBar : {
-        position : 'relative',
-        minHeight : '56px' // needed to prevent gutters from resizing
-    },
     rightContainer : {
         textAlign : 'right',
         height : '100%',
@@ -128,7 +124,7 @@ export default function AppHeader() {
     } = visualState;
 
     return (
-        <AppBar className={ clsx(classes.appBar, fadeContainerClass) }>
+        <AppBar className={ fadeContainerClass }>
             <SectionHighlighter
                 sectionIndex={ (pathIndex != -1) ? pathIndex : 1 }
                 isSubsection={ pathIndex == -1 }
