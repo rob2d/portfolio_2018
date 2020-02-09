@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Router,
     Route,
@@ -29,6 +29,9 @@ const useStyles = makeStyles(({ palette : { common, text } }) => ({
             backgroundColor : common.background1,
             transition : `background-color ${ANIM_DURATION_S}s ease`,
             padding : 0
+        },
+        '#loader' : {
+            opacity : p => p.isLoaderShowing ? 1 : 0
         }
     },
     appWrapper : {
@@ -54,7 +57,16 @@ const useStyles = makeStyles(({ palette : { common, text } }) => ({
 }), { name : 'RoutingApp' });
 
 function AppContent() {
-    const classes = useStyles();
+    const [isLoaderShowing, setLoaderShowing] = useState(() => true);
+    const classes = useStyles({ isLoaderShowing });
+
+    useEffect(() => {
+        setLoaderShowing(false);
+        setTimeout(() => {
+            const loaderElem = document.getElementById('loader');
+            loaderElem.parentNode.removeChild(loaderElem);
+        }, 1000);
+    }, []);
 
     const About = useLazyComponent(
         () => import( /* webpackChunkName: "about" */'./modules/about')
