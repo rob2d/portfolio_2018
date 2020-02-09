@@ -5,7 +5,6 @@ import React, {
     useState
 } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
-import clsx from 'clsx';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -18,10 +17,7 @@ import ThemeButton from './ThemeButton';
 import HeaderSectionButton from './HeaderSectionButton';
 import SectionHighlighter from './SectionHighlighter';
 
-const {
-    Sections,
-    pathIndexLookup
-} = AppSections;
+const { Sections, pathIndexLookup } = AppSections;
 const BUTTON_WIDTH_PX = 60;
 
 const useStyles = makeStyles(({ palette : { common } }) => ({

@@ -1,23 +1,23 @@
-import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import MediaTypes from 'constants/MediaTypes'
-import ButtonLink from 'utils/components/ButtonLink'
-import YouTube from 'react-youtube'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import MediaTypes from 'constants/MediaTypes';
+import ButtonLink from 'utils/components/ButtonLink';
+import YouTube from 'react-youtube';
+import PropTypes from 'prop-types';
 
 const styles = ({ palette : { secondary, common } }) => ({
     container : {
-        display         : 'flex',
-        boxSizing       : 'border-box',
-        justifyContent  : 'center',
-        alignItems      : 'center',
-        position        : 'relative',
-        flexBasis       : '75%',
-        maxWidth        : '100%',
-        height          : '100%',
-        margin          : 0,
-        padding         : 0
+        display : 'flex',
+        boxSizing : 'border-box',
+        justifyContent : 'center',
+        alignItems : 'center',
+        position : 'relative',
+        flexBasis : '75%',
+        maxWidth : '100%',
+        height : '100%',
+        margin : 0,
+        padding : 0
     },
     mediaContainerButton : {
         cursor : 'pointer',
@@ -28,8 +28,8 @@ const styles = ({ palette : { secondary, common } }) => ({
         '&:active' : {
             border : `2px solid ${common.active}`
         },
-        maxWidth : p =>`${p.width}px`,
-        width : p =>`${p.width}px`
+        maxWidth : p => `${p.width}px`,
+        width : p => `${p.width}px`
     },
     image : {
         maxWidth : p => `${p.width}px`,
@@ -340,4 +340,4 @@ MediaViewer.propTypes = {
     vpH : PropTypes.number
 };
 
-export default withStyles(styles)(MediaViewer)
+export default withStyles(styles)(MediaViewer);
