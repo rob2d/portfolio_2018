@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback, useReducer } from 'react';
 import C from 'color';
+import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
@@ -17,7 +18,8 @@ const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
             pointerEvents : 'none !important'
         },
         '.react-pdf__Page__canvas' : {
-            maxWidth : '100% !important',
+            maxWidth : '1200px !important',
+            width : 'calc(100vw) !important',
             height : 'auto !important'
         }
     },
@@ -46,7 +48,6 @@ const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
         },
         '@media (min-width: 900px)': {
             width : '100%',
-            maxWidth : '800px',
             height : 'auto !important'
         }
     },
@@ -121,6 +122,7 @@ export default function PDFViewer({ fileURL }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const classes = useStyles({ isLoading : state.isLoading });
     const theme = useTheme();
+    const [vpW] = useViewportSizes();
 
     const handlePrevPage = useCallback(() =>
         (state.pageNumber > 1) && dispatch({ type : 'go-to-prev-page' }),
@@ -156,10 +158,15 @@ export default function PDFViewer({ fileURL }) {
             file={ fileURL }
             onLoadSuccess={ onDocumentLoadSuccess }
             className={ classes.pdfContent }
+            renderMode={ 'canvas' }
+        ><Page
+            pageNumber={ pageNumber }
+            width={ Math.min(vpW, 1200) }
             renderTextLayer={ false }
-        ><Page pageNumber={ pageNumber } />
+            renderAnnotationLayer={ false }
+        />
         </Document>
-    ), [pageNumber, fileURL]);
+    ), [pageNumber, fileURL, vpW]);
 
     return (
         <div className={ classes.container }>
