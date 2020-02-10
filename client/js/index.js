@@ -15,5 +15,4 @@ if(process.env.NODE_ENV == 'production') {
 }
 
 const appElem = document.getElementById('app');
-
-ReactDOM.createRoot(appElem).render(<RoutingApp />);
+ReactDOM.render(<RoutingApp />, appElem);
