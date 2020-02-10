@@ -15,8 +15,7 @@ of users.
 - fix some issues with YouTube player responsiveness on some mobile devices.
 
 ## CV
-- re-write to use new canvas-based PDF system which is much lighter, faster and better at calculating changing heights.
-- use smoother transitions from different themes when we don't need to blit away CV div (point above satisfied)
+- keep track of height after first render (if vpW hasn't changed) in order to keep height from flitting around on page change.
 
 ## Misc
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that. (W.I.P. -- just need to use new simple Projects data format).
