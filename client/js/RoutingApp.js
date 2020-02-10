@@ -42,8 +42,6 @@ const useStyles = makeStyles(({ palette : { common, text } }) => ({
         backgroundColor : common.background1,
         transition : `background-color ${ANIM_DURATION_S}s`,
         boxSizing : 'border-box',
-        color : text.primary,
-        fill : text.primary
     },
     routeViewWrapper : {
         display       : 'flex',

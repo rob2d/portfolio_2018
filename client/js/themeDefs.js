@@ -128,7 +128,7 @@ Object.keys(themeDefs).forEach( type => {
         overrides : {
             MuiAppBar : {
                 root : {
-                    backgroundColor : `${primary.dark} !important`
+                    boxSizing : 'border-box'
                 },
                 colorPrimary : {
                     backgroundColor : `${primary.dark} !important`,
