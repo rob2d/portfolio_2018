@@ -1,7 +1,6 @@
 import React, {
     useState,
     useMemo,
-    useCallback,
     createContext
 } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -14,10 +13,6 @@ function useBrowserTheme() {
     const [themeKey, setThemeKey] = useState(() =>
         mediaQ?.matches ? 'dark' : 'light'
     );
-
-    const onDarkThemeToggled = useCallback( mq => {
-        setThemeKey(mq.matches ? 'dark' : 'light');
-    }, []);
 
     return [themeKey, setThemeKey];
 };

@@ -24,7 +24,10 @@
             display : inline;
         }
 
-        #loading_notice {
+        #loader {
+            position : absolute;
+            top : 0px;
+            left : 0px;
             display : flex;
             width : 100%;
             height : 100%;
@@ -33,7 +36,11 @@
             flex-direction : column;
             font-family: 'Roboto', sans-serif;
             font-weight : 700;
-
+            background-color : #FFF;
+            z-index: 10000;
+            pointer-events: none;
+            opacity : 1;
+            transition: opacity 0.5s ease;
         }
 
         /* relative-pixel screen-width cutoff points */
@@ -131,7 +138,7 @@
 </head>
 <body>
     <div id="app">
-        <div id="loading_notice">
+        <div id="loader">
             <div class="spinner">
                 <div class="rect1"></div>
                 <div class="rect2"></div>

@@ -1,10 +1,8 @@
 import React, {
-    useState,
     useEffect,
     useLayoutEffect,
     useCallback,
     useRef,
-    PureComponent,
     useReducer
 } from 'react';
 import clsx from 'clsx';
@@ -165,8 +163,12 @@ export default function ProjectCardLayout(props) {
     // mouse-hover-state management //
     // ============================ //
 
-    const onMouseEnter = useCallback(() => dispatch({ type : 'setHovered', payload : true }), []);
-    const onMouseLeave = useCallback(() => dispatch({ type : 'setHovered', payload : false }), []);
+    const onMouseEnter = useCallback(() =>
+        dispatch({ type : 'setHovered', payload : true }),
+    []);
+    const onMouseLeave = useCallback(() =>
+        dispatch({ type : 'setHovered', payload : false }),
+    []);
 
     useEffect(() => {
         container.current.addEventListener('mouseenter', onMouseEnter);

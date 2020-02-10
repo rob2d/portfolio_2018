@@ -127,8 +127,11 @@ Object.keys(themeDefs).forEach( type => {
     themeDefs[type].push({
         overrides : {
             MuiAppBar : {
+                root : {
+                    backgroundColor : `${primary.dark} !important`
+                },
                 colorPrimary : {
-                    backgroundColor : primary.dark,
+                    backgroundColor : `${primary.dark} !important`,
                     '& .MuiButton-root' : {
                         backgroundColor : `${C(common.white).alpha(0).rgb()}`,
                         transition : 'background-color 0.40s ease'
@@ -148,7 +151,7 @@ Object.keys(themeDefs).forEach( type => {
             },
             MuiPaper : {
                 root : {
-                    backgroundColor : common.background1
+                    backgroundColor : `${common.background1} !important`
                 },
                 elevation4 : {
                     boxShadow : `0px 2px 4px -1px ${C(common.shadow).alpha(0.2)}, ` +
@@ -177,7 +180,7 @@ const getTheme = theme => {
             createDerivedTheme(themeDefs[theme])
         );
     }
-
+    console.log('getting theme ->', themes[theme]);
     return themes[theme];
 };
 

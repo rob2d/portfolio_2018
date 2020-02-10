@@ -15,6 +15,10 @@ const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
         '.react-pdf__Page__textContent' : {
             display : 'none !important',
             pointerEvents : 'none !important'
+        },
+        '.react-pdf__Page__canvas' : {
+            maxWidth : '100% !important',
+            height : 'auto !important'
         }
     },
     container : {

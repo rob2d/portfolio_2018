@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Router,
     Route,
-    Switch,
-    useLocation
+    Switch
 } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
 import {
@@ -14,7 +13,7 @@ import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/core/styles';
 import appHistory from 'utils/appHistory';
 import { AppHeader, AppFooter } from './modules/core';
-import ThemeContextProvider from './ThemeContextProvider';
+import ThemeContextProvider, { ThemeContext } from './ThemeContextProvider';
 
 const ANIM_DURATION_S = '0.32';
 
@@ -29,6 +28,9 @@ const useStyles = makeStyles(({ palette : { common, text } }) => ({
             backgroundColor : common.background1,
             transition : `background-color ${ANIM_DURATION_S}s ease`,
             padding : 0
+        },
+        '#loader' : {
+            opacity : p => p.isLoaderShowing ? 1 : 0
         }
     },
     appWrapper : {
@@ -39,7 +41,9 @@ const useStyles = makeStyles(({ palette : { common, text } }) => ({
         textAlign : 'center',
         backgroundColor : common.background1,
         transition : `background-color ${ANIM_DURATION_S}s`,
-        boxSizing : 'border-box'
+        boxSizing : 'border-box',
+        color : text.primary,
+        fill : text.primary
     },
     routeViewWrapper : {
         display       : 'flex',
@@ -54,7 +58,16 @@ const useStyles = makeStyles(({ palette : { common, text } }) => ({
 }), { name : 'RoutingApp' });
 
 function AppContent() {
-    const classes = useStyles();
+    const [isLoaderShowing, setLoaderShowing] = useState(() => true);
+    const classes = useStyles({ isLoaderShowing });
+
+    useEffect(() => {
+        setLoaderShowing(false);
+        setTimeout(() => {
+            const loaderElem = document.getElementById('loader');
+            loaderElem.parentNode.removeChild(loaderElem);
+        }, 1000);
+    }, []);
 
     const About = useLazyComponent(
         () => import( /* webpackChunkName: "about" */'./modules/about')
