@@ -1,7 +1,6 @@
 import React, { useMemo, useCallback, useReducer } from 'react';
 import C from 'color';
-import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
@@ -17,9 +16,8 @@ const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
             display : 'none !important',
             pointerEvents : 'none !important'
         },
-        '.react-pdf__Page__canvas' : {
-            maxWidth : '1200px !important',
-            width : 'calc(100vw) !important',
+        '.react-pdf__Page__canvas, .react-pdf__Page' : {
+            width : 'min(100vw, 960px) !important',
             height : 'auto !important'
         }
     },
@@ -121,8 +119,6 @@ function reducer(state={ initialState }, action) {
 export default function PDFViewer({ fileURL }) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const classes = useStyles({ isLoading : state.isLoading });
-    const theme = useTheme();
-    const [vpW] = useViewportSizes();
 
     const handlePrevPage = useCallback(() =>
         (state.pageNumber > 1) && dispatch({ type : 'go-to-prev-page' }),
@@ -161,12 +157,11 @@ export default function PDFViewer({ fileURL }) {
             renderMode={ 'canvas' }
         ><Page
             pageNumber={ pageNumber }
-            width={ Math.min(vpW, 1200) }
             renderTextLayer={ false }
             renderAnnotationLayer={ false }
         />
         </Document>
-    ), [pageNumber, fileURL, vpW]);
+    ), [pageNumber, fileURL, classes.pdfContent]);
 
     return (
         <div className={ classes.container }>
@@ -204,7 +199,6 @@ export default function PDFViewer({ fileURL }) {
                     handleNextPage={ handleNextPage }
                     handlePrevPage={ handlePrevPage }
                     isLoaded={ state.isLoaded }
-                    theme={ theme }
                 />
             ) }
         </div>
