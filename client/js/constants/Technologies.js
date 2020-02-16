@@ -15,7 +15,7 @@ export default {
         displayName  : 'jQuery',
         referenceUrl : 'https://jquery.com'
     },
-    'javascript' : {
+    'js' : {
         displayName  : 'JavaScript',
         referenceUrl : 'https://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742'
     },

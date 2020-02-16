@@ -130,7 +130,7 @@ const positionReducer = (state, { type, payload }) => {
 export default function ProjectCardLayout(props) {
     const {
         data : {
-            id, title, context, shortDescription
+            id, displayName, context, shortDescription
         },
         pData, onClick, parent,
         wasSelectionViaUI,
@@ -218,8 +218,8 @@ export default function ProjectCardLayout(props) {
                         alt={ '' }
                     />
                     <div className={ classes.titleOverlay }>
-                        <p className={ classes.title }>
-                            { title }
+                        <p className={ classes.displayName }>
+                            { displayName }
                         </p>
                         <p className={ classes.subtitle }>
                             { context } ({ pData.year })

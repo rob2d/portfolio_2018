@@ -1,16 +1,11 @@
 import React, { useMemo, useEffect, useReducer } from 'react';
 import clsx from 'clsx';
-import { useLocation, useRouteMatch } from 'react-router-dom';
 import useViewportSizes from 'use-viewport-sizes';
-import { projects } from 'strings';
 import { makeStyles } from '@material-ui/core/styles';
 import { appHistory, wait } from 'utils';
-import {
-    useAutoFaderClass,
-    useDocumentTitle,
-    usePrevious
-} from 'utils/hooks';
-import projectsData from 'app-root/data/projectsData';
+import { useAutoFaderClass, useDocumentTitle, usePrevious } from 'utils/hooks';
+import * as projects from 'app-root/data/projects';
+import projectOrder from 'constants/projectOrder';
 import ProjectCard from './ProjectCard';
 import ProjectDetails from './ProjectDetails';
 import {
@@ -23,7 +18,7 @@ import {
 } from '../constants/DisplayStates';
 import useProjectIdOfUrl from '../hooks/useProjectIdOfUrl';
 
-const SECTION_ROOT = '/projects';
+const orderedProjects = projectOrder.map( id => projects[id] );
 
 const useStyles = makeStyles(() => ({
     container : {
@@ -105,13 +100,13 @@ const projectsReducer = (state, { type, payload }) => {
 };
 
 export default function ProjectsPanel() {
-    const [vpW, vpH] = useViewportSizes();
     const [projectId, location, match] = useProjectIdOfUrl();
     const prevProjectId = usePrevious(projectId);
+    useDocumentTitle({ title : !projectId && `${SITE_NAME} -- Projects` });
+
+    const [vpW, vpH] = useViewportSizes();
     const classes = useStyles();
     const fadeContainerClass = useAutoFaderClass();
-
-    useDocumentTitle({ title : !projectId && `${SITE_NAME} -- Projects` });
 
     const initialState = useMemo(() => ({
         displayState : !projectId ? VIEW_ALL : PROJECT_VIEW,
@@ -126,7 +121,7 @@ export default function ProjectsPanel() {
     ) || !projectId;
 
     const projectSelectionCbs = useMemo(() => Object.fromEntries(
-        projects.map(({ id }) =>
+        projectOrder.map( id =>
             [id, e => {
                 appHistory.goTo(`/projects/${id}`, e);
                 dispatch({ type : 'selectProjectViaUI', payload : id });
@@ -161,11 +156,11 @@ export default function ProjectsPanel() {
     return (
         <div className={ clsx(classes.container, fadeContainerClass) }>
             <div className={ classes.content }>
-                { projects.map( p => (
+                { orderedProjects.map( p => (
                     <ProjectCard
                         key={ `ProjectCard_${p.id}` }
                         data={ p }
-                        pData={ projectsData[p.id] }
+                        pData={ projects[p.id] }
                         onClick={ projectSelectionCbs[p.id] }
                         isShown={ (!projectId) || (projectId == p.id) }
                         onScreen={ areAllShown || (p.id == projectId) }

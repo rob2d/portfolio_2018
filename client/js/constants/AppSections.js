@@ -44,8 +44,4 @@ export const pathIndexLookup = Object.fromEntries(
     Sections.map((s,i) => ([s.basePath, i]))
 );
 
-export default {
-    SectionIndexes,
-    Sections,
-    pathIndexLookup
-};
+export default { SectionIndexes, Sections, pathIndexLookup };
