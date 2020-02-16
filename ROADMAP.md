@@ -9,7 +9,7 @@ Since this is just a one-man free-for-all on my free time here, just listing thi
 of users.
 
 ## Projects
-- centralize/simplify project data layouts... which has been overdue for about 2 years now ☠ (actually now W.I.P. in `refactors/merge-and-simplify-projects` locally)
+- simplify project data now that it has been organized from the split when there was localization.
 - Use vertical space a bit better in the Details layout on wide screens.
 - cache instances of YouTube player while parent still mounted so that there's no need to reload iframe
 - fix some issues with YouTube player responsiveness on some mobile devices.
