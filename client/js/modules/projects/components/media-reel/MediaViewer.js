@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import MediaTypes from 'constants/MediaTypes';
 import ButtonLink from 'utils/components/ButtonLink';
 import YouTube from 'react-youtube';
-import PropTypes from 'prop-types';
 
 const styles = ({ palette : { secondary, common } }) => ({
     container : {
@@ -21,7 +19,7 @@ const styles = ({ palette : { secondary, common } }) => ({
     },
     mediaContainerButton : {
         cursor : 'pointer',
-        border     : `2px solid ${secondary.dark}`,
+        border : `2px solid ${secondary.dark}`,
         '&:hover' : {
             border : `2px solid ${secondary.main}`
         },
@@ -115,9 +113,9 @@ class MediaViewer extends PureComponent {
         const { type, src, videoId } = props;
 
         switch(props.type) {
-            case MediaTypes.IMAGE :
+            case 'image' :
                 return `${type}_${src}`;
-            case MediaTypes.VIDEO :
+            case 'video' :
                 return `${type}_${videoId}`
             default :
                 throw new Error('Invalid Media Type');
@@ -159,7 +157,7 @@ class MediaViewer extends PureComponent {
             if(cacheMap && cacheMap.has(itemKey)) {
                 let { resource, isMediaLoading } = cacheMap.get(itemKey);
                 switch(props.type) {
-                    case MediaTypes.VIDEO :
+                    case 'video' :
                         // TODO : we should be saving
                         //        video element so that
                         //        it does not need to
@@ -176,7 +174,7 @@ class MediaViewer extends PureComponent {
                 };
 
                 switch(props.type) {
-                    case MediaTypes.IMAGE :
+                    case 'image' :
                         resource.img = new Image();
                         resource.img.src = props.src;
                         resource.img.onload = ()=> {
@@ -200,7 +198,7 @@ class MediaViewer extends PureComponent {
                             </ButtonLink>
                         );
                         break;
-                    case MediaTypes.VIDEO :
+                    case 'video' :
 
                         const {
                             onVideoPlay,
@@ -284,14 +282,14 @@ class MediaViewer extends PureComponent {
         let mediaElement;
 
         switch(type) {
-            case MediaTypes.IMAGE :
+            case 'image' :
                 if(!isMediaLoading) {
                     mediaElement = resource.domSegment;
                 } else {
                     mediaElement = undefined;
                 }
                 break;
-            case MediaTypes.VIDEO :
+            case 'video' :
                 if(!isMediaLoading) {
                     mediaElement =  resource.domSegment;
                 } else {
@@ -325,19 +323,5 @@ class MediaViewer extends PureComponent {
         );
     }
 }
-
-MediaViewer.propTypes = {
-    type : PropTypes.string.isRequired,
-    src : PropTypes.string,
-    thumb : PropTypes.string,
-    width : PropTypes.number,
-    aspectRatio : PropTypes.number,
-    videoId : PropTypes.string,
-    onVideoPlay : PropTypes.func.isRequired,
-    onVideoStop : PropTypes.func.isRequired,
-    disableCache  : PropTypes.bool,
-    vpW : PropTypes.number,
-    vpH : PropTypes.number
-};
 
 export default withStyles(styles)(MediaViewer);

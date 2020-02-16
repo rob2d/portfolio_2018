@@ -10,19 +10,14 @@ import {
     mdiLink,
     mdiDownload
 } from '@mdi/js';
-import { projects } from 'strings';
+import * as projects from 'data/projects';
 import { ButtonLink } from 'utils/components';
 import {
     useDocumentTitle,
     useAutoFaderClass
 } from 'utils/hooks';
-import projectsData from 'app-root/data/projectsData';
 import MediaReel from './media-reel/MediaReel';
 import ProjectTechs from './ProjectTechs';
-
-const findProjectStrings = projectId => (
-    projects.find( p => p.id == projectId )
-);
 
 const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
     mainContainer : {
@@ -188,6 +183,11 @@ export default function ProjectDetails({ projectId }) {
     const fadeContainerClass = useAutoFaderClass(undefined, 1000);
 
     const {
+        media,
+        downloads,
+        sourceCode,
+        documentation,
+        links,
         mediaCaptions,
         roles,
         techSet,
@@ -198,18 +198,10 @@ export default function ProjectDetails({ projectId }) {
         downloadDescriptions,
         documentationDescriptions,
         mediaAspectRatio,
-        title
-    } = findProjectStrings(projectId);
+        displayName
+    } = projects[projectId];
 
-    const {
-        media,
-        downloads,
-        sourceCode,
-        documentation,
-        links,
-    } = projectsData[projectId];
-
-    useDocumentTitle({ title : title && `${SITE_NAME} -- ${title}` });
+    useDocumentTitle({ title : displayName && `${SITE_NAME} -- ${displayName}` });
 
     const mediaItems = useMemo(() => (
         media?.length && mediaCaptions?.length ? (
@@ -248,8 +240,8 @@ export default function ProjectDetails({ projectId }) {
                         (
                             <p
                                 className={ classes.description }
-                                key={ `sdescription` }>
-                                { description || shortDescription }
+                                key={ `sdescription` }
+                            >{ description || shortDescription }
                             </p>
                         )
                     }

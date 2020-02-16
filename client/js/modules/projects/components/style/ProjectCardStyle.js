@@ -112,17 +112,17 @@ export default makeStyles(({ palette : { type } }) => ({
         marginTop : '0px',
         bottom : '0px',
         width : '100%',
-        height : p => (!p.viewAsTitle ? 40 : 100)+'%',
-        backgroundColor : p => ( 'rgba(0,0,0,' +
-            (!p.viewAsTitle?'0.52':'0') + ')'
+        height : p => `${!p.viewAsTitle ? 40 : 100}%`,
+        backgroundColor : p => ( `rgba(0,0,0,${
+            (!p.viewAsTitle?'0.52':'0')})`
         )
     },
-    title : {
+    displayName : {
         display : 'block',
         width : '100%',
-        minWidth : p => ((!p.viewAsTitle) ? 300 : 400) + 'px',
-          '@media (max-width: 400px)': {  // adding support for smaller
-           fontSize : p => (!p.viewAsTitle) ? '16pt' : '20pt' // iPhone5
+        minWidth : p => `${(!p.viewAsTitle) ? 300 : 400}px`,
+            '@media (max-width: 400px)': { // adding support for smaller
+                fontSize : p => (!p.viewAsTitle) ? '16pt' : '20pt' // iPhone5
         },
         paddingLeft : '16px',
         fontWeight : 700,
@@ -171,11 +171,10 @@ export default makeStyles(({ palette : { type } }) => ({
         left : p => `${p.isHighlighted?-25:0}%`,
         top : '0%',
         opacity : p => (!p.viewAsTitle) ? 1 : 0,
-        height : p => (
-            ((p.viewAsTitle && 100) ||
-            (p.isHighlighted ? 324 : 180)) +
-            'px'
-        ),
+        height : p => `${
+            (p.viewAsTitle && 100) ||
+            (p.isHighlighted ? 324 : 180)
+        }px`,
         transition : `all ${ANIM_DURATION_S}s ease-out`,
         '& *' : {
             width : 'auto !important',
