@@ -4,11 +4,7 @@ export default {
     displayName : 'Thanos Slack Files',
     context : 'Independent',
     roles : 'Maintainer, Designer, Developer',
-    techSet : new Set([
-        'js',
-        'nodejs',
-        'slack-api'
-    ]),
+    technologies : ['js', 'nodejs', 'slack-api'],
     shortDescription : 'Simple utility to easily remove the largest files ' +
         'and free up storage for your free-tier slack team/workspace.',
     description : [
@@ -25,6 +21,9 @@ export default {
     linkDescriptions : ['NPM Repo'],
     sourceCode : ['https://github.com/rob2d/thanos_slack_files'],
     sourceCodeDescriptions : ['GitHub'],
-    mediaAspectRatio : 1.36,
-    media : []
+    media : {
+        aspectRatio : 1.36,
+        items : []
+    }
+
 };
