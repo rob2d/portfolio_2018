@@ -24,7 +24,7 @@ import {
 
 const initialState = {
     isHovered : false,
-    hasAbsolutePosition : false,
+    isSticky : false,
     viewAsTitle : false,
     offsetLeft : undefined,
     offsetTop : undefined
@@ -41,7 +41,7 @@ const positionReducer = (state, { type, payload }) => {
 
         case 'updateSelectionPositioning' : {
             let {
-                hasAbsolutePosition,
+                isSticky,
                 viewAsTitle,
                 offsetLeft,
                 offsetTop,
@@ -56,20 +56,20 @@ const positionReducer = (state, { type, payload }) => {
             switch (displayState) {
                 case VIEW_ALL :
                 case PROJECT_FADE_TO :
-                    hasAbsolutePosition = false;
+                    isSticky = false;
                     break;
                 case OFFSET_CALC :
-                    hasAbsolutePosition = false;
+                    isSticky = false;
                     offsetLeft = payload.offsetLeft;
                     offsetTop = payload.offsetTop;
                     break;
                 case AFTER_FADE_POSITIONING : {
-                    hasAbsolutePosition = true;
+                    isSticky = true;
                     break;
                 }
                 case PROJECT_SCROLL_UP : {
                     if(wasSelectionViaUI) {
-                        hasAbsolutePosition = true;
+                        isSticky = true;
                     }
                     offsetLeft = 0;
                     offsetTop = 0;
@@ -78,7 +78,7 @@ const positionReducer = (state, { type, payload }) => {
                 case PROJECT_VIEW : {
                     viewAsTitle = true;
                     isHovered = false;
-                    hasAbsolutePosition = true;
+                    isSticky = true;
 
                     if(!wasSelectionViaUI) {
                         offsetLeft = 0;
@@ -97,7 +97,7 @@ const positionReducer = (state, { type, payload }) => {
 
             return {
                 ...state,
-                hasAbsolutePosition,
+                isSticky,
                 viewAsTitle,
                 offsetLeft,
                 offsetTop,
@@ -117,7 +117,7 @@ const positionReducer = (state, { type, payload }) => {
                 isHovered,
                 offsetLeft : undefined,
                 offsetTop : undefined,
-                hasAbsolutePosition : false,
+                isSticky : false,
                 viewAsTitle : false
             };
         }
@@ -132,11 +132,9 @@ export default function ProjectCardLayout(props) {
         data : {
             id, displayName, context, shortDescription
         },
-        pData, onClick, parent,
-        wasSelectionViaUI,
+        pData, onClick,
         isSelected,
         displayState,
-        onScreen
     } = props;
 
     const container = useRef();
@@ -146,10 +144,7 @@ export default function ProjectCardLayout(props) {
     );
 
     const {
-        hasAbsolutePosition,
         viewAsTitle,
-        offsetLeft,
-        offsetTop,
         isHovered
     } = state;
 
@@ -199,10 +194,7 @@ export default function ProjectCardLayout(props) {
     }, [isSelected, displayState]);
 
     return (
-        <div
-            ref={ container }
-            className={ classes.container }
-        >
+        <div ref={ container } className={ classes.container }>
             <Card
                 className={ clsx(
                     viewAsTitle &&
