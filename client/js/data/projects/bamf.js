@@ -6,12 +6,7 @@ export default {
     year : '2012',
     context : 'Graduate Thesis',
     roles : 'Design, Development & Planning',
-    techSet :  new Set([
-        'html',
-        'js',
-        'threejs',
-        'yui3'
-    ]),
+    technologies :  ['html','js','threejs','yui3'],
     platforms : ['web'],
     platformTxt : ['Web (Chrome, Firefox, IE)'],
     shortDescription : 'A 2D/3D browser framework including a ' +
@@ -28,14 +23,15 @@ export default {
         'and has a really convenient 2D sprite generator that even creates source code for you. ' +
         'It is efficient, simple, consistent, extensible and supports all modern browsers.'
     ],
-    mediaAspectRatio : 1.7777,
-    media : [...generateMediaImages('bamf', 4)],
-    mediaCaptions : [
-        'early 3D app tech demo',
-        'general API structure overview',
-        'easy 2D apps (early prototype)',
-        'An anim editor for framework apps'
-    ],
+    media : {
+        aspectRatio : 1.7777,
+        items : [...generateMediaImages('bamf', 4, [
+            'early 3D app tech demo',
+            'general API structure overview',
+            'easy 2D apps (early prototype)',
+            'An anim editor for framework apps'
+        ])]
+    },
     sourceCode : ['https://github.com/rob2d/bamf'],
     sourceCodeDescriptions : ['Github'],
     documentation : [

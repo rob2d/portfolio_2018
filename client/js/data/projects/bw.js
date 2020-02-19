@@ -7,17 +7,12 @@ export default {
     year : '2018',
     context : 'Independent',
     roles   : 'Maintainer, Designer, Developer',
-    techSet : new Set([
-        'js',
-        'nodejs',
-        'c'
-    ]),
+    technologies : ['js', 'nodejs', 'c'],
     shortDescription : (
         'A simple retro-Gameboy ROM development workflow tool ' +
         'built using NodeJS'
     ),
     description : [
-
         (<span>
             This project started from a bet between a co-worker among several of
             us that nobody was capable of creating a Gameboy ROM within a few
@@ -59,21 +54,22 @@ export default {
     ],
     sourceCode : ['https://github.com/rob2d/build-and-watch#readme'],
     sourceCodeDescriptions : ['Github'],
-    mediaAspectRatio : 1.36,
-    media : [
-        ...generateMediaImages('bw', 1),
-        {
-            type : 'video',
-            videoId : 'FrXLMEPN4ew'
-        },
-        {
-            type : 'video',
-            videoId : 'f58abL3nUgM'
-        }
-    ],
-    mediaCaptions : [
-        'Making build processes for things from your childhood almost tolerable',
-        'ROM Build running on a real Gameboy Color',
-        'Greg\'s Project Progress Video'
-    ]
+    media : {
+        aspectRatio : 1.36,
+        items : [
+            ...generateMediaImages('bw', 1, [
+                'Making build processes for things from your childhood almost tolerable'
+            ]),
+            {
+                type : 'video',
+                videoId : 'FrXLMEPN4ew',
+                caption : 'ROM Build running on a real Gameboy Color',
+            },
+            {
+                type : 'video',
+                videoId : 'f58abL3nUgM',
+                caption : 'Greg\'s Project Progress Video'
+            }
+        ]
+    }
 };

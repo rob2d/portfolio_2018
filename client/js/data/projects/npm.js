@@ -17,5 +17,6 @@ export default {
         'on the internet 🙂)'
     ],
     linkDescriptions : ['Visit the NPM repos'],
-    links : ['https://www.npmjs.com/~robftw']
+    links : ['https://www.npmjs.com/~robftw'],
+    media : { items : [] }
 };

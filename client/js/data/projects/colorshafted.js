@@ -6,12 +6,24 @@ export default {
     context : 'Whateversoft',
     year : '2012',
     roles   : 'Design, Development, Music and Sound Effects Creation',
-    techSet : new Set(['android_sdk', 'java', 'js', 'jquery', 'php' ]),
-    media : [
-        { type : 'video', videoId : '6iOen-STr4k' },
-        ...generateMediaImages('colorshafted',5)
-    ],
-    mediaAspectRatio : 1.662337662337662,
+    technologies : ['android_sdk', 'java', 'js', 'jquery', 'php'],
+    media : {
+        aspectRatio : 1.662337662337662,
+        items : [
+            {
+                type : 'video',
+                videoId : '6iOen-STr4k',
+                caption : 'Promotional YouTube Video'
+            },
+            ...generateMediaImages('colorshafted',5, [
+                'Title Screen',
+                'Setting off a Bomb',
+                'High Score Mode',
+                'Breaking things down in Tutorial Mode',
+                'Achievements'
+            ])
+        ]
+    },
     platforms : ['android', 'gtv'],
     shortDescription : (
         `An interactive and futuristic puzzle game with the engine ` +
@@ -42,14 +54,6 @@ export default {
     linkDescriptions : [
         'GTV Friends Article (Archived @ WayBackMachine)',
         'Achievements Beta Version with mock data for WebView'
-    ],
-    mediaCaptions : [
-        'Promotional YouTube Video',
-        'Title Screen',
-        'Setting off a Bomb',
-        'High Score Mode',
-        'Breaking things down in Tutorial Mode',
-        'Achievements'
     ],
     sourceCode : ['https://github.com/rob2d/color-shafted'],
     sourceCodeDescriptions : ['GitHub (early pre-release version)']

@@ -6,7 +6,7 @@ export default {
     context : 'Independent',
     roles : 'Programming, Planning and Artwork',
     year : '2005, 2009',
-    techSet : new Set(['gml']),
+    technologies : ['gml'],
     shortDescription : `A pixel perfect rendition of the physics found in SEGA's
                         "Sonic the Hedgehog" series. `,
     description : [
@@ -25,26 +25,25 @@ export default {
         'could\'ve", as they say. At the end of the day, it served its purpose as a good warm-up for ' +
         'coding again 🙂'
     ],
-    mediaAspectRatio : 1.203,
-    media : [
-        { type : 'video', videoId : 'zRZOLzTaJq4' },
-        { type   : 'video', videoId : 'HWJy0uLVfjU' },
-        ...generateMediaImages('sonicphysics', 4)
-    ],
-    mediaCaptions : [
-        'Play-test video',
-        '2005 Promo (provided direction/animation help but most grunt work on this was done by a talented friend ' +
-        'named Cinos)',
-        'Pushing against spikes underwater',
-        'Speed!',
-        'Customizing Controller config',
-        'Swimming as tails'
-    ],
-    sourceCode :    ['https://github.com/rob2d/sonic_gml'],
-    sourceCodeDescriptions : [
-        'Souce Code (GML) @ Github'
-    ],
-    downloads  :    ['http://robftwcom.appspot.com/downloads/sonic360_demo.exe'],
+    media : {
+        aspectRatio : 1.203,
+        items : [
+            {
+                type : 'video',
+                videoId : 'zRZOLzTaJq4',
+                caption : 'Play-test video'
+            },
+            ...generateMediaImages('sonicphysics', 4, [
+                'Pushing against spikes underwater',
+                'Speed!',
+                'Customizing Controller config',
+                'Swimming as tails'
+            ])
+        ]
+    },
+    sourceCode : ['https://github.com/rob2d/sonic_gml'],
+    sourceCodeDescriptions : ['Souce Code (GML) @ Github'],
+    downloads : ['http://robftwcom.appspot.com/downloads/sonic360_demo.exe'],
     downloadDescriptions : ['Demo (Windows OS)'],
     documentation : ['http://corruptedchaos.blogspot.com/'],
     documentationDescriptions : ['Blogger'],

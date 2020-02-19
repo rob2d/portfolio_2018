@@ -6,7 +6,7 @@ export default {
     year : '2011',
     context  : 'Undergraduate Seminar',
     roles    : 'Programming, Planning & Design',
-    techSet : new Set(['android_sdk', 'java', 'mysql', 'php']),
+    technologies : ['android_sdk', 'java', 'mysql', 'php'],
     shortDescription : 'An interactive rendition of "Big Two" card game for Android featuring realtime online gameplay',
     description : [
         'Chinese Poker Online was a game which during the years it was released (2011) had very ' +

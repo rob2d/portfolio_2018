@@ -7,15 +7,7 @@ export default {
     displayName : 'SmartWALK',
     context : 'PMC Technology',
     roles : 'Senior Web Application Developer & UI/UX Designer',
-    techSet : new Set([
-        'js',
-        'react',
-        'fbflux',
-        'nodejs',
-        'mysql',
-        'gulp',
-        'yui3'
-    ]),
+    technologies : ['js', 'react', 'fbflux', 'nodejs', 'mysql', 'gulp', 'yui3'],
     shortDescription : 'Feature-rich web app designed for electrical engineers ' +
         'to map and survey equipment and power systems within ' +
         'buildings',
@@ -64,16 +56,16 @@ export default {
         'Marketing Website',
         'Client Login to the CMS'
     ],
-    mediaAspectRatio : 1.79,
-    media : generateMediaImages('smartwalk', 5),
-    mediaAspectRatio : 1.79,
-    mediaCaptions: [
-        'Intuitive media management and photo uploading for items',
-        'Graphing out for multiple points of data in a scalable system',
-        'Convenient User Account System with security features',
-        '2014-2015 version; created using jQuery and YUI3 on the front-end',
-        '2014-2015 server: first Node app; worked very well as we scaled and ' +
-        'fleshed out the product, but immediately you can tell that it is ' +
-        'not RESTful at all 😢'
-    ]
+    media : {
+        caption : 1.79,
+        items : generateMediaImages('smartwalk', 5, [
+            'Intuitive media management and photo uploading for items',
+            'Graphing out for multiple points of data in a scalable system',
+            'Convenient User Account System with security features',
+            '2014-2015 version; created using jQuery and YUI3 on the front-end',
+            '2014-2015 server: first Node app; worked very well as we scaled and ' +
+            'fleshed out the product, but immediately you can tell that it is ' +
+            'not RESTful at all 😢'
+        ])
+    }
 };
