@@ -188,7 +188,7 @@ class MediaViewer extends PureComponent {
                             <ButtonLink
                                 url={resource.url}
                                 title={ 'Open full res image in new tab' }
-                                containerClass={ props.classes.mediaContainerButton }
+                                className={ props.classes.mediaContainerButton }
                                 style={ newState.itemDimensionStyle }
                             > <img
                                 style={ newState.itemDimensionStyle }

@@ -32,22 +32,30 @@ export default {
             'An anim editor for framework apps'
         ])]
     },
-    sourceCode : ['https://github.com/rob2d/bamf'],
-    sourceCodeDescriptions : ['Github'],
-    documentation : [
-        'http://robftwcom.appspot.com/doc/bamf_midterm_presentation.ppt',
-        'http://robftwcom.appspot.com/doc/bamf_final_presentation.pptx'
+    sourceCode : [
+        {
+            url : 'https://github.com/rob2d/bamf',
+            description : 'Github'
+        }
     ],
-    documentationDescriptions : [
-        'Early Development (.ppt)',
-        'Project Overview (.ppt)'
+    documentation : [
+        {
+            url : 'http://robftwcom.appspot.com/doc/bamf_midterm_presentation.ppt',
+            description : 'Early Development (.ppt)',
+        },
+        {
+            url : 'http://robftwcom.appspot.com/doc/bamf_final_presentation.pptx',
+            description : 'Project Overview (.ppt)'
+        }
     ],
     links : [
-        'http://whateversoftweb.appspot.com/demo/cs3d/web/cs3d.html',
-        'http://bamfapi.appspot.com/wip_versions/v2/editor/web/sprite_editor.html'
-    ],
-    linkDescriptions : [
-        '3D Tech Demo Prototype',
-        'Basic Sprite Editor written in YUI'
+        {
+            url : 'http://whateversoftweb.appspot.com/demo/cs3d/web/cs3d.html',
+            description : '3D Tech Demo Prototype'
+        },
+        {
+            url : 'http://bamfapi.appspot.com/wip_versions/v2/editor/web/sprite_editor.html',
+            description : 'Basic Sprite Editor written in YUI'
+        }
     ]
 };

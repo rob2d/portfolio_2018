@@ -16,7 +16,8 @@ export default {
         'because I was exploring an idea on my own time that ended up useful at work (or maybe didn\'t except to someone ' +
         'on the internet 🙂)'
     ],
-    linkDescriptions : ['Visit the NPM repos'],
-    links : ['https://www.npmjs.com/~robftw'],
-    media : { items : [] }
+    links : [{
+        url : 'https://www.npmjs.com/~robftw',
+        description : 'Visit the NPM repos'
+    }]
 };

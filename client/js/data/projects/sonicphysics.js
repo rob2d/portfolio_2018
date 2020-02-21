@@ -41,10 +41,16 @@ export default {
             ])
         ]
     },
-    sourceCode : ['https://github.com/rob2d/sonic_gml'],
-    sourceCodeDescriptions : ['Souce Code (GML) @ Github'],
-    downloads : ['http://robftwcom.appspot.com/downloads/sonic360_demo.exe'],
-    downloadDescriptions : ['Demo (Windows OS)'],
-    documentation : ['http://corruptedchaos.blogspot.com/'],
-    documentationDescriptions : ['Blogger'],
+    sourceCode : [{
+        url : 'https://github.com/rob2d/sonic_gml',
+        description : 'Souce Code (GML) @ Github'
+    }],
+    downloads : [{
+        url : 'http://robftwcom.appspot.com/downloads/sonic360_demo.exe',
+        description : 'Demo (Windows OS)'
+    }],
+    documentation : [{
+        url : 'http://corruptedchaos.blogspot.com/',
+        description : 'Blogger'
+    }]
 };

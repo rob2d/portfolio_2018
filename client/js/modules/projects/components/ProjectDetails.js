@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -127,10 +127,18 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         flexDirection : 'row !important',
         alignItems : 'center !important',
         justifyContent : 'flex-start !important',
-        '&:hover $linkText' : {
+        '& p' : {
+            margin : '12px 0px',
+            padding : '0px',
+            color : secondary.dark,
+            fontSize : '12pt',
+            fontWeight : 700,
+            textAlign : 'left'
+        },
+        '&:hover p' : {
             color : `${secondary.main} !important`
         },
-        '&:active $linkText' : {
+        '&:active p' : {
             color : `${common.active} !important`
         }
     },
@@ -138,15 +146,6 @@ const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
         paddingRight : '16px',
         fill : text.primary,
         fontSize : '12pt'
-    },
-
-    linkText : {
-        margin : '12px 0px',
-        padding : '0px',
-        color : secondary.dark,
-        fontSize : '12pt',
-        fontWeight : 700,
-        textAlign : 'left'
     }
 }));
 
@@ -158,12 +157,6 @@ export default function ProjectDetails({ projectId }) {
     const p = projects[projectId];
 
     useDocumentTitle({ title : p.displayName && `${SITE_NAME} -- ${p.displayName}` });
-
-    const mediaItems = useMemo(() => (
-        p.media?.length && p.mediaCaptions?.length ? (
-            p.media.map((m,i) => ({ ...m, caption : p.mediaCaptions[i] }))) :
-            p.media
-    ), [p.media, p.mediaCaptions]);
 
     const LinkIcon = useCallback(({ path }) => (
         <Icon className={ classes.icon } size={ 0.9 } path={ path } />
@@ -215,65 +208,52 @@ export default function ProjectDetails({ projectId }) {
                         />
                     ) : undefined }
                 </Section>
-                <Section title={ 'Source Code' }>
-                    { p.sourceCode?.length ? p.sourceCode.map((link,i) => (
+                <Section title={ 'Source Code' }>{ p.sourceCode?.length ?
+                    p.sourceCode.map(({ url, description }) => (
                         <ButtonLink
-                            url={ link }
-                            containerClass={ classes.link }
-                            key={ `sourcecode_${i+1}` }
+                            url={ url }
+                            className={ classes.link }
+                            key={ `source_${url}` }
                         >
                             <LinkIcon path={ mdiCodeTags } />
-                            <p className={ classes.linkText }>
-                                { p.sourceCodeDescriptions[i] }
-                            </p>
+                            <p>{ description }</p>
                         </ButtonLink>
                     )) : undefined }
                 </Section>
-                <Section title={ 'Documentation' }>
-                    { p.documentation?.length ? p.documentation.map((link, i) => (
-                        <ButtonLink
-                            url={ link }
-                            containerClass={ classes.link }
-                            key={ `doclink_${i+1}` }
-                        ><LinkIcon path={ mdiNoteOutline } />
-                            <p className={ classes.linkText }>
-                                { p.documentationDescriptions[i] }
-                            </p>
+                <Section title={ 'Documentation' }>{ p.documentation?.length ?
+                    p.documentation.map(({ url, description }) => (
+                        <ButtonLink url={ url } className={ classes.link } key={ url }>
+                            <LinkIcon path={ mdiNoteOutline } />
+                            <p>{ description }</p>
                         </ButtonLink>
                     )) : undefined }
                 </Section>
-                <Section title={ 'Downloads' }>
-                    { p.downloads?.length ? p.downloads.map((link, i) => (
+                <Section title={ 'Downloads' }>{ p.downloads?.length ?
+                    p.downloads.map(({ url, description }) => (
                         <ButtonLink
-                            url={ link }
-                            containerClass={ classes.link }
-                            key={ `project_downloads_${i+1}` }
+                            url={ url }
+                            className={ classes.link }
+                            key={ `downloads_${url}` }
                         >
                             <LinkIcon path={ mdiDownload } />
-                            <p className={ classes.linkText }>
-                                { p.downloadDescriptions[i] }
-                            </p>
+                            <p>{ description }</p>
                         </ButtonLink>
                     )) : undefined }
                 </Section>
                 <Section title={ 'Links' }>
-                    { p.links?.length ? p.links.map((link, i) => (
+                    { p.links?.length ? p.links.map(({ url, description }) => (
                         <ButtonLink
-                            url={ link }
-                            containerClass={ classes.link }
-                            key={ `project_links_${i+1}` }
+                            url={ url }
+                            className={ classes.link }
+                            key={ `links_${url}` }
                         >
                             <LinkIcon path={ mdiLink } />
-                            <p className={ classes.linkText }>
-                                { p.linkDescriptions[i] }
-                            </p>
+                            <p>{ description }</p>
                         </ButtonLink>
                     )) : undefined }
                 </Section>
-                <ButtonLink
-                    containerClass={ classes.return }
-                    url={ `/projects` }
-                ><LinkIcon path={ mdiArrowLeftBox } />
+                <ButtonLink className={ classes.return } url={ `/projects` }>
+                    <LinkIcon path={ mdiArrowLeftBox } />
                     <p>Back to Projects</p>
                 </ButtonLink>
             </div>

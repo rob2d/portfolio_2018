@@ -15,7 +15,7 @@ const useStyles = makeStyles(({ palette : { text } }) => ({
 }));
 
 export default function ButtonLink({
-    url, containerClass, children,title=undefined,
+    url, className, children,title=undefined,
     delay=250, rippleColor, asButton=true,
     name=children
 }) {
@@ -35,7 +35,7 @@ export default function ButtonLink({
     const ButtonContent = useMemo(() => asButton ? (
         <ButtonBase
             focusRipple
-            className={ clsx(classes.container, containerClass) }
+            className={ clsx(classes.container, className) }
             onMouseDown={ onClick }
             TouchRippleProps={{ classes : { ripple : classes.touchRipple } }}
             aria-label={ name }
@@ -43,17 +43,15 @@ export default function ButtonLink({
         </ButtonBase>
     ) : (
         <span
-            className={ clsx(classes.container, containerClass) }
+            className={ clsx(classes.container, className) }
             onMouseDown={ onClick }
         >{ children }
         </span>
-    ), [children, classes, containerClass, onClick]);
+    ), [children, classes, className, onClick]);
 
     if(title && title.length) {
         return (
-            <Tooltip enterDelay={ 600 } title={ title }>
-                { ButtonContent }
-            </Tooltip>
+            <Tooltip enterDelay={ 600 } title={ title }>{ ButtonContent }</Tooltip>
         );
     }
     else return ButtonContent;

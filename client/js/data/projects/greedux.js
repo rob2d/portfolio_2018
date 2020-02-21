@@ -36,10 +36,14 @@ export default {
             high profile/ground-shaking projects -- such as this portfolio!
         </span>)
     ],
-    links : ['https://www.npmjs.com/package/generator-greedux'],
-    linkDescriptions : ['NPM Repo'],
-    sourceCode : ['https://github.com/rob2d/greedux/'],
-    sourceCodeDescriptions : ['Github'],
+    links : [{
+        url : 'https://www.npmjs.com/package/generator-greedux',
+        description : 'NPM Repo'
+    }],
+    sourceCode : [{
+        url : 'https://github.com/rob2d/greedux/',
+        description : 'Github'
+    }],
     media : {
         items : [...generateMediaImages('greedux', 1, [
             (<i>"Look ma, no peeking into console!"</i>)

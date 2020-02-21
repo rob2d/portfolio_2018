@@ -45,15 +45,19 @@ export default {
         </span>)
     ],
     links : [
-        'https://www.npmjs.com/package/build-and-watch',
-        'http://www.gmiller.net/2018/07/gameboy-color-fix-it-felix-jr',
+        {
+            url : 'https://www.npmjs.com/package/build-and-watch',
+            description : 'NPM Repo'
+        },
+        {
+            url : 'http://www.gmiller.net/2018/07/gameboy-color-fix-it-felix-jr',
+            description : 'Wreck it Ralph Remake Project (@Greg\'s Site)'
+        }
     ],
-    linkDescriptions : [
-        'NPM Repo',
-        'Wreck it Ralph Remake Project (@Greg\'s Site)'
-    ],
-    sourceCode : ['https://github.com/rob2d/build-and-watch#readme'],
-    sourceCodeDescriptions : ['Github'],
+    sourceCode : [{
+        url : 'https://github.com/rob2d/build-and-watch#readme',
+        description : 'Github'
+    }],
     media : {
         aspectRatio : 1.36,
         items : [

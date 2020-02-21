@@ -49,12 +49,15 @@ export default {
         )
     ],
     links : [
-        'https://smartwalk.tech/',
-        'https://app.smartwalk.tech/'
-    ],
-    linkDescriptions : [
-        'Marketing Website',
-        'Client Login to the CMS'
+        {
+            url : 'https://smartwalk.tech/',
+            description : 'Marketing Website'
+        },
+        {
+            url : 'https://app.smartwalk.tech/',
+            description : 'Client Login to the CMS'
+        }
+
     ],
     media : {
         caption : 1.79,

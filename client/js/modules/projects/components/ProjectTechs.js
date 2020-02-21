@@ -45,7 +45,7 @@ export default function ProjectTechs({ technologies }) {
         return (
             <ButtonLink
                 url={ referenceUrl }
-                containerClass={ classes.techContainer }
+                className={ classes.techContainer }
                 title={ displayName }
                 key={ `${displayName}_buttonLinkContainer` }
             >   <SVG

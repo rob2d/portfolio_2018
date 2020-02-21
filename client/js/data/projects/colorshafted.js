@@ -48,13 +48,17 @@ export default {
     ],
     platformTxt:  ['Android 2.2 and Higher', 'GoogleTV'],
     links : [
-        'http://web.archive.org/web/20120817025020/http://gtvfriends.com:80/color-shafted-for-google-tv/',
-        'http://robftwcom.appspot.com/links/cs_web_preview/webview/achievements.html'
+        {
+            url : 'http://web.archive.org/web/20120817025020/http://gtvfriends.com:80/color-shafted-for-google-tv/',
+            description : 'GTV Friends Article (Archived @ WayBackMachine)'
+        },
+        {
+            url : 'http://robftwcom.appspot.com/links/cs_web_preview/webview/achievements.html',
+            description : 'Achievements Beta Version with mock data for WebView'
+        }
     ],
-    linkDescriptions : [
-        'GTV Friends Article (Archived @ WayBackMachine)',
-        'Achievements Beta Version with mock data for WebView'
-    ],
-    sourceCode : ['https://github.com/rob2d/color-shafted'],
-    sourceCodeDescriptions : ['GitHub (early pre-release version)']
+    sourceCode : [{
+        url : 'https://github.com/rob2d/color-shafted',
+        description : 'GitHub (early pre-release version)'
+    }]
 };
