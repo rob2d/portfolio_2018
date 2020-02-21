@@ -24,7 +24,7 @@ import {
 
 const initialState = {
     isHovered : false,
-    isSticky : false,
+    hasAbsolutePosition : false,
     viewAsTitle : false,
     offsetLeft : undefined,
     offsetTop : undefined
@@ -41,7 +41,7 @@ const positionReducer = (state, { type, payload }) => {
 
         case 'updateSelectionPositioning' : {
             let {
-                isSticky,
+                hasAbsolutePosition,
                 viewAsTitle,
                 offsetLeft,
                 offsetTop,
@@ -56,20 +56,20 @@ const positionReducer = (state, { type, payload }) => {
             switch (displayState) {
                 case VIEW_ALL :
                 case PROJECT_FADE_TO :
-                    isSticky = false;
+                    hasAbsolutePosition = false;
                     break;
                 case OFFSET_CALC :
-                    isSticky = false;
+                    hasAbsolutePosition = false;
                     offsetLeft = payload.offsetLeft;
                     offsetTop = payload.offsetTop;
                     break;
                 case AFTER_FADE_POSITIONING : {
-                    isSticky = true;
+                    hasAbsolutePosition = true;
                     break;
                 }
                 case PROJECT_SCROLL_UP : {
                     if(wasSelectionViaUI) {
-                        isSticky = true;
+                        hasAbsolutePosition = true;
                     }
                     offsetLeft = 0;
                     offsetTop = 0;
@@ -78,7 +78,7 @@ const positionReducer = (state, { type, payload }) => {
                 case PROJECT_VIEW : {
                     viewAsTitle = true;
                     isHovered = false;
-                    isSticky = true;
+                    hasAbsolutePosition = true;
 
                     if(!wasSelectionViaUI) {
                         offsetLeft = 0;
@@ -97,7 +97,7 @@ const positionReducer = (state, { type, payload }) => {
 
             return {
                 ...state,
-                isSticky,
+                hasAbsolutePosition,
                 viewAsTitle,
                 offsetLeft,
                 offsetTop,
@@ -117,7 +117,7 @@ const positionReducer = (state, { type, payload }) => {
                 isHovered,
                 offsetLeft : undefined,
                 offsetTop : undefined,
-                isSticky : false,
+                hasAbsolutePosition : false,
                 viewAsTitle : false
             };
         }

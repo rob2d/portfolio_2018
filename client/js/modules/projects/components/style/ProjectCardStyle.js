@@ -1,31 +1,56 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const ANIM_DURATION_S = 0.32;
-const MOVE_TIMING = ANIM_DURATION_S * 1.5;
+const ANIM_DURATION_S = '0.32';
 const getTopMargin = vpW => vpW > 800 ? 32 : 16;
 
 export default makeStyles(({ palette : { type } }) => ({
     container : {
         opacity : p => p.isShown ? 1 : 0,
         display : p => p.onScreen ? 'block' : 'none',
-        position : p => p.isSticky ? 'absolute' : 'relative',
-        top : p => p.isSticky ? (p.offsetTop - getTopMargin(p.vpW)) : 'auto',
-        left : p => p.isSticky ? p.offsetLeft : 'auto',
-        transition: p => (
-            `opacity ${ANIM_DURATION_S}s, ` +
-            `left ${p.isSticky ? MOVE_TIMING : 0}s, ` +
-            `top ${p.isSticky ? MOVE_TIMING : 0}s`
-        ),
+        position : p => p.hasAbsolutePosition ? 'absolute' : 'relative',
+        top : p => p.hasAbsolutePosition ? (p.offsetTop - getTopMargin(p.vpW)) : 'auto',
+        left : p => p.hasAbsolutePosition ? p.offsetLeft : 'auto',
+        transition: p => {
+            const moveTiming = `${(p.hasAbsolutePosition ?
+                (ANIM_DURATION_S * 1.5) : 0
+            )}s`;
+
+            return (
+                `opacity ${ANIM_DURATION_S}s, ` +
+                `left ${moveTiming}, top ${moveTiming}`
+            );
+        },
         width : p => p.viewAsTitle ? '400px' : '300px',
         height : p => `${(p.viewAsTitle ? 80 : 324 )}px`,
+        marginTop : p => `${getTopMargin(p.vpW)}px`,
+        marginBottom : p => `${ p.viewAsTitle ? 0 : 32 }px`,
         textAlign : 'left',
         cursor : p => p.viewAsTitle ? 'text' : 'pointer',
 
         // actively moving cards should be forced above
         // existing relatively-placed content
 
-        zIndex : p => p.isSticky? 1 : 0,
-        pointerEvents : 'all'
+        zIndex : p => p.hasAbsolutePosition? 1 : 0,
+        pointerEvents : 'all',
+        overflow : 'hidden'
+    },
+    '@media (min-width: 800px)': {
+        container : {
+            paddingLeft: '32px',
+            paddingRight: '32px'
+        },
+    },
+    '@media (max-width: 800px)': {
+        container : {
+            paddingLeft : '16px',
+            paddingRight : '16px'
+        }
+    },
+    '@media (max-width: 400px)': {
+        container : {
+            paddingLeft : '8px',
+            paddingRight : '8px'
+        },
     },
     cardMediaContent : {
         position : 'relative',
@@ -33,10 +58,11 @@ export default makeStyles(({ palette : { type } }) => ({
         width : '100%',
         opacity : 1,
         transition: `all ${ANIM_DURATION_S}s ease-out`,
-        height : p => `${
+        height : p => (
             ((p.viewAsTitle && 100) ||
-                (p.isHighlighted ? 324 : 180))
-        }px`,
+            (p.isHighlighted ? 324 : 180)) +
+            'px'
+        ),
         padding : p => p.isHighlighted && '0px',
         overflow  : 'hidden',
         border : 0
@@ -75,7 +101,7 @@ export default makeStyles(({ palette : { type } }) => ({
     cardContent : {
         height : '88px',
         transition : `all ${ANIM_DURATION_S}s ease-out`,
-        opacity : p => (!p.highlightedOnPanel) ? 1 : 0
+        opacity : p =>(!p.highlightedOnPanel) ? 1 : 0
     },
     titleOverlay : {
         display : 'flex',
@@ -95,15 +121,17 @@ export default makeStyles(({ palette : { type } }) => ({
         display : 'block',
         width : '100%',
         minWidth : p => `${(!p.viewAsTitle) ? 300 : 400}px`,
-        '@media (max-width: 400px)': { // adding support for smaller
-            fontSize : p => (!p.viewAsTitle) ? '16pt' : '20pt' // iPhone5
+            '@media (max-width: 400px)': { // adding support for smaller
+                fontSize : p => (!p.viewAsTitle) ? '16pt' : '20pt' // iPhone5
         },
         paddingLeft : '16px',
         fontWeight : 700,
         fontSize : p => p.viewAsTitle ? '24pt' : '16pt',
         marginTop : '0px',
         marginBottom : '0px',
-        color : p => ((type=='light' && p.viewAsTitle) ? '#000' : '#FFF'),
+        color : p => ((type=='light') &&
+            (!p.viewAsTitle ? '#FFF' : '#000' ) || '#FFF'
+        ),
         transition : `all ${ANIM_DURATION_S}s ease-in`
     },
     subtitle : {
@@ -114,7 +142,9 @@ export default makeStyles(({ palette : { type } }) => ({
         paddingLeft : '16px',
         fontSize : '12.5pt',
         fontWeight : p => p.viewAsTitle ? 700 : 500,
-        color :  p => ((type=='light' && p.viewAsTitle) ? '#000' : '#FFF'),
+        color :  p => ((type != ('light')) && '#FFF' ||
+            (!p.viewAsTitle? '#FFF':'#000')
+        ),
         marginTop : '0',
         marginBottom : '0px',
         lineHeight : p => p.isHighlighted ? '24px' : '0px',
