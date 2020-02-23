@@ -122,7 +122,7 @@ export default function Miscellaneous() {
                             'https://medium.com/@robftw/characteristics-of-' +
                             'an-ideal-react-architecture-883b9b92be0b'
                         }
-                        containerClass={ classes.imgBtn }
+                        className={ classes.imgBtn }
                     >
                         <OptimizedImg
                             src={ '/img/misc/rob_react_article_art.png' }
@@ -134,7 +134,7 @@ export default function Miscellaneous() {
                             'https://medium.com/@robftw/characteristics-of-an-' +
                             'ideal-react-architecture-883b9b92be0b'
                         }
-                        containerClass={ classes.itemTitle }
+                        className={ classes.itemTitle }
                     >   <Icon
                             className={ classes.itemTypeIcon }
                             path={ mdiNote }
@@ -172,7 +172,7 @@ export default function Miscellaneous() {
                         allowFullScreen
                     />
                     <ButtonLink
-                        containerClass={ classes.itemTitle }
+                        className={ classes.itemTitle }
                         url={ 'https://www.youtube.com/watch?v=v1uJjYYvEPw' }
                     >
                         <Icon
@@ -224,7 +224,7 @@ export default function Miscellaneous() {
                         allowFullScreen
                     /><br />
                     <ButtonLink
-                        containerClass={ classes.itemTitle }
+                        className={ classes.itemTitle }
                         url={ 'https://www.youtube.com/watch?v=4KnJOvw9tLk' }
                     > <Icon
                         className={ classes.itemTypeIcon }
@@ -261,7 +261,7 @@ export default function Miscellaneous() {
                     <br />
                     <ButtonLink
                         url={ 'https://soundcloud.com/rob2d/high-wires-in-space' }
-                        containerClass={ classes.itemTitle }
+                        className={ classes.itemTitle }
                     >
                         <Icon
                             className={ classes.itemTypeIcon }

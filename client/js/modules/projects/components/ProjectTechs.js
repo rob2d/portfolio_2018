@@ -36,19 +36,16 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
     }
 }), { name : 'ProjectTechs' });
 
-export default function ProjectTechs({ techSet }) {
-    const classes = useStyles({ techSet });
+export default function ProjectTechs({ technologies }) {
+    const classes = useStyles({ technologies });
 
-    return Array.from(techSet).map((tKey,i,arr) => {
-        const {
-            displayName,
-            referenceUrl
-        } = Technologies[tKey];
+    return technologies.map( tKey => {
+        const { displayName, referenceUrl } = Technologies[tKey];
 
         return (
             <ButtonLink
                 url={ referenceUrl }
-                containerClass={ classes.techContainer }
+                className={ classes.techContainer }
                 title={ displayName }
                 key={ `${displayName}_buttonLinkContainer` }
             >   <SVG

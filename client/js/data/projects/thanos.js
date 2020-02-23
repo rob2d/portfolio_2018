@@ -4,11 +4,7 @@ export default {
     displayName : 'Thanos Slack Files',
     context : 'Independent',
     roles : 'Maintainer, Designer, Developer',
-    techSet : new Set([
-        'js',
-        'nodejs',
-        'slack-api'
-    ]),
+    technologies : ['js', 'nodejs', 'slack-api'],
     shortDescription : 'Simple utility to easily remove the largest files ' +
         'and free up storage for your free-tier slack team/workspace.',
     description : [
@@ -21,10 +17,13 @@ export default {
         'an entertaining dialog to accompany that). It is useful as both a ' +
         'standalone Node Server and/or can integrate using a dedicated Slack bot.'
     ],
-    links : ['https://www.npmjs.com/package/thanos-slack-files'],
-    linkDescriptions : ['NPM Repo'],
-    sourceCode : ['https://github.com/rob2d/thanos_slack_files'],
-    sourceCodeDescriptions : ['GitHub'],
-    mediaAspectRatio : 1.36,
-    media : []
+    links : [{
+        url : 'https://www.npmjs.com/package/thanos-slack-files',
+        description : 'NPM Repo'
+    }],
+    sourceCode : [{
+        url : 'https://github.com/rob2d/thanos_slack_files',
+        description : 'GitHub'
+    }]
+
 };

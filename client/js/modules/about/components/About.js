@@ -146,7 +146,7 @@ export default function About() {
         Tech.displayName = 'Tech';
         return (
             <ButtonLink
-                containerClass={ classes.tech }
+                className={ classes.tech }
                 url={ url }
                 asButton={ false }
             >   { children }

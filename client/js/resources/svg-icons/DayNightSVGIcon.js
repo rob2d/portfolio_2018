@@ -1,19 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 import C from 'color';
-import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-
-// TODO : convert to makeStyles now that MUI supports it;
-// cuts down on file size and redundant issues which
-// we solve with BEM convention here
-
 
 const defaultStarXform = 'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)';
 
 const useStyles = makeStyles(({ palette : { common } }) => {
-
-    // use RGBA computation for transitions
     const a0 = `${C(common.white).alpha(0).rgb()}`;
     const a255 = `${C(common.white).alpha(1).rgb()}`;
 

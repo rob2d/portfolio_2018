@@ -6,7 +6,7 @@ export default {
     year : '2011',
     context  : 'Undergraduate Seminar',
     roles    : 'Programming, Planning & Design',
-    techSet : new Set(['android_sdk', 'java', 'mysql', 'php']),
+    technologies : ['android_sdk', 'java', 'mysql', 'php'],
     shortDescription : 'An interactive rendition of "Big Two" card game for Android featuring realtime online gameplay',
     description : [
         'Chinese Poker Online was a game which during the years it was released (2011) had very ' +
@@ -19,17 +19,22 @@ export default {
         'building outside of my Programming 2 and Data Structures class.'
     ],
     mediaAspectRatio : 1.662337662337662,
-    media : [
-        { type : 'video', videoId   : 'F91K9oWimSg' },
-        ...generateMediaImages('chinesepoker', 4)
-    ],
-    mediaCaptions : [
-        'Undergraduate seminar project demo intro',
-        'Title Screen',
-        'Welcome Menu',
-        'Start of a new game',
-        'Managing a hand for a play'
-    ],
-    sourceCode : ['https://github.com/rob2d/cpo_android'],
-    sourceCodeDescriptions : ['Github'],
+    media : {
+        items : [
+            { type : 'video', videoId   : 'F91K9oWimSg' },
+            ...generateMediaImages('chinesepoker', 4, [
+                'Undergraduate seminar project demo intro',
+                'Title Screen',
+                'Welcome Menu',
+                'Start of a new game',
+                'Managing a hand for a play'
+            ])
+        ]
+    },
+    sourceCode : [
+        {
+            url : 'https://github.com/rob2d/cpo_android',
+            description : 'Github'
+        }
+    ]
 };

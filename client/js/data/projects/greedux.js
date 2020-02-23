@@ -7,7 +7,7 @@ export default {
     displayName : 'Greedux',
     context : 'Independent',
     roles : 'Maintainer, Designer and Developer',
-    techSet : new Set(['js','nodejs','gulp','react','redux','yeoman']),
+    technologies : ['js','nodejs','gulp','react','redux','yeoman'],
     shortDescription : (
         'Simple workflow template to get a jumpstart on React/Redux applications.'
     ),
@@ -30,20 +30,23 @@ export default {
 
         (<span>
             I have deployed 8 front-end projects since late 2016 with it. It was used to create a decent starting point for
-            several very high profile projects that I am aware of, such as <a href={'/projects/smartwalk'}>an engineering app</a> to support most of the Fortune 500
+            several very high profile projects that I am aware of, such as <a href={ '/projects/smartwalk' }>an engineering app</a> to support most of the Fortune 500
             company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US
-            (<a href={'http://www.stuyspec.com'} target='_new'>http://www.stuyspec.com</a>). It was also used to spin up much less
+            (<a href={ 'http://www.stuyspec.com' } target={ '_new' }>http://www.stuyspec.com</a>). It was also used to spin up much less
             high profile/ground-shaking projects -- such as this portfolio!
         </span>)
     ],
-    links : ['https://www.npmjs.com/package/generator-greedux'],
-    linkDescriptions : ['NPM Repo'],
-    sourceCode : ['https://github.com/rob2d/greedux/'],
-    sourceCodeDescriptions : ['Github'],
-    media : [
-        ...generateMediaImages('greedux', 1)
-    ],
-    mediaCaptions: [
-        (<i>"Look ma, no peeking into console!"</i>)
-    ],
+    links : [{
+        url : 'https://www.npmjs.com/package/generator-greedux',
+        description : 'NPM Repo'
+    }],
+    sourceCode : [{
+        url : 'https://github.com/rob2d/greedux/',
+        description : 'Github'
+    }],
+    media : {
+        items : [...generateMediaImages('greedux', 1, [
+            (<i>"Look ma, no peeking into console!"</i>)
+        ])]
+    }
 };

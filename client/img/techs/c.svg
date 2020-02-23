@@ -1,118 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 630 630"
-   version="1.1"
-   id="svg1080"
-   sodipodi:docname="c.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     id="namedview8667"
-     showgrid="false"
-     inkscape:zoom="0.37460317"
-     inkscape:cx="34.70339"
-     inkscape:cy="315"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg1080" />
-  <metadata
-     id="metadata1086">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs1084" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5012"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5014"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5016"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5018"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5020"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5022"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5024"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5026"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5028"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5030"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5032"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5034"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5036"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5038"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5040"
-     style="fill:#ffffff" />
-  <g
-     transform="matrix(11.17734,0,0,11.17734,46.74344,46.74401)"
-     id="surface1">
+<svg viewBox="0 0 630 630">
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="matrix(11.17734,0,0,11.17734,46.74344,46.74401)">
     <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke-width:11.17733955"
+       style="fill-rule:evenodd;stroke-width:11.17733955"
        d="M 314.75977 80.287109 C 310.30629 80.265283 305.85289 81.302341 302.07617 83.419922 C 264.70194 104.33378 152.2297 167.33616 114.85547 188.25 C 107.30203 192.48517 102.63086 200.30115 102.63086 208.77148 L 102.63086 209.55859 L 102.63086 418.43359 L 102.63086 420.44336 C 102.63086 428.95735 107.30134 436.81493 114.89844 441.09375 C 152.40366 462.13859 265.22525 525.49227 302.73047 546.53711 C 310.32756 550.77227 319.67049 550.77227 327.26758 546.53711 C 364.7728 525.49227 477.59439 462.13859 515.09961 441.09375 C 522.6967 436.81493 527.36914 428.95735 527.36914 420.44336 L 527.36914 209.55859 C 527.36914 203.8691 525.27435 198.4777 521.62305 194.24609 L 521.64844 194.23242 C 519.59636 191.5254 517.28412 189.47427 514.27148 187.77148 C 476.89726 166.85764 364.81759 104.42166 327.44336 83.507812 C 326.00732 82.702639 324.47343 82.047099 322.87891 81.542969 C 320.28415 80.692655 317.578 80.277499 314.87305 80.291016 C 314.83524 80.290678 314.79757 80.287295 314.75977 80.287109 z M 315 158.51758 C 372.30751 158.51758 422.45344 189.39923 449.71484 235.4082 L 381.77539 274.24023 C 368.0206 251.77005 343.25122 236.75977 315 236.75977 C 271.81879 236.75977 236.75781 271.81879 236.75781 315 C 236.75781 358.18121 271.81879 393.24219 315 393.24219 C 343.72677 393.24219 368.84232 377.71501 382.44922 354.61328 L 451.02539 392.34766 C 424.08023 439.59569 373.23562 471.48242 315 471.48242 C 228.63759 471.48242 158.51758 401.36242 158.51758 315 C 158.51758 228.63759 228.63759 158.51758 315 158.51758 z "
        transform="matrix(0.08946672,0,0,0.08946672,-4.1819825,-4.1820335)"
-       id="path10547" />
+    />
   </g>
 </svg>

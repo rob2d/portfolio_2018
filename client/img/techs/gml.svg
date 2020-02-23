@@ -1,87 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   viewBox="0 0 630 630"
-   version="1.1"
-   id="svg1080">
-  <metadata
-     id="metadata1086">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5012"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5014"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5016"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5018"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5020"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5022"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5024"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5026"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5028"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5030"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5032"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5034"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5036"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5038"
-     style="fill:#ffffff" />
-  <g
-     transform="translate(69.852295,70.373037)"
-     id="g5040"
-     style="fill:#ffffff" />
+<svg viewBox="0 0 630 630">
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
+  <g transform="translate(69.852295,70.373037)" />
   <path
-     style="fill:#ffffff;stroke-width:9.722826"
+     style="stroke-width:9.722826"
      d="m 285.2676,451.11956 h -16.48019 c -19.30953,0 -37.2676,-10.52981 -46.8543,-27.4767 L 159.43479,315 237.46046,178.88044 h 80.90364 l -72.33782,136.27512 0.94311,0.53476 33.63125,57.64664 h 48.05993 z m -96.03235,-227.203 -21.1666,-36.83979 c -3.05296,-5.09476 -8.4783,-8.19633 -14.32172,-8.19633 H 81.652177 l 66.591633,116.53778 z m 218.10243,-17.55942 c -9.58671,-16.94689 -27.53504,-27.4767 -46.86402,-27.4767 h -20.09709 l -41.29283,77.7826 h 49.57669 L 383.05979,315 307.53287,451.11956 H 391.8006 L 470.56521,315 Z m 74.38935,128.17602 -41.17618,71.17109 21.3805,37.21897 c 3.05296,5.09477 8.4783,8.19634 14.32172,8.19634 h 72.09475 z"
-     id="path7950" />
+    />
 </svg>

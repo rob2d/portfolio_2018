@@ -132,11 +132,9 @@ export default function ProjectCardLayout(props) {
         data : {
             id, displayName, context, shortDescription
         },
-        pData, onClick, parent,
-        wasSelectionViaUI,
+        pData, onClick,
         isSelected,
         displayState,
-        onScreen
     } = props;
 
     const container = useRef();
@@ -146,10 +144,7 @@ export default function ProjectCardLayout(props) {
     );
 
     const {
-        hasAbsolutePosition,
         viewAsTitle,
-        offsetLeft,
-        offsetTop,
         isHovered
     } = state;
 
@@ -199,10 +194,7 @@ export default function ProjectCardLayout(props) {
     }, [isSelected, displayState]);
 
     return (
-        <div
-            ref={ container }
-            className={ classes.container }
-        >
+        <div ref={ container } className={ classes.container }>
             <Card
                 className={ clsx(
                     viewAsTitle &&
