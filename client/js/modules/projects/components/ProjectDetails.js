@@ -16,6 +16,13 @@ import { useDocumentTitle, useAutoFaderClass } from 'utils/hooks';
 import MediaReel from './media-reel/MediaReel';
 import ProjectTechs from './ProjectTechs';
 
+const linkItemSections = [
+    { field : 'sourceCode', iconPath : mdiCodeTags },
+    { field : 'documentation', iconPath : mdiNoteOutline },
+    { field : 'downloads', iconPath : mdiDownload },
+    { field : 'links', iconPath : mdiLink }
+];
+
 const useStyles = makeStyles(({ palette : { common, text, secondary } }) => ({
     mainContainer : {
         flexGrow : 1,
@@ -155,20 +162,34 @@ export default function ProjectDetails({ projectId }) {
     const classes = useStyles({ projectId, vpW });
     const fadeContainerClass = useAutoFaderClass(undefined, 1000);
     const p = projects[projectId];
-
     useDocumentTitle({ title : p.displayName && `${SITE_NAME} -- ${p.displayName}` });
 
-    const LinkIcon = useCallback(({ path }) => (
-        <Icon className={ classes.icon } size={ 0.9 } path={ path } />
-    ), [classes.icon]);
+    const LinkItem = useCallback(({ url, iconPath, children }) => (
+        <ButtonLink url={ url } className={ classes.link } key={ url }>
+            <Icon className={ classes.icon } size={ 0.9 } path={ iconPath } />
+            <p>{ children }</p>
+        </ButtonLink>
+    ), [classes.link, classes.icon]);
 
-    const Section = useCallback(({ title, children }) => children ? (
-        <div className={ classes.section }>
-            { title && (<p className={ classes.sectionHeader }>{ title }</p>) }
-            <p className={ classes.sectionContent }>{ children }</p>
-        </div>
-    ) : (<></>),
-    [classes.sectionHeader, classes.section, classes.sectionContent]);
+    const Section = useCallback(({
+        title, children, linkItems, linkIconPath
+    }) => {
+        if(!children && !linkItems?.length) { return (<></>) }
+
+        return (
+            <div className={ classes.section }>
+                { title && (<p className={ classes.sectionHeader }>{ title }</p>) }
+                <p className={ classes.sectionContent }>
+                    { children }
+                    { linkItems?.length ? linkItems.map(({ url, description }) => (
+                        <LinkItem iconPath={ linkIconPath } url={ url }>
+                            { description }
+                        </LinkItem>
+                    )) : undefined }
+                </p>
+            </div>
+        );
+    }, [classes.sectionHeader, classes.section, classes.sectionContent]);
 
     return (
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
@@ -177,21 +198,16 @@ export default function ProjectDetails({ projectId }) {
                     <p className={ classes.role }>{ p.roles }</p>
                 </div>
                 <Section>
-                    { p.technologies?.length ? (
-                        <div className={ classes.section }>
-                            <p className={ classes.sectionContent }>
-                                <ProjectTechs technologies={ p.technologies } />
-                            </p>
-                        </div>
-                    ) : undefined }
+                    { !p.technologies?.length ? undefined : (
+                        <ProjectTechs technologies={ p.technologies } />
+                    ) }
                 </Section>
                 <Section>
                     { p.description?.length ? p.description.map((d, i) => (
                         <p className={ classes.description } key={ `desc${i+1}` }>
                             { d }
                         </p>
-                    )) :
-                    (
+                    )) : (
                         <p className={ classes.description } key={ `sdesc` }>
                             { p.description || p.shortDescription }
                         </p>
@@ -208,52 +224,22 @@ export default function ProjectDetails({ projectId }) {
                         />
                     ) : undefined }
                 </Section>
-                <Section title={ 'Source Code' }>{ p.sourceCode?.length ?
-                    p.sourceCode.map(({ url, description }) => (
-                        <ButtonLink
-                            url={ url }
-                            className={ classes.link }
-                            key={ `source_${url}` }
-                        >
-                            <LinkIcon path={ mdiCodeTags } />
-                            <p>{ description }</p>
-                        </ButtonLink>
-                    )) : undefined }
-                </Section>
-                <Section title={ 'Documentation' }>{ p.documentation?.length ?
-                    p.documentation.map(({ url, description }) => (
-                        <ButtonLink url={ url } className={ classes.link } key={ url }>
-                            <LinkIcon path={ mdiNoteOutline } />
-                            <p>{ description }</p>
-                        </ButtonLink>
-                    )) : undefined }
-                </Section>
-                <Section title={ 'Downloads' }>{ p.downloads?.length ?
-                    p.downloads.map(({ url, description }) => (
-                        <ButtonLink
-                            url={ url }
-                            className={ classes.link }
-                            key={ `downloads_${url}` }
-                        >
-                            <LinkIcon path={ mdiDownload } />
-                            <p>{ description }</p>
-                        </ButtonLink>
-                    )) : undefined }
-                </Section>
-                <Section title={ 'Links' }>
-                    { p.links?.length ? p.links.map(({ url, description }) => (
-                        <ButtonLink
-                            url={ url }
-                            className={ classes.link }
-                            key={ `links_${url}` }
-                        >
-                            <LinkIcon path={ mdiLink } />
-                            <p>{ description }</p>
-                        </ButtonLink>
-                    )) : undefined }
-                </Section>
+                { linkItemSections.map(({ field, iconPath }) => (
+                    <Section
+                        title={
+                            field.charAt(0).toUpperCase() +
+                            field.replace(/([A-Z])/g, match => ` ${match}`).substring(1)
+                        }
+                        linkItems={ p[field] }
+                        linkIconPath={ iconPath }
+                    />
+                )) }
                 <ButtonLink className={ classes.return } url={ `/projects` }>
-                    <LinkIcon path={ mdiArrowLeftBox } />
+                    <Icon
+                        className={ classes.icon }
+                        size={ 0.9 }
+                        path={ mdiArrowLeftBox }
+                    />
                     <p>Back to Projects</p>
                 </ButtonLink>
             </div>
