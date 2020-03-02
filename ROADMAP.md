@@ -4,27 +4,39 @@
 Since this is just a one-man free-for-all on my free time here, just listing things that are less-than-ideal which I plan to get around to in the near future term.
 
 ## About
-- complete new layout + re-add 3D skills orbit and overview component to layout.
-- scroller for text as current format is TMI for certain types
-of users.
+- complete new layout.
+- write new SkillOrbs component using hooks to replace older view since page is not very sexy without it.
+- scroller for text as current format is TMI for certain types of users.
 
 ## Projects
-- simplify project data now that it has been organized from the split when there was localization.
 - Use vertical space a bit better in the Details layout on wide screens.
-- cache instances of YouTube player while parent still mounted so that there's no need to reload iframe
-- fix some issues with YouTube player responsiveness on some mobile devices.
+- <del>cache instances of YouTube player while parent still mounted so that there's no need to reload iframe</del>
+
+
+- <del>fix some issues with YouTube player responsiveness on some mobile devices.</del>
+
+- get rid of YouTube lib currently used for something lighter/hooks-friendly for `MediaViewer`.
+- use grid layout for ultrawide monitors like mine at home which cannot in any way use pixel-grid-snapping/zoom to look less awkward.
+- add Hebi-Appuru and Bowling Kata so they aren't lost to the sands of time forever.
 
 ## CV
 - keep track of height after first render (if vpW hasn't changed) in order to keep height from flitting around on page change.
+- write resume using react to generate PDFs so I could easily make changes without sacrificing
+flow or dumpster diving into Google Doc/MSWord which is terribly outdated for layouts.
 
 ## Misc
 - deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that. (W.I.P. -- just need to use new simple Projects data format).
 - auto-generate sitemap.xml using react-router library.
 - generate meta data for content on serverside (possibly integrated with point right above).
 
+## Infra
+- Mocha + Puppeteer integration test-runner.
+- CircleCI and CICD all-the-things (free tier exists now \o/)
+
 ## Nice-to-haves
 
 - allow filtering of techs in Projects view.
-- Add a React hook for routing + classNames to create nice section
+- Add a React hook for routing + classNames to create nice section.
 scroll left/right transitions.
-- Testing (!). At least some basic coverage once current W.I.P. list is about 50% complete -- but thankfully I'm not insane and indeed regression test manually/visually inspect before any deployments.
+- Set up integration test.
+- Code preview button for each section.
