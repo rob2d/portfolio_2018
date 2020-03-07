@@ -15,6 +15,7 @@
         "quote-props" : 0,
         "quotes" : 0,
         "jsx-a11y/alt-text" : 0,
+        "no-sequences" : 0,
         "indent" : [2, 4, {
             "SwitchCase" : 1,
            "ignoredNodes": ["JSXElement", "JSXElement *"]
@@ -25,10 +26,12 @@
         "linebreak-style": 0,
         "comma-dangle" : 0,
         "no-unused-vars" : 0,
+        "no-unused-expressions" : [2, { "allowShortCircuit" : true }],
         "no-console" : 0,
         "space-before-function-paren" : [2, {
             "named" : "never"
         }],
+
         "switch-colon-spacing" : [2, { "after" : true, "before" : true }],
         "implicit-arrow-linebreak" : 0,
         "prefer-arrow-callback" : [2, { "allowNamedFunctions" : true }],
@@ -65,6 +68,7 @@
         "padded-blocks" : 0,
         "comma-spacing" : 0,
         "space-in-parens" : 0,
+        "space-in-brackets": ["error", "always"],
         "react/jsx-filename-extension" : 0,
         "react/jsx-one-expression-per-line" : 0,
         "react/prop-types" : 0,

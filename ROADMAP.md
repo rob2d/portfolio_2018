@@ -25,7 +25,6 @@ Since this is just a one-man free-for-all on my free time here, just listing thi
 flow or dumpster diving into Google Doc/MSWord which is terribly outdated for layouts.
 
 ## Misc
-- deprecate `/strings` and React Localization library -- Chrome translate has gotten pretty good since starting this, and no need for the maintainanace overhead with that. (W.I.P. -- just need to use new simple Projects data format).
 - auto-generate sitemap.xml using react-router library.
 - generate meta data for content on serverside (possibly integrated with point right above).
 
