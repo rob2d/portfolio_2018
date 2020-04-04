@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback, useReducer } from 'react';
 import C from 'color';
+import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
@@ -16,7 +17,7 @@ const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
             display : 'none !important',
             pointerEvents : 'none !important'
         },
-        '.react-pdf__Page__canvas, .react-pdf__Page' : {
+        '.react-pdf__Page__svg, .react-pdf__Page' : {
             width : 'min(100vw, 960px) !important',
             height : 'auto !important'
         }
@@ -117,6 +118,7 @@ function reducer(state={ initialState }, action) {
 }
 
 export default function PDFViewer({ fileURL }) {
+    const [vpW, vpH] = useViewportSizes();
     const [state, dispatch] = useReducer(reducer, initialState);
     const classes = useStyles({ isLoading : state.isLoading });
 
@@ -154,14 +156,16 @@ export default function PDFViewer({ fileURL }) {
             file={ fileURL }
             onLoadSuccess={ onDocumentLoadSuccess }
             className={ classes.pdfContent }
-            renderMode={ 'canvas' }
+            renderMode={ 'svg' }
         ><Page
             pageNumber={ pageNumber }
             renderTextLayer={ false }
             renderAnnotationLayer={ false }
+            width={ Math.min(vpW, 960) }
+            height={ (Math.min(vpW, 960) * 0.77) }
         />
         </Document>
-    ), [pageNumber, fileURL, classes.pdfContent]);
+    ), [pageNumber, fileURL, classes.pdfContent, vpW]);
 
     return (
         <div className={ classes.container }>
