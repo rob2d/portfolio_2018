@@ -48,6 +48,7 @@ export default function OptimizedImg({ src, className, ...props }) {
             <source
                 srcSet={ `${filePrefix}.${ext}` }
                 type={ mimeTypeDict[ext] }
+                key={ `${filePrefix}.${ext}` }
                 { ...props }
             />
         ));
