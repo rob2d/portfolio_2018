@@ -63,6 +63,7 @@ themeDefs.light.push({
         },
         common : {
             white : '#FFF',
+            black : '#000',
             background1 : '#FFF',
             active : '#00b8d4',
             shadow : '#000',
@@ -89,6 +90,7 @@ themeDefs.dark.push({
         common : {
             background1 : '#121212',
             white : '#FFF',
+            black : '#000',
             active : '#00b8d4',
             shadow : '#232323',
             contrast : '#FFF'

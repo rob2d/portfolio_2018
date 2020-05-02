@@ -11,7 +11,7 @@ import { usePrevious } from 'utils/hooks';
 import shouldShowHoverContent from 'utils/shouldShowHoverContent';
 import PDFViewerNav from './PDFViewerNav';
 
-const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
+const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
     '@global' : {
         '.react-pdf__Page__textContent' : {
             display : 'none !important',
@@ -19,7 +19,8 @@ const useStyles = makeStyles(({ palette : { secondary, common, type } }) => ({
         },
         '.react-pdf__Page__svg, .react-pdf__Page' : {
             width : 'min(100vw, 960px) !important',
-            height : 'auto !important'
+            height : 'auto !important',
+            fill : `${common.black} !important`
         }
     },
     container : {
