@@ -15,13 +15,8 @@ const PAGE_RATIO = 8.5/11.0;
 
 const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
     '@global' : {
-        '.react-pdf__Page__textContent' : {
-            display : 'none !important',
-            pointerEvents : 'none !important'
-        },
         '.react-pdf__Page__svg, .react-pdf__Page' : {
             width : 'auto !important',
-            height : 'calc(100vh - 128px) !important',
             fill : `${common.black} !important`
         }
     },
