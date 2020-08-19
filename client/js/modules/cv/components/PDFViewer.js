@@ -11,6 +11,8 @@ import { usePrevious } from 'utils/hooks';
 import shouldShowHoverContent from 'utils/shouldShowHoverContent';
 import PDFViewerNav from './PDFViewerNav';
 
+const PAGE_RATIO = 8.5/11.0;
+
 const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
     '@global' : {
         '.react-pdf__Page__textContent' : {
@@ -18,8 +20,8 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
             pointerEvents : 'none !important'
         },
         '.react-pdf__Page__svg, .react-pdf__Page' : {
-            width : 'min(100vw, 960px) !important',
-            height : 'auto !important',
+            width : 'auto !important',
+            height : 'calc(100vh - 128px) !important',
             fill : `${common.black} !important`
         }
     },
@@ -27,8 +29,8 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
         position : 'relative',
         display : 'flex',
         flexDirection : 'column',
-        width : '100%',
-        height : 'auto',
+        width : 'auto',
+        height : '100%',
         minHeight : '60px',
         alignItems : 'center',
         justifyContent : 'center',
@@ -43,11 +45,11 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
         // resize pdf height according to 8.5x11
 
         '@media (max-width: 900px)': {
-            maxWidth : '100%',
+            maxWidth : '100% !important',
             height : 'auto !important'
         },
         '@media (min-width: 900px)': {
-            width : '100%',
+            width : '100% !important',
             height : 'auto !important'
         }
     },
@@ -162,11 +164,11 @@ export default function PDFViewer({ fileURL }) {
             pageNumber={ pageNumber }
             renderTextLayer={ false }
             renderAnnotationLayer={ false }
-            width={ Math.min(vpW, 960) }
-            height={ (Math.min(vpW, 960) * 0.77) }
+            width={ PAGE_RATIO * vpH }
+            height={ vpH }
         />
         </Document>
-    ), [pageNumber, fileURL, classes.pdfContent, vpW]);
+    ), [pageNumber, fileURL, classes.pdfContent, vpH]);
 
     return (
         <div className={ classes.container }>
