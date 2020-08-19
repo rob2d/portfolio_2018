@@ -4,7 +4,6 @@ import React, {
     useCallback,
     useContext
 } from 'react';
-import C from 'color';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -59,13 +58,17 @@ export default function ThemeButton() {
     const [tooltip, description] = useMemo(() => [(
         <div className={ classes.tooltip }>
             <div>Switch to the&nbsp;
-                <b>{ themeState }</b> theme
+                <b>{ themeTargets[themeType] }</b> theme
             </div>
             <div>
-                <i>(default is your native OS' theme if set)</i>
+                <i>(default is your browser/OS' theme if set)</i>
             </div>
         </div>
-    ), `Switch to the ${themeState} theme (default is your native OS' theme if set)`], [themeState]);
+    ), (
+        `Switch to the ${themeTargets[themeType]
+        } theme (default is your native OS' theme if set)`
+    )],
+    [themeState, themeType, classes.tooltip]);
 
     return (
         <Tooltip enterDelay={ 400 } title={ tooltip }>
