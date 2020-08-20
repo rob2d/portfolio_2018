@@ -1,4 +1,4 @@
-import React, { useMemo, lazy, Suspense } from 'react';
+import React, { useMemo, useCallback, lazy, Suspense } from 'react';
 /**
  * lazily loads a component with a provided resolver
  * (so that webpack can use magic import via comment
@@ -7,14 +7,15 @@ import React, { useMemo, lazy, Suspense } from 'react';
  *
  * @param {Function} resolver
  * @param {Function} loadingContent
- * @param {Boolean} watchResolver flag to watch resolver for memoization
  */
-export default function useLazyComponent(resolver, loadingContent, watchResolver=false) {
+export default function useLazyComponent(resolver, loadingContent) {
     const Component = useMemo(() => lazy(resolver), []);
 
-    return () => (
+    const returnValue = useCallback(() => (
         <Suspense fallback={ loadingContent }>
             <Component />
         </Suspense>
-    );
+    ), [Component]);
+
+    return returnValue;
 }
