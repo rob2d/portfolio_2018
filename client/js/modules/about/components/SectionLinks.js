@@ -1,46 +1,34 @@
-import React, { useMemo, useCallback } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { isLandscape, isPortrait } from 'utils';
 import { ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
-import {
-    mdiBriefcase,
-    mdiDiceMultiple,
-    mdiFileDocumentBox
-} from '@mdi/js';
+import { Sections } from 'constants/AppSections';
 
-const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
+const [_, ...AppSections] = Sections;
+
+const useStyles = makeStyles(({ palette : { secondary, common } }) => ({
     sectionList : {
-        paddingLeft : p => !isPortrait(p.vpW, p.vpH)?'16px':'0px',
-        paddingRight : p => !isPortrait(p.vpW, p.vpH)?'16px':'0px',
+        position : 'relative',
+        paddingLeft : p => !p.isPortrait ? '16px':'0px',
+        paddingRight : p => !p.isPortrait ? '16px':'0px',
         paddingTop : '8px',
         paddingBottom : '0px',
         textAlign : 'left',
-        paddingInlineStart : p => {
-            if(isPortrait(p.vpW, p.vpH)) { return '0px' }
-            else return `${isLandscape(p.vpW, p.vpH)? 6:40}px`
-        },
-        position : 'relative',
-        left : p => {
-            if(isPortrait(p.vpW, p.vpH)) {
-                return (p.vpW < 400) ? '-24px' : '-48px'
-            } else {
-                return '0px';
-            }
-        },
+        paddingInlineStart : p => `${
+            (p.isPortrait ? 0 : `${(p.isLandscape ? 6 : 40)}`)
+        }px`,
+        left : p => (p.isPortrait ?
+            `${(p.vpW < 400) ? -24 : -48}px` :
+            `0px`
+        ),
         '& > button' : {
             position : 'relative',
-            display : p => `${isLandscape(p.vpW,p.vpH)?'inline-':''}block`,
+            display : p => `${p.isLandscape?'inline-':''}block`,
             padding : '8px',
-            '&:hover > li' : {
-                color : secondary.main
-            },
-            '&:active > li' : {
-                color : common.active
-            },
-            '&:nth-of-type(odd)': {
-                left : p => `${isPortrait(p.vpW,p.vpH)?-12:0}px`
-            }
+            '&:hover > li' : { color : secondary.main },
+            '&:active > li' : { color : common.activ },
+            '&:nth-of-type(odd)': { left : p => `${p.isPortrait ? -12 : 0}px` }
         },
         '& > button > li' : {
             display : 'flex',
@@ -49,20 +37,17 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
             color : secondary.dark,
             fontWeight : 700,
             fontSize : '11pt',
-            minWidth : p => (
-                (!isPortrait(p.vpW, p.vpH) &&
-                !isLandscape(p.vpW,p.vpH)) ?
-                    '148px' : '1px'
-            ),
+            minWidth : p => (!p.isPortrait && !p.isLandscape) ? '148px' : '1px',
             textAlign : 'left',
             transition : 'color 0.21s',
         },
         '& > button > li > *' :{
-            marginRight : p => !isLandscape(p.vpW,p.vpH)?'16px':'6px'
+            marginRight : p => !p.isLandscape ? '16px' : '6px'
         }
     },
 
     // make certain things larger on non-mobile devices
+
     '@media (min-width:901px)' : {
         sectionList : {
             paddingLeft : '64px'
@@ -71,38 +56,26 @@ const useStyles = makeStyles(({ palette : { secondary, text, common } }) => ({
 }), 'SectionLinks');
 
 export default function SectionLinks({ vpW, vpH }) {
-    const classes = useStyles({ vpW, vpH })
-
+    const isInPortrait = isPortrait(vpW, vpH);
     const isInLandscape = isLandscape(vpW, vpH);
-
-    const SectionLink = useCallback(({ url, name, iconPath }) => {
-        SectionLink.displayName='SectionLink';
-        return (
-            <ButtonLink
-                url={ url }
-                name={ name }
-            ><li><Icon path={ iconPath } size={ 0.75 } />&nbsp;{ name }</li>
-            </ButtonLink>
-        );
-    }, [classes]);
+    const classes = useStyles({
+        isPortrait : isInPortrait,
+        isLandscape : isInLandscape
+    });
 
     return (
         <ul className={ classes.sectionList }>
-            <SectionLink
-                name={ 'Projects' }
-                iconPath={ mdiBriefcase }
-                url={ '/projects' }
-            />
-            <SectionLink
-                name={ isInLandscape ? 'Misc' : 'Miscellaneous' }
-                iconPath={ mdiDiceMultiple }
-                url={ '/misc' }
-            />
-            <SectionLink
-                name={ 'CV' }
-                iconPath={ mdiFileDocumentBox }
-                url={ '/cv' }
-            />
+            { AppSections.map(({ name, nameUnabbrev, iconPath, basePath }) => (
+                <ButtonLink
+                    url={ basePath }
+                    name={ isInLandscape ? name : nameUnabbrev }
+                >
+                    <li>
+                        <Icon path={ iconPath } size={ 0.75 } />&nbsp;
+                        { isInLandscape ? name : nameUnabbrev }
+                    </li>
+                </ButtonLink>
+            )) }
         </ul>
     );
 }
