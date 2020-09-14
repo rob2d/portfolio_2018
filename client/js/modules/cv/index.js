@@ -1,4 +1,3 @@
-import CV from './components/CV'
+import CV from './components/CV';
 
-export default { CV }
-export { CV }
+export default { CV };
