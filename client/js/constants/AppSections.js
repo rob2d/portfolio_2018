@@ -2,7 +2,7 @@ import {
     mdiHumanGreeting,
     mdiBriefcase,
     mdiDiceMultiple,
-    mdiFileDocumentBox
+    mdiNote
 } from '@mdi/js';
 
 export const SectionIndexes = {
@@ -15,25 +15,29 @@ export const SectionIndexes = {
 export const Sections = [
     {
         name : 'About',
+        nameUnabbrev : 'About',
         iconPath : mdiHumanGreeting,
         getTooltipText : () => 'About',
         basePath : '/',
     },
     {
         name : 'Projects',
+        nameUnabbrev : 'Projects',
         iconPath : mdiBriefcase,
         getTooltipText : () => 'Projects',
         basePath : '/projects'
     },
     {
         name : 'Misc',
+        nameUnabbrev : 'Miscellaneous',
         iconPath : mdiDiceMultiple,
         getTooltipText : () => 'Miscellaneous',
         basePath : '/misc'
     },
     {
         name : 'CV',
-        iconPath : mdiFileDocumentBox,
+        nameUnabbrev : 'CV',
+        iconPath : mdiNote,
         getTooltipText  : () => 'CV',
         basePath : '/cv'
     }
