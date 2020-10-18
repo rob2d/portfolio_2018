@@ -61,6 +61,10 @@ themeDefs.light.push({
             main : '#ec407a',
             dark : '#c51162'
         },
+        accent : {
+            main : '#00b8d4',
+            dark : '#00a2c1'
+        },
         common : {
             white : '#FFF',
             black : '#000',
@@ -182,7 +186,7 @@ const getTheme = theme => {
             createDerivedTheme(themeDefs[theme])
         );
     }
-    console.log('getting theme ->', themes[theme]);
+
     return themes[theme];
 };
 

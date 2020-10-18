@@ -5,10 +5,7 @@ import {
     Switch
 } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
-import {
-    useLazyComponent,
-    useDocumentTitle
-} from 'utils/hooks';
+import { useLazyComponent, useDocumentTitle } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/core/styles';
 import appHistory from 'utils/appHistory';
@@ -63,7 +60,7 @@ function AppContent() {
         setLoaderShowing(false);
         setTimeout(() => {
             const loaderElem = document.getElementById('loader');
-            loaderElem.parentNode.removeChild(loaderElem);
+            loaderElem?.parentNode && loaderElem.parentNode.removeChild(loaderElem);
         }, 1000);
     }, []);
 
