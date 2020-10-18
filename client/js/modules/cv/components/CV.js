@@ -10,8 +10,6 @@ import { useDocumentTitle } from 'utils/hooks';
 import { PDFView, PDFDownloadLink } from 'utils/components';
 import ResumePDFView from './ResumePDFView';
 
-const RESUME_URL = '/downloads/concepcion_resume_102019.pdf';
-
 const useStyles = makeStyles(({ palette : { secondary, common } }) => ({
     container : {
         marginLeft : 'auto',
@@ -61,10 +59,20 @@ export default function CV() {
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles();
 
-    const [width, height] = useMemo(() => ([
-        Math.round(vpW * 0.8),
-        Math.round(vpH - 144)
-    ]), [vpW, vpH]);
+    const [width, height] = useMemo(() => {
+        if(vpW > 400) {
+            return [
+                Math.round(vpW * 0.8),
+                Math.round(vpH - 132)
+            ];
+        }
+
+        return [
+            Math.round(vpW * 0.92),
+            Math.round(vpH - 132)
+        ];
+
+    }, [vpW, vpH]);
 
     return (
         <div className={ classes.container }>
@@ -95,7 +103,7 @@ export default function CV() {
                             </Fab>
                         </PDFDownloadLink>
                     </div>
-            </Tooltip>
+                </Tooltip>
             </div>
         </div>
     );

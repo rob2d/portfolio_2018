@@ -24,6 +24,9 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
         },
         '&:active $icon': {
             fill : common.active
+        },
+        '& .MuiButton-text' : {
+            padding : '0px 0px'
         }
     },
     '@media (max-width: 400px)': {
