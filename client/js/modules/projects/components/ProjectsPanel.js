@@ -136,6 +136,14 @@ export default function ProjectsPanel() {
         else if(!projectId) {
             dispatch({ type : 'viewAllProjects' });
         }
+
+        setTimeout(() => {
+            window.scrollTo({
+                top : 0,
+                left : 0,
+                behavior : 'smooth'
+            });
+        }, 250);
     }, [projectId]);
 
     useEffect(() => {
