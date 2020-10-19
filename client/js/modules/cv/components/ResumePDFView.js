@@ -352,8 +352,8 @@ export default function ResumePDFView({ theme }) {
                 </Text>
             </View>
             <View style={{ ...styles.fullWidth, ...styles.indent }}>
-                { items.map( g => (
-                    <Text style={ styles.technologyGroup }>{
+                { items.map( (g, i) => (
+                    <Text key={ `_${i+1}` } style={ styles.technologyGroup }>{
                         g.map((t, i) => (
                             <>
                                 { t }{ (i < (g.length-1)) ?
@@ -413,8 +413,8 @@ export default function ResumePDFView({ theme }) {
                     </View>
                     <View style={{ ...styles.section, ...styles.sectionMarginBottom }}>
                         <Text style={ styles.sectionTitle }>Technologies</Text>
-                        { skills.map( section => (
-                            <ResumeSkillsGroup { ...section } />
+                        { skills.map( (section, i) => (
+                            <ResumeSkillsGroup { ...section } key={ section.name } />
                         )) }
                     </View>
 
@@ -470,6 +470,7 @@ export default function ResumePDFView({ theme }) {
                         <View style={ styles.sectionBody }>
                             { experience.map((entry, i) => (
                                 <ResumeExperienceEntry
+                                    key={ `_${i+1}` }
                                     isLast={ i == (experience.length -1) }
                                     { ...entry }
                                 />

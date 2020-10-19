@@ -109,9 +109,11 @@ export default function Miscellaneous() {
     const classes = useStyles({ vpW });
     const fadeContainerClass = useAutoFaderClass();
 
-    const Ramblings = useCallback(({ ramblings }) =>
-        ramblings.map((r,i) => (<p className={ classes.rambling }>{ r }</p>)),
-    [classes]);
+    const Ramblings = useCallback(({ ramblings }) => (
+        ramblings.map((r,i) => (
+            <p key={ `_${i+1}` } className={ classes.rambling }>{ r }</p>
+        ))
+    ), [classes]);
 
     return (
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>

@@ -1,9 +1,4 @@
-import React, {
-    useRef,
-    useLayoutEffect,
-    useMemo,
-    useState
-} from 'react';
+import React, { useRef, useLayoutEffect, useMemo, useState } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';

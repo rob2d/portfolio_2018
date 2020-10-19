@@ -1,14 +1,10 @@
 import React, { PureComponent } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import useViewportSizes from 'use-viewport-sizes';
+import { makeStyles } from '@material-ui/core/styles';
+import { Icon } from '@mdi/react';
+import { mdiSquare, mdiSquareOutline } from '@mdi/js';
 import MediaViewer from './MediaViewer';
 import ReelThumbs from './ReelThumbs';
-import PropTypes from 'prop-types';
-import { Icon } from '@mdi/react';
-import {
-    mdiSquare,
-    mdiSquareOutline
-} from '@mdi/js';
 
 // TODO : css related constants should be together
 const REEL_ANIM_SPEED = 6500;
@@ -17,7 +13,7 @@ const REEL_ANIM_SPEED = 6500;
  * Retrieves the width for the entire media reel
  * (dependent on width, maxWidth props)
  */
-function getReelWidth (width, maxWidth) {
+function getReelWidth(width, maxWidth) {
     return maxWidth !== 'undefined' &&
         ((width > maxWidth) ? maxWidth : width);
 }
@@ -242,21 +238,6 @@ class MediaReel extends PureComponent {
             );
     }
 }
-
-MediaReel.propTypes = {
-    vpW  : PropTypes.number.isRequired,
-    vpH : PropTypes.number.isRequired,
-    width : PropTypes.number,
-    maxWidth : PropTypes.number,
-    aspectRatio : PropTypes.number.isRequired,
-    projectId : PropTypes.string.isRequired,
-    media : PropTypes.shape({
-        type : PropTypes.string.isRequired,
-        src : PropTypes.string,
-        thumb : PropTypes.string,
-        videoId : PropTypes.string
-    })
-};
 
 // TODO : convert MediaViewer to hooks implementation
 // and do not rely on requiring a container
