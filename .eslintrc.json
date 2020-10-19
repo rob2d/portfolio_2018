@@ -32,7 +32,7 @@
             "named" : "never"
         }],
 
-        "switch-colon-spacing" : [2, { "after" : true, "before" : true }],
+        "switch-colon-spacing" : [2, { "after" : true, "before" : false }],
         "implicit-arrow-linebreak" : 0,
         "prefer-arrow-callback" : [2, { "allowNamedFunctions" : true }],
         "jsx-quotes": [2, "prefer-single"],
