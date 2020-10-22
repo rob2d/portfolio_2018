@@ -71,13 +71,14 @@ const experience = [{
     workplace : 'RSG Media',
     dates : 'November 2017 - August 2018',
     points : [
-        'Planned with VPs and independently coded new flagship RESTful API ' +
-        'using NodeJS that communicated with microservices to lookup IP rights ' +
-        'globally in real-time -- under budget and on schedule.',
+        'Planned with VPs and independently coded new flagship RESTful API backend ' +
+        '(RightsLogic) using NodeJS and MongoDB, and AWS Lamda ' +
+        'microservices API and S3 to lookup IP rights globally in real-time ' +
+        '-- under budget and on schedule.',
 
         'Auto-generated API doc for front-end to reference as spec evolved.',
 
-        'Assisted with data migration scripts, as well as dev ops and deployments.'
+        'Assisted with data migration scripts, as well as deployment dev ops.'
     ]
 }, {
     title : 'Fullstack Engineer',
@@ -99,14 +100,15 @@ const experience = [{
     workplace : 'PMC Technology',
     dates : 'April 2014 - March 2017',
     points : [
-        'Designed the original backend, database and UI for a CMS app facilitating ' +
-        'upkeep of critical infra used in power systems data and facility ' +
-        'mappings in skyscrapers using Node, React, Flux (FB) and MySQL. ' +
-        'High-profile clients acquired relying on this included Black Rock, ' +
+        'Designed the original backend, database and web UI for a CMS app ' +
+        'facilitating upkeep of critical infra used in power systems and facility ' +
+        'mappings in skyscrapers using NodeJS, React, Flux (FB) and MySQL. ' +
+        'High-profile locations acquired relying on this eventually included Black Rock, ' +
         'NYSE, WTC One and JFK Airport.',
 
-        'Designed app UI mockups using Illustrator, and assisted with ' +
-        'miscellaneous projects such as an expo website and business cards.'
+        'Designed and iterated on app UI mockups to implement, and ' +
+        'assisted with miscellaneous projects such as an expo website and business ' +
+        'cards.'
     ]
 }, {
     title : 'Founder/Software Developer',
