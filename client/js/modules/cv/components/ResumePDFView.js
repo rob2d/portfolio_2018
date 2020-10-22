@@ -114,7 +114,7 @@ const experience = [{
     dates : 'January 2011 - May 2013',
     points : [
         'Worked with an artist to launch a real-time interactive puzzle ' +
-        'game and a card game for the Android OS publicly includning both native apps' +
+        'game and a card game for the Android OS publicly including both native apps' +
         ' and server-side for high scores running at 60fps on a custom game engine. '
     ]
 }, {
