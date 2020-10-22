@@ -193,13 +193,12 @@ const createStyles = theme => StyleSheet.create({
     },
     educationLocation : {
         position : 'relative',
-        padding : '2pt 0pt 6pt',
-        marginTop : '6pt',
+        paddingBottom : '8pt',
     },
     leftPanelEndPadding : {
         display : 'flex',
         width : '100%',
-        height : '252pt'
+        height : '273pt'
     },
     contact : {
         display : 'flex',
@@ -417,14 +416,10 @@ export default function ResumePDFView({ theme }) {
                             <ResumeSkillsGroup { ...section } key={ section.name } />
                         )) }
                     </View>
-
-                    <Text style={ styles.sectionTitle }>
-                        Education
-                    </Text>
-                    <View style={{
-                        ...styles.sectionEntry,
-                        ...styles.sectionEntryBottomPadding
-                    }}>
+                    <View style={ styles.section }>
+                        <Text style={ styles.sectionTitle }>
+                            Education
+                        </Text>
                         <View style={ styles.educationLocation }>
                             <Text style={ styles.subtitleText2 }>
                                 New York Institute of Technology
