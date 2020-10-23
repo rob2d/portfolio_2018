@@ -1,26 +1,26 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import useSkillsOrbitScene from './useSkillsOrbitScene';
 
-const useStyles = makeStyles( theme => ({
-    canvas3d : {
-        position       : 'relative',
-        display        : 'flex',
-        overflow       : 'hidden',
-        justifyContent : 'center',
-        alignItems     : 'center',
-        pointerEvents  : 'all',
-        paddingBottom  : '16px',
-        opacity        : ({ isHighlighted }) => (isHighlighted ? 0 : 1),
-        transition     : ({ isHighlighted }) => (isHighlighted ?
-            '0.75s ease opacity 0s' :
-            '0.75s ease opacity 1s'
-        )
+const useStyles = makeStyles(() => ({
+    canvas3d: {
+        position: 'relative',
+        display: 'flex',
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
+        pointerEvents: 'all',
+        paddingBottom: '16px',
+        opacity: ({ isHighlighted }) => (isHighlighted ? 0 : 1),
+        transitionDelay: p => p.isHighlighted ? '0s' : '1s',
+        transitionDuration: '0.75s',
+        transitionTimingFunction: 'ease'
     }
 }), 'FadingOrbitContainer');
 
-export default function OrbitContainer ({ isHighlighted }) {
+export default function FadingOrbitContainer() {
+    const [containerRef, isHighlighted] = useSkillsOrbitScene();
     const classes = useStyles({ isHighlighted });
-    return (
-        <div id="canvas3d" className={ classes.canvas3d } />
-    );
+
+    return (<div ref={ containerRef } className={ classes.canvas3d } />);
 }

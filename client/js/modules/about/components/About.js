@@ -36,21 +36,21 @@ const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
             marginBottom: '1em'
         },
 
-        '@media (min-width:901px)' : {
-            fontSize : '14pt'
+        '@media (min-width:901px)': {
+            fontSize: '14pt'
         },
 
         // for general mobile devices in landscape
-        '@media (orientation:landscape) and (max-width:900px)' : {
-            fontSize : '11pt'
+        '@media (orientation:landscape) and (max-width:900px)': {
+            fontSize: '11pt'
         },
 
-        '& > div:nth-of-type(1)' : {
-            display : 'flex',
-            flexDirection : 'row',
-            alignItems : 'center',
-            width : '100%',
-            justifyContent : 'space-between'
+        '& > div:nth-of-type(1)': {
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '100%',
+            justifyContent: 'space-between'
         },
 
         '& > div:nth-of-type(2)': {
@@ -60,81 +60,81 @@ const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
         }
     },
 
-    tech : {
-        color : secondary.dark,
+    tech: {
+        color: secondary.dark,
 
-        '&:hover' : { color : secondary.main },
+        '&:hover': { color: secondary.main },
 
-        '&:active' : { color : common.active },
+        '&:active': { color: common.active },
 
         // commas following tech
-        '&:not(:nth-last-child(-n+2)) $techComma' : {
-            color : text.primary
+        '&:not(:nth-last-child(-n+2)) $techComma': {
+            color: text.primary
         },
-        '&:nth-last-child(-n+2) $techComma' : {
-            display : 'none'
+        '&:nth-last-child(-n+2) $techComma': {
+            display: 'none'
         }
     },
-    techComma : {},
-    avatar : {
-        width  : '128px',
-        height : '128px',
-        margin : '32px'
+    techComma: {},
+    avatar: {
+        width: '128px',
+        height: '128px',
+        margin: '32px'
     },
-    skillsOrbit : {
-        display : 'none',
-        position : 'relative',
-        width : '30vh',
-        height : '30vh'
+    skillsOrbit: {
+        display: 'none',
+        position: 'relative',
+        width: '30vh',
+        height: '30vh'
     },
     // don't want the avatar to dominate the mobile screen:
     ['@media (max-width: 700px) and (min-width : 341px) ' +
     'and (orientation:portrait)']: {
-        avatar : {
-            width : '116px',
-            height : '116px'
+        avatar: {
+            width: '116px',
+            height: '116px'
         }
     },
     // accomodations for micro phones like iP5
     '@media (max-width: 340px) and (orientation:portrait)': {
-        avatar : {
-            margin : '16px auto 8px',
-            width : '80px',
-            height : '80px'
+        avatar: {
+            margin: '16px auto 8px',
+            width: '80px',
+            height: '80px'
         }
     },
     '@media (orientation:landscape)': {
-        avatar : {
-            margin : '16px 16px 8px'
+        avatar: {
+            margin: '16px 16px 8px'
         },
-        container : {
-            padding : '16px',
-            boxSizing : 'border-box'
+        container: {
+            padding: '16px',
+            boxSizing: 'border-box'
         }
     },
     // for general mobile devices in landscape
     '@media (orientation:landscape) and (max-width:900px)': {
-        avatar : {
-            margin : '24px 8px',
-            width : '80px',
-            height : '80px',
+        avatar: {
+            margin: '24px 8px',
+            width: '80px',
+            height: '80px',
         }
     },
     // make certain things larger on non-mobile devices
-    '@media (min-width:901px)' : {
-        avatar : {
-            width : '120px',
-            height : '120px'
+    '@media (min-width:901px)': {
+        avatar: {
+            width: '120px',
+            height: '120px'
         },
-        container : {
-            justifyContent : 'space-evenly',
-            maxWidth : '1280px'
+        container: {
+            justifyContent: 'space-evenly',
+            maxWidth: '1280px'
         }
     }
-}), { name : 'About' });
+}), { name: 'About' });
 
 export default function About() {
-    useDocumentTitle({ title : `${SITE_NAME} -- About` });
+    useDocumentTitle({ title: `${SITE_NAME} -- About` });
     const fadeContainerClass = useAutoFaderClass();
     const [vpW, vpH] = useViewportSizes();
     const linkProps = useMemo(() => ({ vpW, vpH }), [vpW, vpH]);
