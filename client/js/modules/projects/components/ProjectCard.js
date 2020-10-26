@@ -23,23 +23,23 @@ import {
 } from '../constants/DisplayStates';
 
 const initialState = {
-    isHovered : false,
-    hasAbsolutePosition : false,
-    viewAsTitle : false,
-    offsetLeft : undefined,
-    offsetTop : undefined
+    isHovered: false,
+    hasAbsolutePosition: false,
+    viewAsTitle: false,
+    offsetLeft: undefined,
+    offsetTop: undefined
 };
 
 const positionReducer = (state, { type, payload }) => {
     switch (type) {
-        case 'setHovered' : {
+        case 'setHovered': {
             return {
                 ...state,
-                isHovered : payload
+                isHovered: payload
             };
         }
 
-        case 'updateSelectionPositioning' : {
+        case 'updateSelectionPositioning': {
             let {
                 hasAbsolutePosition,
                 viewAsTitle,
@@ -54,20 +54,20 @@ const positionReducer = (state, { type, payload }) => {
             } = payload;
 
             switch (displayState) {
-                case VIEW_ALL :
-                case PROJECT_FADE_TO :
+                case VIEW_ALL:
+                case PROJECT_FADE_TO:
                     hasAbsolutePosition = false;
                     break;
-                case OFFSET_CALC :
+                case OFFSET_CALC:
                     hasAbsolutePosition = false;
                     offsetLeft = payload.offsetLeft;
                     offsetTop = payload.offsetTop;
                     break;
-                case AFTER_FADE_POSITIONING : {
+                case AFTER_FADE_POSITIONING: {
                     hasAbsolutePosition = true;
                     break;
                 }
-                case PROJECT_SCROLL_UP : {
+                case PROJECT_SCROLL_UP: {
                     if(wasSelectionViaUI) {
                         hasAbsolutePosition = true;
                     }
@@ -75,7 +75,7 @@ const positionReducer = (state, { type, payload }) => {
                     offsetTop = 0;
                     break;
                 }
-                case PROJECT_VIEW : {
+                case PROJECT_VIEW: {
                     viewAsTitle = true;
                     isHovered = false;
                     hasAbsolutePosition = true;
@@ -86,7 +86,7 @@ const positionReducer = (state, { type, payload }) => {
                     }
                     break;
                 }
-                default : {
+                default: {
                     break;
                 }
             }
@@ -105,7 +105,7 @@ const positionReducer = (state, { type, payload }) => {
             };
         }
 
-        case 'updateNonSelectionPositioning' : {
+        case 'updateNonSelectionPositioning': {
             const { displayState } = payload;
             let { isHovered } = state;
 
@@ -115,13 +115,13 @@ const positionReducer = (state, { type, payload }) => {
             return {
                 ...state,
                 isHovered,
-                offsetLeft : undefined,
-                offsetTop : undefined,
-                hasAbsolutePosition : false,
-                viewAsTitle : false
+                offsetLeft: undefined,
+                offsetTop: undefined,
+                hasAbsolutePosition: false,
+                viewAsTitle: false
             };
         }
-        default : {
+        default: {
             return state;
         }
     }
@@ -129,7 +129,7 @@ const positionReducer = (state, { type, payload }) => {
 
 export default function ProjectCardLayout(props) {
     const {
-        data : {
+        data: {
             id, displayName, context, shortDescription
         },
         pData, onClick,
@@ -151,7 +151,7 @@ export default function ProjectCardLayout(props) {
     const classes = useStyles({
         ...props,
         ...state,
-        isHighlighted : isHovered || isSelected
+        isHighlighted: isHovered || isSelected
     });
 
     // ---------------------------- //
@@ -159,10 +159,10 @@ export default function ProjectCardLayout(props) {
     // ============================ //
 
     const onMouseEnter = useCallback(() =>
-        dispatch({ type : 'setHovered', payload : true }),
+        dispatch({ type: 'setHovered', payload: true }),
     []);
     const onMouseLeave = useCallback(() =>
-        dispatch({ type : 'setHovered', payload : false }),
+        dispatch({ type: 'setHovered', payload: false }),
     []);
 
     useEffect(() => {
@@ -177,18 +177,18 @@ export default function ProjectCardLayout(props) {
     useLayoutEffect(() => {
         if(isSelected) {
             dispatch({
-                type : 'updateSelectionPositioning',
-                payload : {
+                type: 'updateSelectionPositioning',
+                payload: {
                     ...props,
-                    offsetLeft : container.current.offsetLeft,
-                    offsetTop : container.current.offsetTop
+                    offsetLeft: container.current.offsetLeft,
+                    offsetTop: container.current.offsetTop
                 }
             });
         }
         else {
             dispatch({
-                type : 'updateNonSelectionPositioning',
-                payload : props
+                type: 'updateNonSelectionPositioning',
+                payload: props
             });
         }
     }, [isSelected, displayState]);
@@ -210,12 +210,16 @@ export default function ProjectCardLayout(props) {
                         alt={ '' }
                     />
                     <div className={ classes.titleOverlay }>
-                        <p className={ classes.displayName }>
-                            { displayName }
-                        </p>
-                        <p className={ classes.subtitle }>
-                            { context } ({ pData.year })
-                        </p>
+                        <Typography
+                            className={ classes.displayName }
+                            variant={ 'subtitle1' }
+                        >{ displayName }
+                        </Typography>
+                        <Typography
+                            className={ classes.subtitle }
+                            variant={ 'subtitle2' }
+                        >{ context } ({ pData.year })
+                        </Typography>
                         <Icon
                             path={ mdiInformationOutline }
                             className={ classes.moreInfoButton }
@@ -224,7 +228,7 @@ export default function ProjectCardLayout(props) {
                     </div>
                 </div>
                 <CardContent className={ classes.cardContent }>
-                    <Typography component={ 'p' }>
+                    <Typography variant={ 'body1' }>
                         { shortDescription }
                     </Typography>
                 </CardContent>

@@ -3,48 +3,62 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import deepMerge from 'utils/themer/deepMerge';
 import createDerivedTheme from 'utils/themer/createDerivedTheme';
 
-const themeDefs = { light : [], dark : [] };
+const themeDefs = { light: [], dark: [] };
 
 const commonRules = {
-    overrides : {
-        MuiTooltip : {
-            popper : {
-                fontSize : '11pt',
-                padding : '4px 8px',
-                minHeight : '20px',
-                lineHeight : '20px',
-                opacity : 0.74,
+    overrides: {
+        MuiTooltip: {
+            popper: {
+                fontSize: '11pt',
+                padding: '4px 8px',
+                minHeight: '20px',
+                lineHeight: '20px',
+                opacity: 0.74,
             },
-            tooltip : {
-                fontSize : '11pt',
-                padding : '4px 8px',
-                letterSpacing : '0.04rem',
-                minHeight : '20px',
-                lineHeight : '20px'
+            tooltip: {
+                fontSize: '11pt',
+                padding: '4px 8px',
+                letterSpacing: '0.04rem',
+                minHeight: '20px',
+                lineHeight: '20px'
             }
         },
-        MuiTypography : {
-            body1 : {
-                fontSize : '0.95rem'
+        MuiTypography: {
+            body1: {
+                fontFamily: 'Barlow',
+                fontSize: '1rem',
+                lineHeight: '1.4rem'
+            },
+            subtitle1: {
+                fontFamily: 'Barlow',
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                lineHeight: '1.5rem'
+            },
+            subtitle2: {
+                fontFamily: 'Barlow',
+                fontSize: '1.1rem',
+                fontWeight: 500,
+                lineHeight: '1.5rem'
             }
         },
-        MuiAppBar : {
-            root : {
-                position : 'relative',
-                minHeight : '48px',
-                transition : '0.5s all'
+        MuiAppBar: {
+            root: {
+                position: 'relative',
+                minHeight: '48px',
+                transition: '0.5s all'
             },
-            positionFixed : {
+            positionFixed: {
 
                 // started off with previous version,
                 // so this keeps things playing nicely
 
-                position : 'relative'
+                position: 'relative'
             }
         },
-        MuiPaper : {
-            elevation1 : { // for card anims
-                boxShadow : 'none'
+        MuiPaper: {
+            elevation1: { // for card anims
+                boxShadow: 'none'
             }
         }
     }
