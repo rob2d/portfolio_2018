@@ -15,108 +15,106 @@ import {
     useAutoFaderClass
 } from 'utils/hooks';
 
-const useStyles = makeStyles(({ palette : { common, secondary, type, text } }) => ({
-    mainContainer : {
-        marginLeft : 'auto',
-        marginRight : 'auto',
-        maxWidth : '700px',
-        flexGrow : 1,
-        display : 'flex',
-        flexDirection : 'column',
-        justifyContent : 'center',
-        padding : '16px',
-        alignItems : 'center',
-        boxSizing : 'border-box' // for padding in landscape
+const useStyles = makeStyles(({ palette: { common, secondary, type, text } }) => ({
+    mainContainer: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        maxWidth: '700px',
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '16px',
+        alignItems: 'center',
+        boxSizing: 'border-box' // for padding in landscape
     },
-    item : {
-        padding : '16px',
-        margin : '8px 0px',
-        width : '300px'
+    item: {
+        padding: '16px',
+        margin: '8px 0px',
+        width: '300px'
     },
-    bodyContent : {
-        flexGrow : 1,
-        display : 'flex',
-        flexDirection : 'row',
-        flexWrap : 'wrap',
-        justifyContent : 'center'
+    bodyContent: {
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center'
     },
-    imgBtn : {
-        width : '100%'
+    imgBtn: {
+        width: '100%'
     },
-    articleImg : {
-        position : 'relative',
-        width     : '80%',
-        maxWidth  : '300px',
-        height    : 'auto',
-        minHeight : '190px',
-        margin    : '0 auto',
-        display   : 'block',
-        filter    : `invert(${(type == 'light') ? 0 : 100}%)`,
-        transition : 'filter 0.32s'
+    articleImg: {
+        position: 'relative',
+        width: '80%',
+        maxWidth: '300px',
+        height: 'auto',
+        minHeight: '190px',
+        margin: '0 auto',
+        display: 'block',
+        filter: `invert(${(type == 'light') ? 0: 100}%)`,
+        transition: 'filter 0.32s'
     },
-    rambling : {
-        padding : '8px 0px',
-        width : '292px',
-        textAlign : 'left',
-        margin : '0 auto',
-        color : text.primary,
-        transition : 'all 0.32s'
+    rambling: {
+        padding: '8px 0px',
+        width: '292px',
+        textAlign: 'left',
+        margin: '0 auto',
+        color: text.primary,
+        transition: 'all 0.32s'
     },
-    itemTitle : {
-        display : 'flex',
-        direction : 'row',
-        paddingLeft : '8px',
-        paddingRight : '8px',
-        fontSize : '12pt',
-        transition : 'color 0.2s',
-        '&:hover $itemTitleText' : {
-            color : `${secondary.main} !important`
+    itemTitle: {
+        display: 'flex',
+        direction: 'row',
+        paddingLeft: '8px',
+        paddingRight: '8px',
+        fontSize: '12pt',
+        transition: 'color 0.2s',
+        '&:hover $itemTitleText': {
+            color: `${secondary.main} !important`
         },
-        '&:active $itemTitleText' : {
-            color : `${common.active} !important`
+        '&:active $itemTitleText': {
+            color: `${common.active} !important`
         }
     },
-    itemTitleText : {
-        flexGrow : 1,
-        textAlign : 'left',
-        color : secondary.dark,
-        fontWeight : 700
+    itemTitleText: {
+        flexGrow: 1,
+        textAlign: 'left',
+        color: secondary.dark,
+        fontWeight: 700
     },
-    itemTypeIcon : {
-        display : 'flex',
-        maxWidth : '32px',
-        flexShrink : '0',
-        marginRight : '16px',
-        fill : text.primary,
-        alignItems : 'center',
-        justifyContent : 'center',
-        transition : 'all 0.32s'
+    itemTypeIcon: {
+        display: 'flex',
+        maxWidth: '32px',
+        flexShrink: '0',
+        marginRight: '12px',
+        fill: text.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 0.32s'
     },
 
     // make certain things larger on non-mobile devices
 
-    '@media (min-width:901px)' : {
-        mainContainer : {
-            maxWidth : '1100px !important'
+    '@media (min-width:901px)': {
+        mainContainer: {
+            maxWidth: '1100px !important'
         }
     }
-}), { name : 'Miscellaneous' });
+}), { name: 'Miscellaneous' });
 
 export default function Miscellaneous() {
-    useDocumentTitle({ title : `${SITE_NAME} -- Miscellaneous` });
+    useDocumentTitle({ title: `${SITE_NAME} -- Miscellaneous` });
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpW });
     const fadeContainerClass = useAutoFaderClass();
     const { palette } = useTheme();
     const disclaimerStyle = useMemo(() => ({
-        color : palette.text.secondary, fontWeight: 600, fontStyle: 'italic'
+        color: palette.text.secondary, fontWeight: 600, fontStyle: 'italic'
     }), [palette]);
 
-    const Ramblings = useCallback(({ ramblings }) => (
-        ramblings.map((r,i) => (
-            <p key={ `_${i+1}` } className={ classes.rambling }>{ r }</p>
-        ))
-    ), [classes]);
+    const Blurbs = useCallback(({ blurbs }) => blurbs.map((r,i) => (
+        <p key={ `_${i+1}` } className={ classes.rambling }>{ r }</p>
+    )), [classes]);
 
     return (
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
@@ -149,7 +147,7 @@ export default function Miscellaneous() {
                             Characteristics of an Ideal React Architecture
                         </p>
                     </ButtonLink>
-                    <Ramblings ramblings={ [
+                    <Blurbs blurbs={ [
                         `[note: the title is actually not serious, React is not an architecture in itself!]`,
                         `In this write-up, I clarify some misconceptions about React and identify central ` +
                         `characteristics that define a good use of React that large teams could adopt for easy ` +
@@ -187,10 +185,10 @@ export default function Miscellaneous() {
                             size={ 0.75 }
                         />
                         <p className={ classes.itemTitleText }>
-                            JavaScript Styles in React : The Good Parts
+                            JavaScript Styles in React: The Good Parts
                         </p>
                     </ButtonLink>
-                    <Ramblings ramblings={ [
+                    <Blurbs blurbs={ [
                         `A talk given at Spotify for ReactNYC which includes a presentation ` +
                         `that was completely written in React/JavaScript over a few days. `,
 
@@ -242,13 +240,14 @@ export default function Miscellaneous() {
                             Crazy Cabbie Sonic
                         </p>
                     </ButtonLink>
-                    <p className={ classes.rambling }>
-                        One of the first pieces of software I ever completed in
+
+                    <Blurbs blurbs={[
+                        `One of the first pieces of software I ever completed in
                         middleschool -- around 2000; Not proud of it for any
                         objective sense of quality, but it was actually fun
                         little 72 hour flurry and and became a bit popular
-                        online at the time.
-                    </p>
+                        online at the time.`
+                    ]} />
                 </div>
                 <div className={ classes.item }>
                     <iframe
@@ -279,16 +278,15 @@ export default function Miscellaneous() {
                             ColorShafted: Highwires in Space
                         </p>
                     </ButtonLink>
-
-                    <p className={ classes.rambling }>
-                        In college, I wrote a game engine as a reason to learn
+                    <Blurbs blurbs={ [
+                        `In college, I wrote a game engine as a reason to learn
                         Java in depth without killing myself with boredem after
                         learning C, and released a few Android apps on a budget.
                         Naturally you need music to go with any game, and this
                         became a small hobby of mine that I shared with some
                         friends during the time. This was one of the results of
-                        that.
-                    </p>
+                        that.`
+                    ] } />
                 </div>
                 {(vpW > 1036) && (
                     <>
