@@ -39,7 +39,11 @@
         "import/extensions" : 0,
         "import/no-unresolved" : 0,
         "import/no-extraneous-dependencies" : 0,
-        "key-spacing" : 0,
+        "key-spacing" : [2, {
+            "beforeColon" : false,
+            "afterColon" : true,
+            "mode": "strict"
+        }],
         "keyword-spacing" : [2, {
             "overrides": {
                 "if": { "after": false },
@@ -52,7 +56,6 @@
         "space-infix-ops" : 0,
         "radix" : 0,
         "function-paren-newline": 0,
-        "object-curly-spacing":1,
         "array-bracket-spacing" : [2, "never", {
             "objectsInArrays" : false,
             "arraysInArrays" : false
@@ -68,7 +71,6 @@
         "padded-blocks" : 0,
         "comma-spacing" : 0,
         "space-in-parens" : 0,
-        "space-in-brackets": ["error", "always"],
         "react/jsx-filename-extension" : 0,
         "react/jsx-one-expression-per-line" : 0,
         "react/prop-types" : 0,
@@ -102,7 +104,8 @@
         "import/newline-after-import" : 0,
         "import/prefer-default-export" : 0,
         "global-require": 0,
-        "spaced-comment" : 0
+        "spaced-comment" : 0,
+        "default-case" : 0
     },
     "env" : {
         "jest" : true,
