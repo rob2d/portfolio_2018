@@ -1,11 +1,10 @@
 # ROADMAP #
 ## [ Roadmap All the Things ™ ] ##
 
-Migrating to Github Issues now that that has improved quite a bit since this was started a few years ago, but for things not yet listed that are lower priority or random notes, this is a good backup resource.
+Migrating to Github Issues now that that has improved quite a bit since this was started in early 2017, but for things not yet listed that are lower priority or random notes, this is a good backup resource.
 
 ## About
 - complete new layout.
-- write new SkillOrbs component using hooks to replace older view since page is not very sexy without it.
 - scroller for text as current format is TMI for certain types of users.
 
 ## Projects
