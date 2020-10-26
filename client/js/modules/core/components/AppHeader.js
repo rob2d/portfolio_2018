@@ -142,7 +142,10 @@ export default function AppHeader() {
                 </div>
                 <div className={ classes.centerPadder } />
                 <div className={ classes.rightContainer }>
-                    <Typography className={ `md-maximum ${classes.myNameText}` }>
+                    <Typography
+                        className={ `md-maximum ${classes.myNameText}` }
+                        variant={ 'subtitle1' }
+                    >
                         Robert Concepción III
                     </Typography>
                     <ThemeButton />

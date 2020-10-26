@@ -91,7 +91,6 @@ const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
     ['@media (max-width: 700px) and (min-width : 341px) ' +
     'and (orientation:portrait)']: {
         avatar : {
-            margin : '24px auto 16px',
             width : '116px',
             height : '116px'
         }
