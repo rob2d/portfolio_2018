@@ -165,7 +165,7 @@ export default function About() {
 
             <div>
                 <Typography variant={ 'body1' }>
-                    Hi. My name is Rob, and I'm a software developer from NYC.
+                    Hi. My name is Rob, and I am a software developer from New York City.
                     Thanks for visiting.
                 </Typography>
                 <Typography variant={ 'body1' }>
@@ -176,27 +176,28 @@ export default function About() {
                     and deployed via&nbsp;
                     <Tech url={ 'http://nginx.org' }>NginX</Tech> and&nbsp;
                     <Tech url={ 'http://pm2.keymetrics.io/' }>PM2</Tech>.
-                    I am always trying to evolve my workflow and understanding of things.. so
-                    hopefully the experience here is not aging too badly 🙃
+                    I am perpetually evolving my workflow, and it because of the nature
+                    of this website being written outside of my main work or projects,
+                    it is difficult to keep this up to date; hopefully
+                    things are not aging too badly here 🙃
                 </Typography>
                 <Typography variant={ 'body1' }>
                     A little about me and why this page exists: I have always
-                    been a curious person who grew up dabbling a lot of
-                    introverted hobbies which included: creating websites,
-                    videogames, apps, and designing UIs (all of which are things
-                    I still love today and all of which there isn't enough time
-                    in the day for). This site is a small collection of mostly
+                    been a curious person and grew up dabbling in
+                    introverted hobbies which includes creating websites,
+                    videogames, apps, and making cool things. None of that has changed,
+                    and this site is a small collection of mostly
                     self-driven projects that I wish I had more time to devote
                     to (the ones which made it somewhere beyond the drawing board).
                     You probably won't find the most beautiful code on this
-                    portfolio itself since I spend most of my energy at work --
+                    portfolio since I spend most of my energy at work,
                     on hobbies, or just being a human and doing those things
-                    that they do, but I do try to update here and there.
+                    that they do. But I do try to update here and there!
                 </Typography>
                 <Typography variant={ 'body1' }>
                     My background: I joined the Navy as an Electronic Technician
-                    out of highschool to get some practical experience, grow as
-                    a person, make the best of my situation, and to take the more
+                    out of highschool to get some practical experience,
+                    make the best of my situation, and take the more
                     scenic route and so that I could also devote a lot of
                     undivided attention to my studies and projects. Since
                     completing graduate school in Computer Science, I have
@@ -204,7 +205,8 @@ export default function About() {
                     capacities including power/skyscraper infrastructure
                     mapping and management, intellectual property, virtual
                     reality tours, finance, as well as consistently on my own
-                    side projects which include development tools and small applications.
+                    side projects which include development tools and small
+                    applications.
                 </Typography>
                 <Typography variant={ 'body1' }>
                     Intros aside, feel free to check out the other sections here
