@@ -65,57 +65,57 @@ const commonRules = {
 };
 
 themeDefs.light.push({
-    palette : {
-        type : 'light',
-        primary : {
-            main : '#212121',
-            dark : '#000'
+    palette: {
+        type: 'light',
+        primary: {
+            main: '#212130',
+            dark: '#000'
         },
-        secondary : {
-            main : '#ec407a',
-            dark : '#c51162'
+        secondary: {
+            main: '#ec407a',
+            dark: '#c51162'
         },
-        accent : {
-            main : '#00b8d4',
-            dark : '#00a2c1'
+        accent: {
+            main: '#00b8d4',
+            dark: '#00a2c1'
         },
-        common : {
-            white : '#FFF',
-            black : '#000',
-            background1 : '#FFF',
-            active : '#00b8d4',
-            shadow : '#000',
-            contrast : '#000'
+        common: {
+            white: '#FFF',
+            black: '#000',
+            background1: '#FFF',
+            active: '#00b8d4',
+            shadow: '#000',
+            contrast: '#FFF'
         },
-        text : {
-            primary : '#000',
-            secondary : '#455A64'
+        text: {
+            primary: '#000',
+            secondary: '#30304b'
         }
     }
 });
 
 themeDefs.dark.push({
-    type : 'dark',
-    palette : {
-        primary : {
-            main : '#d5d5d5',
-            dark : '#343434'
+    type: 'dark',
+    palette: {
+        primary: {
+            main: '#30304b',
+            dark: '#292938'
         },
-        secondary : {
-            main : '#ec407a',
-            dark : '#c51162'
+        secondary: {
+            main: '#ec407a',
+            dark: '#c51162'
         },
-        common : {
-            background1 : '#121212',
-            white : '#FFF',
-            black : '#000',
-            active : '#00b8d4',
-            shadow : '#232323',
-            contrast : '#FFF'
+        common: {
+            background1: '#121212',
+            white: '#FFF',
+            black: '#000',
+            active: '#00b8d4',
+            shadow: '#272736',
+            contrast: '#f1f1ff'
         },
-        text : {
-            primary : '#CACACA',
-            secondary : '#616161'
+        text: {
+            primary: '#b8b8d3',
+            secondary: '#53364d'
         }
     }
 });
@@ -141,47 +141,47 @@ Object.keys(themeDefs).forEach( type => {
 
 Object.keys(themeDefs).forEach( type => {
     const [{
-        palette : { primary, secondary, common, text }
+        palette: { primary, secondary, common, text }
     }] = themeDefs[type];
 
     themeDefs[type].push({
-        overrides : {
-            MuiAppBar : {
-                root : {
-                    boxSizing : 'border-box'
+        overrides: {
+            MuiAppBar: {
+                root: {
+                    boxSizing: 'border-box'
                 },
-                colorPrimary : {
-                    backgroundColor : `${primary.dark} !important`,
-                    '& .MuiButton-root' : {
-                        backgroundColor : `${C(common.white).alpha(0).rgb()}`,
-                        transition : 'background-color 0.40s ease'
+                colorPrimary: {
+                    backgroundColor: `${primary.dark} !important`,
+                    '& .MuiButton-root': {
+                        backgroundColor: `${C(common.white).alpha(0).rgb()}`,
+                        transition: 'background-color 0.40s ease'
                     },
-                    '& .MuiButton-root:hover' : {
-                        backgroundColor : `${C(common.white).alpha(0.16).rgb()}`,
+                    '& .MuiButton-root:hover': {
+                        backgroundColor: `${C(common.white).alpha(0.16).rgb()}`,
                     }
                 }
             },
-            MuiCircularProgress : {
-                root : {
-                    color : secondary.main
+            MuiCircularProgress: {
+                root: {
+                    color: secondary.main
                 },
-                colorPrimary : {
-                    color : text.primary
+                colorPrimary: {
+                    color: text.primary
                 }
             },
-            MuiPaper : {
-                root : {
-                    backgroundColor : `${common.background1} !important`
+            MuiPaper: {
+                root: {
+                    backgroundColor: `${common.background1} !important`
                 },
-                elevation4 : {
-                    boxShadow : `0px 2px 4px -1px ${C(common.shadow).alpha(0.2)}, ` +
+                elevation4: {
+                    boxShadow: `0px 2px 4px -1px ${C(common.shadow).alpha(0.2)}, ` +
                                 `0px 4px 5px 0px ${C(common.shadow).alpha(0.14)}, ` +
                                 `0px 1px 10px 0px ${C(common.shadow).alpha(0.12)}`
                 }
             },
-            MuiTooltip : {
-                tooltip : {
-                    backgroundColor : primary.dark
+            MuiTooltip: {
+                tooltip: {
+                    backgroundColor: primary.dark
                 }
             }
         }
