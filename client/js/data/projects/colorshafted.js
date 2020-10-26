@@ -5,7 +5,7 @@ export default {
     displayName : 'Color Shafted',
     context : 'Whateversoft',
     year : '2012',
-    roles   : 'Design, Development, Music and Sound Effects Creation',
+    roles   : 'Design, Development, Music and SFX Creation',
     technologies : ['android_sdk', 'java', 'js', 'jquery', 'php'],
     media : {
         aspectRatio : 1.662337662337662,

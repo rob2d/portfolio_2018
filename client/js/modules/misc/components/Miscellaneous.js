@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useViewportSizes from 'use-viewport-sizes';
 import { OptimizedImg, ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
@@ -85,6 +85,7 @@ const useStyles = makeStyles(({ palette : { common, secondary, type, text } }) =
     itemTypeIcon : {
         display : 'flex',
         maxWidth : '32px',
+        flexShrink : '0',
         marginRight : '16px',
         fill : text.primary,
         alignItems : 'center',
@@ -101,13 +102,15 @@ const useStyles = makeStyles(({ palette : { common, secondary, type, text } }) =
     }
 }), { name : 'Miscellaneous' });
 
-const DISCLAIMER_C = '#F48';
-
 export default function Miscellaneous() {
     useDocumentTitle({ title : `${SITE_NAME} -- Miscellaneous` });
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpW });
     const fadeContainerClass = useAutoFaderClass();
+    const { palette } = useTheme();
+    const disclaimerStyle = useMemo(() => ({
+        color : palette.text.secondary, fontWeight: 600, fontStyle: 'italic'
+    }), [palette]);
 
     const Ramblings = useCallback(({ ramblings }) => (
         ramblings.map((r,i) => (
@@ -147,7 +150,13 @@ export default function Miscellaneous() {
                         </p>
                     </ButtonLink>
                     <Ramblings ramblings={ [
-                        <span style={{ color : DISCLAIMER_C }}>
+                        `[note: the title is actually not serious, React is not an architecture in itself!]`,
+                        `In this write-up, I clarify some misconceptions about React and identify central ` +
+                        `characteristics that define a good use of React that large teams could adopt for easy ` +
+                        `and lean scalability while cutting down on legacy cruft that is always inevitable. ` +
+                        `A lot of this could be equally applicable for other Component-based view libraries on the web.`,
+
+                        (<span style={ disclaimerStyle }>
                             <b>Note (Sep '19):</b> at this point in time, this
                             is pretty outdated from what I would recommend today
                             with a new project -- 80+% may hold true or be useful,
@@ -155,12 +164,7 @@ export default function Miscellaneous() {
                             components and new context API, certain things such
                             as emphasis on immutability is a little bit out of
                             context in 2019.
-                        </span>,
-                        `[note: the title is actually not serious, React is not an architecture in itself!]`,
-                        `In this write-up, I clarify some misconceptions about React and identify central ` +
-                        `characteristics that define a good use of React that large teams could adopt for easy ` +
-                        `and lean scalability while cutting down on legacy cruft that is always inevitable. ` +
-                        `A lot of this could be equally applicable for other Component-based view libraries on the web.`,
+                        </span>)
                     ] } />
                 </div>
                 <div className={ classes.item }>
@@ -187,21 +191,11 @@ export default function Miscellaneous() {
                         </p>
                     </ButtonLink>
                     <Ramblings ramblings={ [
-                        <span style={{ color : DISCLAIMER_C }}>
-                            <b>Note (Sep '19):</b> while the technical things
-                            presented still make sense and are accurate in
-                            the browser, some benefits are understated or not
-                            considered as <b>(1)</b> CSSinJS libraries were
-                            rapidly evolving and&nbsp;<b>(2)</b> I was not fully
-                            aware of some things which were possible (both
-                            with CSS and with patterns).
-                        </span>,
-
                         `A talk given at Spotify for ReactNYC which includes a presentation ` +
                         `that was completely written in React/JavaScript over a few days. `,
 
-                        <>
-                        Synopsis:
+                        (<>
+                            Synopsis:
                             <i>
                                 When using React out of the box, we have two
                                 styling workflow solutions to choose from:
@@ -212,7 +206,18 @@ export default function Miscellaneous() {
                                 as JSS, and another called ReactJSS designed to
                                 take that even further.
                             </i>
-                        </>
+                        </>),
+                        (
+                            <span style={ disclaimerStyle }>
+                                <b>Note (Sep '19):</b> while the technical things
+                                presented still make sense and are accurate in
+                                the browser, some benefits are understated or not
+                                considered as <b>(1)</b> CSSinJS libraries were
+                                rapidly evolving and&nbsp;<b>(2)</b> I was not fully
+                                aware of some things which were possible (both
+                                with CSS and with patterns).
+                            </span>
+                        )
                     ] } />
                 </div>
                 <div className={ classes.item }>

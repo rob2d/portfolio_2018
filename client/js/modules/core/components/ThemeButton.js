@@ -11,26 +11,26 @@ import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
 import { ThemeContext } from 'app-root/ThemeContextProvider';
 
 const themeTargets = {
-    'light' : 'dark',
-    'dark' : 'light'
+    'light': 'dark',
+    'dark': 'light'
 };
 
-const useStyles = makeStyles(({ palette : { common } }) => ({
-    container : {
-        cursor : 'pointer',
-        fontSize : '18pt',
-        height : '48px',
-        '& svg ' : {
-            width : '26px',
-            height : '26px'
+const useStyles = makeStyles(() => ({
+    container: {
+        cursor: 'pointer',
+        fontSize: '18pt',
+        height: '48px',
+        '& svg ': {
+            width: '26px',
+            height: '26px'
         }
     },
-    tooltip : {
-        '& > div' : {
-            display : 'block'
+    tooltip: {
+        '& > div': {
+            display: 'block'
         }
     }
-}), { name : 'ThemeButton' });
+}), { name: 'ThemeButton' });
 
 export default function ThemeButton() {
     const [isToggling, setIsToggling] = useState(false);

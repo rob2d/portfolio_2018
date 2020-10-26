@@ -41,16 +41,17 @@ const useStyles = makeStyles(({ palette : { secondary, common } }) => ({
             textAlign : 'left',
             transition : 'color 0.21s',
         },
-        '& > button > li > *' :{
+        '& > button > li > *': {
             marginRight : p => !p.isLandscape ? '16px' : '6px'
         }
     },
 
     // make certain things larger on non-mobile devices
 
-    '@media (min-width:901px)' : {
+    '@media (min-width:901px)': {
         sectionList : {
-            paddingLeft : '64px'
+            paddingLeft : '64px',
+            height: '100%'
         }
     }
 }), 'SectionLinks');

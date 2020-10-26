@@ -3,33 +3,37 @@ import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 import { isPortrait } from 'utils';
 import { ButtonLink, OptimizedImg } from 'utils/components';
 import { useDocumentTitle, useAutoFaderClass } from 'utils/hooks';
 import SectionLinks from './SectionLinks';
 
-const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
-    container : {
-        marginLeft : 'auto',
-        marginRight : 'auto',
-        maxWidth : '700px',
-        flexGrow : 1,
-        display : 'flex',
-        flexDirection  : 'column',
-        justifyContent : 'center',
-        padding : p => `${!p.inPortrait ?0:16}px`,
-        alignItems : 'center',
-        boxSizing : 'border-box', // for padding in landscape
-        lineHeight : '1.3rem',
-        wordWrap : 'break-word',
-        textAlign : 'left',
-        letterSpacing : '0.01rem',
+const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
+    container: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        maxWidth: '700px',
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: p => `${!p.inPortrait ?0:16}px`,
+        alignItems: 'center',
+        boxSizing: 'border-box', // for padding in landscape
+        lineHeight: '1.3rem',
+        textAlign: 'left',
+        letterSpacing: '0.01rem',
 
-        '& p' : {
-            paddingLeft : '16px',
-            paddingRight : '16px',
-            paddingTop : '0px',
-            paddingBottom : '0px'
+        '& .MuiTypography-root': {
+            paddingLeft: '16px',
+            paddingRight: '16px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            wordWrap: 'break-word'
+        },
+        '& .MuiTypography-root:not(:last-child)': {
+            marginBottom: '1em'
         },
 
         '@media (min-width:901px)' : {
@@ -50,13 +54,9 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
         },
 
         '& > div:nth-of-type(2)': {
-            display : 'inline-block',
-            verticalAlign : 'top',
-            fontSize : '12pt',
-            wordWrap : 'break-word',
-            textAlign : 'left',
-            letterSpacing : '0.01rem',
-            wordBreak : 'word-wrap'
+            display: 'inline-block',
+            verticalAlign: 'top',
+            textAlign: 'left',
         }
     },
 
@@ -91,7 +91,6 @@ const useStyles = makeStyles(({ palette : { secondary, common, text } }) => ({
     ['@media (max-width: 700px) and (min-width : 341px) ' +
     'and (orientation:portrait)']: {
         avatar : {
-            margin : '24px auto 16px',
             width : '116px',
             height : '116px'
         }
@@ -165,11 +164,11 @@ export default function About() {
             </div>
 
             <div>
-                <p>
+                <Typography variant={ 'body1' }>
                     Hi. My name is Rob, and I'm a software developer from NYC.
                     Thanks for visiting.
-                </p>
-                <p>
+                </Typography>
+                <Typography variant={ 'body1' }>
                     This site was created using my stack of choice most days:&nbsp;
                     <Tech url={ 'https://reactjs.com' }>React</Tech>
                     <Tech url={ 'https://nodejs.org' }>Node</Tech>
@@ -179,8 +178,8 @@ export default function About() {
                     <Tech url={ 'http://pm2.keymetrics.io/' }>PM2</Tech>.
                     I am always trying to evolve my workflow and understanding of things.. so
                     hopefully the experience here is not aging too badly 🙃
-                </p>
-                <p>
+                </Typography>
+                <Typography variant={ 'body1' }>
                     A little about me and why this page exists: I have always
                     been a curious person who grew up dabbling a lot of
                     introverted hobbies which included: creating websites,
@@ -193,8 +192,8 @@ export default function About() {
                     portfolio itself since I spend most of my energy at work --
                     on hobbies, or just being a human and doing those things
                     that they do, but I do try to update here and there.
-                </p>
-                <p>
+                </Typography>
+                <Typography variant={ 'body1' }>
                     My background: I joined the Navy as an Electronic Technician
                     out of highschool to get some practical experience, grow as
                     a person, make the best of my situation, and to take the more
@@ -206,11 +205,11 @@ export default function About() {
                     mapping and management, intellectual property, virtual
                     reality tours, finance, as well as consistently on my own
                     side projects which include development tools and small applications.
-                </p>
-                <p>
+                </Typography>
+                <Typography variant={ 'body1' }>
                     Intros aside, feel free to check out the other sections here
                     which should hopefully be a lot more interesting!
-                </p>
+                </Typography>
             </div>
         </div>
     );

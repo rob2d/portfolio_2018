@@ -10,47 +10,44 @@ import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/core/styles';
 import appHistory from 'utils/appHistory';
 import { AppHeader, AppFooter } from './modules/core';
-import ThemeContextProvider, { ThemeContext } from './ThemeContextProvider';
+import ThemeContextProvider from './ThemeContextProvider';
 
 const ANIM_DURATION_S = '0.32';
 
-const useStyles = makeStyles(({ palette : { common, text } }) => ({
-    '@global' : {
-        '@import' : `url('https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap')`,
-        'html,body' : {
-            fontFamily: `'Roboto', sans-serif`,
-            fontWeight : 300,
-            color : text.primary,
-            fill : text.primary,
-            backgroundColor : common.background1,
-            transition : `background-color ${ANIM_DURATION_S}s ease`,
-            padding : 0
+const useStyles = makeStyles(({ palette: { common, text } }) => ({
+    '@global': {
+        'html,body': {
+            color: text.primary,
+            fill: text.primary,
+            backgroundColor: common.background1,
+            transition: `background-color ${ANIM_DURATION_S}s ease`,
+            padding: 0
         },
-        '#loader' : {
-            opacity : p => p.isLoaderShowing ? 1 : 0
+        '#loader': {
+            opacity: p => p.isLoaderShowing ? 1: 0
         }
     },
-    appWrapper : {
-        minHeight : '100%',
-        margin : '0px auto',
-        display : 'flex',
-        flexDirection : 'row',
-        textAlign : 'center',
-        backgroundColor : common.background1,
-        transition : `background-color ${ANIM_DURATION_S}s`,
-        boxSizing : 'border-box',
+    appWrapper: {
+        minHeight: '100%',
+        margin: '0px auto',
+        display: 'flex',
+        flexDirection: 'row',
+        textAlign: 'center',
+        backgroundColor: common.background1,
+        transition: `background-color ${ANIM_DURATION_S}s`,
+        boxSizing: 'border-box',
     },
-    routeViewWrapper : {
-        display       : 'flex',
-        width         : '100%',
-        flexDirection : 'column'
+    routeViewWrapper: {
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'column'
     },
-    mainContent : {
-        flexGrow : 1,
-        display : 'flex',
-        flexDirection : 'column'
+    mainContent: {
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column'
     }
-}), { name : 'RoutingApp' });
+}), { name: 'RoutingApp' });
 
 function AppContent() {
     const [isLoaderShowing, setLoaderShowing] = useState(() => true);
@@ -66,25 +63,25 @@ function AppContent() {
 
     const About = useLazyComponent(
         () => import( /* webpackChunkName: "about" */'./modules/about')
-            .then( m => ({ default : m.default.About }) ),
+            .then( m => ({ default: m.default.About }) ),
         <LoadingComponent />
     );
 
     const ProjectsPanel = useLazyComponent(
         () => import( /* webpackChunkName: "projects" */'./modules/projects')
-            .then( m => ({ default : m.default.ProjectsPanel }) ),
+            .then( m => ({ default: m.default.ProjectsPanel }) ),
         <LoadingComponent />
     );
 
     const Miscellaneous = useLazyComponent(
         () => import( /* webpackChunkName: "misc" */'./modules/misc')
-            .then( m => ({ default : m.default.Miscellaneous }) ),
+            .then( m => ({ default: m.default.Miscellaneous }) ),
         <LoadingComponent />
     );
 
     const CV = useLazyComponent(
         () => import( /* webpackChunkName: "cv" */'./modules/cv')
-            .then( m => ({ default : m.default.CV }) ),
+            .then( m => ({ default: m.default.CV }) ),
         <LoadingComponent />
     );
 
@@ -120,7 +117,7 @@ function AppContent() {
 }
 
 function RoutingApp() {
-    useDocumentTitle({ title : SITE_NAME });
+    useDocumentTitle({ title: SITE_NAME });
 
     return (
         <ThemeContextProvider>
