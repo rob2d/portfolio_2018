@@ -388,13 +388,16 @@ export default function ResumePDFView({ theme }) {
             </View>
             <View stye={ styles.sectionEntryBody }>
                 { !points ? undefined: points.map((p, i) => (
-                    <Text style={{
+                    <Text
+                        key={ `${i+1}` }
+                        style={{
                         ...(i < (points.length - 1) ?
                             styles.sectionBodyPBottomPadding :
                             undefined
                         ),
                         ...styles.sectionBodyP
-                    }}>{ p }</Text>
+                    }}>{ p }
+                    </Text>
                 )) }
             </View>
         </View>

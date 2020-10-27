@@ -36,15 +36,6 @@ const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
             marginBottom: '1em'
         },
 
-        '@media (min-width:901px)': {
-            fontSize: '14pt'
-        },
-
-        // for general mobile devices in landscape
-        '@media (orientation:landscape) and (max-width:900px)': {
-            fontSize: '11pt'
-        },
-
         '& > div:nth-of-type(1)': {
             display: 'flex',
             flexDirection: 'row',
