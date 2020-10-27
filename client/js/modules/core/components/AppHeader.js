@@ -15,37 +15,35 @@ import SectionHighlighter from './SectionHighlighter';
 const { Sections, pathIndexLookup } = AppSections;
 const BUTTON_WIDTH_PX = 60;
 
-const useStyles = makeStyles(({ palette : { common } }) => ({
-    rightContainer : {
-        textAlign : 'right',
-        height : '100%',
-        display : 'flex',
-        alignItems : 'center',
-        justifyContent : 'flex-end',
-        position : 'relative'
+const useStyles = makeStyles(({ palette: { common } }) => ({
+    rightContainer: {
+        textAlign: 'right',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        position: 'relative'
     },
-    leftIconsWrapper : {
-        position : 'relative',
-        width : `${Sections.length * BUTTON_WIDTH_PX}px`,
-        height : '100%',
-        justifyContent : 'center',
-        alignItems : 'center',
-        display : 'flex',
-        flexDirection : 'row',
+    leftIconsWrapper: {
+        position: 'relative',
+        width: `${Sections.length * BUTTON_WIDTH_PX}px`,
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'row',
     },
-    centerPadder : {
-        flex : 1,
-        display : 'flex'
+    centerPadder: {
+        flex: 1,
+        display: 'flex'
     },
-    myNameText : {
-        textAlign : 'right !important',
-        marginRight : '16px !important',
-        fontSize : '16pt !important',
-        lineHeight : '17pt !important',
-        display : 'block',
-        color : common.white
+    myNameText: {
+        textAlign: 'right !important',
+        marginRight: '16px !important',
+        display: 'block',
+        color: common.white
     }
-}), { name : 'AppHeader' });
+}), { name: 'AppHeader' });
 
 /**
  * callback events corresponding to each section
@@ -117,7 +115,7 @@ export default function AppHeader() {
     return (
         <AppBar className={ fadeContainerClass }>
             <SectionHighlighter
-                sectionIndex={ (pathIndex != -1) ? pathIndex : 1 }
+                sectionIndex={ (pathIndex != -1) ? pathIndex: 1 }
                 isSubsection={ pathIndex == -1 }
                 vpW={ vpW }
                 buttonXs={ xPositions }
@@ -144,9 +142,8 @@ export default function AppHeader() {
                 <div className={ classes.rightContainer }>
                     <Typography
                         className={ `md-maximum ${classes.myNameText}` }
-                        variant={ 'subtitle1' }
-                    >
-                        Robert Concepción III
+                        variant={ 'h3' }
+                    >Robert Concepción III
                     </Typography>
                     <ThemeButton />
                 </div>

@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import useViewportSizes from 'use-viewport-sizes';
 import { OptimizedImg, ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
@@ -54,43 +55,44 @@ const useStyles = makeStyles(({ palette: { common, secondary, type, text } }) =>
         filter: `invert(${(type == 'light') ? 0: 100}%)`,
         transition: 'filter 0.32s'
     },
-    rambling: {
-        padding: '8px 0px',
+    blurbs: {
         width: '292px',
         textAlign: 'left',
         margin: '0 auto',
         color: text.primary,
-        transition: 'all 0.32s'
+        transition: 'all 0.32s',
+        '& > *:not(:last-child)': {
+            marginBottom: '0.5rem'
+        }
     },
     itemTitle: {
         display: 'flex',
         direction: 'row',
-        paddingLeft: '8px',
-        paddingRight: '8px',
-        fontSize: '12pt',
         transition: 'color 0.2s',
         '&:hover $itemTitleText': {
             color: `${secondary.main} !important`
         },
         '&:active $itemTitleText': {
             color: `${common.active} !important`
+        },
+        '& svg': {
+            display: 'flex',
+            maxWidth: '32px',
+            flexShrink: '0',
+            marginLeft: '4px',
+            marginRight: '12px',
+            fill: text.primary,
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.32s'
         }
     },
     itemTitleText: {
         flexGrow: 1,
         textAlign: 'left',
         color: secondary.dark,
-        fontWeight: 700
-    },
-    itemTypeIcon: {
-        display: 'flex',
-        maxWidth: '32px',
-        flexShrink: '0',
-        marginRight: '12px',
-        fill: text.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.32s'
+        marginTop: '0.5rem',
+        marginBottom: '0.5rem'
     },
 
     // make certain things larger on non-mobile devices
@@ -112,9 +114,14 @@ export default function Miscellaneous() {
         color: palette.text.secondary, fontWeight: 600, fontStyle: 'italic'
     }), [palette]);
 
-    const Blurbs = useCallback(({ blurbs }) => blurbs.map((r,i) => (
-        <p key={ `_${i+1}` } className={ classes.rambling }>{ r }</p>
-    )), [classes]);
+    const Blurbs = useCallback(({ blurbs }) => (
+        <div className={ classes.blurbs }>{ blurbs.map((r,i) => (
+            <Typography key={ `_${i+1}` } variant={ 'body1' }>
+                { r }
+            </Typography>
+        )) }
+        </div>
+    ), [classes]);
 
     return (
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
@@ -138,14 +145,13 @@ export default function Miscellaneous() {
                             'ideal-react-architecture-883b9b92be0b'
                         }
                         className={ classes.itemTitle }
-                    >   <Icon
-                            className={ classes.itemTypeIcon }
-                            path={ mdiNote }
-                            size={ 0.75 }
-                        />
-                        <p className={ classes.itemTitleText }>
-                            Characteristics of an Ideal React Architecture
-                        </p>
+                    >
+                        <Icon path={ mdiNote } size={ 0.85 } />
+                        <Typography
+                            className={ classes.itemTitleText }
+                            variant={ 'subtitle2' }
+                        >Characteristics of an Ideal React Architecture
+                        </Typography>
                     </ButtonLink>
                     <Blurbs blurbs={ [
                         `[note: the title is actually not serious, React is not an architecture in itself!]`,
@@ -179,14 +185,12 @@ export default function Miscellaneous() {
                         className={ classes.itemTitle }
                         url={ 'https://www.youtube.com/watch?v=v1uJjYYvEPw' }
                     >
-                        <Icon
-                            className={ classes.itemTypeIcon }
-                            path={ mdiMessageVideo }
-                            size={ 0.75 }
-                        />
-                        <p className={ classes.itemTitleText }>
-                            JavaScript Styles in React: The Good Parts
-                        </p>
+                        <Icon path={ mdiMessageVideo } size={ 0.85 } />
+                        <Typography
+                            variant={ 'subtitle2' }
+                            className={ classes.itemTitleText }
+                        >JavaScript Styles in React: The Good Parts
+                        </Typography>
                     </ButtonLink>
                     <Blurbs blurbs={ [
                         `A talk given at Spotify for ReactNYC which includes a presentation ` +
@@ -231,23 +235,21 @@ export default function Miscellaneous() {
                     <ButtonLink
                         className={ classes.itemTitle }
                         url={ 'https://www.youtube.com/watch?v=4KnJOvw9tLk' }
-                    > <Icon
-                        className={ classes.itemTypeIcon }
-                        path={ mdiGamepadVariant }
-                        size={ 0.75 }
-                    />
-                        <p className={ classes.itemTitleText }>
-                            Crazy Cabbie Sonic
-                        </p>
+                    > <Icon path={ mdiGamepadVariant } size={ 0.85 } />
+                        <Typography
+                            variant={ 'subtitle2' }
+                            className={ classes.itemTitleText }
+                        >Crazy Cabbie Sonic
+                        </Typography>
                     </ButtonLink>
 
-                    <Blurbs blurbs={[
+                    <Blurbs blurbs={ [
                         `One of the first pieces of software I ever completed in
                         middleschool -- around 2000; Not proud of it for any
                         objective sense of quality, but it was actually fun
                         little 72 hour flurry and and became a bit popular
                         online at the time.`
-                    ]} />
+                    ] } />
                 </div>
                 <div className={ classes.item }>
                     <iframe
@@ -269,14 +271,12 @@ export default function Miscellaneous() {
                         url={ 'https://soundcloud.com/rob2d/high-wires-in-space' }
                         className={ classes.itemTitle }
                     >
-                        <Icon
-                            className={ classes.itemTypeIcon }
-                            path={ mdiMusic }
-                            size={ 0.75 }
-                        />
-                        <p className={ classes.itemTitleText }>
-                            ColorShafted: Highwires in Space
-                        </p>
+                        <Icon path={ mdiMusic } size={ 0.85 } />
+                        <Typography
+                            variant={ 'subtitle2' }
+                            className={ classes.itemTitleText }
+                        >ColorShafted: Highwires in Space
+                        </Typography>
                     </ButtonLink>
                     <Blurbs blurbs={ [
                         `In college, I wrote a game engine as a reason to learn

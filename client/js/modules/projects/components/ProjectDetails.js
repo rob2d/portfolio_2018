@@ -55,13 +55,12 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
         paddingRight: '16px'
     },
     description: {
-        fontSize: '13pt',
         textAlign: 'left',
         paddingLeft: '16px',
         paddingRight: '16px',
         color: text.primary,
         '&:not(:last-of-type)' : {
-            marginBottom : '1em'
+            marginBottom: '1em'
         }
     },
 
@@ -77,12 +76,11 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
     return: {
         display: 'flex !important',
         maxWidth: '600px !important',
-        margin: '40px 0px 16px !important',
-        padding: '6px !important',
-        textAlign: 'justify !important',
-        alignItems: 'center !important',
-        justifyContent: 'flex-start !important',
-        fontSize: '13pt',
+        margin: '40px 0px 16px',
+        padding: '6px',
+        textAlign: 'justify',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
         '& p': {
             display: 'inline-block',
             cursor: 'pointer',
@@ -90,8 +88,7 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
             marginBottom: '0px',
             textAlign: 'left',
             color: secondary.dark,
-            fontWeight: 700,
-            fontSize: '12pt'
+            fontWeight: 700
         },
         '&:hover p': {
             color: `${secondary.main} !important`
@@ -100,7 +97,6 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
             color: `${common.active} !important`
         },
         '& svg': {
-            fontSize: '22pt',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -119,14 +115,11 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
         margin: '16px 0px'
     },
     sectionContent: {
-        fontSize: '13pt',
-        textAlign: 'left',
         paddingLeft: '16px',
         paddingRight: '16px',
         marginTop: '0px'
     },
     role: {
-        fontSize: '12pt',
         paddingRight: '16px',
         paddingTop: '8px',
         fontWeight: 700,
@@ -139,7 +132,7 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
         display: 'flex !important',
         flexDirection: 'row !important',
         alignItems: 'center !important',
-        justifyContent: 'flex-start !important',
+        justifyContent: 'flex-start',
         '& p': {
             margin: '12px 0px',
             padding: '0px',
@@ -149,10 +142,10 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
             textAlign: 'left'
         },
         '&:hover p': {
-            color: `${secondary.main} !important`
+            color: secondary.main
         },
         '&:active p': {
-            color: `${common.active} !important`
+            color: common.active
         }
     },
     icon: {
@@ -160,8 +153,7 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
         fill: text.primary,
         fontSize: '12pt'
     }
-}));
-
+}), { name: 'ProjectDetails' });
 
 export default function ProjectDetails({ projectId }) {
     const [vpW] = useViewportSizes();
@@ -184,15 +176,21 @@ export default function ProjectDetails({ projectId }) {
 
         return (
             <div className={ classes.section }>
-                { title && (<p className={ classes.sectionHeader }>{ title }</p>) }
-                <p className={ classes.sectionContent }>
+                { title && (
+                    <Typography
+                        variant={ 'h4' }
+                        className={ classes.sectionHeader }
+                    >{ title }
+                    </Typography>
+                ) }
+                <div className={ classes.sectionContent }>
                     { children }
                     { linkItems?.length ? linkItems.map(({ url, description }) => (
-                        <LinkItem iconPath={ linkIconPath } url={ url }>
+                        <LinkItem iconPath={ linkIconPath } url={ url } key={ url }>
                             { description }
                         </LinkItem>
                     )) : undefined }
-                </p>
+                </div>
             </div>
         );
     }, [classes.sectionHeader, classes.section, classes.sectionContent]);
@@ -201,16 +199,16 @@ export default function ProjectDetails({ projectId }) {
         <div className={ clsx(classes.mainContainer, fadeContainerClass) }>
             <div className={ classes.contentContainer }>
                 <div className={ classes.section }>
-                    <p className={ classes.role }>
+                    <Typography className={ classes.role } variant={ 'h5' }>
                         <span className={ classes.chevron }>&#9656;</span>&nbsp;&nbsp;
                         { p.roles }
-                    </p>
+                    </Typography>
                 </div>
-                <Section>
+                <div className={ classes.sectionContent }>
                     { !p.technologies?.length ? undefined : (
                         <ProjectTechs technologies={ p.technologies } />
                     ) }
-                </Section>
+                </div>
                 <Section>
                     { p.description?.length ? p.description.map((d, i) => (
                         <Typography
@@ -255,7 +253,7 @@ export default function ProjectDetails({ projectId }) {
                         size={ 0.9 }
                         path={ mdiArrowLeftBox }
                     />
-                    <p>Back to Projects</p>
+                    <Typography variant={ 'body1' }>Back to Projects</Typography>
                 </ButtonLink>
             </div>
         </div>
