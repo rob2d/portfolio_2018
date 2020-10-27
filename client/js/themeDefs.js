@@ -38,6 +38,24 @@ const commonRules = {
             subtitle2: {
                 fontFamily: 'Barlow',
                 fontSize: '1.1rem',
+                fontWeight: 600,
+                lineHeight: '1.5rem'
+            },
+            caption: {
+                fontFamily: 'Barlow',
+                fontSize: '0.9rem',
+                fontWeight: 500,
+                lineHeight: '1.0rem'
+            },
+            h3: {
+                fontFamily: 'Barlow',
+                fontSize: '1.3rem',
+                letterSpacing: '0.045em',
+                fontWeight: 600
+            },
+            h5: {
+                fontFamily: 'Barlow',
+                fontSize: '1.05rem',
                 fontWeight: 500,
                 lineHeight: '1.5rem'
             }
