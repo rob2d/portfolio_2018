@@ -1,19 +1,19 @@
 import generateMediaImages from './data-helpers/generateMediaImages';
 
 export default {
-    id : 'colorshafted',
-    displayName : 'Color Shafted',
-    context : 'Whateversoft',
-    year : '2012',
-    roles   : 'Design, Development, Music and SFX Creation',
-    technologies : ['android_sdk', 'java', 'js', 'jquery', 'php'],
-    media : {
-        aspectRatio : 1.662337662337662,
-        items : [
+    id: 'colorshafted',
+    displayName: 'Color Shafted',
+    context: 'Whateversoft',
+    year: '2012',
+    roles: 'Design, Development, Music and SFX Creation',
+    technologies: ['android_sdk', 'java', 'js', 'jquery', 'php'],
+    media: {
+        aspectRatio: 1.662337662337662,
+        items: [
             {
-                type : 'video',
-                videoId : '6iOen-STr4k',
-                caption : 'Promotional YouTube Video'
+                type: 'video',
+                videoId: '6iOen-STr4k',
+                caption: 'Promotional YouTube Video'
             },
             ...generateMediaImages('colorshafted',5, [
                 'Title Screen',
@@ -24,13 +24,12 @@ export default {
             ])
         ]
     },
-    platforms : ['android', 'gtv'],
-    shortDescription : (
+    platforms: ['android', 'gtv'],
+    shortDescription: (
         `An interactive and futuristic puzzle game with the engine ` +
         `built from scratch written using the Android SDK`
     ),
-    description :
-    [
+    description: [
         'An interactive original 2D game for Android with a 100% custom built ' +
         'Android 2D Game API. It features a optimized user experience for GoogleTV ' +
         'users, many customizable options, 2 modes of gameplay, an interactive tutorial ' +
@@ -46,19 +45,19 @@ export default {
         'was started in Unity/C# and has significant work done which I would love to add here sometime ' +
         'when I have time outside of work to.'
     ],
-    platformTxt:  ['Android 2.2 and Higher', 'GoogleTV'],
-    links : [
+    platformTxt: ['Android 2.2 and Higher', 'GoogleTV'],
+    links: [
         {
-            url : 'http://web.archive.org/web/20120817025020/http://gtvfriends.com:80/color-shafted-for-google-tv/',
-            description : 'GTV Friends Article (Archived @ WayBackMachine)'
+            url: 'http://web.archive.org/web/20120817025020/http://gtvfriends.com:80/color-shafted-for-google-tv/',
+            description: 'GTV Friends Article (Archived @ WayBackMachine)'
         },
         {
-            url : 'http://robftwcom.appspot.com/links/cs_web_preview/webview/achievements.html',
-            description : 'Achievements Beta Version with mock data for WebView'
+            url: 'http://robftwcom.appspot.com/links/cs_web_preview/webview/achievements.html',
+            description: 'Achievements Beta Version with mock data for WebView'
         }
     ],
-    sourceCode : [{
-        url : 'https://github.com/rob2d/color-shafted',
-        description : 'GitHub (early pre-release version)'
+    sourceCode: [{
+        url: 'https://github.com/rob2d/color-shafted',
+        description: 'GitHub (early pre-release version)'
     }]
 };

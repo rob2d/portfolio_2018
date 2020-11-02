@@ -2,16 +2,16 @@ import React from 'react';
 import generateMediaImages from './data-helpers/generateMediaImages';
 
 export default {
-    id : 'smartwalk',
-    year : '2014 - 2017',
-    displayName : 'SmartWALK',
-    context : 'PMC Technology',
-    roles : 'Senior Web Application Developer & UI/UX Designer',
-    technologies : ['js', 'react', 'fbflux', 'nodejs', 'mysql', 'gulp', 'yui3'],
-    shortDescription : 'Feature-rich web app designed for electrical engineers ' +
+    id: 'smartwalk',
+    year: '2014 - 2017',
+    displayName: 'SmartWALK',
+    context: 'PMC Technology',
+    roles: 'Senior Web Application Developer & UI/UX Designer',
+    technologies: ['js', 'react', 'fbflux', 'nodejs', 'mysql', 'gulp', 'yui3'],
+    shortDescription: 'Feature-rich web app designed for electrical engineers ' +
         'to map and survey equipment and power systems within ' +
         'buildings',
-    description : [
+    description: [
         'SmartWALK is an application designed to provide assistance for electrical ' +
         'engineers who survey large skyscrapers and other facilities. Essentially, ' +
         'it allows them to track equipment, personnel, shifts and information ' +
@@ -48,20 +48,20 @@ export default {
             </i>
         )
     ],
-    links : [
+    links: [
         {
-            url : 'https://smartwalk.tech/',
-            description : 'Marketing Website'
+            url: 'https://smartwalk.tech/',
+            description: 'Marketing Website'
         },
         {
-            url : 'https://app.smartwalk.tech/',
-            description : 'Client Login to the CMS'
+            url: 'https://app.smartwalk.tech/',
+            description: 'Client Login to the CMS'
         }
 
     ],
-    media : {
-        caption : 1.79,
-        items : generateMediaImages('smartwalk', 5, [
+    media: {
+        caption: 1.79,
+        items: generateMediaImages('smartwalk', 5, [
             'Intuitive media management and photo uploading for items',
             'Graphing out for multiple points of data in a scalable system',
             'Convenient User Account System with security features',

@@ -1,9 +1,9 @@
-export thanos from './thanos';
-export bw from './bw';
-export greedux from './greedux';
-export smartwalk from './smartwalk';
-export colorshafted from './colorshafted';
-export npm from './npm';
-export chinesepoker from './chinesepoker';
-export sonicphysics from './sonicphysics';
-export bamf from './bamf';
+export { default as thanos } from './thanos';
+export { default as bw } from './bw';
+export { default as greedux } from './greedux';
+export { default as smartwalk } from './smartwalk';
+export { default as colorshafted } from './colorshafted';
+export { default as npm } from './npm';
+export { default as chinesepoker } from './chinesepoker';
+export { default as sonicphysics } from './sonicphysics';
+export { default as bamf } from './bamf';

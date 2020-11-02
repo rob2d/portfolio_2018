@@ -2,16 +2,16 @@ import React from 'react';
 import generateMediaImages from './data-helpers/generateMediaImages';
 
 export default {
-    id : 'greedux',
-    year  : '2017-2018',
-    displayName : 'Greedux',
-    context : 'Independent',
-    roles : 'Maintainer, Designer and Developer',
-    technologies : ['js','nodejs','gulp','react','redux','yeoman'],
-    shortDescription : (
+    id: 'greedux',
+    year: '2017-2018',
+    displayName: 'Greedux',
+    context: 'Independent',
+    roles: 'Maintainer, Designer and Developer',
+    technologies: ['js','nodejs','gulp','react','redux','yeoman'],
+    shortDescription: (
         'Simple workflow template to get a jumpstart on React/Redux applications.'
     ),
-    description : [
+    description: [
         'A simple workflow template for React/Redux applications ' +
         'which features live reloading, JSS, cache-busting, optimization/compression, instantaneous ' +
         'and flexible production-level deployment and a few other neat things or what you would otherwise ' +
@@ -36,16 +36,16 @@ export default {
             high profile/ground-shaking projects -- such as this portfolio!
         </span>)
     ],
-    links : [{
-        url : 'https://www.npmjs.com/package/generator-greedux',
-        description : 'NPM Repo'
+    links: [{
+        url: 'https://www.npmjs.com/package/generator-greedux',
+        description: 'NPM Repo'
     }],
-    sourceCode : [{
-        url : 'https://github.com/rob2d/greedux/',
-        description : 'Github'
+    sourceCode: [{
+        url: 'https://github.com/rob2d/greedux/',
+        description: 'Github'
     }],
-    media : {
-        items : [...generateMediaImages('greedux', 1, [
+    media: {
+        items: [...generateMediaImages('greedux', 1, [
             (<i>"Look ma, no peeking into console!"</i>)
         ])]
     }

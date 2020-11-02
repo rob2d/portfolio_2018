@@ -2,17 +2,17 @@ import React from 'react';
 import generateMediaImages from './data-helpers/generateMediaImages';
 
 export default {
-    id : 'bw',
-    displayName : 'Build & Watch',
-    year : '2018',
-    context : 'Independent',
-    roles   : 'Maintainer, Designer, Developer',
-    technologies : ['js', 'nodejs', 'c'],
-    shortDescription : (
+    id: 'bw',
+    displayName: 'Build & Watch',
+    year: '2018',
+    context: 'Independent',
+    roles: 'Maintainer, Designer, Developer',
+    technologies: ['js', 'nodejs', 'c'],
+    shortDescription: (
         'A simple retro-Gameboy ROM development workflow tool ' +
         'built using NodeJS'
     ),
-    description : [
+    description: [
         (<span>
             This project started from a bet between a co-worker among several of
             us that nobody was capable of creating a Gameboy ROM within a few
@@ -44,35 +44,35 @@ export default {
             useful for my primary work at the time.
         </span>)
     ],
-    links : [
+    links: [
         {
-            url : 'https://www.npmjs.com/package/build-and-watch',
-            description : 'NPM Repo'
+            url: 'https://www.npmjs.com/package/build-and-watch',
+            description: 'NPM Repo'
         },
         {
-            url : 'http://www.gmiller.net/2018/07/gameboy-color-fix-it-felix-jr',
-            description : 'Wreck it Ralph Remake Project (@Greg\'s Site)'
+            url: 'http://www.gmiller.net/2018/07/gameboy-color-fix-it-felix-jr',
+            description: 'Wreck it Ralph Remake Project (@Greg\'s Site)'
         }
     ],
-    sourceCode : [{
-        url : 'https://github.com/rob2d/build-and-watch#readme',
-        description : 'Github'
+    sourceCode: [{
+        url: 'https://github.com/rob2d/build-and-watch#readme',
+        description: 'Github'
     }],
-    media : {
-        aspectRatio : 1.36,
-        items : [
+    media: {
+        aspectRatio: 1.36,
+        items: [
             ...generateMediaImages('bw', 1, [
                 'Making build processes for things from your childhood almost tolerable'
             ]),
             {
-                type : 'video',
-                videoId : 'FrXLMEPN4ew',
-                caption : 'ROM Build running on a real Gameboy Color',
+                type: 'video',
+                videoId: 'FrXLMEPN4ew',
+                caption: 'ROM Build running on a real Gameboy Color',
             },
             {
-                type : 'video',
-                videoId : 'f58abL3nUgM',
-                caption : 'Greg\'s Project Progress Video'
+                type: 'video',
+                videoId: 'f58abL3nUgM',
+                caption: 'Greg\'s Project Progress Video'
             }
         ]
     }
