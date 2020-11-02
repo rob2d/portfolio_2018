@@ -11,8 +11,8 @@ const [_, ...AppSections] = Sections;
 const useStyles = makeStyles(({ palette: { secondary, common } }) => ({
     sectionList: {
         position: 'relative',
-        paddingLeft: p => !p.isPortrait ? '16px':'0px',
-        paddingRight: p => !p.isPortrait ? '16px':'0px',
+        paddingLeft: '16px',
+        paddingRight: '16px',
         paddingTop: '8px',
         paddingBottom: '0px',
         textAlign: 'left',
@@ -46,15 +46,6 @@ const useStyles = makeStyles(({ palette: { secondary, common } }) => ({
             marginRight: p => !p.isLandscape ? '16px': '6px'
         }
     },
-
-    // make certain things larger on non-mobile devices
-
-    '@media (min-width:901px)': {
-        sectionList: {
-            paddingLeft: '64px',
-            height: '100%'
-        }
-    }
 }), 'SectionLinks');
 
 export default function SectionLinks({ vpW, vpH }) {

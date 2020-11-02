@@ -7,19 +7,23 @@ import Typography from '@material-ui/core/Typography';
 import { isPortrait } from 'utils';
 import { ButtonLink, OptimizedImg } from 'utils/components';
 import { useDocumentTitle, useAutoFaderClass } from 'utils/hooks';
-import SectionLinks from './SectionLinks';
+import SkillsVisualizer from './skills-orbit/SkillsVisualizer';
 
-const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
+const useStyles = makeStyles(({
+    palette: { secondary, common, text },
+    breakpoints
+}) => ({
     container: {
         marginLeft: 'auto',
         marginRight: 'auto',
-        maxWidth: '700px',
+        maxWidth: 'min(1600px, 100vw)',
+        width: '100%',
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-        padding: p => `${!p.inPortrait ?0:16}px`,
         alignItems: 'center',
+        justifyContent: 'flex-start',
+        padding: p => `${!p.inPortrait ?0:16}px`,
         boxSizing: 'border-box', // for padding in landscape
         lineHeight: '1.3rem',
         textAlign: 'left',
@@ -35,92 +39,59 @@ const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
         '& .MuiTypography-root:not(:last-child)': {
             marginBottom: '1em'
         },
-
-        '& > div:nth-of-type(1)': {
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '100%',
-            justifyContent: 'space-between'
-        },
-
-        '& > div:nth-of-type(2)': {
-            display: 'inline-block',
-            verticalAlign: 'top',
-            textAlign: 'left',
+        [breakpoints.up('sm')]: {
+            flexDirection: 'row'
         }
+    },
+    overview: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        justifyContent: 'space-between',
+        [breakpoints.up('sm')]: {
+            width: '18%',
+            flexDirection: 'column-reverse'
+        }
+    },
+    paragraphs: {
+        boxSizing: 'border-box',
+        width: '100%',
+        display: 'inline-block',
+        verticalAlign: 'top',
+        textAlign: 'left',
+        marginTop: '0px',
+        marginBottom: '0px'
     },
 
     tech: {
         color: secondary.dark,
-
         '&:hover': { color: secondary.main },
-
         '&:active': { color: common.active },
-
-        // commas following tech
-        '&:not(:nth-last-child(-n+2)) $techComma': {
-            color: text.primary
-        },
-        '&:nth-last-child(-n+2) $techComma': {
-            display: 'none'
-        }
+        '&:not(:nth-last-child(-n+2)) .comma': { color: text.primary },
+        '&:nth-last-child(-n+2) .comma': { display: 'none' }
     },
-    techComma: {},
+    sphere: {
+        boxSizing: 'border-box',
+        width: 'clamp(96px, calc(40px + 6vw), 256px)',
+        height: 'clamp(96px, calc(40px + 6vw), 256px)',
+        flexShrink: '0',
+        margin: '12px'
+    },
     avatar: {
-        width: '128px',
-        height: '128px',
-        margin: '32px'
+        '& > *': {
+            width: '100%',
+            height: '100%',
+            transform: 'scale(0.85)',
+            top: '-8px'
+        }
     },
-    skillsOrbit: {
-        display: 'none',
+    skillsOrb: {
         position: 'relative',
-        width: '30vh',
-        height: '30vh'
-    },
-    // don't want the avatar to dominate the mobile screen:
-    ['@media (max-width: 700px) and (min-width : 341px) ' +
-    'and (orientation:portrait)']: {
-        avatar: {
-            width: '116px',
-            height: '116px'
-        }
-    },
-    // accomodations for micro phones like iP5
-    '@media (max-width: 340px) and (orientation:portrait)': {
-        avatar: {
-            margin: '16px auto 8px',
-            width: '80px',
-            height: '80px'
-        }
-    },
-    '@media (orientation:landscape)': {
-        avatar: {
-            margin: '16px 16px 8px'
-        },
-        container: {
-            padding: '16px',
-            boxSizing: 'border-box'
-        }
-    },
-    // for general mobile devices in landscape
-    '@media (orientation:landscape) and (max-width:900px)': {
-        avatar: {
-            margin: '24px 8px',
-            width: '80px',
-            height: '80px',
-        }
-    },
-    // make certain things larger on non-mobile devices
-    '@media (min-width:901px)': {
-        avatar: {
-            width: '120px',
-            height: '120px'
-        },
-        container: {
-            justifyContent: 'space-evenly',
-            maxWidth: '1280px'
-        }
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
     }
 }), { name: 'About' });
 
@@ -140,24 +111,25 @@ export default function About() {
                 url={ url }
                 asButton={ false }
             >   { children }
-                <span className={ classes.techComma }>, </span>
+                <span className={ 'comma' }>, </span>
             </ButtonLink>
         );
     }, [classes.tech]);
 
     return (
         <div className={ clsx(classes.container, fadeContainerClass) }>
-            <div>
-                <Avatar className={ classes.avatar }>
-                    <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
-                </Avatar>
-                <SectionLinks { ...linkProps } />
+            <div className={ classes.overview }>
+                <SkillsVisualizer className={ clsx(classes.sphere, classes.skillsOrb) } />
+                <div className={ clsx(classes.sphere, classes.avatar) }>
+                    <Avatar>
+                        <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
+                    </Avatar>
+                </div>
             </div>
 
-            <div>
+            <div className={ classes.paragraphs }>
                 <Typography variant={ 'body1' }>
-                    Hi. My name is Rob, and I am a software developer from New York City.
-                    Thanks for visiting.
+                    Hi. My name is Rob, a software developer from NYC.
                 </Typography>
                 <Typography variant={ 'body1' }>
                     This site was created using my stack of choice most days:&nbsp;
@@ -176,7 +148,7 @@ export default function About() {
                     A little about me and why this page exists: I have always
                     been a curious person and grew up dabbling in
                     introverted hobbies which includes creating websites,
-                    videogames, apps, and making cool things. None of that has changed,
+                    videogames, and apps. None of that has changed,
                     and this site is a small collection of mostly
                     self-driven projects that I wish I had more time to devote
                     to (the ones which made it somewhere beyond the drawing board).
@@ -187,15 +159,13 @@ export default function About() {
                 </Typography>
                 <Typography variant={ 'body1' }>
                     My background: I joined the Navy as an Electronic Technician
-                    out of highschool to get some practical experience,
-                    make the best of my situation, and take the more
-                    scenic route and so that I could also devote a lot of
-                    undivided attention to my studies and projects. Since
-                    completing graduate school in Computer Science, I have
+                    out of highschool under the National Call to Service program.
+                    Since completing my service I studied Computer Science (both
+                    undergraduate and graduate programs), and have
                     gotten to work in a variety of industries at various
-                    capacities including power/skyscraper infrastructure
-                    mapping and management, intellectual property, virtual
-                    reality tours, finance, as well as consistently on my own
+                    capacities developing software including power/skyscraper
+                    infrastructure mapping and management, intellectual property,
+                    virtual reality tours, finance, as well as consistently on my own
                     side projects which include development tools and small
                     applications.
                 </Typography>

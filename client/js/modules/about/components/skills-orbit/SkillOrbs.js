@@ -38,14 +38,15 @@ function createSkillVertex({ radianAngle, value=1 }) {
 const sources = {
     outerSphere: {
         type: 'sphere',
-        geometry: new SphereGeometry( OUTER_RADIUS, 17, 17 ),
+        geometry: new SphereGeometry(OUTER_RADIUS, 12, 12),
         material: new MeshBasicMaterial({
-            color: 0xDCDCDC,
+            color: 0xBCBCBC,
             wireframe: true,
+            wireframeLinewidth: 10,
             side: DoubleSide,
-            opacity: 0.4,
+            opacity: 0.75,
             transparent: true,
-            depthWrite: false
+            depthWrite: true
         }),
         cursor: 'pointer'
     },
@@ -57,7 +58,7 @@ const sources = {
             color: 0xCC288D,
             wireframe: true,
             side: DoubleSide,
-            opacity: 0.2,
+            opacity: 0.25,
             transparent: true,
         })
     },
@@ -69,7 +70,7 @@ const sources = {
             align: textAlign.center,
             fontSize: `${6+Math.round(34*value)}px`,
             fontWeight: 700,
-            fillStyle: (theme == 'light') ? '#333333' : '#FFFFFF',
+            fillStyle: (theme.palette.type == 'light') ? '#333333' : '#FFFFFF',
             side: DoubleSide,
             depthTest: false
         })
@@ -86,9 +87,10 @@ const sources = {
             material: new MeshBasicMaterial({
                 color: 0xC51162,
                 wireframe: true,
+                wireframeLinewidth: 5,
                 side: DoubleSide,
                 transparent: true,
-                opacity: theme == 'light' ? 0.1 : 0.2,
+                opacity: theme.palette.type == 'light' ? 0.1 : 0.2,
                 depthWrite: false
             })
         })
@@ -102,7 +104,7 @@ const sources = {
  */
 const distanceOpacityMap = new Map();
 
-export default class SkillsOrbitScene {
+export default class SkillOrbs {
     constructor(theme) {
         this.O = {};
         this.isRunning = false;
@@ -124,6 +126,10 @@ export default class SkillsOrbitScene {
 
     setTheme = theme => {
         this.theme = theme;
+
+        if(this.isRunning) {
+            this.instantiate();
+        }
     };
 
     freeResources = () => {
@@ -144,8 +150,8 @@ export default class SkillsOrbitScene {
             this.camera = new PerspectiveCamera(60, 1, 0.5, 2000);
 
             this.shiftingValuesMap.set('camPosZ', new ShiftingValueMap.ValueEntry({
-                value: 720,
-                target: 550,
+                value: 600,
+                target: 400,
                 rate: 500,
                 onChange: camPosZ => {
                     const { position } = this.camera;
@@ -156,15 +162,15 @@ export default class SkillsOrbitScene {
             }));
 
             this.renderer = new WebGLRenderer({ alpha: true, antialias: true });
-            this.renderer.setSize(100, 100);
+            this.renderer.setSize(500, 500);
         }
 
         this.createOrbit();
         this.parentElem.appendChild(this.renderer.domElement);
 
         // TODO
-        // this.refreshRendererSize();
-
+        this.renderer.domElement.style.width = '100%';
+        this.renderer.domElement.style.height = '100%';
         if(!this.isRunning) {
             this.isRunning = true;
             window.requestAnimationFrame(this.animate);
@@ -282,9 +288,11 @@ export default class SkillsOrbitScene {
             const radianAngle = (i/a.length) * Math.PI * 2.0;
             this.skillAngles.push(radianAngle);
 
+            const input = { value, theme };
+
             const textSprite = new SpriteText2D(
                 skills[namespace],
-                sources.skillText.generateParams({ value, theme })
+                sources.skillText.generateParams(input)
             );
 
             this.O.textSprites.push(textSprite);
@@ -295,10 +303,7 @@ export default class SkillsOrbitScene {
             const skillsVertex = createSkillVertex({ radianAngle, value });
 
             const [x, y, z] = skillsVertex;
-            const { geometry, material } = sources.skillPoint.generateParams({
-                value,
-                theme
-            });
+            const { geometry, material } = sources.skillPoint.generateParams(input);
 
             const skillPointObj = new Mesh(geometry, material);
             skillPointObj.position.set(x, y, z);
