@@ -1,17 +1,17 @@
 import { useMemo, useCallback, useRef, useState, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import SkillsOrbitScene from './SkillsOrbitScene';
+import SkillOrbs from './SkillOrbs';
 
 /**
  * generates handlers and content needed
  * for canvas ref that will manage a
  * 3D skills orbit scene
  */
-export default function useSkillsOrbitScene() {
+export default function useSkillOrbsScene() {
     const theme = useTheme();
     const containerRef = useRef();
     const [isHighlighted, setHighlighted] = useState(() => false);
-    const scene = useMemo(() => new SkillsOrbitScene(theme), []);
+    const scene = useMemo(() => new SkillOrbs(theme), []);
 
     const onMouseEnter = useCallback( e => setHighlighted(true), []);
     const onMouseLeave = useCallback( e => setHighlighted(false), []);
