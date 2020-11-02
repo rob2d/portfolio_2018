@@ -61,7 +61,11 @@ const useStyles = makeStyles(({
         verticalAlign: 'top',
         textAlign: 'left',
         marginTop: '0px',
-        marginBottom: '0px'
+        marginBottom: '0px',
+        [breakpoints.up('sm')]: {
+            marginTop: '16px',
+            marginBottom: '16px'
+        }
     },
 
     tech: {
