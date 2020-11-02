@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { isPortrait } from 'utils';
 import { ButtonLink, OptimizedImg } from 'utils/components';
 import { useDocumentTitle, useAutoFaderClass } from 'utils/hooks';
-import SkillOrbs from './skills-orbit/SkillsVisualizer';
+import SkillsVisualizer from './skills-orbit/SkillsVisualizer';
 
 const useStyles = makeStyles(({
     palette: { secondary, common, text },
@@ -119,7 +119,7 @@ export default function About() {
     return (
         <div className={ clsx(classes.container, fadeContainerClass) }>
             <div className={ classes.overview }>
-                <SkillOrbs className={ clsx(classes.sphere, classes.skillsOrb) } />
+                <SkillsVisualizer className={ clsx(classes.sphere, classes.skillsOrb) } />
                 <div className={ clsx(classes.sphere, classes.avatar) }>
                     <Avatar>
                         <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
