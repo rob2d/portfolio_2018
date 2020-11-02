@@ -3,6 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 const ANIM_S = '0.32';
 const getTopMargin = vpW => vpW > 800 ? 32: 16;
 
+// TODO: inline these styles once project cards
+// are broken down into different state-components
+// (vs all handled via this one mutating component)
+
 export default makeStyles(({ palette: { type, text, common } }) => ({
     container: {
         position: p => p.hasAbsolutePosition ? 'absolute': 'relative',

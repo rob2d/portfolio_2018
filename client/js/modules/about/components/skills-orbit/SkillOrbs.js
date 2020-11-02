@@ -42,7 +42,7 @@ const sources = {
         material: new MeshBasicMaterial({
             color: 0xBCBCBC,
             wireframe: true,
-            wireframeLinewidth: 10,
+            wireframeLinewidth: 1,
             side: DoubleSide,
             opacity: 0.75,
             transparent: true,
@@ -87,7 +87,7 @@ const sources = {
             material: new MeshBasicMaterial({
                 color: 0xC51162,
                 wireframe: true,
-                wireframeLinewidth: 5,
+                wireframeLinewidth: 1,
                 side: DoubleSide,
                 transparent: true,
                 opacity: theme.palette.type == 'light' ? 0.1 : 0.2,

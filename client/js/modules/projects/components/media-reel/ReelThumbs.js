@@ -6,30 +6,30 @@ import useViewportSizes from 'use-viewport-sizes'
 import ReelThumb from './ReelThumb'
 
 const useStyles = makeStyles( theme => ({
-    reelThumbs : {
-        position       : 'relative',
-        display        : 'flex',
-        flexDirection  : 'column',
-        boxSizing      : 'border-box',
-        flexGrow       : 1,
-        overflowY      : 'scroll',
-        overflowX      : 'hidden',
-        scrollBehavior : 'smooth', // works with polyfill
-        flexBasis      : '80%',
+    reelThumbs: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        boxSizing: 'border-box',
+        flexGrow: 1,
+        overflowY: 'scroll',
+        overflowX: 'hidden',
+        scrollBehavior: 'smooth', // works with polyfill
+        flexBasis: '80%',
         '&::-webkit-scrollbar': {
-            display : 'none'
+            display: 'none'
         }
     }
-}), { name : 'ReelThumbs' });
+}), { name: 'ReelThumbs' });
 
-export default function ReelThumbs ({
+export default function ReelThumbs({
     selectedIndex, media, thumbHeight, onThumbClicked
 }) {
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpH });
     const containerElem = useRef(null);
 
-    useLayoutEffect(()=> {
+    useLayoutEffect(() => {
         if(containerElem.current) {
             containerElem.current.scrollTop = ((thumbHeight+8) * selectedIndex);
         }
@@ -41,8 +41,8 @@ export default function ReelThumbs ({
             ref={ containerElem }>
             { media.map((item, i) => (
                 <ReelThumb
-                    key={`reelThumbsSetItem${i}`}
-                    onClick={ useCallback(()=> onThumbClicked(i), [i]) }
+                    key={ `reelThumbsSetItem${i+1}` }
+                    onClick={ useCallback(() => onThumbClicked(i), [i]) }
                     thumbHeight={ thumbHeight }
                     item={ item }
                     isSelected={ selectedIndex == i }

@@ -1,13 +1,13 @@
-function newConst (str) {
+function createConstant(str) {
     return `DisplayStates.${str}`;
 }
 
-export const VIEW_ALL = newConst('VIEW_ALL');
-export const PROJECT_FADE_TO = newConst('PROJECT_FADE_TO');
-export const OFFSET_CALC = newConst('OFFSET_CALC');
-export const AFTER_FADE_POSITIONING = newConst('AFTER_FADE_POSITIONING');
-export const PROJECT_SCROLL_UP = newConst('PROJECT_SCROLL_UP');
-export const PROJECT_VIEW = newConst('PROJECT_VIEW');
+export const VIEW_ALL = createConstant('VIEW_ALL');
+export const PROJECT_FADE_TO = createConstant('PROJECT_FADE_TO');
+export const OFFSET_CALC = createConstant('OFFSET_CALC');
+export const AFTER_FADE_POSITIONING = createConstant('AFTER_FADE_POSITIONING');
+export const PROJECT_SCROLL_UP = createConstant('PROJECT_SCROLL_UP');
+export const PROJECT_VIEW = createConstant('PROJECT_VIEW');
 
 export default {
     VIEW_ALL,
@@ -16,4 +16,4 @@ export default {
     AFTER_FADE_POSITIONING,
     PROJECT_SCROLL_UP,
     PROJECT_VIEW
-}
+};
