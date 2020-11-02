@@ -1,15 +1,15 @@
 import generateMediaImages from './data-helpers/generateMediaImages';
 
 export default {
-    id : 'sonicphysics',
-    displayName : 'Sonic 3 Physics',
-    context : 'Independent',
-    roles : 'Programming, Planning and Artwork',
-    year : '2005, 2009',
-    technologies : ['gml'],
-    shortDescription : `A pixel perfect rendition of the physics found in SEGA's
+    id: 'sonicphysics',
+    displayName: 'Sonic 3 Physics',
+    context: 'Independent',
+    roles: 'Programming, Planning and Artwork',
+    year: '2005, 2009',
+    technologies: ['gml'],
+    shortDescription: `A pixel perfect rendition of the physics found in SEGA's
                         "Sonic the Hedgehog" series. `,
-    description : [
+    description: [
         'This physics engine was actually part of a game I was ' +
         'developing called "Sonic: Corrupted Chaos" and was developed using a scripting language ' +
         'similar to JavaScript called GML. That game never came to fruition -- so I ' +
@@ -25,13 +25,13 @@ export default {
         'could\'ve", as they say. At the end of the day, it served its purpose as a good warm-up for ' +
         'coding again 🙂'
     ],
-    media : {
-        aspectRatio : 1.203,
-        items : [
+    media: {
+        aspectRatio: 1.203,
+        items: [
             {
-                type : 'video',
-                videoId : 'zRZOLzTaJq4',
-                caption : 'Play-test video'
+                type: 'video',
+                videoId: 'zRZOLzTaJq4',
+                caption: 'Play-test video'
             },
             ...generateMediaImages('sonicphysics', 4, [
                 'Pushing against spikes underwater',
@@ -41,16 +41,16 @@ export default {
             ])
         ]
     },
-    sourceCode : [{
-        url : 'https://github.com/rob2d/sonic_gml',
-        description : 'Souce Code (GML) @ Github'
+    sourceCode: [{
+        url: 'https://github.com/rob2d/sonic_gml',
+        description: 'Souce Code (GML) @ Github'
     }],
-    downloads : [{
-        url : 'http://robftwcom.appspot.com/downloads/sonic360_demo.exe',
-        description : 'Demo (Windows OS)'
+    downloads: [{
+        url: 'http://robftwcom.appspot.com/downloads/sonic360_demo.exe',
+        description: 'Demo (Windows OS)'
     }],
-    documentation : [{
-        url : 'http://corruptedchaos.blogspot.com/',
-        description : 'Blogger'
+    documentation: [{
+        url: 'http://corruptedchaos.blogspot.com/',
+        description: 'Blogger'
     }]
 };
