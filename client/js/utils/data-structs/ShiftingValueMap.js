@@ -1,8 +1,7 @@
 // TODO : support quadratics via possible
 // function given by "rate"
 
-// TODO : clear change handlers when
-// 		  invoking "clear"
+// TODO : clear change handlers when invoking "clear"
 
 /**
  *
@@ -15,7 +14,7 @@
  *                      whenever a value has actually been
  *                      detected as changed
  */
-function ValueEntry ({ value, target=value, rate=0, onChange }) {
+function ValueEntry({ value, target=value, rate=0, onChange }) {
 
     if(typeof value != 'number') {
         throw new Error('"value" of ShiftingValuesMap entry must be a numeric');
@@ -103,9 +102,9 @@ export default class ShiftingValueMap {
         // Maps directly)
 
         Object.getOwnPropertyNames(Map.prototype).forEach( key => {
-            this[key] = function (...fnArgs) {
+            this[key] = function map(...fnArgs) {
                 return that.map[key](...fnArgs);
-            }
+            };
         });
     }
 

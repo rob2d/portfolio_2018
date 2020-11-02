@@ -103,18 +103,14 @@ export default function About() {
     useDocumentTitle({ title: `${SITE_NAME} -- About` });
     const fadeContainerClass = useAutoFaderClass();
     const [vpW, vpH] = useViewportSizes();
-    const linkProps = useMemo(() => ({ vpW, vpH }), [vpW, vpH]);
     const inPortrait = useMemo(() => isPortrait(vpW, vpH), [vpW, vpH]);
     const classes = useStyles({ vpW, vpH, inPortrait });
 
     const Tech = useCallback(({ children, url }) => {
         Tech.displayName = 'Tech';
         return (
-            <ButtonLink
-                className={ classes.tech }
-                url={ url }
-                asButton={ false }
-            >   { children }
+            <ButtonLink className={ classes.tech } url={ url } asButton={ false }>
+                { children }
                 <span className={ 'comma' }>, </span>
             </ButtonLink>
         );

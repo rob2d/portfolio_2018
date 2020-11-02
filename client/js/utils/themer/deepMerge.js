@@ -32,8 +32,8 @@ function merge(s, d = {}) {
 }
 
 export default function deepMerge(s1, s2, d = {}) {
-	merge(s1, d);
-	merge(s2, d);
+    merge(s1, d);
+    merge(s2, d);
 
-	return d;
+    return d;
 }

@@ -6,40 +6,40 @@ import {
 } from '@mdi/js';
 
 export const SectionIndexes = {
-    WELCOME : 0,
-    PROJECTS : 1,
-    MISC : 2,
-    CV : 3
+    WELCOME: 0,
+    PROJECTS: 1,
+    MISC: 2,
+    CV: 3
 };
 
 export const Sections = [
     {
-        name : 'About',
-        nameUnabbrev : 'About',
-        iconPath : mdiHumanGreeting,
-        getTooltipText : () => 'About',
-        basePath : '/',
+        name: 'About',
+        nameUnabbrev: 'About',
+        iconPath: mdiHumanGreeting,
+        getTooltipText: () => 'About',
+        basePath: '/',
     },
     {
-        name : 'Projects',
-        nameUnabbrev : 'Projects',
-        iconPath : mdiBriefcase,
-        getTooltipText : () => 'Projects',
-        basePath : '/projects'
+        name: 'Projects',
+        nameUnabbrev: 'Projects',
+        iconPath: mdiBriefcase,
+        getTooltipText: () => 'Projects',
+        basePath: '/projects'
     },
     {
-        name : 'Misc',
-        nameUnabbrev : 'Miscellaneous',
-        iconPath : mdiDiceMultiple,
-        getTooltipText : () => 'Miscellaneous',
-        basePath : '/misc'
+        name: 'Misc',
+        nameUnabbrev: 'Miscellaneous',
+        iconPath: mdiDiceMultiple,
+        getTooltipText: () => 'Miscellaneous',
+        basePath: '/misc'
     },
     {
-        name : 'CV',
-        nameUnabbrev : 'CV',
-        iconPath : mdiNote,
-        getTooltipText  : () => 'CV',
-        basePath : '/cv'
+        name: 'CV',
+        nameUnabbrev: 'CV',
+        iconPath: mdiNote,
+        getTooltipText: () => 'CV',
+        basePath: '/cv'
     }
 ];
 
