@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { Icon } from '@mdi/react';
 import { mdiInformationOutline } from '@mdi/js';
 import { OptimizedImg } from 'utils/components';
-import useStyles from './style/ProjectCardStyle';
+import useStyles from './ProjectCardStyle';
 import {
     VIEW_ALL,
     PROJECT_FADE_TO,

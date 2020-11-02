@@ -59,7 +59,7 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
         paddingLeft: '16px',
         paddingRight: '16px',
         color: text.primary,
-        '&:not(:last-of-type)' : {
+        '&:not(:last-of-type)': {
             marginBottom: '1em'
         }
     },

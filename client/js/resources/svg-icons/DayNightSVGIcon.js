@@ -5,88 +5,88 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const defaultStarXform = 'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)';
 
-const useStyles = makeStyles(({ palette : { common } }) => {
+const useStyles = makeStyles(({ palette: { common } }) => {
     const a0 = `${C(common.white).alpha(0).rgb()}`;
     const a255 = `${C(common.white).alpha(1).rgb()}`;
 
     return {
-        container : {
-            cursor : 'pointer',
-            fontSize : '18pt',
-            height : '48px',
-            '& svg ' : {
-                width : '26px',
-                height : '26px'
+        container: {
+            cursor: 'pointer',
+            fontSize: '18pt',
+            height: '48px',
+            '& svg ': {
+                width: '26px',
+                height: '26px'
             },
             '&,& *': {
-                color : common.white,
-                fill : common.white,
+                color: common.white,
+                fill: common.white,
             }
         },
-        star : {
-            transformOrigin : '50% 50%',
-            stroke : a0,
-            strokeWidth : '2px',
+        star: {
+            transformOrigin: '50% 50%',
+            stroke: a0,
+            strokeWidth: '2px',
             transition: p => `transform 0.35s ease-in ${p.type=='dark'?0:0.125}s`
         },
 
-        'moon' : {
-            stroke : `${a255} !important`,
-            fill : 'none !important',
-            transformOrigin : '50% 52%',
-            opacity : p => p.dark ? 1 : 0,
-            transform : p => `scale(${p.dark?'1':'0.475'})`,
-            transition : p => `opacity 0.5s ease ${p.dark?'0.25':'0'}s, ` +
+        'moon': {
+            stroke: `${a255} !important`,
+            fill: 'none !important',
+            transformOrigin: '50% 52%',
+            opacity: p => p.dark ? 1: 0,
+            transform: p => `scale(${p.dark?'1':'0.475'})`,
+            transition: p => `opacity 0.5s ease ${p.dark?'0.25':'0'}s, ` +
                 `transform 0.25s linear ${p.dark?'0.20':'0.0'}s`,
         },
 
-        sun : {
-            opacity : p => p.dark ? 0 : 1,
-            transition : p => `opacity 0.75s ease ${p.dark?0.1:0.25}s`,
-            stroke : a255,
-            fill : 'none'
+        sun: {
+            opacity: p => p.dark ? 0: 1,
+            transition: p => `opacity 0.75s ease ${p.dark?0.1:0.25}s`,
+            stroke: a255,
+            fill: 'none'
         },
 
-        starA1 : {
-            transform : p => !p.dark ?
+        starA1: {
+            transform: p => !p.dark ?
                 'scaleX(0.5) scaleY(0.6) translateX(29%) translateY(-50%) rotateZ(-108deg)' :
                 defaultStarXform
         },
 
-        starA2 : {
-            transform : p => !p.dark ?
+        starA2: {
+            transform: p => !p.dark ?
                 'scaleX(0.5) scaleY(0.6) translateX(-75%) translateY(-25%) rotateZ(-290deg)' :
                 defaultStarXform
         },
 
-        starA3 : {
-            transform : p => !p.dark ?
+        starA3: {
+            transform: p => !p.dark ?
                 'scaleX(0.5) scaleY(0.6) translateX(-75%) translateY(40%) rotateZ(50deg)' :
                 defaultStarXform
         },
 
-        starB1 : {
-            transform : p => !p.dark ?
+        starB1: {
+            transform: p => !p.dark ?
                 'scaleX(0.7) scaleY(0.8) translateX(25%) translateY(3%) rotateZ(-65deg)' :
                 defaultStarXform
         },
 
-        starB2 : {
-            transform : p => !p.dark ?
+        starB2: {
+            transform: p => !p.dark ?
                 'scaleX(0.7) scaleY(0.8) translateX(30%) translateY(40%) rotateZ(-60deg)' :
                 defaultStarXform
         },
 
-        starB3 : {
-            transform : p => !p.dark ?
+        starB3: {
+            transform: p => !p.dark ?
                 'scaleX(0.7) scaleY(0.8) translateX(-5%) translateY(66%) rotateZ(-73.5deg)' :
                 defaultStarXform
         }
     };
-}, { name : 'DayNightSVGIcon' });
+}, { name: 'DayNightSVGIcon' });
 
 export default function DayNightSVGIcon({ selection }) {
-    const classes = useStyles({ dark : selection == 'dark' });
+    const classes = useStyles({ dark: selection == 'dark' });
 
     return (
         <svg viewBox={ "0 0 24 24" } className={ clsx(classes.star, classes.container) }>

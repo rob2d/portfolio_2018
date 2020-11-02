@@ -146,8 +146,8 @@ class MediaViewer extends PureComponent {
             let itemKey = MediaViewer.getItemKey(props);
 
             if(cacheMap && cacheMap.has(itemKey)) {
-                let { resource, isMediaLoading } = cacheMap.get(itemKey);
-                switch(props.type) {
+                const { resource, isMediaLoading } = cacheMap.get(itemKey);
+                switch (props.type) {
                     case 'video' :
                         // TODO: we should be saving
                         //        video element so that
@@ -157,18 +157,22 @@ class MediaViewer extends PureComponent {
                             cacheMap.get(itemKey).isMediaLoading = true;
                         }
                         break;
+                    default: {
+                        break;
+                    }
                 }
-            } else {
-                let resource = {
+            }
+            else {
+                const resource = {
                     isMediaLoading: true,
                     domSegment: undefined // assigned below
                 };
 
-                switch(props.type) {
-                    case 'image' :
+                switch (props.type) {
+                    case 'image':
                         resource.img = new Image();
                         resource.img.src = props.src;
-                        resource.img.onload = ()=> {
+                        resource.img.onload = () => {
                             cacheMap.get(itemKey).isMediaLoading = false;
                             props.onUpdate();
                         };
@@ -189,7 +193,7 @@ class MediaViewer extends PureComponent {
                             </ButtonLink>
                         );
                         break;
-                    case 'video' :
+                    case 'video' : {
 
                         const {
                             onVideoPlay,
@@ -213,10 +217,10 @@ class MediaViewer extends PureComponent {
                                 width={ newState.width }
                                 height={ newState.height }
                                 onReady={ () => {
-                                    let thisItem = cacheMap.get(itemKey);
+                                    const thisItem = cacheMap.get(itemKey);
                                     thisItem.isMediaLoading = false;
                                     props.onUpdate();
-                                }}
+                                } }
                                 onPlay={ onVideoPlay }
                                 onStop={ onVideoStop }
                                 onEnd={ onVideoEnd }
@@ -227,6 +231,7 @@ class MediaViewer extends PureComponent {
                             />
                         );
                         break;
+                    }
                     default :
                         throw new Error('Invalid media type ->', props.type);
                 }

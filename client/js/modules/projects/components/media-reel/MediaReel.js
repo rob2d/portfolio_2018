@@ -18,85 +18,85 @@ function getReelWidth(width, maxWidth) {
         ((width > maxWidth) ? maxWidth : width);
 }
 
-const useStyles = makeStyles( theme => ({
-    container : {
-        display : 'flex',
-        overflow : 'visible',
-        maxWidth : p => p.maxWidth,
-        height : p => (
+const useStyles = makeStyles(() => ({
+    container: {
+        display: 'flex',
+        overflow: 'visible',
+        maxWidth: p => p.maxWidth,
+        height: p => (
             // 25% diff to account for reel and status boxes
             Math.round(
                 (getReelWidth(p.width,p.maxWidth)/(p.aspectRatio)) * 0.75
             ) + 'px'
         ),
-        margin : '0 auto 56px'
+        margin: '0 auto 56px'
     },
-    highlightedImageButton : {
-        '&:hover $highlightedMediaImage' : {
-            border : '2px solid #c51162'
+    highlightedImageButton: {
+        '&:hover $highlightedMediaImage': {
+            border: '2px solid #c51162'
         },
-        '&:active $highlightedMediaImage' : {
-            border : '2px solid #00b8d4;'
+        '&:active $highlightedMediaImage': {
+            border: '2px solid #00b8d4;'
         }
     },
-    highlightedMediaImage : {
-        width      : 'auto',
-        maxWidth   : '100%',
-        height     : 'auto',
-        maxHeight  : '10%',
-        border     : '2px solid rgba(255,255,255,0)',
-        transition : 'border-color 0.24s ease-in'
+    highlightedMediaImage: {
+        width: 'auto',
+        maxWidth: '100%',
+        height: 'auto',
+        maxHeight: '10%',
+        border: '2px solid rgba(255,255,255,0)',
+        transition: 'border-color 0.24s ease-in'
     },
-    highlightedMediaVideo : {
-        width  : '100%',
-        height : '100%',
-        backgroundColor : '#000000'
+    highlightedMediaVideo: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#000000'
     },
-    reel : {
-        flexBasis : '25%',
-        height    : '100%',
-        margin    : 0,
-        padding   : 0,
-        display       : 'flex',
-        flexDirection :'row'
+    reel: {
+        flexBasis: '25%',
+        height: '100%',
+        margin: 0,
+        padding: 0,
+        display: 'flex',
+        flexDirection: 'row'
     },
-    reelPadding : {
-        flexBasis : '10%'
+    reelPadding: {
+        flexBasis: '10%'
     },
-    statusBoxes : {
-        flexBasis  : '5%',
-        margin     : 0,
-        padding    : 0,
-        display    : 'flex',
-        alignItems : 'center',
-        justifyContent : 'center',
-        flexDirection  : 'column'
+    statusBoxes: {
+        flexBasis: '5%',
+        margin: 0,
+        padding: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
-    statusBox : {
-        flexGrow       : 1,
-        display        : 'flex',
-        alignItems     : 'center',
-        justifyContent : 'center',
-        cursor         : 'pointer',
-        padding        : '0px 12px'
+    statusBox: {
+        flexGrow: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        padding: '0px 12px'
     },
-    statusBoxIcon : {
-        fontSize : '10pt'
+    statusBoxIcon: {
+        fontSize: '10pt'
     },
-    fullScreenButton : {
-        position : 'absolute',
-        right    : '16px',
-        bottom   : '16px'
+    fullScreenButton: {
+        position: 'absolute',
+        right: '16px',
+        bottom: '16px'
     }
-}), { name : 'MediaReel' });
+}), { name: 'MediaReel' });
 
 class MediaReel extends PureComponent {
 
     state = {
-        selectedIndex : 0,
+        selectedIndex: 0,
         isVideoPlaying : false,
         autoplayTimer : null,
-        updateCount : 0
+        updateCount: 0
     };
 
     handleItemClick = selectedIndex => {
@@ -157,6 +157,7 @@ class MediaReel extends PureComponent {
         const autoplayTimer = setInterval(()=> { this.autoplayToNextItem(); }, REEL_ANIM_SPEED);
         this.setState({ autoplayTimer, isReelAutoplaying : true});
     };
+
     autoplayToNextItem = () => {
         if(!this.state.isVideoPlaying) {
             const selectedIndex = (this.state.selectedIndex + 1) %
@@ -164,6 +165,7 @@ class MediaReel extends PureComponent {
             this.setState({ selectedIndex });
         }
     };
+
     render () {
         const {
             classes,
@@ -200,42 +202,42 @@ class MediaReel extends PureComponent {
                 <div className={ classes.reel }>
                     <div className={ classes.reelPadding } />
                     {
-                        vpW > 740 &&
-                        <ReelThumbs
-                            media={media}
-                            selectedIndex={selectedIndex}
-                            thumbHeight ={
-                                Math.round((
-                                    getReelWidth(width,maxWidth)*0.25*0.75) /
-                                    aspectRatio
-                                )
-                            }
-                            onThumbClicked={this.handleItemClick}
-                            width={ width }
-                            vpH={ vpH }
-                        />
-                    }
+                        vpW > 740 && (
+                            <ReelThumbs
+                                media={ media }
+                                selectedIndex={ selectedIndex }
+                                thumbHeight ={
+                                    Math.round((
+                                        getReelWidth(width,maxWidth)*0.25*0.75) /
+                                        aspectRatio
+                                    )
+                                }
+                                onThumbClicked={ this.handleItemClick }
+                                width={ width }
+                                vpH={ vpH }
+                            />
+                    ) }
                     <div className={ classes.reelPadding } />
                     <div className={ classes.statusBoxes }>
-                    { media.map((item, i)=>(
-                        <div
-                            key={ `mediaReelItem${i}` }
-                            className={ classes.statusBox }
-                            onClick={ ()=> this.handleItemClick(i) }
-                        >
-                        <Icon
-                            path={ ( i != selectedIndex )?
-                                mdiSquareOutline : mdiSquare
-                            }
-                            className={ classes.statusBoxIcon }
-                            size={ 0.5 }
-                        />
-                        </div>
-                    )) }
-                </div>
+                        { media.map((item, i) => (
+                            <div
+                                key={ `mediaReelItem${i}` }
+                                className={ classes.statusBox }
+                                onClick={ ()=> this.handleItemClick(i) }
+                            >
+                                <Icon
+                                    path={ ( i != selectedIndex ) ?
+                                        mdiSquareOutline : mdiSquare
+                                    }
+                                    className={ classes.statusBoxIcon }
+                                    size={ 0.5 }
+                                />
+                            </div>
+                        )) }
+                    </div>
                 </div>
             </div>
-            );
+        );
     }
 }
 
