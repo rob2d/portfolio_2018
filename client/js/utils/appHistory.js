@@ -21,7 +21,7 @@ appHistory.goTo = function goTo(url, e) {
         // push to app history for in-app routing
 
         if(!isAbsoluteUrl) {
-            appHistory.push({ pathname : url });
+            appHistory.push({ pathname: url });
         }
         // open in new tab
 

@@ -8,12 +8,12 @@ const moment = require('moment');
 const { args } = global;
 
 const config = {
-    module : {
-        rules : [
+    module: {
+        rules: [
             {
-                test    : /\.(js|jsx)$/,
-                exclude : /node_modules/,
-                use : {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
                     loader: "babel-loader"
                 }
             }
@@ -36,7 +36,7 @@ const config = {
     },
 
     plugins: [
-        new ImageminPlugin({ pngquant : { quality: '95-100' } }),
+        new ImageminPlugin({ pngquant: { quality: '95-100' } }),
         new ImageminWebpWebpackPlugin()
     ]
 };
@@ -77,21 +77,21 @@ if(args && args.export_standalone) {
 
     config.plugins.push(
         new FileManagerPlugin({
-            onStart : {
-                delete : ['server/public/**']
+            onStart: {
+                delete: ['server/public/**']
             },
-            onEnd : {
-                copy : [
+            onEnd: {
+                copy: [
                     {
-                        source : 'server/public/**',
-                        destination : path.join(global.basePath, buildDir)
+                        source: 'server/public/**',
+                        destination: path.join(global.basePath, buildDir)
                     }, {
-                        source : 'server/*.js',
-                        destination   : path.join(global.basePath, buildDir)
+                        source: 'server/*.js',
+                        destination: path.join(global.basePath, buildDir)
                     },
                     {
-                        source : 'package.json',
-                        destination   : path.join(global.basePath, buildDir, 'package.json')
+                        source: 'package.json',
+                        destination: path.join(global.basePath, buildDir, 'package.json')
                     }
                 ]
             }

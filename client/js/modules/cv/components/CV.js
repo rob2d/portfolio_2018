@@ -10,52 +10,52 @@ import { useDocumentTitle } from 'utils/hooks';
 import { PDFView, PDFDownloadLink } from 'utils/components';
 import ResumePDFView from './ResumePDFView';
 
-const useStyles = makeStyles(({ palette : { secondary, common } }) => ({
-    container : {
-        marginLeft : 'auto',
-        marginRight : 'auto',
-        width : '100%',
-        flexGrow : 1,
-        display : 'flex',
-        flexDirection : 'column',
-        alignItems : 'center',
-        justifyContent : 'center',
-        overflowY : 'auto',
-        boxSizing : 'border-box',
-        maxHeight : '100%',
-        position : 'relative'
+const useStyles = makeStyles(({ palette: { secondary, common } }) => ({
+    container: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: '100%',
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflowY: 'auto',
+        boxSizing: 'border-box',
+        maxHeight: '100%',
+        position: 'relative'
     },
-    pdfWrapper : {
-        position : 'relative',
-        display : 'flex',
-        flexGrow : 1,
-        alignItems : 'center',
-        justifyContent : 'center'
+    pdfWrapper: {
+        position: 'relative',
+        display: 'flex',
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    downloadButtonContainer : {
-        position : 'absolute',
-        bottom : '32px',
-        right : '32px',
+    downloadButtonContainer: {
+        position: 'absolute',
+        bottom: '32px',
+        right: '32px',
     },
-    downloadButton : {
-        backgroundColor : secondary.main,
-        color : common.white,
-        '&:hover' : {
-            backgroundColor : `${C(secondary.main).lighten(0.2).rgb()}`
+    downloadButton: {
+        backgroundColor: secondary.main,
+        color: common.white,
+        '&:hover': {
+            backgroundColor: `${C(secondary.main).lighten(0.2).rgb()}`
         },
-        '&:active' : {
-            backgroundColor : common.active
+        '&:active': {
+            backgroundColor: common.active
         },
-        '& svg' : {
-            fontSize : '24pt',
-            color : common.white,
-            fill : common.white
+        '& svg': {
+            fontSize: '24pt',
+            color: common.white,
+            fill: common.white
         }
     }
 }));
 
 export default function CV() {
-    useDocumentTitle({ title : `${SITE_NAME} -- CV` });
+    useDocumentTitle({ title: `${SITE_NAME} -- CV` });
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles();
 
@@ -71,7 +71,6 @@ export default function CV() {
             Math.round(vpW * 0.92),
             Math.round(vpH - 132)
         ];
-
     }, [vpW, vpH]);
 
     return (

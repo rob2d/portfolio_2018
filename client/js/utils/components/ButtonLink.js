@@ -5,12 +5,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import appHistory from 'utils/appHistory';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles(({ palette : { text } }) => ({
-    container : {
-        cursor : 'pointer'
+const useStyles = makeStyles(({ palette: { text } }) => ({
+    container: {
+        cursor: 'pointer'
     },
-    touchRipple : {
-        color : p => p.rippleColor || text.primary
+    touchRipple: {
+        color: p => p.rippleColor || text.primary
     }
 }));
 
@@ -37,7 +37,7 @@ export default function ButtonLink({
             focusRipple
             className={ clsx(classes.container, className) }
             onMouseDown={ onClick }
-            TouchRippleProps={{ classes : { ripple : classes.touchRipple } }}
+            TouchRippleProps={{ classes: { ripple : classes.touchRipple } }}
             aria-label={ name }
         >{ children }
         </ButtonBase>

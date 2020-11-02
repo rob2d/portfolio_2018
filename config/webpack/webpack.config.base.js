@@ -31,19 +31,19 @@ const rootJSAliases = createDirAliases('client/js');
 const reduxAliases = createDirAliases('client/js/modules');
 
 module.exports = {
-    entry : {
-        main : './client/js'
+    entry: {
+        main: './client/js'
     },
-    output : {
-        path : global.resolvePath('server/public/'),
-        publicPath : '/',
-        filename : '[name].bundle.js',
+    output: {
+        path: global.resolvePath('server/public/'),
+        publicPath: '/',
+        filename: '[name].bundle.js',
         chunkFilename: '[name].bundle.js'
     },
-    optimization : {
-        runtimeChunk : 'single',
-        splitChunks : {
-            name : true,
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            name: true,
             cacheGroups: {
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
@@ -63,10 +63,10 @@ module.exports = {
         },
         usedExports: true
     },
-    module : {
-        rules : [{
-            test : /\.html$/,
-            use : [{
+    module: {
+        rules: [{
+            test: /\.html$/,
+            use: [{
                 loader: "html-loader",
                 options: {
                     minimize: (process.env.NODE_ENV == 'production')
@@ -79,10 +79,10 @@ module.exports = {
             exclude: /img/,
             use: [{
                 loader : MiniCssExtractPlugin.loader,
-                options : {
+                options: {
                 }
             }, {
-                loader : 'css-loader',
+                loader: 'css-loader',
                 options: {
                     sourceMap: false
                 }
@@ -117,19 +117,19 @@ module.exports = {
         historyApiFallback: true
     },
 
-    plugins : [
+    plugins: [
         new HtmlWebPackPlugin({
-            template : "./client/index.html",
-            filename : "./index.html"
+            template: "./client/index.html",
+            filename: "./index.html"
         }),
         new MiniCssExtractPlugin({
-            filename : "style/[name].css",
-            chunkFilename : "[id].css"
+            filename: "style/[name].css",
+            chunkFilename: "[id].css"
         }),
         new DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-            'API_SERVER' : 'localhost:3002', // TODO : LOAD FROM FILE DEPENDENT ON ENV
-            'SITE_NAME' : '"Robert Concepción III"'
+            'API_SERVER': 'localhost:3002', // TODO : LOAD FROM FILE DEPENDENT ON ENV
+            'SITE_NAME': '"Robert Concepción III"'
         }),
 
         // copy all files to be available statically
@@ -137,36 +137,36 @@ module.exports = {
         // the webpack build process
 
         new CopyWebpackPlugin([{
-            from    : './client/**/*.*',
-            to : '',
-            transformPath : (targetPath, sourcePath) =>
+            from: './client/**/*.*',
+            to: '',
+            transformPath: (targetPath, sourcePath) =>
                 // cut off 'client/' from path
                 targetPath.substr(7)
         }, {
-            from : './client/robots.txt',
-            to : ''
+            from: './client/robots.txt',
+            to: ''
         }, {
-            from : './client/sitemap.xml',
-            to : ''
+            from: './client/sitemap.xml',
+            to: ''
         }], {
-            ignore : [
+            ignore: [
                 'client/*.*',
                 'client/style/**',
                 'client/style/**/*.*',
                 'client/js/**',
                 'client/js/**/*.*'
             ],
-            copyUnmodified : true
+            copyUnmodified: true
         })
     ],
 
-    resolve : {
-        alias : {
+    resolve: {
+        alias: {
             ...rootJSAliases,
             ...reduxAliases,
-            'img' : global.resolvePath('client/img'),
-            'app-root' : global.resolvePath('client/js'),
-            'common' : global.resolvePath('server/utils/common')
+            'img': global.resolvePath('client/img'),
+            'app-root': global.resolvePath('client/js'),
+            'common': global.resolvePath('server/utils/common')
         }
     }
 };

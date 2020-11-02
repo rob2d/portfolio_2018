@@ -3,26 +3,26 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
 const mimeTypeDict = {
-    'webp' : 'image/webp',
-    'jpg' : 'image/jpeg',
-    'jpeg' : 'image/jpeg',
-    'png' : 'image/png',
-    'svg' : 'image/svg+xml'
+    'webp': 'image/webp',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'png': 'image/png',
+    'svg': 'image/svg+xml'
 };
 
 const useStyles = makeStyles( theme => ({
-    container : {
-        '& img, & source, & picture' : {
-            position : 'absolute',
-            top : 0,
-            left : 0,
-            right : 0,
-            bottom : 0,
-            width : '100%',
-            height : '100%'
+    container: {
+        '& img, & source, & picture': {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100%',
+            height: '100%'
         }
     }
-}), { name : 'OptimizedImg' });
+}), { name: 'OptimizedImg' });
 
 /**
  * Converts a png, jpg, or image (at least used
