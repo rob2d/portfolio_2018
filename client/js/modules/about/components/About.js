@@ -1,10 +1,9 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { isPortrait } from 'utils';
 import { ButtonLink, OptimizedImg } from 'utils/components';
 import { useDocumentTitle, useAutoFaderClass } from 'utils/hooks';
 import SkillsVisualizer from './skills-orbit/SkillsVisualizer';
@@ -23,7 +22,6 @@ const useStyles = makeStyles(({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        padding: p => `${!p.inPortrait ?0:16}px`,
         boxSizing: 'border-box', // for padding in landscape
         lineHeight: '1.3rem',
         textAlign: 'left',
@@ -103,8 +101,7 @@ export default function About() {
     useDocumentTitle({ title: `${SITE_NAME} -- About` });
     const fadeContainerClass = useAutoFaderClass();
     const [vpW, vpH] = useViewportSizes();
-    const inPortrait = useMemo(() => isPortrait(vpW, vpH), [vpW, vpH]);
-    const classes = useStyles({ vpW, vpH, inPortrait });
+    const classes = useStyles({ vpW, vpH });
 
     const Tech = useCallback(({ children, url }) => {
         Tech.displayName = 'Tech';
