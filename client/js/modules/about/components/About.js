@@ -77,8 +77,8 @@ const useStyles = makeStyles(({
     },
     sphere: {
         boxSizing: 'border-box',
-        width: 'clamp(96px, calc(40px + 6vw), 256px)',
-        height: 'clamp(96px, calc(40px + 6vw), 256px)',
+        width: 'min(max(96px, 40px + 6vw), 256px)',
+        height: 'min(max(96px, 40px + 6vw), 256px)',
         flexShrink: '0',
         margin: '12px'
     },
