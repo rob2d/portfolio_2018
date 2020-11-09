@@ -38,7 +38,7 @@ jobs:
           command: ssh-keyscan $SERVER_URL >> ~/.ssh/known_hosts
       - run:
           name: SCP Static Files to Live Server
-          command: cd ~/project && cd ./server/public && scp -r * ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
+          command: cd ~/project && cd ./server/public && scp -prv * ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
 workflows:
     build:
       jobs:
