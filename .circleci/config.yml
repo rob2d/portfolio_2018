@@ -1,15 +1,40 @@
 version: 2.1
 orbs:
   node: circleci/node@4.1.0
+executors:
+  main_executor:
+    machine:
+      image: ubuntu-2004:202010-01
 jobs:
   build-and-test:
-    executor:
-        name: node/default
+    executor: main_executor
     steps:
       - checkout
       - node/install-packages
-      - run: npm run test
+      - run:
+          name: Install PNG & JPG Deps
+          command: sudo apt-get install libjpeg-dev libpng-dev
+      - run:
+          name: Build Application
+          command: npm run build
+      - run:
+          name: Run Integration Tests
+          command: npm run test
+  build-and-deploy:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run build && cd /server/public && scp -r ./ ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
 workflows:
-    build-and-test:
+    build:
       jobs:
         - build-and-test
+        - build-and-deploy:
+            requires:
+              - build-and-test
+            filters:
+              branches:
+                only:
+                  - master
