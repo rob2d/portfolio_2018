@@ -12,7 +12,7 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          name: Install PNG & JPG Deps
+          name: Install Image min Deps
           command: sudo apt-get install libjpeg-dev libpng-dev
       - run:
           name: Build Application
@@ -26,7 +26,15 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-      - run: npm run build && cd /server/public && scp -r ./ ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
+      - run:
+          name: Install Image min Deps
+          command: sudo apt-get install libjpeg-dev libpng-dev
+      - run:
+          name: Build Application
+          command: npm run build
+      - run:
+          name: SCP Static Files to Live Server
+          command: cd /server/public && scp -r ./ ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
 workflows:
     build:
       jobs:
