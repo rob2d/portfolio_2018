@@ -8,6 +8,7 @@ executors:
 jobs:
   build-and-test:
     executor: main_executor
+    working_directory: "~/project"
     steps:
       - checkout
       - node/install-packages
@@ -20,26 +21,29 @@ jobs:
       - run:
           name: Run Integration Tests
           command: npm run test
-  build-and-deploy:
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/server/public
+  deploy:
     executor:
-      name: node/default
+      name: main_executor
+    working_directory: "~/project"
     steps:
-      - checkout
-      - node/install-packages
+      - attach_workspace:
+          at: ~/project/server/public
+      - add_ssh_keys
       - run:
-          name: Install Image min Deps
-          command: sudo apt-get install libjpeg-dev libpng-dev
-      - run:
-          name: Build Application
-          command: npm run build
+          name: Add Server to SSH Known Hosts
+          command: ssh-keyscan $SERVER_URL >> ~/.ssh/known_hosts
       - run:
           name: SCP Static Files to Live Server
-          command: cd /server/public && scp -r ./ ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
+          command: cd ~/project && cd ./server/public && scp -r * ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
 workflows:
     build:
       jobs:
         - build-and-test
-        - build-and-deploy:
+        - deploy:
             requires:
               - build-and-test
             filters:

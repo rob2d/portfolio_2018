@@ -51,7 +51,7 @@ const config = {
 |
 */
 
-if(args && args.export_standalone) {
+if(args && (args.export_standalone=="true")) {
     const dateStr = moment(new Date())
         .format('YYYY-MM-DD-HHmmss');
 
