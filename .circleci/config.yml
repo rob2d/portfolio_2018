@@ -31,14 +31,14 @@ jobs:
     working_directory: "~/project"
     steps:
       - attach_workspace:
-          at: ~/project/server/public
+          at: ~/
       - add_ssh_keys
       - run:
           name: Add Server to SSH Known Hosts
           command: ssh-keyscan $SERVER_URL >> ~/.ssh/known_hosts
       - run:
           name: SCP Static Files to Live Server
-          command: cd ~/project && cd ./server/public && scp -prv * ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
+          command: cd ~/project/server/public && scp -prv * ${SERVER_LOGIN_URI}:${SERVER_STATIC_FILES_PATH}
 workflows:
     build:
       jobs:
