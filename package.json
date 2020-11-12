@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development ./client/js/index.js --open --output ./server/public/main.js --hot",
     "dev": "webpack --mode development ./client/js/index.js --output ./server/public/main.js",
-    "build": "webpack --mode production --export_standalone=false --zip=false",
+    "build": "webpack --mode production --export_standalone=false --zip=false"
   },
   "browserslist": [
     "defaults"
