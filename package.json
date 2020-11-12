@@ -7,7 +7,9 @@
   "scripts": {
     "start": "webpack-dev-server --mode development ./client/js/index.js --open --output ./server/public/main.js --hot",
     "dev": "webpack --mode development ./client/js/index.js --output ./server/public/main.js",
-    "build": "webpack --mode production --export_standalone=false --zip=false"
+    "build": "webpack --mode production --export_standalone=false --zip=false",
+    "test": "mocha ./__tests__/**/*.spec.js --timeout=100000",
+    "test:w": "mocha ./__tests__/**/*.spec.js --watch_mode=true --timeout=100000"
   },
   "browserslist": [
     "defaults"
@@ -28,11 +30,13 @@
     "@sevenoutman/use-debounced-memo": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
+    "chai": "^4.2.0",
     "classnames": "^2.2.6",
     "clsx": "^1.1.0",
     "copy-webpack-plugin": "^5.1.1",
     "core-js": "^3.6.4",
     "css-loader": "^3.4.2",
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -82,7 +86,6 @@
     "color": "^3.1.2",
     "colors": "^1.4.0",
     "cors": "^2.8.4",
-    "dotenv": "^8.1.0",
     "envify": "^4.0.0",
     "express": "^4.17.1"
   }
