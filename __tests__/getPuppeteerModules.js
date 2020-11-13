@@ -1,8 +1,5 @@
 // inject any .env variables for overrideable local configs
-
-require('dotenv').config();
-
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 const { argv: { watch_mode: inWatchMode=false } } = require('yargs');
 let page;
 let browser;
@@ -20,8 +17,6 @@ module.exports = (async function getPuppeteerModules() {
             slowMo: inWatchMode ? 10 : 0,
             headless: !inWatchMode,
             defaultViewport: null,
-            product: 'chrome',
-            executablePath: process.env.PUPPETEER_EXEC_PATH,
             args: ['--start-maximized', '--no-sandbox']
         });
     }

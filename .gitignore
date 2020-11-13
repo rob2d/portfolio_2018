@@ -5,3 +5,4 @@ server/.env
 builds
 .vscode/
 debug.log
+logs
