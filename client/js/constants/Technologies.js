@@ -35,6 +35,10 @@ export default {
         displayName: 'XML',
         referenceUrl: 'https://en.wikipedia.org/wiki/XML'
     },
+    'npm': {
+        displayName: 'NPM',
+        referenceUrl: 'https://npm.org'
+    },
     'react': {
         displayName: 'React',
         referenceUrl: 'https://reactjs.org'

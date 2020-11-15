@@ -1,6 +1,7 @@
 export default [
-    'thanos',
+    'vpsizes',
     'bw',
+    'thanos',
     'smartwalk',
     'colorshafted',
     'sonicphysics',

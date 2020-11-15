@@ -25,6 +25,7 @@ const useStyles = makeStyles(() => ({
         display: 'block',
         position: 'relative',
         flexGrow: 1,
+        width: '100%',
         maxWidth: '1100px',
         margin: '0 auto',
         top: '0px',

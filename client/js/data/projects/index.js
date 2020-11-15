@@ -7,3 +7,4 @@ export { default as npm } from './npm';
 export { default as chinesepoker } from './chinesepoker';
 export { default as sonicphysics } from './sonicphysics';
 export { default as bamf } from './bamf';
+export { default as vpsizes } from './vpsizes';
