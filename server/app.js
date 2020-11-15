@@ -139,11 +139,11 @@ app.get('*', (req,res) => {
 const startServer = server => {
     const { address } = server.address();
     const { port } = server.address();
-    const { version, name:appName } = require('./../package.json').version;
+    const { version, name } = require(path.resolve(__dirname, '../package.json'));
     const protocol = sslConfig.https ? 'https' : 'http';
     const host = (address == '0.0.0.0'|| address == '::') ? 'localhost' : address;
 
-    console.log(`${'%s'.white}[v%s] %s`, appName, version, argv.dev ? '(DEV MODE)' : '');
+    console.log(`${'%s'.white}[v%s] %s`, name, version, argv.dev ? '(DEV MODE)' : '');
     console.log(
         `-> currently running at ${protocol.blue.bold}:${`//%s:%s`.blue.bold}` +
         ' in HTTP %s mode', host, port, sslConfig.https ? 'Secure' : 'Insecure'
@@ -162,7 +162,7 @@ const protocolSrc = sslConfig.https ? https : http;
 const serverArgs = [app];
 
 if(sslConfig.https) {
-    serverArgs.splice(0,0,sslConfig.options);
+    serverArgs.splice(0, 0, sslConfig.options);
 }
 
 const server = protocolSrc.createServer(...serverArgs)

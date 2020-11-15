@@ -3,6 +3,7 @@ const { DefinePlugin } = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const SRC_ROOT = 'client';
 
 /**
  *
@@ -136,19 +137,22 @@ module.exports = {
         // if they are not already bundled via
         // the webpack build process
 
-        new CopyWebpackPlugin([{
-            from: './client/**/*.*',
-            to: '',
-            transformPath: (targetPath, sourcePath) =>
-                // cut off 'client/' from path
-                targetPath.substr(7)
-        }, {
-            from: './client/robots.txt',
-            to: ''
-        }, {
-            from: './client/sitemap.xml',
-            to: ''
-        }], {
+        new CopyWebpackPlugin([
+            {
+                from: `./${SRC_ROOT}/**/*.*`,
+                to: '',
+                transformPath: (target, src) => target.substr(`${SRC_ROOT}/`.length)
+            },
+            {
+                from: `./${SRC_ROOT}/favicon.ico`,
+                to: ''
+            },
+            ...(process.env.NODE_ENV == 'production' ?
+                [
+                    { from: `./${SRC_ROOT}/robots.txt`, to: '' },
+                    { from: `./${SRC_ROOT}/sitemap.xml`, to: '' }
+                ] : []
+            )], {
             ignore: [
                 'client/*.*',
                 'client/style/**',

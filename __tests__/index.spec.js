@@ -1,4 +1,26 @@
+const { assert } = require('chai');
+const { argv: { watch_mode: inWatchMode=false } } = require('yargs');
 
-console.log('pid passed ->', process.env.SERVER_PID);
-console.log('debug: no tests to run currently');
-process.exit(0);
+describe('Integration Tests', function integrationTests() {
+    before(async () => {
+        const { browser, page } = await require("./getPuppeteerModules");
+
+        global.browser = browser;
+        global.page = page;
+
+        await global.page.goto('http://127.0.0.1:3002', {
+            waitUntil: ['networkidle2']
+        });
+    });
+
+    it('does things', async () => {
+        assert.equal(true, true);
+    });
+
+    after(async function afterAll() {
+        if(!inWatchMode) {
+            await global.page.close();
+            await global.browser.close();
+        }
+    });
+});
