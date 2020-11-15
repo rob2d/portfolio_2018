@@ -10,6 +10,10 @@ jobs:
     executor: main_executor
     working_directory: "~/project"
     steps:
+      - run:
+          name: Use latest version of Node installed via NVM
+          command: |
+            nvm ls-remote && nvm use v14.12.0 && nvm alias default 14.12.0
       - checkout
       - node/install-packages
       - run:
