@@ -13,11 +13,11 @@ let browser;
  */
 module.exports = (async function getPuppeteerModules() {
     if(browser === undefined) {
-        browser = await puppeteer.launch(!inWatchMode ? undefined : {
+        browser = await puppeteer.launch({
             slowMo: inWatchMode ? 10 : 0,
             headless: !inWatchMode,
             defaultViewport: null,
-            args: ['--start-maximized', '--no-sandbox']
+            args: ['--start-maximized', '--no-sandbox', '--disable-setuid-sandbox']
         });
     }
 

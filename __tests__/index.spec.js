@@ -8,8 +8,8 @@ describe('Integration Tests', function integrationTests() {
         global.browser = browser;
         global.page = page;
 
-        await global.page.goto('http://localhost:3002', {
-            waitUntil: ['networkidle0', 'load']
+        await global.page.goto('http://127.0.0.1:3002', {
+            waitUntil: ['networkidle2']
         });
     });
 
