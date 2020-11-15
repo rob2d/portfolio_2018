@@ -1,4 +1,4 @@
-import React, { useMemo, cloneElement } from 'react';
+import { useMemo, cloneElement } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { pdf } from '@react-pdf/renderer';

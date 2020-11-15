@@ -1,11 +1,9 @@
-import React, {
-    useRef, useLayoutEffect, useCallback
-} from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import useViewportSizes from 'use-viewport-sizes'
-import ReelThumb from './ReelThumb'
+import { useRef, useLayoutEffect, useCallback } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import useViewportSizes from 'use-viewport-sizes';
+import ReelThumb from './ReelThumb';
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(() => ({
     reelThumbs: {
         position: 'relative',
         display: 'flex',

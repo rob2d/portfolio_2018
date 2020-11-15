@@ -1,4 +1,3 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Technologies from 'constants/Technologies';
 import ButtonLink from 'utils/components/ButtonLink';

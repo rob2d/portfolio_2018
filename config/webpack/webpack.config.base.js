@@ -170,7 +170,8 @@ module.exports = {
             ...reduxAliases,
             'img': global.resolvePath('client/img'),
             'app-root': global.resolvePath('client/js'),
-            'common': global.resolvePath('server/utils/common')
+            'common': global.resolvePath('server/utils/common'),
+            'react-dom' : '@hot-loader/react-dom'
         }
     }
 };

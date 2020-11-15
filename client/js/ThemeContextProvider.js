@@ -1,8 +1,4 @@
-import React, {
-    useState,
-    useMemo,
-    createContext
-} from 'react';
+import { useState, useMemo, createContext } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { getTheme } from './themeDefs';
 

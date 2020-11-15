@@ -1,9 +1,7 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
-import C from 'color';
 
 const useStyles = makeStyles(({ palette: { common } }) => ({
     container: {

@@ -1,9 +1,8 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
 import { mdiYoutube } from '@mdi/js';
 
-const useStyles = makeStyles(()=> ({
+const useStyles = makeStyles(() => ({
     reelThumbImg: {
         display: 'block',
         boxSizing: 'border-box',
@@ -55,10 +54,14 @@ export default function ReelThumb({ onClick, isSelected, thumbHeight, item }) {
     const classes = useStyles({ thumbHeight });
 
     return (
-        <div className={`${classes.reelThumbContainer} ${
-            isSelected?classes.reelThumbSelected:''}`}
+        <div
+            className={
+                `${classes.reelThumbContainer} ${
+                    isSelected?classes.reelThumbSelected:''}`
+                }
             onClick={onClick}
-        > {/* selected overlay if applicable */}
+        >
+            {/* selected overlay if applicable */}
             { isSelected && (<div className={ classes.thumbSelectedOverlay } />) }
             { (item.type == 'image') &&
                 (<img className={ classes.reelThumbImg } src={item.thumb}/>)

@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, lazy, Suspense } from 'react';
+import { useMemo, useCallback, lazy, Suspense } from 'react';
 /**
  * lazily loads a component with a provided resolver
  * (so that webpack can use magic import via comment
