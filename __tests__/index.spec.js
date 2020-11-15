@@ -97,7 +97,7 @@ describe('Integration Tests', function integrationTests() {
         });
 
 
-        it('Sees that content on the misc page has rendered', async () => {
+        it('Sees that content on the cv page has rendered', async () => {
             const { page } = global;
             await page.waitForSelector(
                 s.page.content(),
@@ -124,7 +124,7 @@ describe('Integration Tests', function integrationTests() {
             assert.match(page.url(), /[0-9]+.*\//g);
         });
 
-        it('Sees that content on the misc page has rendered', async () => {
+        it('Sees that content on the about page has rendered', async () => {
             const { page } = global;
             await page.waitForSelector(
                 s.page.content(),
