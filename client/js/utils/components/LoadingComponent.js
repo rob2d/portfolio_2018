@@ -27,10 +27,7 @@ export default function LoadingComponent({ error, size=64 }) {
     else {
         return (
             <div className={ classes.container }>
-                <CircularProgress
-                    size={ size }
-                    color={ 'secondary' }
-                />
+                <CircularProgress size={ size } color={ 'secondary' } />
             </div>
         );
     }

@@ -11,9 +11,9 @@ import { useMemo, useCallback, lazy, Suspense } from 'react';
 export default function useLazyComponent(resolver, loadingContent) {
     const Component = useMemo(() => lazy(resolver), []);
 
-    const returnValue = useCallback(() => (
+    const returnValue = useCallback( props => (
         <Suspense fallback={ loadingContent }>
-            <Component />
+            <Component { ...props } />
         </Suspense>
     ), [Component]);
 

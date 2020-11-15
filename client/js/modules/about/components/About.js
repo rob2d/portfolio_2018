@@ -4,9 +4,8 @@ import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { ButtonLink, OptimizedImg } from 'utils/components';
-import { useDocumentTitle, useAutoFaderClass } from 'utils/hooks';
-import SkillsVisualizer from './skills-orbit/SkillsVisualizer';
+import { ButtonLink, OptimizedImg, LoadingComponent } from 'utils/components';
+import { useDocumentTitle, useAutoFaderClass, useLazyComponent } from 'utils/hooks';
 
 const useStyles = makeStyles(({
     palette: { secondary, common, text },
@@ -102,6 +101,12 @@ export default function About() {
     const fadeContainerClass = useAutoFaderClass();
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpW, vpH });
+
+    const SkillsVisualizer = useLazyComponent(
+        () => import( /* webpackChunkName: "skills-visualizer" */'./skills-orbit/SkillsVisualizer')
+            .then( m => ({ default: m.default }) ),
+        <LoadingComponent size={ 32 } />
+    );
 
     const Tech = useCallback(({ children, url }) => {
         Tech.displayName = 'Tech';
