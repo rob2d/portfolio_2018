@@ -75,6 +75,7 @@ function spawnProcess({ processKey, onServerEvent }) {
     });
 
     processHandler.stdout.on('close', exitCode => {
+        console.log(`process close event for ${processKey.bold.yellow} reached`);
         Object.entries(processHandlers).forEach(([key, handler]) => {
             if(serversListening[key]) {
                 handler.stdin.pause();
