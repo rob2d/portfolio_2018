@@ -12,8 +12,7 @@ const launchRegex = {
 };
 
 const serversListening = {
-    webapp: false,
-    tests: false
+    webapp: false
 };
 
 const cmdStrings = {
@@ -43,6 +42,7 @@ function spawnProcess({ processKey, onServerEvent }) {
 
     processHandler.stdout.on('data', m => {
         const message = m.toString().replace(/\u001b\[.*?m/g, '');
+        console.log(`${`[${processKey}]`.bold.yellow}: ${m}`);
 
         switch (processKey) {
             case 'webapp': {
@@ -52,10 +52,9 @@ function spawnProcess({ processKey, onServerEvent }) {
                 break;
             }
             case 'tests':
-                console.log(`${'tests'.bold.yellow}: ${message}`);
-                hasFailingTests = hasFailingTests && (
-                    /[1-9]([0-9]?)+ failing/g.test(message) ||
-                    /ERR! code /g.test(message)
+                hasFailingTests = hasFailingTests || (
+                    /[1-9]([0-9]?)+ failing/gm.test(message) ||
+                    /ERR!/gm.test(message)
                 );
                 break;
             default:
@@ -64,29 +63,28 @@ function spawnProcess({ processKey, onServerEvent }) {
     });
 
     processHandler.stderr.on('data', m => {
-        const message = m.toString().replace(/\u001b\[.*?m/g, '');;
+        const message = m.toString().replace(/\u001b\[.*?m/g, '');
 
         // check if any of the tests reported as failing
-
-        if(/[1-9]([0-9]?)+ failing/g.test(message) || /ERR! code /g.test(message)) {
-            hasFailingTests = true;
-        }
+        hasFailingTests = hasFailingTests || (
+            /[1-9]([0-9]?)+ failing/g.test(message) ||
+            /ERR!/g.test(message)
+        );
 
         console.log(`${processKey.yellow.bold} ${'error'.red} -> ${message}`);
     });
 
     processHandler.stdout.on('close', exitCode => {
+        console.log(`process close event for ${processKey.bold.yellow} reached`);
         Object.entries(processHandlers).forEach(([key, handler]) => {
-            if(key) {
-                if(serversListening[key]) {
-                    handler.stdin.pause();
-                    serversListening[key] = false;
-                }
-                handler.kill();
+            if(serversListening[key]) {
+                handler.stdin.pause();
+                serversListening[key] = false;
             }
+            handler.kill();
         });
 
-        if((processKey == 'tests') && !exitCode) {
+        if((processKey == 'tests') && !exitCode && !hasFailingTests) {
             console.log('tests successful ✅, exiting...');
             process.exit(0);
         }

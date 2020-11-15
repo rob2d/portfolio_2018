@@ -1,4 +1,3 @@
-import React from 'react';
 import generateMediaImages from './data-helpers/generateMediaImages';
 
 export default {

@@ -9,7 +9,8 @@ describe('Integration Tests', function integrationTests() {
         global.page = page;
 
         await global.page.goto('http://127.0.0.1:3002', {
-            waitUntil: ['networkidle2']
+            waitUntil: ['load'],
+            timeout: 0
         });
     });
 

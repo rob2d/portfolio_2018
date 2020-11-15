@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import {
     Font,
     Page,
@@ -102,7 +102,7 @@ const experience = [{
     points: [
         'Designed the original backend, database and web UI for a CMS app ' +
         'facilitating upkeep of critical infra used in power systems and facility ' +
-        'mappings in skyscrapers using NodeJS, React, Flux (FB) and MySQL. ' +
+        'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL. ' +
         'High-profile locations acquired relying on this eventually included Black Rock, ' +
         'NYSE, WTC One and JFK Airport.',
 

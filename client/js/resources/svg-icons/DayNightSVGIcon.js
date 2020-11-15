@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 import C from 'color';
 import { makeStyles } from '@material-ui/core/styles';

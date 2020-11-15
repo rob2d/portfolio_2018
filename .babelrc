@@ -4,10 +4,11 @@
             "useBuiltIns": "usage", // or "entry"
             "corejs": 3
         }],
-        "@babel/preset-react"
+        ["@babel/preset-react", {
+            "runtime" : "automatic"
+        }]
     ],
     "plugins" : [
-        "react-hot-loader/babel",
         "@babel/plugin-proposal-class-properties",
         "@babel/plugin-syntax-dynamic-import",
         "@babel/plugin-proposal-optional-chaining",

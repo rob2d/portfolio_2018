@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
     Router,
     Route,
     Switch
 } from 'react-router-dom';
-import { hot } from 'react-hot-loader/root';
 import { useLazyComponent, useDocumentTitle } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/core/styles';
@@ -128,4 +127,4 @@ function RoutingApp() {
     );
 }
 
-export default hot(RoutingApp);
+export default RoutingApp;

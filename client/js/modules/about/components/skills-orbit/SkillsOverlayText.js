@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import skillPoints from 'constants/skillPoints';
 import ValueBar from './ValueBar';
