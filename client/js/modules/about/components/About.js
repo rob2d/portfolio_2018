@@ -47,7 +47,7 @@ const useStyles = makeStyles(({
         width: '100%',
         justifyContent: 'space-evenly',
         [breakpoints.up('sm')]: {
-            width: '18%',
+            width: '25%',
             height: p => `calc(100vh - ${p.negativeContentH + 32}px)`,
             flexDirection: 'column-reverse'
         }
@@ -77,8 +77,8 @@ const useStyles = makeStyles(({
     },
     sphere: {
         boxSizing: 'border-box',
-        width: 'min(max(96px, 40px + 6vw), 256px)',
-        height: 'min(max(96px, 40px + 6vw), 256px)',
+        width: 'min(max(96px, 40px + 6.2vw), 280px)',
+        height: 'min(max(96px, 40px + 6.2vw), 280px)',
         flexShrink: '0',
         margin: '12px'
     },
@@ -122,13 +122,15 @@ export default function About() {
     const classes = useStyles({ vpW, vpH, negativeContentH });
 
     const SkillsVisualizer = useLazyComponent(
-        () => import( /* webpackChunkName: "skills-visualizer" */'./skills-orbit/SkillsVisualizer')
+        () => import( /* webpackChunkName: "skills-visualizer" */
+            './skills-orbit/SkillsVisualizer')
             .then( m => ({ default: m.default }) ),
         <LoadingComponent size={ 32 } />
     );
 
     const Tech = useCallback(({ children, url }) => {
         Tech.displayName = 'Tech';
+
         return (
             <ButtonLink className={ classes.tech } url={ url } asButton={ false }>
                 { children }

@@ -86,7 +86,7 @@ function AppContent() {
 
     return (
         <div className={ classes.appWrapper }>
-            <div className={ classes.routeViewWrapper }>
+            <div className={ classes.routeViewWrapper } data-id={ 'page-content' }>
                 <AppHeader />
                 <Switch>
                     <Route
