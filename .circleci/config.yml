@@ -13,9 +13,6 @@ jobs:
       - checkout
       - node/install-packages
       - run:
-          name: Install Image min Deps
-          command: sudo apt-get install libjpeg-dev libpng-dev
-      - run:
           name: Build Application
           command: npm run build
       - run:
