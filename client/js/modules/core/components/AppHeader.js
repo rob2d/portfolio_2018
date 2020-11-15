@@ -124,8 +124,10 @@ export default function AppHeader() {
                 appBarH={ appBarH } // needed for browser issues
             />
             <Toolbar className={ classes.toolbar }>
-                <div className={ classes.leftIconsWrapper }>
-                    { Sections.map((s, i) =>
+                <div
+                    className={ classes.leftIconsWrapper }
+                    data-id={ 'app-header-nav' }
+                > { Sections.map((s, i) =>
                     (
                         <HeaderSectionButton
                             key={ `headerSectionButton${s.name}` }

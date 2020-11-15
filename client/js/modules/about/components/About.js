@@ -122,13 +122,15 @@ export default function About() {
     const classes = useStyles({ vpW, vpH, negativeContentH });
 
     const SkillsVisualizer = useLazyComponent(
-        () => import( /* webpackChunkName: "skills-visualizer" */'./skills-orbit/SkillsVisualizer')
+        () => import( /* webpackChunkName: "skills-visualizer" */
+            './skills-orbit/SkillsVisualizer')
             .then( m => ({ default: m.default }) ),
         <LoadingComponent size={ 32 } />
     );
 
     const Tech = useCallback(({ children, url }) => {
         Tech.displayName = 'Tech';
+
         return (
             <ButtonLink className={ classes.tech } url={ url } asButton={ false }>
                 { children }
