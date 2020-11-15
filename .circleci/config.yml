@@ -17,7 +17,7 @@ jobs:
           command: npm run build
       - run:
           name: Run Integration Tests
-          command: bash ./scripts/run-integration-tests.sh
+          command: npm run integration-tests
       - persist_to_workspace:
           root: ~/
           paths:

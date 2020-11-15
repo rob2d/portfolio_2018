@@ -76,11 +76,15 @@ function spawnProcess({ processKey, onServerEvent }) {
     });
 
     processHandler.stdout.on('close', exitCode => {
-        Object.values(processHandlers).forEach( handler => {
-            handler.stdin.pause();
-            handler.kill();
+        Object.entries(processHandlers).forEach(([key, handler]) => {
+            if(key) {
+                if(serversListening[key]) {
+                    handler.stdin.pause();
+                    serversListening[key] = false;
+                }
+                handler.kill();
+            }
         });
-        Object.keys(serversListening).forEach( key => serversListening[key] = false );
 
         if((processKey == 'tests') && !exitCode) {
             console.log('tests successful ✅, exiting...');
