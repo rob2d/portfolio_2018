@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState, useLayoutEffect } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,9 +45,10 @@ const useStyles = makeStyles(({
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         [breakpoints.up('sm')]: {
             width: '18%',
+            height: p => `calc(100vh - ${p.negativeContentH + 32}px)`,
             flexDirection: 'column-reverse'
         }
     },
@@ -61,7 +62,9 @@ const useStyles = makeStyles(({
         marginBottom: '0px',
         [breakpoints.up('sm')]: {
             marginTop: '16px',
-            marginBottom: '16px'
+            marginBottom: '16px',
+            maxHeight: p => `calc(100vh - ${p.negativeContentH + 32}px)`,
+            overflowY: 'auto'
         }
     },
 
@@ -100,7 +103,23 @@ export default function About() {
     useDocumentTitle({ title: `${SITE_NAME} -- About` });
     const fadeContainerClass = useAutoFaderClass();
     const [vpW, vpH] = useViewportSizes();
-    const classes = useStyles({ vpW, vpH });
+
+    const [negativeContentH, setNegativeContentH] = useState(() => 0 );
+
+    // measure the header and footer to size the
+    // remaining paragraph area
+
+    useLayoutEffect(() => {
+        const header = document.querySelector('[data-id=app-header]');
+        const footer = document.querySelector('[data-id=app-footer]');
+
+        setNegativeContentH(
+            header.getBoundingClientRect().height +
+            footer.getBoundingClientRect().height
+        );
+    }, [vpW, vpH]);
+
+    const classes = useStyles({ vpW, vpH, negativeContentH });
 
     const SkillsVisualizer = useLazyComponent(
         () => import( /* webpackChunkName: "skills-visualizer" */'./skills-orbit/SkillsVisualizer')

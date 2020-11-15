@@ -50,18 +50,14 @@ export default function AppFooter() {
                     className={ classes.contactButton }
                     onMouseDown={ onMouseDown }
                     aria-label={ description }
-                ><Icon
-                    className={ classes.icon }
-                    path={ iconPath }
-                    size={ 1 }
-                />
+                ><Icon className={ classes.icon } path={ iconPath } size={ 1 } />
                 </Button>
             </Tooltip>
         );
     }, [classes]);
 
     return (
-        <div className={ fadeContainerClass }>
+        <div className={ fadeContainerClass } data-id={ 'app-footer' }>
             <ContactButton
                 iconPath={ mdiGithubBox }
                 url={ 'https://github.com/rob2d' }

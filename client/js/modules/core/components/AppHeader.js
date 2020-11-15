@@ -113,7 +113,7 @@ export default function AppHeader() {
     } = visualState;
 
     return (
-        <AppBar className={ fadeContainerClass }>
+        <AppBar className={ fadeContainerClass } data-id={ 'app-header' }>
             <SectionHighlighter
                 sectionIndex={ (pathIndex != -1) ? pathIndex: 1 }
                 isSubsection={ pathIndex == -1 }
