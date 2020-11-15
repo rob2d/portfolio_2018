@@ -74,22 +74,6 @@ module.exports = {
                 }
             }]
         },
-        /*
-        {
-            test: /\.(sa|sc|c)ss$/,
-            exclude: /img/,
-            use: [{
-                loader : MiniCssExtractPlugin.loader,
-                options: {
-                }
-            }, {
-                loader: 'css-loader',
-                options: {
-                    sourceMap: false
-                }
-            }]
-        },
-        */
         {
             test: /\.svg$/,
             exclude: /fonts/,
@@ -171,7 +155,7 @@ module.exports = {
             'img': global.resolvePath('client/img'),
             'app-root': global.resolvePath('client/js'),
             'common': global.resolvePath('server/utils/common'),
-            'react-dom' : '@hot-loader/react-dom'
+            'react-dom': '@hot-loader/react-dom'
         }
     }
 };
