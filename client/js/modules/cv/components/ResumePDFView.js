@@ -1,12 +1,5 @@
 import { useMemo, useCallback } from 'react';
-import {
-    Font,
-    Page,
-    Text,
-    View,
-    Document,
-    StyleSheet
-} from '@react-pdf/renderer';
+import { Font, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 Font.register({
     family: 'Barlow',

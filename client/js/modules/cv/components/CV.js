@@ -23,14 +23,20 @@ const useStyles = makeStyles(({ palette: { secondary, common } }) => ({
         overflowY: 'auto',
         boxSizing: 'border-box',
         maxHeight: '100%',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
     },
     pdfWrapper: {
         position: 'relative',
         display: 'flex',
         flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        overflow: 'auto'
+    },
+    pdfView: {
+        width: p => p.width,
+        height: p => p.height
     },
     downloadButtonContainer: {
         position: 'absolute',
@@ -57,9 +63,21 @@ const useStyles = makeStyles(({ palette: { secondary, common } }) => ({
 export default function CV() {
     useDocumentTitle({ title: `${SITE_NAME} -- CV` });
     const [vpW, vpH] = useViewportSizes();
-    const classes = useStyles();
 
     const [width, height] = useMemo(() => {
+        const aspectRatio = vpW / vpH;
+
+        // if we have a really thin aspect
+        // ratio, then fill entire screen
+        // width
+
+        if(aspectRatio < 0.66) {
+            return [
+                Math.round(vpW - 16),
+                Math.round((vpW - 16) / 0.8)
+            ];
+        }
+
         if(vpW > 400) {
             return [
                 Math.round(vpW * 0.8),
@@ -73,37 +91,42 @@ export default function CV() {
         ];
     }, [vpW, vpH]);
 
+    const classes = useStyles({ width, height });
+
     return (
         <div className={ classes.container }>
             <div className={ classes.pdfWrapper }>
-                <PDFView width={ width } height={ height }>
-                    <ResumePDFView />
-                </PDFView>
-                <Tooltip
-                    id={ `resume-pdf-download-tooltip` }
-                    enterDelay={ 400 }
-                    title={ `Download this PDF` }
-                >
-                    <div className={ classes.downloadButtonContainer }>
-                        <PDFDownloadLink
-                            filename={ 'RobertConcepcionResume.pdf' }
-                            pdfContent={ (<ResumePDFView />) }
-                        >
-                            <Fab
-                                className={ classes.downloadButton }
-                                data-tip
-                                data-for={ `resume-pdf-download-tooltip` }
-                            >
-                                <Icon
-                                    path={ mdiDownload }
-                                    className={ classes.downloadIcon }
-                                    size={ 1.25 }
-                                />
-                            </Fab>
-                        </PDFDownloadLink>
-                    </div>
-                </Tooltip>
+                <PDFView
+                    className={ classes.pdfView }
+                    width={ width }
+                    height={ height }
+                    PDFDocComponent={ ResumePDFView }
+                />
             </div>
+            <Tooltip
+                id={ `resume-pdf-download-tooltip` }
+                enterDelay={ 400 }
+                title={ `Download this PDF` }
+            >
+                <div className={ classes.downloadButtonContainer }>
+                    <PDFDownloadLink
+                        filename={ 'RobertConcepcionResume.pdf' }
+                        pdfContent={ (<ResumePDFView />) }
+                    >
+                        <Fab
+                            className={ classes.downloadButton }
+                            data-tip
+                            data-for={ `resume-pdf-download-tooltip` }
+                        >
+                            <Icon
+                                path={ mdiDownload }
+                                className={ classes.downloadIcon }
+                                size={ 1.25 }
+                            />
+                        </Fab>
+                    </PDFDownloadLink>
+                </div>
+            </Tooltip>
         </div>
     );
 }

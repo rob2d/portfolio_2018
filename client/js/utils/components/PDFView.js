@@ -1,7 +1,8 @@
-import { cloneElement } from 'react';
+import { useMemo } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
-import { PDFViewer } from '@react-pdf/renderer';
+import { BlobProvider } from '@react-pdf/renderer';
+import { Document, Page } from 'react-pdf/dist/umd/entry.webpack';
 
 /**
  * Wraps PDFViewer found in @react-pdf/renderer and supplements
@@ -17,14 +18,29 @@ import { PDFViewer } from '@react-pdf/renderer';
  * @param {string} param0.className
  * @param {number} param0.debounceMs (default 500)
  */
-export default function PDFView({ debounceMs=500, children, ...viewerProps }) {
+export default function PDFView({
+    debounceMs=500,
+    PDFDocComponent,
+    ...viewerProps
+}) {
     const theme = useTheme();
+    const document = useMemo(() => (
+        <PDFDocComponent theme={ theme } />
+    ), [PDFDocComponent, theme]);
 
     const content = useDebouncedMemo(() => (
-        <PDFViewer { ...viewerProps }>
-            { cloneElement(children, { theme }) }
-        </PDFViewer>
-    ), [viewerProps, children, theme], debounceMs);
+        <BlobProvider document={ document }>
+            {({ blob, url, loading }) => loading ? <div>Loading</div> : (
+                <Document
+                    file={ url }
+                    renderMode={ 'canvas' }
+                    { ...viewerProps }
+                >
+                    <Page pageNumber={ 1 } width={ viewerProps?.width || undefined } />
+                </Document>
+            ) }
+        </BlobProvider>
+    ), [viewerProps, document], debounceMs);
 
     return content;
 }
