@@ -1,9 +1,25 @@
 const fs = require('fs');
+const path = require('path');
 const { DefinePlugin } = require('webpack');
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SRC_ROOT = 'client';
+const DEST_ROOT = 'server/public';
+
+const ignoredGlobPatternCopyOptions = {
+    globOptions: {
+        ignore: [
+            '**/style/**',
+            'client/style/**/*.*',
+            'client/js/**',
+            'client/js/**/*.*',
+            '**/*.js',
+            '**/*.html'
+        ]
+    }
+};
 
 /**
  *
@@ -36,7 +52,7 @@ module.exports = {
         main: './client/js'
     },
     output: {
-        path: global.resolvePath('server/public/'),
+        path: global.resolvePath(DEST_ROOT),
         publicPath: '/',
         filename: '[name].bundle.js',
         chunkFilename: '[name].bundle.js'
@@ -44,9 +60,8 @@ module.exports = {
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {
-            name: true,
             cacheGroups: {
-                vendor: {
+                defaultVendors: {
                     test: /[\\/]node_modules[\\/]/,
                     chunks: 'all',
                     name: 'vendor',
@@ -103,6 +118,7 @@ module.exports = {
     },
 
     plugins: [
+        new NodePolyfillPlugin(),
         new HtmlWebPackPlugin({
             template: "./client/index.html",
             filename: "./index.html"
@@ -121,30 +137,37 @@ module.exports = {
         // if they are not already bundled via
         // the webpack build process
 
-        new CopyWebpackPlugin([
-            {
+        new CopyWebpackPlugin({
+            patterns: [{
                 from: `./${SRC_ROOT}/**/*.*`,
-                to: '',
-                transformPath: (target, src) => target.substr(`${SRC_ROOT}/`.length)
-            },
-            {
+                to: ({ context, absoluteFilename }) => {
+
+                    // TODO: precalculate normalized SRC_ROOT, DEST_ROOT
+                    // so this op isn't repeated many times
+
+                    const srcRoot = path.join(context, SRC_ROOT);
+                    const destRoot = path.join(context, DEST_ROOT);
+                    return path.normalize(absoluteFilename).replace(srcRoot, destRoot);
+                },
+                ...ignoredGlobPatternCopyOptions
+            }, {
                 from: `./${SRC_ROOT}/favicon.ico`,
-                to: ''
-            },
-            ...(process.env.NODE_ENV == 'production' ?
+                to: '',
+                ...ignoredGlobPatternCopyOptions
+            }, ...(process.env.NODE_ENV == 'production' ?
                 [
-                    { from: `./${SRC_ROOT}/robots.txt`, to: '' },
-                    { from: `./${SRC_ROOT}/sitemap.xml`, to: '' }
+                    {
+                        from: `./${SRC_ROOT}/robots.txt`,
+                        to: '',
+                        ...ignoredGlobPatternCopyOptions
+                    },
+                    {
+                        from: `./${SRC_ROOT}/sitemap.xml`,
+                        to: '',
+                        ...ignoredGlobPatternCopyOptions
+                    },
                 ] : []
-            )], {
-            ignore: [
-                'client/*.*',
-                'client/style/**',
-                'client/style/**/*.*',
-                'client/js/**',
-                'client/js/**/*.*'
-            ],
-            copyUnmodified: true
+            )]
         })
     ],
 
@@ -152,6 +175,8 @@ module.exports = {
         alias: {
             ...rootJSAliases,
             ...reduxAliases,
+            'components': global.resolvePath('client/js/utils/components'),
+            'page-layout': global.resolvePath('client/js/utils/components/page-layout'),
             'img': global.resolvePath('client/img'),
             'app-root': global.resolvePath('client/js'),
             'common': global.resolvePath('server/utils/common'),
