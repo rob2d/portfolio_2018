@@ -1,4 +1,4 @@
-import { cloneElement, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { BlobProvider } from '@react-pdf/renderer';
@@ -34,8 +34,9 @@ export default function PDFView({
                 <Document
                     file={ url }
                     renderMode={ 'canvas' }
+                    { ...viewerProps }
                 >
-                    <Page pageNumber={ 1 } width={ window.innerWidth } />
+                    <Page pageNumber={ 1 } width={ viewerProps?.width || undefined } />
                 </Document>
             ) }
         </BlobProvider>
