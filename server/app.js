@@ -102,17 +102,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // ==================== //
-//  API ROUTES          //
-// ==================== //
-
-// require backend routes
-
-//app.use('/api', require('./routes/api'));
-app.get('/api/*', (req,res) => {
-    res.status(404).send('404 Error');
-});
-
-// ==================== //
 // FRONT END ROUTING    //
 // ==================== //
 
