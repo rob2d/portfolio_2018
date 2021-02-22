@@ -76,9 +76,11 @@ export default function CV() {
     return (
         <div className={ classes.container }>
             <div className={ classes.pdfWrapper }>
-                <PDFView width={ width } height={ height }>
-                    <ResumePDFView />
-                </PDFView>
+                <PDFView
+                    width={ width }
+                    height={ height }
+                    PDFDocComponent={ ResumePDFView }
+                />
                 <Tooltip
                     id={ `resume-pdf-download-tooltip` }
                     enterDelay={ 400 }
