@@ -35,14 +35,15 @@ const experience = [{
     workplace: `Chekhub`,
     dates: 'November 2020 - February 2021',
     points: [
-        'Created a system to build hierarchical search data and relate locations ' +
-        'to any other entities for instant fuzzy search filtering, purely via ' +
-        'client-side, leveraging existing API calls for use throughout a flagship ' +
-        'ticket assignment and asset mapping web application',
+        'Contributed to streamlining the architecture for a flagship ticket ' +
+        'assignment and asset mapping web app. This included visual aspects such ' +
+        'as font standardization and palette simplification, being able to model ' +
+        'locations and relationships easily, and fuzzy filter any content ' +
+        'along several modules purely via client code.',
 
-        'Developed a Google Maps module which allowed dynamic filtering ' +
-        'and highlighting data dynamically only-within view, ' +
-        'running at least 60fps with a drag and drop interface for ' +
+        'Developed a Google Maps ticket browsing and assignment system allowed ' +
+        'dynamic filtering and highlighting data only-within view, ' +
+        'running at least 60fps on client machines with a drag and drop interface for ' +
         'browsing, searching for or assigning tickets to technicians, or ' +
         'panning/zooming on any items within a user\'s organization.'
     ]
@@ -62,7 +63,7 @@ const experience = [{
     workplace: `Nomura`,
     dates: 'February 2019 - September 2019',
     points: [
-        `Designed a front-end framework to interchangeably deploy features ` +
+        `Designed a front-end build system to interchangeably deploy modules ` +
         'within a new suite of apps for an initiative facilitating billions in ' +
         'equities trading monthly, and deployed two apps to production.',
 
@@ -70,7 +71,7 @@ const experience = [{
         `of rows without pagination, updating real-time based on ` +
         `incoming socket data.`,
 
-        `Assisted front end devs across departments ` +
+        `Assisted front end devs across other departments ` +
         `and collaborated with backend devs.`
     ]
 }, {
@@ -79,14 +80,14 @@ const experience = [{
     workplace: 'RSG Media',
     dates: 'November 2017 - August 2018',
     points: [
-        'Planned with VPs and independently coded new flagship RESTful API backend ' +
+        'Independently coded new flagship RESTful API backend ' +
         '(RightsLogic) using NodeJS and MongoDB, and AWS Lamda ' +
         'microservices API and S3 to lookup IP rights globally in real-time ' +
         '-- under budget and on schedule.',
 
         'Auto-generated API doc for front-end to reference as spec evolved.',
 
-        'Assisted with data migration scripts, as well as deployment dev ops.'
+        'Assisted with data migration scripts, as well as deployment dev ops as needed.'
     ]
 }, {
     title: 'Fullstack Engineer',
@@ -108,11 +109,11 @@ const experience = [{
     workplace: 'PMC Technology',
     dates: 'April 2014 - March 2017',
     points: [
-        'Designed the original backend, database and web UI for a CMS app ' +
+        'Designed the original backend, database and UI for a CMS app ' +
         'facilitating upkeep of critical infra used in power systems and facility ' +
         'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL. ' +
-        'High-profile locations acquired relying on this eventually included Black Rock, ' +
-        'NYSE, WTC One and JFK Airport.',
+        'High-profile locations acquired relying on this eventually ' +
+        'included Black Rock, NYSE, WTC One and JFK Airport.',
 
         'Designed and iterated on app UI mockups to implement, and ' +
         'assisted with miscellaneous projects such as an expo website and business ' +
@@ -241,7 +242,7 @@ const createStyles = theme => StyleSheet.create({
         justifyContent: 'center',
         fontFamily: 'Barlow',
         fontWeight: 700,
-        fontSize: '11pt',
+        fontSize: '10.5pt',
         letterSpacing: '1.25pt'
     },
     educationResult: {
@@ -290,7 +291,7 @@ const createStyles = theme => StyleSheet.create({
     sectionBodyP: {
         fontFamily: 'Barlow',
         fontWeight: 400,
-        fontSize: '8.2pt',
+        fontSize: '8pt',
         lineHeight: '1.24pt',
         letterSpacing: '0.4pt',
         textAlign: 'left'
