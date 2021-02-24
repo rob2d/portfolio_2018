@@ -35,13 +35,14 @@ const experience = [{
     workplace: `Chekhub`,
     dates: 'November 2020 - February 2021',
     points: [
-        'Created a system to build hierarchical search data or relate locations ' +
-        'to any other entities for instant fuzzy search filtering, purely on ' +
-        'client-side using existing API data.',
+        'Created a system to build hierarchical search data and relate locations ' +
+        'to any other entities for instant fuzzy search filtering, purely via ' +
+        'client-side, leveraging existing API calls for use throughout a flagship ' +
+        'ticket assignment and asset mapping web application',
 
         'Developed a Google Maps module which allowed dynamic filtering ' +
         'and highlighting data dynamically only-within view, ' +
-        'running at least 60fps on client PCs with drag and drop interface for ' +
+        'running at least 60fps with a drag and drop interface for ' +
         'browsing, searching for or assigning tickets to technicians, or ' +
         'panning/zooming on any items within a user\'s organization.'
     ]
@@ -289,7 +290,7 @@ const createStyles = theme => StyleSheet.create({
     sectionBodyP: {
         fontFamily: 'Barlow',
         fontWeight: 400,
-        fontSize: '8.25pt',
+        fontSize: '8.2pt',
         lineHeight: '1.24pt',
         letterSpacing: '0.4pt',
         textAlign: 'left'
