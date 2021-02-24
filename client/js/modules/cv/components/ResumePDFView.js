@@ -29,8 +29,23 @@ Font.register({
 
 Font.registerHyphenationCallback(word => [word]);
 
-
 const experience = [{
+    title: 'UI Developer',
+    context: 'Contract',
+    workplace: `Chekhub`,
+    dates: 'November 2020 - February 2021',
+    points: [
+        'Created a system to build hierarchical search data or relate locations ' +
+        'to any other entities for instant fuzzy search filtering, purely on ' +
+        'client-side using existing API data.',
+
+        'Developed a Google Maps module which allowed dynamic filtering ' +
+        'and highlighting data dynamically only-within view, ' +
+        'running at least 60fps on client PCs with drag and drop interface for ' +
+        'browsing, searching for or assigning tickets to technicians, or ' +
+        'panning/zooming on any items within a user\'s organization.'
+    ]
+}, {
     title: 'Frontend Engineer',
     workplace: `Greystone & Co`,
     dates: 'October 2019 - October 2020',
@@ -46,10 +61,9 @@ const experience = [{
     workplace: `Nomura`,
     dates: 'February 2019 - September 2019',
     points: [
-        `Designed a front-end framework for interchangeably and ` +
-        `intuitively deploying features with a new suite of apps for a company-wide ` +
-        `initiative which facilitated billions of dollars in equities trading monthly ` +
-        `and deployed two apps to production.`,
+        `Designed a front-end framework to interchangeably deploy features ` +
+        'within a new suite of apps for an initiative facilitating billions in ' +
+        'equities trading monthly, and deployed two apps to production.',
 
         `Created an in-house grid library which rendered 100ks ` +
         `of rows without pagination, updating real-time based on ` +
@@ -212,7 +226,8 @@ const createStyles = theme => StyleSheet.create({
     },
     sectionEntryBody: {
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        fontSize: '9pt'
     },
     sectionEntryTitle: {
         display: 'flex',
@@ -274,7 +289,7 @@ const createStyles = theme => StyleSheet.create({
     sectionBodyP: {
         fontFamily: 'Barlow',
         fontWeight: 400,
-        fontSize: '10pt',
+        fontSize: '8.25pt',
         lineHeight: '1.24pt',
         letterSpacing: '0.4pt',
         textAlign: 'left'
@@ -301,7 +316,8 @@ const createStyles = theme => StyleSheet.create({
 const skills = [{
     name: 'Engineering',
     items: [[
-        'JavaScript (ES5/6/7)',
+        'ES5/6/7',
+        'TypeScript',
         'Java'
     ], [
         'React',
@@ -459,7 +475,6 @@ export default function ResumePDFView({ theme }) {
                 </View>
                 <View style={{ ...styles.rightPanel, ...styles.panel }}>
                     <View style={ styles.section }>
-                        <Text style={ styles.sectionTitle }>Experience</Text>
                         <View style={ styles.sectionBody }>
                             { experience.map((entry, i) => (
                                 <ResumeExperienceEntry
