@@ -2,7 +2,11 @@ import { useMemo } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { BlobProvider } from '@react-pdf/renderer';
-import { Document, Page } from 'react-pdf/dist/umd/entry.webpack';
+import { Document, Page, pdfjs } from 'react-pdf/dist/umd/entry.webpack';
+
+pdfjs.GlobalWorkerOptions.workerSrc=`//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
+    pdfjs.version
+}/pdf.worker.js`;
 
 /**
  * Wraps PDFViewer found in @react-pdf/renderer and supplements
@@ -36,7 +40,10 @@ export default function PDFView({
                     renderMode={ 'canvas' }
                     { ...viewerProps }
                 >
-                    <Page pageNumber={ 1 } width={ viewerProps?.width || undefined } />
+                    <Page
+                        pageNumber={ 1 }
+                        width={ viewerProps?.width || undefined }
+                    />
                 </Document>
             ) }
         </BlobProvider>
