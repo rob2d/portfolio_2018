@@ -36,15 +36,15 @@ const experience = [{
     dates: 'November 2020 - February 2021',
     points: [
         'Contributed to streamlining the architecture for a flagship ticket ' +
-        'assignment and asset mapping web app. This included visual aspects such ' +
-        'as font standardization and palette simplification, being able to model ' +
+        'assignment and asset-mapping web app. This included visual aspects such ' +
+        'as: font standardization and palette simplification, being able to model ' +
         'locations and relationships easily, and fuzzy filter any content ' +
         'along several modules purely via client code.',
 
         'Developed a Google Maps ticket browsing and assignment system allowed ' +
-        'dynamic filtering and highlighting data only-within view, ' +
-        'running at least 60fps on client machines with a drag and drop interface for ' +
-        'browsing, searching for or assigning tickets to technicians, or ' +
+        'dynamic filtering and highlighting data only-within view. This ran ' +
+        'at a minimum of 60fps on client machines with a drag and drop interface for ' +
+        'browsing, searching for, or assigning tickets to technicians, as well as ' +
         'panning/zooming on any items within a user\'s organization.'
     ]
 }, {

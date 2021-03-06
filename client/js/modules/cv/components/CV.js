@@ -3,6 +3,7 @@ import C from 'color';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import Fab from '@material-ui/core/Fab';
+import Typography from '@material-ui/core/Typography';
 import useViewportSizes from 'use-viewport-sizes';
 import Icon from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
@@ -10,7 +11,7 @@ import { useDocumentTitle } from 'utils/hooks';
 import { PDFView, PDFDownloadLink } from 'utils/components';
 import ResumePDFView from './ResumePDFView';
 
-const useStyles = makeStyles(({ palette: { secondary, common } }) => ({
+const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
     container: {
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -57,11 +58,22 @@ const useStyles = makeStyles(({ palette: { secondary, common } }) => ({
             color: common.white,
             fill: common.white
         }
+    },
+    portfolioNotice: {
+        width: '100%',
+        backgroundColor: primary.dark,
+        color: common.white,
+        paddingTop: '8px',
+        paddingBottom: '8px',
+        '& a': {
+            fontWeight: 900
+        }
     }
-}));
+}), { name: 'CV' });
 
 export default function CV() {
     useDocumentTitle({ title: `${SITE_NAME} -- CV` });
+
     const [vpW, vpH] = useViewportSizes();
 
     const [width, height] = useMemo(() => {
@@ -81,13 +93,13 @@ export default function CV() {
         if(vpW > 400) {
             return [
                 Math.round(vpW * 0.8),
-                Math.round(vpH - 132)
+                Math.round(vpH - 156)
             ];
         }
 
         return [
             Math.round(vpW * 0.92),
-            Math.round(vpH - 132)
+            Math.round(vpH - 156)
         ];
     }, [vpW, vpH]);
 
@@ -103,6 +115,20 @@ export default function CV() {
                     PDFDocComponent={ ResumePDFView }
                 />
             </div>
+            <Typography
+                variant={ 'caption' }
+                className={ classes.portfolioNotice }
+            >
+                Auto-generated via React by Rob --&nbsp;
+                <a href={
+                        'https://github.com/rob2d/portfolio_2018/blob/' +
+                        'master/client/js/modules/cv/components/' +
+                        'ResumePDFView.js'
+                    }
+                >
+                    See the source code
+                </a>
+            </Typography>
             <Tooltip
                 id={ `resume-pdf-download-tooltip` }
                 enterDelay={ 400 }
