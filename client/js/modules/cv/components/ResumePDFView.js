@@ -41,7 +41,7 @@ const experience = [{
         'locations and relationships easily, and fuzzy filter any content ' +
         'along several modules purely via client code.',
 
-        'Developed a Google Maps ticket browsing and assignment system allowed ' +
+        'Developed a Google Maps ticket browsing and assignment system which allowed for ' +
         'dynamic filtering and highlighting data only-within view. This ran ' +
         'at a minimum of 60fps on client machines with a drag and drop interface for ' +
         'browsing, searching for, or assigning tickets to technicians, as well as ' +
