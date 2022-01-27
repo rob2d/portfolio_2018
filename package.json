@@ -70,7 +70,7 @@
     "react-router-dom": "^5.1.2",
     "react-youtube": "^7.9.0",
     "terser-webpack-plugin": "^4.2.3",
-    "three": "^0.125.0",
+    "three": "^0.137.0",
     "three-text2d": "^0.6.0",
     "use-viewport-sizes": "^0.2.9",
     "webpack": "^5.23.0",
