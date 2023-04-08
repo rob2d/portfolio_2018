@@ -166,11 +166,11 @@ export default function ProjectCardLayout(props) {
     []);
 
     useEffect(() => {
-        container.current.addEventListener('mouseenter', onMouseEnter);
-        container.current.addEventListener('mouseleave', onMouseLeave);
+        container.current?.addEventListener('mouseenter', onMouseEnter);
+        container.current?.addEventListener('mouseleave', onMouseLeave);
         return () => {
-            container.current.removeEventListener('mouseenter', onMouseEnter);
-            container.current.removeEventListener('mouseleave', onMouseLeave);
+            container.current?.removeEventListener('mouseenter', onMouseEnter);
+            container.current?.removeEventListener('mouseleave', onMouseLeave);
         };
     }, []);
 

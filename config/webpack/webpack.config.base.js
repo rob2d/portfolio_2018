@@ -57,6 +57,10 @@ module.exports = {
         filename: '[name].bundle.js',
         chunkFilename: '[name].bundle.js'
     },
+    devServer: {
+        hot: true,
+        historyApiFallback: true
+    },
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {
@@ -111,10 +115,6 @@ module.exports = {
                 }
             }]
         }]
-    },
-
-    devServer: {
-        historyApiFallback: true
     },
 
     plugins: [
@@ -179,8 +179,7 @@ module.exports = {
             'page-layout': global.resolvePath('client/js/utils/components/page-layout'),
             'img': global.resolvePath('client/img'),
             'app-root': global.resolvePath('client/js'),
-            'common': global.resolvePath('server/utils/common'),
-            'react-dom': '@hot-loader/react-dom'
+            'common': global.resolvePath('server/utils/common')
         }
     }
 };
