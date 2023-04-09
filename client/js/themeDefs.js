@@ -1,5 +1,5 @@
 import C from 'color';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import deepMerge from 'utils/themer/deepMerge';
 import createDerivedTheme from 'utils/themer/createDerivedTheme';
 
@@ -214,7 +214,7 @@ const themes = {};
  */
 const getTheme = theme => {
     if(!themes[theme]) {
-        themes[theme] = createMuiTheme(
+        themes[theme] = createTheme(
             createDerivedTheme(themeDefs[theme])
         );
     }

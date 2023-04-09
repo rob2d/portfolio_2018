@@ -1,14 +1,21 @@
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
 module.exports = {
+    mode: 'development',
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.[jt]sx?$/,
                 exclude: /node_modules/,
-                loader: "babel-loader",
-                options: {
-                    cacheDirectory: true
-                }
+                use: [{
+                    loader: require.resolve('babel-loader'),
+                    options: {
+                        cacheDirectory: true, 
+                        plugins: [require.resolve('react-refresh/babel')] 
+                    }
+                }]
             }
-        ]
-    }
+        ],
+    },
+    plugins: [new ReactRefreshWebpackPlugin()]
 };

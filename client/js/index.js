@@ -2,7 +2,7 @@
 // with minimal overhead (for Safari and Edge users)
 
 import './utils/polyfills/coreJsPolyfills';
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import RoutingApp from './RoutingApp';
 
 // suppress warnings in prod for Three.js (which are
@@ -14,4 +14,6 @@ if(process.env.NODE_ENV == 'production') {
 }
 
 const appElem = document.getElementById('app');
-ReactDOM.render(<RoutingApp />, appElem);
+const root = ReactDOMClient.createRoot(appElem);
+
+root.render(<RoutingApp />);

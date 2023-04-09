@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  node: circleci/node@4.1.0
+  node: circleci/node@5.1.0
 executors:
   main_executor:
     machine:
@@ -13,9 +13,10 @@ jobs:
       - run:
           name: Use latest version of Node installed via NVM
           command: |
-            nvm ls-remote && nvm use v14.12.0 && nvm alias default 14.12.0
+            nvm ls-remote && nvm install 16.20.0 && nvm use 16.20.0 && nvm alias default 16.20.0
       - checkout
-      - node/install-packages
+      - node/install-packages:
+          override-ci-command: "npm ci --force"
       - run:
           name: Build Application
           command: npm run build
