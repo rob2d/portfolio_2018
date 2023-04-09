@@ -15,8 +15,8 @@ jobs:
           command: |
             nvm ls-remote && nvm use v14.12.0 && nvm alias default 14.12.0
       - checkout
-      - node/install-packages
-        override-ci-command: npm ci --force
+      - node/install-packages:
+          override-ci-command: "npm ci --force"
       - run:
           name: Build Application
           command: npm run build
