@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Use latest version of Node installed via NVM
           command: |
-            nvm ls-remote && nvm use v14.12.0 && nvm alias default 14.12.0
+            nvm ls-remote && nvm nvm use 16 && nvm alias default 16
       - checkout
       - node/install-packages:
           override-ci-command: "npm ci --force"
