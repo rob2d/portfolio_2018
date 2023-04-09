@@ -5,13 +5,15 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.[jt]sx?$/,
                 exclude: /node_modules/,
-                loader: "babel-loader",
-                options: {
-                    cacheDirectory: true,
-                    plugins: [require.resolve('react-refresh/babel')]
-                }
+                use: [{
+                    loader: require.resolve('babel-loader'),
+                    options: {
+                        cacheDirectory: true, 
+                        plugins: [require.resolve('react-refresh/babel')] 
+                    }
+                }]
             }
         ],
     },
