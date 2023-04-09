@@ -357,7 +357,7 @@ export default function ResumePDFView({ theme }) {
     const styles = useMemo(() => createStyles(theme), [theme]);
 
     const ResumeSkillsGroup = useCallback(({ name, items, isLast }) => (
-        <View style={ !isLast ? styles.sectionEntryBottomPadding: undefined }>
+        <View style={ !isLast ? styles.sectionEntryBottomPadding: undefined } key={ name }>
             <View style={ styles.sectionEntryTitle }>
                 <Text style={ styles.sectionTitleText }>
                     { name }

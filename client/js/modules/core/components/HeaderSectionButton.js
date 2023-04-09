@@ -20,7 +20,8 @@ const useStyles = makeStyles(({ palette: { common } }) => ({
         },
         '& svg': {
             fontSize: '18pt',
-            fill: '#FFF'
+            fill: common.white,
+            color: common.white
         }
     },
     '@media (max-width: 400px)': {
