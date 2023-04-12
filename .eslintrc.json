@@ -114,7 +114,7 @@
         "es6" : true,
         "browser" : true
     },
-    "parser" : "babel-eslint",
+    "parser" : "@babel/eslint-parser",
     "globals": {
         "SITE_NAME": "readonly"
     }
