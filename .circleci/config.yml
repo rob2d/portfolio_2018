@@ -18,6 +18,9 @@ jobs:
       - node/install-packages:
           override-ci-command: "npm ci --force"
       - run:
+          name: Run Linting Checks
+          command: npm run lint
+      - run:
           name: Build Application
           command: npm run build
       - run:
