@@ -172,7 +172,7 @@ export default function ProjectDetails({ projectId }) {
     const Section = useCallback(({
         title, children, linkItems, linkIconPath
     }) => {
-        if(!children && !linkItems?.length) { return (<></>) }
+        if(!children && !linkItems?.length) { return undefined }
 
         return (
             <div className={ classes.section }>

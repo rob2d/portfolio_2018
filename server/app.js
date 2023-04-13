@@ -48,13 +48,12 @@ const bodyParser = require('body-parser');
 const port = argv.port || process.env.PORT || 3002;
 const env = process.env.NODE_ENV || 'development';
 
-
 const sslConfig = (() => {
     if(argv.https) {
         const certPath = argv.ssl_cert;
         const keyPath = argv.ssl_key;
         const caPath = argv.ssl_ca;
-        const config = { https : true, options : {} };
+        const config = { https: true, options: {} };
 
         if(caPath) {
             config.options.ca = fs.readFileSync(caPath);
@@ -72,9 +71,8 @@ const sslConfig = (() => {
 
         return config;
     }
-    else return { https : false };
+    else return { https: false };
 })();
-
 
 // create a simple callback handler for our app
 

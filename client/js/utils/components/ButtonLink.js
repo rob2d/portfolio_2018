@@ -37,7 +37,7 @@ export default function ButtonLink({
             focusRipple
             className={ clsx(classes.container, className) }
             onMouseDown={ onClick }
-            TouchRippleProps={{ classes: { ripple : classes.touchRipple } }}
+            TouchRippleProps={{ classes: { ripple: classes.touchRipple } }}
             aria-label={ name }
         >{ children }
         </ButtonBase>

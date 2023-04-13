@@ -24,7 +24,6 @@ function ValueEntry({ value, target=value, rate=0, onChange }) {
         throw new Error('"target" of ShiftValuesMap entry must be a numeric');
     }
 
-
     if(typeof rate != 'number') {
         throw new Error('"rate" of ShiftValuesMap entry must be a numeric');
     }

@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
 import { mdiYoutube } from '@mdi/js';
@@ -22,8 +23,8 @@ const useStyles = makeStyles(() => ({
         boxSizing: 'border-box',
         border: '2px solid rgba(0,0,0,0)',
         width: '100%',
-        minHeight: p =>(`${p.thumbHeight}px !important`),
-        height: p =>(`${p.thumbHeight}px !important`),
+        minHeight: p => (`${p.thumbHeight}px !important`),
+        height: p => (`${p.thumbHeight}px !important`),
         marginTop: '4px',
         marginBottom: '4px',
         cursor: 'pointer'
@@ -52,19 +53,26 @@ const useStyles = makeStyles(() => ({
 
 export default function ReelThumb({ onClick, isSelected, thumbHeight, item }) {
     const classes = useStyles({ thumbHeight });
+    const onKeyDown = useCallback(e => {
+        // handle enter key for accessibility
+        if(e.keyCode === 13) {
+            onClick();
+        }
+    }, [onClick]);
 
     return (
         <div
             className={
                 `${classes.reelThumbContainer} ${
-                    isSelected?classes.reelThumbSelected:''}`
+                    isSelected ? classes.reelThumbSelected : ''}`
                 }
-            onClick={onClick}
+            onClick={ onClick }
+            onKeyDown={ onKeyDown }
         >
             {/* selected overlay if applicable */}
             { isSelected && (<div className={ classes.thumbSelectedOverlay } />) }
             { (item.type == 'image') &&
-                (<img className={ classes.reelThumbImg } src={item.thumb}/>)
+                (<img className={ classes.reelThumbImg } src={ item.thumb } />)
             }
             { (item.type == 'video') && (
                 <Icon

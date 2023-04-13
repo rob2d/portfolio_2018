@@ -28,10 +28,14 @@ export default {
         'ready tools).',
 
         (<span>
-            I have deployed 8 front-end projects since late 2016 with it. It was used to create a decent starting point for
-            several very high profile projects that I am aware of, such as <a href={ '/projects/smartwalk' }>an engineering app</a> to support most of the Fortune 500
-            company-housed skyscrapers in NYC today as well as the official newspaper for a top highschool in the US
-            (<a href={ 'http://www.stuyspec.com' } target={ '_new' }>http://www.stuyspec.com</a>). It was also used to spin up much less
+            I have deployed 8 front-end projects since late 2016 with it. It was used to create a
+            decent starting point for several very high profile projects that I am aware of, such
+            as <a href={ '/projects/smartwalk' }>an engineering app</a> to support most of the Fortune 500
+            company-housed skyscrapers in NYC today as well as the official newspaper for a top
+            highschool in the US (
+            <a href={ 'http://www.stuyspec.com' } target={ '_new' }>
+                http://www.stuyspec.com</a>). It was also used
+            to spin up much less
             high profile/ground-shaking projects -- such as this portfolio!
         </span>)
     ],

@@ -23,13 +23,9 @@ const config = {
         minimizer: [
             new TerserPlugin({
                 terserOptions: {
-                    compress: {
-                        drop_console: true
-
-                    },
-                    output: {
-                        comments: false
-                    }
+                    // eslint-disable-next-line camelcase
+                    compress: { drop_console: true },
+                    output: { comments: false }
                 },
             }),
         ],
@@ -56,7 +52,6 @@ if(args && (args.export_standalone=="true")) {
         .format('YYYY-MM-DD-HHmmss');
 
     let buildDir = path.join('builds', dateStr);
-
 
     if(!fs.existsSync('./builds/')) {
         fs.mkdirSync('./builds/');

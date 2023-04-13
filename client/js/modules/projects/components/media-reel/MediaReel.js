@@ -25,9 +25,9 @@ const useStyles = makeStyles(() => ({
         maxWidth: p => p.maxWidth,
         height: p => (
             // 25% diff to account for reel and status boxes
-            Math.round(
+            `${Math.round(
                 (getReelWidth(p.width,p.maxWidth)/(p.aspectRatio)) * 0.75
-            ) + 'px'
+            )}px`
         ),
         margin: '0 auto 56px'
     },
@@ -94,79 +94,62 @@ class MediaReel extends PureComponent {
 
     state = {
         selectedIndex: 0,
-        isVideoPlaying : false,
-        autoplayTimer : null,
+        isVideoPlaying: false,
+        autoplayTimer: null,
         updateCount: 0
     };
 
-    handleItemClick = selectedIndex => {
-        this.startReelAutoplay(); // resets autoplay timer
-                                  // and binds new interval
-        this.setState({ selectedIndex });
-    };
+    componentDidMount() {
+        this.startReelAutoplay();
+    }
 
-    handleVideoPlay = ()=> {
-        this.setState({ isVideoPlaying : true });
+    componentWillUnmount() {
+        const { autoplayTimer } = this.state;
+        clearInterval(autoplayTimer);
+    }
+
+    handleVideoPlay = () => {
+        this.setState({ isVideoPlaying: true });
     };
 
     handleVideoStop = () => {
-        this.setState({ isVideoPlaying : false });
+        this.setState({ isVideoPlaying: false });
+    };
+
+    handleItemClick = selectedIndex => {
+        // reset autoplay timer
+        // and bind new interval
+        this.startReelAutoplay();
+        this.setState({ selectedIndex });
     };
 
     /**
-     * increments update for
-     * easily handling media
-     * loading (this is somewhat hax;
-     * no time to re-write ownership
-     * of cache handler for viewer or break
-     * down component types)
+     * increments update for easily handling media loading
+     * (this is somewhat hax; no time to re-write ownership
+     * of cache handler for viewer or break down component types)
      */
     handlePropUpdate = () => {
+        const { updateCount } = this.state;
+        this.setState({ updateCount: updateCount + 1 });
+    };
+
+    startReelAutoplay = () => {
+        const { autoplayTimer } = this.state;
+        clearInterval(autoplayTimer);
         this.setState({
-            updateCount : this.state.updateCount+1
+            autoplayTimer: setInterval(() => this.autoplayToNextItem(), REEL_ANIM_SPEED),
         });
     };
 
-    /**
-     * detects when youtube state changes
-     */
-    handleYTStateChange = state => {
-        if(state && state.data) {
-            switch(state.data){
-                case 3 :    // 3: buffering; e.g. user clicked
-                            // YT vid but hasn't played yet
-                    this.setState({ isVideoPlaying : true });
-                    break;
-            }
-        }
-    };
-
-    componentDidMount () {
-        this.startReelAutoplay();
-    }
-    componentWillUnmount() {
-        clearInterval(this.state.autoplayTimer);
-    }
-
-    // also restarts autoplay
-    startReelAutoplay = () => {
-        if(this.state.autoplayTimer) {
-            (this.state.selectedIndex + 1) % this.props.media.length
-        }
-        clearInterval(this.state.autoplayTimer);
-        const autoplayTimer = setInterval(()=> { this.autoplayToNextItem(); }, REEL_ANIM_SPEED);
-        this.setState({ autoplayTimer, isReelAutoplaying : true});
-    };
-
     autoplayToNextItem = () => {
-        if(!this.state.isVideoPlaying) {
-            const selectedIndex = (this.state.selectedIndex + 1) %
-                                    this.props.media.length;
-            this.setState({ selectedIndex });
+        const { isVideoPlaying, selectedIndex } = this.state;
+        const { media } = this.props;
+        if(!isVideoPlaying) {
+            this.setState({ selectedIndex: (selectedIndex + 1) % media.length });
         }
     };
 
-    render () {
+    render() {
         const {
             classes,
             media,
@@ -206,7 +189,7 @@ class MediaReel extends PureComponent {
                             <ReelThumbs
                                 media={ media }
                                 selectedIndex={ selectedIndex }
-                                thumbHeight ={
+                                thumbHeight={
                                     Math.round((
                                         getReelWidth(width,maxWidth)*0.25*0.75) /
                                         aspectRatio
@@ -223,7 +206,12 @@ class MediaReel extends PureComponent {
                             <div
                                 key={ `mediaReelItem${i}` }
                                 className={ classes.statusBox }
-                                onClick={ ()=> this.handleItemClick(i) }
+                                onKeyDown={ e => {
+                                    if(e.keyCode === 13) {
+                                        this.handleItemClick(i);
+                                    }
+                                } }
+                                onClick={ () => this.handleItemClick(i) }
                             >
                                 <Icon
                                     path={ ( i != selectedIndex ) ?
