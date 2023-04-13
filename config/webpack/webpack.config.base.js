@@ -3,7 +3,6 @@ const path = require('path');
 const { DefinePlugin } = require('webpack');
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SRC_ROOT = 'client';
 const DEST_ROOT = 'server/public';
@@ -84,37 +83,44 @@ module.exports = {
         usedExports: true
     },
     module: {
-        rules: [{
-            test: /\.html$/,
-            use: [{
-                loader: "html-loader",
-                options: {
-                    minimize: (process.env.NODE_ENV == 'production')
-                }
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" }
+                ]
+            },
+
+            {
+                test: /\.html$/,
+                use: [{
+                    loader: "html-loader",
+                    options: { minimize: (process.env.NODE_ENV == 'production') }
+                }]
+            },
+            {
+                test: /\.svg$/,
+                exclude: /fonts/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'img/icons'
+                    }
+                }]
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                exclude: /img/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/'
+                    }
+                }]
             }]
-        },
-        {
-            test: /\.svg$/,
-            exclude: /fonts/,
-            use: [{
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]',
-                    outputPath: 'img/icons'
-                }
-            }]
-        },
-        {
-            test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-            exclude: /img/,
-            use: [{
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]',
-                    outputPath: 'fonts/'
-                }
-            }]
-        }]
     },
 
     plugins: [
@@ -122,10 +128,6 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: "./client/index.html",
             filename: "./index.html"
-        }),
-        new MiniCssExtractPlugin({
-            filename: "style/[name].css",
-            chunkFilename: "[id].css"
         }),
         new DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
