@@ -152,49 +152,38 @@ export default function About() {
 
             <div className={ classes.paragraphs }>
                 <Typography variant={ 'body1' }>
-                    Hi. My name is Rob, a software developer from NYC.
+                    Hi. My name is Rob. I am software developer from New York City.
                 </Typography>
                 <Typography variant={ 'body1' }>
-                    This site was created using my stack of choice most days:&nbsp;
+                    This site was created using :&nbsp;
                     <Tech url={ 'https://reactjs.com' }>React</Tech>
                     <Tech url={ 'https://nodejs.org' }>Node</Tech>
                     <Tech url={ 'https://webpack.js.org/' }>Webpack</Tech>
                     and deployed via&nbsp;
+                    <Tech url={ 'https://circleci.com/' }>CircleCI</Tech>&nbsp;
                     <Tech url={ 'http://nginx.org' }>NginX</Tech> and&nbsp;
                     <Tech url={ 'http://pm2.keymetrics.io/' }>PM2</Tech>.
-                    I am perpetually evolving my workflow, and it because of the nature
-                    of this website being written outside of my main work or projects,
-                    it is difficult to keep this up to date; hopefully
-                    things are not aging too badly here 🙃
                 </Typography>
                 <Typography variant={ 'body1' }>
-                    A little about me and why this page exists: I have always
-                    been a curious person and grew up dabbling in
-                    introverted hobbies which includes creating websites,
-                    videogames, and apps. None of that has changed,
-                    and this site is a small collection of mostly
-                    self-driven projects that I wish I had more time to devote
-                    to (the ones which made it somewhere beyond the drawing board).
+                    A little about me and why this page exists: I have always been curious
+                    and grew up dabbling in hobbies related to software development including: 
+                    creating websites, videogames (not necessarily good ones),
+                    and apps. This is just a small subset of self-driven projects that 
+                    I should probably find more time for.
                     You probably won't find the most beautiful code on this
                     portfolio since I spend most of my energy at work,
                     on hobbies, or just being a human and doing those things
                     that they do. But I do try to update here and there!
                 </Typography>
                 <Typography variant={ 'body1' }>
-                    My background: I joined the Navy as an Electronic Technician
-                    out of highschool under the National Call to Service program.
-                    Since completing my service I studied Computer Science (both
-                    undergraduate and graduate programs), and have
-                    gotten to work in a variety of industries at various
-                    capacities developing software including power/skyscraper
-                    infrastructure mapping and management, intellectual property,
-                    virtual reality tours, finance, as well as consistently on my own
-                    side projects which include development tools and small
-                    applications.
+                    I am perpetually evolving my workflow. Because the age of
+                    this portfolio (created 2017) and nature of it being outside
+                    of work/between other hobbies, it may be a little out of date
+                    and I have learned quite a lot since then.
                 </Typography>
                 <Typography variant={ 'body1' }>
-                    Intros aside, feel free to check out the other sections here
-                    which should hopefully be a lot more interesting!
+                    Intros stuff aside, feel free to check out the other sections on
+                    the top of the page!
                 </Typography>
             </div>
         </div>
