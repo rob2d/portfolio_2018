@@ -25,22 +25,44 @@ Font.register({
     ]
 });
 
-// remove word-break/hyphonation behavior
+// removes word-break/hyphonation behavior
 
 Font.registerHyphenationCallback(word => [word]);
 
 const experience = [
     {
-        title: 'Web UI Engineer / Consultant',
+        title: 'Web UI Engineer',
         context: 'Full Time',
         workplace: 'Lab 49 @ Ion Group',
-        dates: 'September 2021 - April 2023'
+        dates: 'September 2021 - April 2023',
+        points: [
+            'Worked for a large enterprise client to deliver a next gen suite of apps running Angular + Springboot',
+
+            'Architected front-end for a customer data sourcing application and helped maintain standards within ' +
+            'an Agile/Scrum environment',
+
+            'Proactively worked with backend client facing systems and APIs and helped with Dev Ops to accomplish work',
+
+            'Provided training to client developers and helped see through MVP releases with post-prod support.'
+        ]
     },
     {
         title: 'Software Engineer',
         context: 'Contract',
         workplace: 'Infor / Motion Recruitment',
-        dates: 'March 2021 - September 2021'
+        dates: 'March 2021 - September 2021',
+        points: [
+            'Contributed to a greenfield open source enterprise UI framework ' +
+            'as it migrates towards using framework-agnostic/forward-facing native ' +
+            'Web Components. ',
+
+            'Wrote unit tests and integration tests and created new components with 100% code coverage.',
+
+            'Proposed ideas leveraged and actively participated in the streamlining of the architecture.',
+
+            'Assisted with maintaining legacy component framework, solving bug tickets and migrating new features ' +
+            'for components in development.'
+        ]
     },
     {
         title: 'UI Developer',
@@ -118,7 +140,9 @@ const experience = [
         'Clients acquired relying on this included BlackRock, NYSE, ' +
         'WTC One and JFK Airport.',
 
-            'Designed, iterated, and implemented on UI mockups for misc projects such as an expo website.'
+            'Designed, iterated, and implemented on UI mockups for misc projects such as an expo website.',
+            ' ',
+            ' ',
         ]
     }, {
         title: 'Founder/Software Developer',
