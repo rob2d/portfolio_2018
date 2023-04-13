@@ -166,9 +166,9 @@ export default function About() {
                 </Typography>
                 <Typography variant={ 'body1' }>
                     A little about me and why this page exists: I have always been curious
-                    and grew up dabbling in hobbies related to software development including: 
+                    and grew up dabbling in hobbies related to software development including:
                     creating websites, videogames (not necessarily good ones),
-                    and apps. This is just a small subset of self-driven projects that 
+                    and apps. This is just a small subset of self-driven projects that
                     I should probably find more time for.
                     You probably won't find the most beautiful code on this
                     portfolio since I spend most of my energy at work,
