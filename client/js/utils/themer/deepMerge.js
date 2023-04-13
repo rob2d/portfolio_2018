@@ -1,3 +1,11 @@
+/* eslint-disable no-use-before-define */
+export default function deepMerge(s1, s2, d = {}) {
+    merge(s1, d);
+    merge(s2, d);
+
+    return d;
+}
+
 /**
  * recursively merges new object properties
  * into a new set of objects/references
@@ -20,20 +28,13 @@ function merge(s, d = {}) {
                 d[key] = s[key];
                 break;
             }
-            default:
-            case 'undefined': {
+            case 'undefined':
+            default: {
                 d[key] = deepMerge(s[key], {});
                 break;
             }
         }
     }
-
-    return d;
-}
-
-export default function deepMerge(s1, s2, d = {}) {
-    merge(s1, d);
-    merge(s2, d);
 
     return d;
 }

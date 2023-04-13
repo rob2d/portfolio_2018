@@ -8,6 +8,7 @@
     ],
     "rules" : {
         "camelcase" : [1, { "allow" : ["^UNSAFE_"] } ],
+        "consistent-return": 0,
         "strict" : 0,
         "eqeqeq" : 0,
         "no-plusplus" : 0,
@@ -96,6 +97,7 @@
         "jsx-a11y/no-static-element-interactions" : 0,
         "react/jsx-closing-tag-location" : 0,
         "react/jsx-closing-bracket-location" : 0,
+        "react/no-array-index-key": 0,
         "object-curly-newline" : 0,
         "object-property-newline" : 0,
         "react/no-unescaped-entities" : 0,
@@ -114,7 +116,7 @@
         "es6" : true,
         "browser" : true
     },
-    "parser" : "babel-eslint",
+    "parser" : "@babel/eslint-parser",
     "globals": {
         "SITE_NAME": "readonly"
     }

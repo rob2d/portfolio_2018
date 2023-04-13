@@ -43,7 +43,6 @@ export const Sections = [
     }
 ];
 
-
 export const pathIndexLookup = Object.fromEntries(
     Sections.map((s,i) => ([s.basePath, i]))
 );

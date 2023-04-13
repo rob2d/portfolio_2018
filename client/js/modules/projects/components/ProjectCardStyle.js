@@ -88,7 +88,7 @@ export default makeStyles(({ palette: { type, text, common } }) => ({
                         `transform ${ANIM_S*2}s ` +
                         `cubic-bezier(0.25, 0.1, 0.5, 1), ` +
                         `background-color ${ANIM_S}s !important`,
-        '@media (max-width: 400px)': {  // support for smaller devices
+        '@media (max-width: 400px)': { // support for smaller devices
             width: '300px !important'
         }
     },
@@ -101,7 +101,7 @@ export default makeStyles(({ palette: { type, text, common } }) => ({
     cardContent: {
         height: '88px',
         transition: `all ${ANIM_S}s ease-out`,
-        opacity: p =>(!p.highlightedOnPanel) ? 1: 0
+        opacity: p => (!p.highlightedOnPanel) ? 1: 0
     },
     titleOverlay: {
         boxSizing: 'border-box',

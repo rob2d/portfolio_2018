@@ -10,8 +10,8 @@ module.exports = {
                 use: [{
                     loader: require.resolve('babel-loader'),
                     options: {
-                        cacheDirectory: true, 
-                        plugins: [require.resolve('react-refresh/babel')] 
+                        cacheDirectory: true,
+                        plugins: [require.resolve('react-refresh/babel')]
                     }
                 }]
             }

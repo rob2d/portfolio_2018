@@ -3,6 +3,7 @@ const { argv: { watch_mode: inWatchMode=false } } = require('yargs');
 const s = require('./selectors');
 
 describe('Integration Tests', function integrationTests() {
+    // eslint-disable-next-line no-undef
     before(async () => {
         const { browser, page } = await require("./getPuppeteerModules");
 
@@ -68,7 +69,6 @@ describe('Integration Tests', function integrationTests() {
             assert.match(page.url(), /.*\/+misc/g);
         });
 
-
         it('Sees that content on the misc page has rendered', async () => {
             const { page } = global;
             await page.waitForSelector(
@@ -95,7 +95,6 @@ describe('Integration Tests', function integrationTests() {
 
             assert.match(page.url(), /.*\/+cv/g);
         });
-
 
         it('Sees that content on the cv page has rendered', async () => {
             const { page } = global;
@@ -136,6 +135,7 @@ describe('Integration Tests', function integrationTests() {
         });
     });
 
+    // eslint-disable-next-line no-undef
     after(async function afterAll() {
         if(!inWatchMode) {
             await global.page.close();

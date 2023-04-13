@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import skillPoints from 'constants/skillPoints';
 import ValueBar from './ValueBar';
@@ -15,7 +15,7 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
         pointerEvents: 'none',
         flexDirection: 'column',
         opacity: p => p.isVisible ? 1.0: 0.0,
-        transition: p => `opacity 0.5s ease ${ !p.isVisible ? 1: 0 }s`,
+        transition: p => `opacity 0.5s ease ${!p.isVisible ? 1: 0}s`,
         overflowX: 'hidden',
         overflowY: 'visible',
         color: text.primary
@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
         width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        height: (Math.round(100/skillPoints.length) * 0.62) + '%'
+        height: `${Math.round(100/skillPoints.length) * 0.62}%`
     },
     namespace: {
         display: 'flex',
@@ -47,12 +47,13 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
 
 export default function SkillsOverlayText({ isVisible }) {
     const classes = useStyles({ isVisible });
+    // eslint-disable-next-line no-undef
     const skillStrings = strings.skills;
 
     const skillContent = useMemo(() => (
         skillPoints.sort((sp1, sp2) => (sp2.value-sp1.value))
             .map(({ namespace, value }, i) => (
-                <React.Fragment key={ `skillText_${namespace}_${i+1}` }>
+                <Fragment key={ `skillText_${namespace}_${i+1}` }>
                     <div className={ classes.textItem }>
                         <p className={ classes.namespace }>
                             { skillStrings[namespace] }
@@ -62,7 +63,7 @@ export default function SkillsOverlayText({ isVisible }) {
                         </p>
                     </div>
                     <ValueBar isVisible={ isVisible } value={ value } index={ i } />
-                </React.Fragment>
+                </Fragment>
             ))
     ), [classes, skillPoints]);
 
