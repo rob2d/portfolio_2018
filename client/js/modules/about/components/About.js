@@ -165,25 +165,21 @@ export default function About() {
                     <Tech url={ 'http://pm2.keymetrics.io/' }>PM2</Tech>.
                 </Typography>
                 <Typography variant={ 'body1' }>
-                    A little about me and why this page exists: I have always been curious
-                    and grew up dabbling in hobbies related to software development including:
-                    creating websites, videogames (not necessarily good ones),
-                    and apps. This is just a small subset of self-driven projects that
-                    I should probably find more time for.
+                    A little about me and why this page exists: I have always been a curious
+                    person, and grew up dabbling in hobbies related to software development.
+                    This has included creating websites, videogames, and apps. This is just a
+                    small subset of self-driven projects.
+                </Typography>
+                <Typography>
                     You probably won't find the most beautiful code on this
                     portfolio since I spend most of my energy at work,
                     on hobbies, or just being a human and doing those things
-                    that they do. But I do try to update here and there!
+                    that they do and am perpetually trying to improve my skills...
+                    but I do try to update here and there!
                 </Typography>
                 <Typography variant={ 'body1' }>
-                    I am perpetually evolving my workflow. Because the age of
-                    this portfolio (created 2017) and nature of it being outside
-                    of work/between other hobbies, it may be a little out of date
-                    and I have learned quite a lot since then.
-                </Typography>
-                <Typography variant={ 'body1' }>
-                    Intros stuff aside, feel free to check out the other sections on
-                    the top of the page!
+                    Intros aside, feel free to check out the other sections on
+                    the top of this page.
                 </Typography>
             </div>
         </div>
