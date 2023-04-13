@@ -318,13 +318,17 @@ const createStyles = theme => StyleSheet.create({
 const skills = [{
     name: 'Engineering',
     items: [[
-        'ES5/6/7',
-        'TypeScript',
-        'Java'
+        'ES 5/6/7+',
+        'TypeScript'
     ], [
         'React',
+        'Rxjs',
+        'Angular',
+    ],
+    [
         'Redux',
-        'HTML5/CSS'
+        'NgRX',
+        'HTML5'
     ],
     [
         'Node',
@@ -332,24 +336,28 @@ const skills = [{
         'Mongo'
     ],
     [
-        'MySQL',
         'CircleCI',
-        'Bash'
-    ],[
+        'Jenkins',
+        'MySQL',
+    ],
+    [
         'Git',
-        'Puppeteer'
+        'Puppeteer',
+        'Java'
+    ],
+    [
+        'CSS',
+        'Android SDK',
     ]],
 },
 {
     name: 'Multimedia',
     items: [[
         'Photoshop',
-        'Inkscape'
-    ], [
-        'FL Studio',
-        'Sketchbook'
+        'Resolve'
     ],[
-        'Blender3D'
+        'Blender3D',
+        'Krita'
     ]]
 }];
 
