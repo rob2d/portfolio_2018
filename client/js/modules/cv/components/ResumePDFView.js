@@ -36,14 +36,14 @@ const experience = [
         workplace: 'Lab 49 @ Ion Group',
         dates: 'September 2021 - April 2023',
         points: [
-            'Worked for a large enterprise client to deliver a next gen suite of apps running Angular + Springboot',
+            'Worked for a large enterprise client to deliver a next gen suite of apps running Angular + Springboot.',
 
             'Architected front-end for a customer data sourcing application and helped maintain standards within ' +
-            'an Agile/Scrum environment',
+            'an Agile/Scrum environment.',
 
-            'Proactively worked with backend client facing systems and APIs and helped with Dev Ops to accomplish work',
+            'Proactively worked with backend client facing systems and APIs and assisted with dev-ops tasks.',
 
-            'Provided training to client developers and helped see through MVP releases with post-prod support.'
+            'Provided training to client developers and helped see through two MVP releases with post-prod support.'
         ]
     },
     {
@@ -54,7 +54,7 @@ const experience = [
         points: [
             'Contributed to a greenfield open source enterprise UI framework ' +
             'as it migrates towards using framework-agnostic/forward-facing native ' +
-            'Web Components. ',
+            'Web Components.',
 
             'Wrote unit tests and integration tests and created new components with 100% code coverage.',
 
