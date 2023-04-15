@@ -31,13 +31,16 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
         position: 'relative',
         display: 'flex',
         flexGrow: 1,
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'auto'
     },
     pdfView: {
         width: p => p.width,
-        height: p => p.height
+        height: p => p.height,
+        overflowX: 'hidden',
+        overflowY: 'scroll'
     },
     downloadButtonContainer: {
         position: 'absolute',
