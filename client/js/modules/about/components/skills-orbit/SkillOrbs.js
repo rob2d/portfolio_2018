@@ -4,9 +4,9 @@ import {
     DoubleSide, Scene, PerspectiveCamera,
     WebGLRenderer
 } from 'three';
-import { textAlign, SpriteText2D } from 'three-text2d';
 import skillPoints from 'constants/skillPoints';
 import ShiftingValueMap from 'utils/data-structs/ShiftingValueMap';
+import { SpriteText2D, textAlign } from './three-utils';
 
 const skills = {
     frontend: 'Front End',
