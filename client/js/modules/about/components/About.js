@@ -14,7 +14,7 @@ const useStyles = makeStyles(({
     container: {
         marginLeft: 'auto',
         marginRight: 'auto',
-        maxWidth: 'min(1600px, 100vw)',
+        maxWidth: 'min(1100px, 100vw)',
         width: '100%',
         flexGrow: 1,
         display: 'flex',

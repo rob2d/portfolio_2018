@@ -29,7 +29,6 @@ const useStyles = makeStyles(() => ({
         maxWidth: '1100px',
         margin: '0 auto',
         top: '0px',
-        overflowX: 'hidden'
     },
     content: {
         display: 'flex',
