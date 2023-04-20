@@ -5,17 +5,13 @@ import { useCallback, useMemo, useState } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { BlobProvider } from '@react-pdf/renderer';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';
 import { Button, Tooltip } from '@material-ui/core';
 import { Icon } from '@mdi/react';
 import {
     mdiPageNext,
     mdiPagePrevious
 } from '@mdi/js';
-
-pdfjs.GlobalWorkerOptions.workerSrc=`//cdnjs.cloudflare.com/ajax/libs/pdf.js/${
-    pdfjs.version
-}/pdf.worker.js`;
 
 const useStyles = makeStyles(({ palette: { type, text, common } }) => ({
     prevPage: {

@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-    Router,
-    Route,
-    Switch
-} from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { useLazyComponent, useDocumentTitle } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/core/styles';
@@ -39,6 +35,7 @@ const useStyles = makeStyles(({ palette: { common, text } }) => ({
     routeViewWrapper: {
         display: 'flex',
         width: '100%',
+        height: '100vh',
         flexDirection: 'column'
     },
     mainContent: {
