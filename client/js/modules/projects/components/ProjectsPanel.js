@@ -100,11 +100,12 @@ const projectsReducer = (state, { type, payload }) => {
 };
 
 export default function ProjectsPanel() {
-    const [projectId, location, match] = useProjectIdOfUrl();
+    const [projectId] = useProjectIdOfUrl();
     const prevProjectId = usePrevious(projectId);
     useDocumentTitle({ title: !projectId && `${SITE_NAME} -- Projects` });
 
-    const [vpW, vpH] = useViewportSizes();
+    const [vpW, vpH, updateVpSizes] = useViewportSizes();
+    useEffect(() => updateVpSizes(), []);
     const classes = useStyles();
     const fadeContainerClass = useAutoFaderClass();
 
