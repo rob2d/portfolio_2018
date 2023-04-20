@@ -96,6 +96,13 @@ const useStyles = makeStyles(({
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden'
+    },
+    skillsContainer: {
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: '16px'
     }
 }), { name: 'About' });
 
@@ -142,7 +149,9 @@ export default function About() {
     return (
         <div className={ clsx(classes.container, fadeContainerClass) }>
             <div className={ classes.overview }>
-                <SkillsVisualizer className={ clsx(classes.sphere, classes.skillsOrb) } />
+                <div className={ classes.skillsContainer }>
+                    <SkillsVisualizer className={ clsx(classes.sphere, classes.skillsOrb) } />
+                </div>
                 <div className={ clsx(classes.sphere, classes.avatar) }>
                     <Avatar>
                         <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
