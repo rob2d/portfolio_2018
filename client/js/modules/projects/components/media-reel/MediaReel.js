@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { PureComponent, useEffect } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
@@ -233,7 +233,8 @@ class MediaReel extends PureComponent {
 // and do not rely on requiring a container
 
 export default function MediaReelContainer(props) {
-    const [vpW, vpH] = useViewportSizes();
+    const [vpW, vpH, updateVpSizes] = useViewportSizes();
+    useEffect(() => updateVpSizes(), []);
     const classes = useStyles({ ...props, vpW, vpH });
 
     return (
