@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import C from 'color';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -32,7 +32,6 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
         display: 'flex',
         flexGrow: 1,
         width: '100%',
-        alignItems: 'center',
         justifyContent: 'center',
         overflow: 'auto'
     },
@@ -77,7 +76,8 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
 export default function CV() {
     useDocumentTitle({ title: `${SITE_NAME} -- CV` });
 
-    const [vpW, vpH] = useViewportSizes();
+    const [vpW, vpH, updateVpSizes] = useViewportSizes();
+    useEffect(() => { updateVpSizes() }, []);
 
     const [width, height] = useMemo(() => {
         const aspectRatio = vpW / vpH;
