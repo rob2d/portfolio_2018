@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -156,7 +156,8 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
 }), { name: 'ProjectDetails' });
 
 export default function ProjectDetails({ projectId }) {
-    const [vpW] = useViewportSizes();
+    const [vpW, _, updateVpSizes] = useViewportSizes();
+    useEffect(() => updateVpSizes(), []);
     const classes = useStyles({ projectId, vpW });
     const fadeContainerClass = useAutoFaderClass(undefined, 1000);
     const p = projects[projectId];

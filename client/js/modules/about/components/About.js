@@ -1,4 +1,4 @@
-import { useCallback, useState, useLayoutEffect } from 'react';
+import { useEffect, useCallback, useState, useLayoutEffect } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
@@ -109,7 +109,8 @@ const useStyles = makeStyles(({
 export default function About() {
     useDocumentTitle({ title: `${SITE_NAME} -- About` });
     const fadeContainerClass = useAutoFaderClass();
-    const [vpW, vpH] = useViewportSizes();
+    const [vpW, vpH, updateVpSizes] = useViewportSizes();
+    useEffect(() => updateVpSizes(), []);
 
     const [negativeContentH, setNegativeContentH] = useState(() => 0 );
 
