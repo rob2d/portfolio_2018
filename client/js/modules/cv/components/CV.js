@@ -8,7 +8,7 @@ import useViewportSizes from 'use-viewport-sizes';
 import Icon from '@mdi/react';
 import { mdiDownload } from '@mdi/js';
 import { useDocumentTitle } from 'utils/hooks';
-import { PDFView, PDFDownloadLink } from 'utils/components';
+import { PDFView, PDFDownloadLink } from 'utils/components/pdf-view';
 import ResumePDFView from './ResumePDFView';
 
 const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
