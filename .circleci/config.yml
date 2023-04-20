@@ -11,7 +11,7 @@ jobs:
     working_directory: "~/project"
     steps:
       - run:
-          name: Use latest version of Node installed via NVM
+          name: Update Node using NVM
           command: |
             nvm ls-remote && nvm install 16.20.0 && nvm use 16.20.0 && nvm alias default 16.20.0
       - checkout
