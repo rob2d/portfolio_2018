@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { withStyles } from '@mui/material/styles';
+import { withStyles } from '@mui/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import ButtonLink from 'utils/components/ButtonLink';

@@ -1,5 +1,5 @@
 import { Fragment, useMemo } from 'react';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import skillPoints from 'constants/skillPoints';
 import ValueBar from './ValueBar';
 

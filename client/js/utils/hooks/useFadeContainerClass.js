@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 
 const DEFAULT_FADETIME = 320;
 

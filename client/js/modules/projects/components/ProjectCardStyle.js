@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 
 const ANIM_S = '0.32';
 const getTopMargin = vpW => vpW > 800 ? 32: 16;

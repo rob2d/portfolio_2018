@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import clsx from 'clsx';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Icon } from '@mdi/react';
 import {

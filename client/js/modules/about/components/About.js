@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState, useLayoutEffect } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { ButtonLink, OptimizedImg, LoadingComponent } from 'utils/components';

@@ -2,7 +2,7 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 import { useCallback, useMemo, useState } from 'react';
-import { useTheme, makeStyles } from '@mui/material/styles';
+import { useTheme, makeStyles } from '@mui/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { BlobProvider } from '@react-pdf/renderer';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';

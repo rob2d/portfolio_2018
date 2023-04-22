@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@mui/material/styles';
+import { makeStyles, useTheme } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import useViewportSizes from 'use-viewport-sizes';
 import { OptimizedImg, ButtonLink } from 'utils/components';

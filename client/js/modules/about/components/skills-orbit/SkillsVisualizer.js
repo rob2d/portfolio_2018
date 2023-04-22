@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import useSkillOrbsScene from './useSkillOrbsScene';
 
 const useStyles = makeStyles(() => ({

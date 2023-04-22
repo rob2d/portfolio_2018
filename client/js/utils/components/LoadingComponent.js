@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const useStyles = makeStyles( () => ({

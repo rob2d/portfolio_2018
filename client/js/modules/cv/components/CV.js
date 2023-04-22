@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from 'react';
 import C from 'color';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import Tooltip from '@mui/material/Tooltip';
 import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';

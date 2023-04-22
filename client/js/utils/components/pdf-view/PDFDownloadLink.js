@@ -1,5 +1,5 @@
 import { useMemo, cloneElement } from 'react';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { pdf } from '@react-pdf/renderer';
 import Downloader from 'js-file-downloader';

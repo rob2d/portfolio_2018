@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { useLazyComponent, useDocumentTitle } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import appHistory from 'utils/appHistory';
 import { AppHeader, AppFooter } from './modules/core';
 import ThemeContextProvider from './ThemeContextProvider';

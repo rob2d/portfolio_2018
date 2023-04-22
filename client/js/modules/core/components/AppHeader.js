@@ -1,7 +1,7 @@
 import { useRef, useLayoutEffect, useMemo, useState } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import { useLocation } from 'react-router-dom';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';

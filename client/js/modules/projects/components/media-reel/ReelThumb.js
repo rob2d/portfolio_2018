@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { makeStyles } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { Icon } from '@mdi/react';
 import { mdiYoutube } from '@mdi/js';
 
