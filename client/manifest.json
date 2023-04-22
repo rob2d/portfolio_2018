@@ -7,6 +7,13 @@
     "display": "standalone",
     "scope": "/",
     "theme_color": "#C51162",
+    "icons": [
+        {
+            "src": "/image/about/me.webp",
+            "type": "image/webp",
+            "sizes": "512x512"
+        }
+    ],
     "shortcuts": [
         {
         "name": "About",
