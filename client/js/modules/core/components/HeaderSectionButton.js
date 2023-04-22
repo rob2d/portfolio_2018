@@ -1,6 +1,6 @@
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import { makeStyles } from '@mui/material/styles';
 import { Icon } from '@mdi/react';
 
 const useStyles = makeStyles(({ palette: { common } }) => ({

@@ -1,5 +1,5 @@
 import { useMemo, useCallback, useRef, useState, useEffect } from 'react';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 import SkillOrbs from './SkillOrbs';
 
 /**

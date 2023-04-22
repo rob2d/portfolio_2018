@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 
 const ANIM_S = '0.32';
 const getTopMargin = vpW => vpW > 800 ? 32: 16;
@@ -7,7 +7,7 @@ const getTopMargin = vpW => vpW > 800 ? 32: 16;
 // are broken down into different state-components
 // (vs all handled via this one mutating component)
 
-export default makeStyles(({ palette: { type, text, common } }) => ({
+export default makeStyles(({ palette: { mode, text, common } }) => ({
     container: {
         position: p => p.hasAbsolutePosition ? 'absolute': 'relative',
         opacity: p => p.isShown ? 1 : 0,

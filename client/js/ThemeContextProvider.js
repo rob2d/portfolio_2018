@@ -1,5 +1,5 @@
 import { useState, useMemo, createContext } from 'react';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { getTheme } from './themeDefs';
 
 const DARK_THEME_Q = '(prefers-color-scheme: dark)';
@@ -18,9 +18,11 @@ export default function ThemeContextProvider({ children }) {
 
     return (
         <ThemeContext.Provider value={ context }>
-            <ThemeProvider theme={ themeApplied }>
-                { children }
-            </ThemeProvider>
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={ themeApplied }>
+                    { children }
+                </ThemeProvider>
+            </StyledEngineProvider>
         </ThemeContext.Provider>
     );
 }

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 import { Icon } from '@mdi/react';
 import { mdiGithubBox, mdiGmail, mdiLinkedinBox } from '@mdi/js';
 import { useAutoFaderClass } from 'utils/hooks';

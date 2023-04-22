@@ -1,6 +1,6 @@
 import { PureComponent, useEffect } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import { Icon } from '@mdi/react';
 import { mdiSquare, mdiSquareOutline } from '@mdi/js';
 import MediaViewer from './MediaViewer';

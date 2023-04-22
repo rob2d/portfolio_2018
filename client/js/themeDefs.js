@@ -1,5 +1,5 @@
 import C from 'color';
-import { createTheme } from '@material-ui/core/styles';
+import { createTheme, adaptV4Theme } from '@mui/material/styles';
 import deepMerge from 'utils/themer/deepMerge';
 import createDerivedTheme from 'utils/themer/createDerivedTheme';
 
@@ -84,7 +84,7 @@ const commonRules = {
 
 themeDefs.light.push({
     palette: {
-        type: 'light',
+        mode: 'light',
         primary: {
             main: '#212130',
             dark: '#000'
@@ -143,7 +143,7 @@ Object.keys(themeDefs).forEach( type => {
     // assign base palette type field
     // for MUI  (light/dark)
 
-    themeDefs[type][0].palette.type = type;
+    themeDefs[type][0].palette.mode = type;
 
     // apply rules in common
 
@@ -215,7 +215,7 @@ const themes = {};
 const getTheme = theme => {
     if(!themes[theme]) {
         themes[theme] = createTheme(
-            createDerivedTheme(themeDefs[theme])
+            adaptV4Theme(createDerivedTheme(themeDefs[theme]))
         );
     }
 

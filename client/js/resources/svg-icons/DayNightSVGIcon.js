@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import C from 'color';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 
 const defaultStarXform = 'scaleX(1.0) scaleY(1.0) translateX(0%) translateY(0%) rotateZ(0deg)';
 

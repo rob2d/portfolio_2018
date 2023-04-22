@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 import ButtonLink from 'utils/components/ButtonLink';
 import YouTube from 'react-youtube';
 

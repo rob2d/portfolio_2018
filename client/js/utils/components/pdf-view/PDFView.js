@@ -2,18 +2,18 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 import { useCallback, useMemo, useState } from 'react';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@mui/material/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { BlobProvider } from '@react-pdf/renderer';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';
-import { Button, Tooltip } from '@material-ui/core';
+import { Button, Tooltip } from '@mui/material';
 import { Icon } from '@mdi/react';
 import {
     mdiPageNext,
     mdiPagePrevious
 } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette: { type, text, common } }) => ({
+const useStyles = makeStyles(({ palette: { mode, text, common } }) => ({
     prevPage: {
         position: 'absolute',
         top: '50%',

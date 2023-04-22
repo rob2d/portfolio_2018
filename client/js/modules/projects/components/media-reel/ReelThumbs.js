@@ -1,5 +1,5 @@
 import { useRef, useLayoutEffect, useCallback } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import useViewportSizes from 'use-viewport-sizes';
 import ReelThumb from './ReelThumb';
 

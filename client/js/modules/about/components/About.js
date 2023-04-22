@@ -1,9 +1,9 @@
 import { useEffect, useCallback, useState, useLayoutEffect } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 import { ButtonLink, OptimizedImg, LoadingComponent } from 'utils/components';
 import { useDocumentTitle, useAutoFaderClass, useLazyComponent } from 'utils/hooks';
 

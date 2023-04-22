@@ -70,7 +70,7 @@ const sources = {
             align: textAlign.center,
             fontSize: `${6+Math.round(34*value)}px`,
             fontWeight: 700,
-            fillStyle: (theme.palette.type == 'light') ? '#333333' : '#FFFFFF',
+            fillStyle: (theme.palette.mode == 'light') ? '#333333' : '#FFFFFF',
             side: DoubleSide,
             depthTest: false
         })
@@ -90,7 +90,7 @@ const sources = {
                 wireframeLinewidth: 2,
                 side: DoubleSide,
                 transparent: true,
-                opacity: theme.palette.type == 'light' ? 0.1 : 0.2,
+                opacity: theme.palette.mode == 'light' ? 0.1 : 0.2,
                 depthWrite: false
             })
         })

@@ -1,9 +1,9 @@
 import { useMemo, useEffect } from 'react';
 import C from 'color';
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
-import Fab from '@material-ui/core/Fab';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
+import Fab from '@mui/material/Fab';
+import Typography from '@mui/material/Typography';
 import useViewportSizes from 'use-viewport-sizes';
 import Icon from '@mdi/react';
 import { mdiDownload } from '@mdi/js';

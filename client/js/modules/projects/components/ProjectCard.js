@@ -6,9 +6,9 @@ import {
     useReducer
 } from 'react';
 import clsx from 'clsx';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import { Icon } from '@mdi/react';
 import { mdiInformationOutline } from '@mdi/js';
 import { OptimizedImg } from 'utils/components';

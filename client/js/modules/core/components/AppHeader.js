@@ -1,10 +1,10 @@
 import { useRef, useLayoutEffect, useMemo, useState } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import { useLocation } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import { makeStyles } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import AppSections from 'constants/AppSections';
 import { appHistory } from 'utils';
 import { useAutoFaderClass } from 'utils/hooks';

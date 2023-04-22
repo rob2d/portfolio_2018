@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles, useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import useViewportSizes from 'use-viewport-sizes';
 import { OptimizedImg, ButtonLink } from 'utils/components';
 import { Icon } from '@mdi/react';
@@ -16,7 +16,7 @@ import {
     useAutoFaderClass
 } from 'utils/hooks';
 
-const useStyles = makeStyles(({ palette: { common, secondary, type, text } }) => ({
+const useStyles = makeStyles(({ palette: { common, secondary, mode, text } }) => ({
     mainContainer: {
         marginLeft: 'auto',
         marginRight: 'auto',

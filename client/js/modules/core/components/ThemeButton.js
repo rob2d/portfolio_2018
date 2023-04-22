@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback, useContext } from 'react';
-import Tooltip from '@material-ui/core/Tooltip';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
+import { makeStyles } from '@mui/material/styles';
 import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
 import { ThemeContext } from 'app-root/ThemeContextProvider';
 

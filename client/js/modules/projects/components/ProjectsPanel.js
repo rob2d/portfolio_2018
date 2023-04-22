@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useReducer } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import { appHistory, wait } from 'utils';
 import { useAutoFaderClass, useDocumentTitle, usePrevious } from 'utils/hooks';
 import * as projects from 'app-root/data/projects';

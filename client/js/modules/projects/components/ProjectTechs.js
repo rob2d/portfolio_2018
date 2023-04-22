@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import Technologies from 'constants/Technologies';
 import ButtonLink from 'utils/components/ButtonLink';
 import SVG from 'react-inlinesvg';
