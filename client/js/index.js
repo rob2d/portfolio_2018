@@ -1,7 +1,3 @@
-// support for Object.entries and Object.fromEntries
-// with minimal overhead (for Safari and Edge users)
-
-import './utils/polyfills/coreJsPolyfills';
 import * as ReactDOMClient from 'react-dom/client';
 import RoutingApp from './RoutingApp';
 
