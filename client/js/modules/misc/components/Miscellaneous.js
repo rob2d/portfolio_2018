@@ -16,7 +16,7 @@ import {
     useAutoFaderClass
 } from 'utils/hooks';
 
-const useStyles = makeStyles(({ palette: { common, secondary, mode, text } }) => ({
+const useStyles = makeStyles(({ palette: { common, secondary, mode, text, type } }) => ({
     mainContainer: {
         marginLeft: 'auto',
         marginRight: 'auto',

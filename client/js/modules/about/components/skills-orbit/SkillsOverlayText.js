@@ -1,10 +1,21 @@
 import { Fragment, useMemo } from 'react';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import skillPoints from 'constants/skillPoints';
 import ValueBar from './ValueBar';
 
-const useStyles = makeStyles(({ palette: { text } }) => ({
-    container: {
+const PREFIX = 'SkillsOverlayText';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    textItem: `${PREFIX}-textItem`,
+    namespace: `${PREFIX}-namespace`,
+    value: `${PREFIX}-value`
+};
+
+const Root = styled('div')(({
+    theme: { palette: { text } }
+}) => ({
+    [`& .${classes.container}`]: {
         position: 'absolute',
         bottom: '0',
         width: '180px',
@@ -20,7 +31,8 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
         overflowY: 'visible',
         color: text.primary
     },
-    textItem: {
+
+    [`&.${classes.textItem}`]: {
         boxSizing: 'border-box',
         display: 'flex',
         width: '100%',
@@ -28,7 +40,8 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
         alignItems: 'center',
         height: `${Math.round(100/skillPoints.length) * 0.62}%`
     },
-    namespace: {
+
+    [`& .${classes.namespace}`]: {
         display: 'flex',
         flexDirection: 'row',
         width: '75%',
@@ -36,7 +49,8 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
         fontWeight: 300,
         fontSize: '11pt'
     },
-    value: {
+
+    [`& .${classes.value}`]: {
         display: 'flex',
         flexDirection: 'row',
         width: '25%',
@@ -46,7 +60,7 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
 }));
 
 export default function SkillsOverlayText({ isVisible }) {
-    const classes = useStyles({ isVisible });
+
     // eslint-disable-next-line no-undef
     const skillStrings = strings.skills;
 
@@ -54,14 +68,14 @@ export default function SkillsOverlayText({ isVisible }) {
         skillPoints.sort((sp1, sp2) => (sp2.value-sp1.value))
             .map(({ namespace, value }, i) => (
                 <Fragment key={ `skillText_${namespace}_${i+1}` }>
-                    <div className={ classes.textItem }>
+                    <Root className={ classes.textItem }>
                         <p className={ classes.namespace }>
                             { skillStrings[namespace] }
                         </p>
                         <p className={ classes.value }>
                             { parseFloat(value).toFixed(2) }
                         </p>
-                    </div>
+                    </Root>
                     <ValueBar isVisible={ isVisible } value={ value } index={ i } />
                 </Fragment>
             ))

@@ -1,17 +1,32 @@
 import { useEffect, useCallback, useState, useLayoutEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles } from '@mui/styles';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { ButtonLink, OptimizedImg, LoadingComponent } from 'utils/components';
 import { useDocumentTitle, useAutoFaderClass, useLazyComponent } from 'utils/hooks';
 
-const useStyles = makeStyles(({
-    palette: { secondary, common, text },
-    breakpoints
+const PREFIX = 'About';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    overview: `${PREFIX}-overview`,
+    paragraphs: `${PREFIX}-paragraphs`,
+    tech: `${PREFIX}-tech`,
+    sphere: `${PREFIX}-sphere`,
+    avatar: `${PREFIX}-avatar`,
+    skillsOrb: `${PREFIX}-skillsOrb`,
+    skillsContainer: `${PREFIX}-skillsContainer`
+};
+
+const Root = styled('div')(({
+    theme: {
+        palette: { secondary, common, text },
+        breakpoints
+    }
 }) => ({
-    container: {
+    [`&.${classes.container}`]: {
         marginLeft: 'auto',
         marginRight: 'auto',
         maxWidth: 'min(1100px, 100vw)',
@@ -40,7 +55,8 @@ const useStyles = makeStyles(({
             flexDirection: 'row'
         }
     },
-    overview: {
+
+    [`& .${classes.overview}`]: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
@@ -52,7 +68,8 @@ const useStyles = makeStyles(({
             flexDirection: 'column-reverse'
         }
     },
-    paragraphs: {
+
+    [`& .${classes.paragraphs}`]: {
         boxSizing: 'border-box',
         width: '100%',
         display: 'inline-block',
@@ -68,21 +85,23 @@ const useStyles = makeStyles(({
         }
     },
 
-    tech: {
+    [`& .${classes.tech}`]: {
         color: secondary.dark,
         '&:hover': { color: secondary.main },
         '&:active': { color: common.active },
         '&:not(:nth-last-child(-n+2)) .comma': { color: text.primary },
         '&:nth-last-child(-n+2) .comma': { display: 'none' }
     },
-    sphere: {
+
+    [`& .${classes.sphere}`]: {
         boxSizing: 'border-box',
         width: 'min(max(96px, 40px + 6.2vw), 280px)',
         height: 'min(max(96px, 40px + 6.2vw), 280px)',
         flexShrink: '0',
         margin: '12px'
     },
-    avatar: {
+
+    [`& .${classes.avatar}`]: {
         '& > *': {
             width: '100%',
             height: '100%',
@@ -90,21 +109,23 @@ const useStyles = makeStyles(({
             top: '-8px'
         }
     },
-    skillsOrb: {
+
+    [`& .${classes.skillsOrb}`]: {
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden'
     },
-    skillsContainer: {
+
+    [`& .${classes.skillsContainer}`]: {
         position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom: '16px'
     }
-}), { name: 'About' });
+}));
 
 export default function About() {
     useDocumentTitle({ title: `${SITE_NAME} -- About` });
@@ -126,7 +147,7 @@ export default function About() {
         );
     }, [vpW, vpH]);
 
-    const classes = useStyles({ vpW, vpH, negativeContentH });
+
 
     const SkillsVisualizer = useLazyComponent(
         () => import( /* webpackChunkName: "skills-visualizer" */
@@ -147,7 +168,7 @@ export default function About() {
     }, [classes.tech]);
 
     return (
-        <div className={ clsx(classes.container, fadeContainerClass) }>
+        <Root className={ clsx(classes.container, fadeContainerClass) }>
             <div className={ classes.overview }>
                 <div className={ classes.skillsContainer }>
                     <SkillsVisualizer className={ clsx(classes.sphere, classes.skillsOrb) } />
@@ -191,6 +212,6 @@ export default function About() {
                     the top of this page.
                 </Typography>
             </div>
-        </div>
+        </Root>
     );
 }

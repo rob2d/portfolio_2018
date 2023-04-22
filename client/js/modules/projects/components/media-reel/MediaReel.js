@@ -1,10 +1,25 @@
 import { PureComponent, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import useViewportSizes from 'use-viewport-sizes';
-import { makeStyles } from '@mui/styles';
 import { Icon } from '@mdi/react';
 import { mdiSquare, mdiSquareOutline } from '@mdi/js';
 import MediaViewer from './MediaViewer';
 import ReelThumbs from './ReelThumbs';
+
+const PREFIX = 'MediaReel';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    highlightedImageButton: `${PREFIX}-highlightedImageButton`,
+    highlightedMediaImage: `${PREFIX}-highlightedMediaImage`,
+    highlightedMediaVideo: `${PREFIX}-highlightedMediaVideo`,
+    reel: `${PREFIX}-reel`,
+    reelPadding: `${PREFIX}-reelPadding`,
+    statusBoxes: `${PREFIX}-statusBoxes`,
+    statusBox: `${PREFIX}-statusBox`,
+    statusBoxIcon: `${PREFIX}-statusBoxIcon`,
+    fullScreenButton: `${PREFIX}-fullScreenButton`
+};
 
 // TODO : css related constants should be together
 const REEL_ANIM_SPEED = 6500;
@@ -17,78 +32,6 @@ function getReelWidth(width, maxWidth) {
     return maxWidth !== 'undefined' &&
         ((width > maxWidth) ? maxWidth : width);
 }
-
-const useStyles = makeStyles(() => ({
-    container: {
-        display: 'flex',
-        overflow: 'visible',
-        maxWidth: p => p.maxWidth,
-        height: p => (
-            // 25% diff to account for reel and status boxes
-            `${Math.round(
-                (getReelWidth(p.width,p.maxWidth)/(p.aspectRatio)) * 0.75
-            )}px`
-        ),
-        margin: '0 auto 56px'
-    },
-    highlightedImageButton: {
-        '&:hover $highlightedMediaImage': {
-            border: '2px solid #c51162'
-        },
-        '&:active $highlightedMediaImage': {
-            border: '2px solid #00b8d4;'
-        }
-    },
-    highlightedMediaImage: {
-        width: 'auto',
-        maxWidth: '100%',
-        height: 'auto',
-        maxHeight: '10%',
-        border: '2px solid rgba(255,255,255,0)',
-        transition: 'border-color 0.24s ease-in'
-    },
-    highlightedMediaVideo: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#000000'
-    },
-    reel: {
-        flexBasis: '25%',
-        height: '100%',
-        margin: 0,
-        padding: 0,
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    reelPadding: {
-        flexBasis: '10%'
-    },
-    statusBoxes: {
-        flexBasis: '5%',
-        margin: 0,
-        padding: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column'
-    },
-    statusBox: {
-        flexGrow: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        padding: '0px 12px'
-    },
-    statusBoxIcon: {
-        fontSize: '10pt'
-    },
-    fullScreenButton: {
-        position: 'absolute',
-        right: '16px',
-        bottom: '16px'
-    }
-}), { name: 'MediaReel' });
 
 class MediaReel extends PureComponent {
 
@@ -229,12 +172,94 @@ class MediaReel extends PureComponent {
     }
 }
 
+const StyledMediaReel =
+ styled(MediaReel
+ )(() => ({
+     [`& .${classes.container}`]: {
+         display: 'flex',
+         overflow: 'visible',
+         maxWidth: p => p.maxWidth,
+         height: p => (
+             // 25% diff to account for reel and status boxes
+             `${Math.round(
+                 (getReelWidth(p.width,p.maxWidth)/(p.aspectRatio)) * 0.75
+             )}px`
+         ),
+         margin: '0 auto 56px'
+     },
+
+     [`& .${classes.highlightedImageButton}`]: {
+         '&:hover $highlightedMediaImage': {
+             border: '2px solid #c51162'
+         },
+         '&:active $highlightedMediaImage': {
+             border: '2px solid #00b8d4;'
+         }
+     },
+
+     [`& .${classes.highlightedMediaImage}`]: {
+         width: 'auto',
+         maxWidth: '100%',
+         height: 'auto',
+         maxHeight: '10%',
+         border: '2px solid rgba(255,255,255,0)',
+         transition: 'border-color 0.24s ease-in'
+     },
+
+     [`& .${classes.highlightedMediaVideo}`]: {
+         width: '100%',
+         height: '100%',
+         backgroundColor: '#000000'
+     },
+
+     [`& .${classes.reel}`]: {
+         flexBasis: '25%',
+         height: '100%',
+         margin: 0,
+         padding: 0,
+         display: 'flex',
+         flexDirection: 'row'
+     },
+
+     [`& .${classes.reelPadding}`]: {
+         flexBasis: '10%'
+     },
+
+     [`& .${classes.statusBoxes}`]: {
+         flexBasis: '5%',
+         margin: 0,
+         padding: 0,
+         display: 'flex',
+         alignItems: 'center',
+         justifyContent: 'center',
+         flexDirection: 'column'
+     },
+
+     [`& .${classes.statusBox}`]: {
+         flexGrow: 1,
+         display: 'flex',
+         alignItems: 'center',
+         justifyContent: 'center',
+         cursor: 'pointer',
+         padding: '0px 12px'
+     },
+
+     [`& .${classes.statusBoxIcon}`]: {
+         fontSize: '10pt'
+     },
+
+     [`& .${classes.fullScreenButton}`]: {
+         position: 'absolute',
+         right: '16px',
+         bottom: '16px'
+     }
+ }));
+
 // TODO : convert MediaViewer to hooks implementation
 // and do not rely on requiring a container
 
 export default function MediaReelContainer(props) {
     const [vpW, vpH] = useViewportSizes();
-    const classes = useStyles({ ...props, vpW, vpH });
 
     return (
         <MediaReel

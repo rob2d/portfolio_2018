@@ -1,17 +1,18 @@
 import { useMemo } from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
-import { makeStyles } from '@mui/styles';
+const PREFIX = 'OptimizedImg';
 
-const mimeTypeDict = {
-    'webp': 'image/webp',
-    'jpg': 'image/jpeg',
-    'jpeg': 'image/jpeg',
-    'png': 'image/png',
-    'svg': 'image/svg+xml'
+const classes = {
+    container: `${PREFIX}-container`
 };
 
-const useStyles = makeStyles( theme => ({
-    container: {
+const Root = styled('div')((
+    {
+        theme
+    }
+) => ({
+    [`&.${classes.container}`]: {
         '& img, & source, & picture': {
             position: 'absolute',
             top: 0,
@@ -22,7 +23,15 @@ const useStyles = makeStyles( theme => ({
             height: '100%'
         }
     }
-}), { name: 'OptimizedImg' });
+}));
+
+const mimeTypeDict = {
+    'webp': 'image/webp',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'png': 'image/png',
+    'svg': 'image/svg+xml'
+};
 
 /**
  * Converts a png, jpg, or image (at least used
@@ -32,7 +41,7 @@ const useStyles = makeStyles( theme => ({
  * @param {String} param0.src image sources
  */
 export default function OptimizedImg({ src, className, ...props }) {
-    const classes = useStyles();
+
     const sourceElems = useMemo(() => {
         const extIndex = src.lastIndexOf('.');
         const filePrefix = src.substring(0,extIndex);
@@ -55,11 +64,11 @@ export default function OptimizedImg({ src, className, ...props }) {
     }, [src, Object.keys(props).sort().map( k => props[k] )]);
 
     return (
-        <div className={ clsx(classes.container, className) }>
+        <Root className={ clsx(classes.container, className) }>
             <picture className={ classes.picture }>
                 { sourceElems }
                 <img src={ src } { ...props } />
             </picture>
-        </div>
+        </Root>
     );
 }

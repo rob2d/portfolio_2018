@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import C from 'color';
-import { makeStyles } from '@mui/styles';
 import Tooltip from '@mui/material/Tooltip';
 import Fab from '@mui/material/Fab';
 import Typography from '@mui/material/Typography';
@@ -11,8 +11,21 @@ import { useDocumentTitle } from 'utils/hooks';
 import { PDFView, PDFDownloadLink } from 'utils/components/pdf-view';
 import ResumePDFView from './ResumePDFView';
 
-const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
-    container: {
+const PREFIX = 'CV';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    pdfWrapper: `${PREFIX}-pdfWrapper`,
+    pdfView: `${PREFIX}-pdfView`,
+    downloadButtonContainer: `${PREFIX}-downloadButtonContainer`,
+    downloadButton: `${PREFIX}-downloadButton`,
+    portfolioNotice: `${PREFIX}-portfolioNotice`
+};
+
+const Root = styled('div')(({
+    theme: { palette: { primary, secondary, common } }
+}) => ({
+    [`&.${classes.container}`]: {
         marginLeft: 'auto',
         marginRight: 'auto',
         width: '100%',
@@ -27,7 +40,8 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
         position: 'relative',
         overflow: 'hidden'
     },
-    pdfWrapper: {
+
+    [`& .${classes.pdfWrapper}`]: {
         position: 'relative',
         display: 'flex',
         flexGrow: 1,
@@ -35,18 +49,21 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
         justifyContent: 'center',
         overflow: 'auto'
     },
-    pdfView: {
+
+    [`& .${classes.pdfView}`]: {
         width: p => p.width,
         height: p => p.height,
         overflowX: 'hidden',
         overflowY: 'scroll'
     },
-    downloadButtonContainer: {
+
+    [`& .${classes.downloadButtonContainer}`]: {
         position: 'absolute',
         bottom: '32px',
         right: '32px',
     },
-    downloadButton: {
+
+    [`& .${classes.downloadButton}`]: {
         backgroundColor: secondary.main,
         color: common.white,
         '&:hover': {
@@ -61,7 +78,8 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
             fill: common.white
         }
     },
-    portfolioNotice: {
+
+    [`& .${classes.portfolioNotice}`]: {
         width: '100%',
         backgroundColor: primary.dark,
         color: common.white,
@@ -71,7 +89,7 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
             fontWeight: 900
         }
     }
-}), { name: 'CV' });
+}));
 
 export default function CV() {
     useDocumentTitle({ title: `${SITE_NAME} -- CV` });
@@ -105,10 +123,10 @@ export default function CV() {
         ];
     }, [vpW, vpH]);
 
-    const classes = useStyles({ width, height });
+
 
     return (
-        <div className={ classes.container }>
+        <Root className={ classes.container }>
             <div className={ classes.pdfWrapper }>
                 <PDFView
                     className={ classes.pdfView }
@@ -155,6 +173,6 @@ export default function CV() {
                     </PDFDownloadLink>
                 </div>
             </Tooltip>
-        </div>
+        </Root>
     );
 }

@@ -1,8 +1,14 @@
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const useStyles = makeStyles( () => ({
-    container: {
+const PREFIX = 'LoadingComponent';
+
+const classes = {
+    container: `${PREFIX}-container`
+};
+
+const Root = styled('div')(() => ({
+    [`&.${classes.container}`]: {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -15,10 +21,10 @@ const useStyles = makeStyles( () => ({
         paddingBottom: '16px',
         flexGrow: 1
     }
-}), 'LoadingComponent');
+}));
 
 export default function LoadingComponent({ error, size=64 }) {
-    const classes = useStyles({ error, size });
+
 
     if(error) {
         console.error(error);
@@ -26,9 +32,9 @@ export default function LoadingComponent({ error, size=64 }) {
     }
     else {
         return (
-            <div className={ classes.container }>
+            <Root className={ classes.container }>
                 <CircularProgress size={ size } color={ 'secondary' } />
-            </div>
+            </Root>
         );
     }
 }

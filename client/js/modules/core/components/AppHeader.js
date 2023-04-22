@@ -1,7 +1,7 @@
 import { useRef, useLayoutEffect, useMemo, useState } from 'react';
+import { styled } from '@mui/material/styles';
 import useViewportSizes from 'use-viewport-sizes';
 import { useLocation } from 'react-router-dom';
-import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,11 +12,19 @@ import ThemeButton from './ThemeButton';
 import HeaderSectionButton from './HeaderSectionButton';
 import SectionHighlighter from './SectionHighlighter';
 
-const { Sections, pathIndexLookup } = AppSections;
-const BUTTON_WIDTH_PX = 60;
+const PREFIX = 'AppHeader';
 
-const useStyles = makeStyles(({ palette: { common } }) => ({
-    rightContainer: {
+const classes = {
+    rightContainer: `${PREFIX}-rightContainer`,
+    leftIconsWrapper: `${PREFIX}-leftIconsWrapper`,
+    centerPadder: `${PREFIX}-centerPadder`,
+    myNameText: `${PREFIX}-myNameText`
+};
+
+const StyledAppBar = styled(AppBar)(({
+    theme: { palette: { common } }
+}) => ({
+    [`& .${classes.rightContainer}`]: {
         textAlign: 'right',
         height: '100%',
         display: 'flex',
@@ -24,7 +32,8 @@ const useStyles = makeStyles(({ palette: { common } }) => ({
         justifyContent: 'flex-end',
         position: 'relative'
     },
-    leftIconsWrapper: {
+
+    [`& .${classes.leftIconsWrapper}`]: {
         position: 'relative',
         width: `${Sections.length * BUTTON_WIDTH_PX}px`,
         height: '100%',
@@ -33,17 +42,22 @@ const useStyles = makeStyles(({ palette: { common } }) => ({
         display: 'flex',
         flexDirection: 'row',
     },
-    centerPadder: {
+
+    [`& .${classes.centerPadder}`]: {
         flex: 1,
         display: 'flex'
     },
-    myNameText: {
+
+    [`& .${classes.myNameText}`]: {
         textAlign: 'right !important',
         marginRight: '16px !important',
         display: 'block',
         color: common.white
     }
-}), { name: 'AppHeader' });
+}));
+
+const { Sections, pathIndexLookup } = AppSections;
+const BUTTON_WIDTH_PX = 60;
 
 /**
  * callback events corresponding to each section
@@ -71,7 +85,7 @@ export default function AppHeader() {
 
     useLayoutEffect(() => { setInitialized(1) },[]);
 
-    const classes = useStyles();
+
     const buttonRefs = useRef(
         Array(Sections.length).fill(undefined)
     );
@@ -113,7 +127,7 @@ export default function AppHeader() {
     } = visualState;
 
     return (
-        <AppBar className={ fadeContainerClass } data-id={ 'app-header' }>
+        <StyledAppBar className={ fadeContainerClass } data-id={ 'app-header' }>
             <SectionHighlighter
                 sectionIndex={ (pathIndex != -1) ? pathIndex: 1 }
                 isSubsection={ pathIndex == -1 }
@@ -150,6 +164,6 @@ export default function AppHeader() {
                     <ThemeButton />
                 </div>
             </Toolbar>
-        </AppBar>
+        </StyledAppBar>
     );
 }

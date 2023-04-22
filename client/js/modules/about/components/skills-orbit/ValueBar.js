@@ -1,12 +1,19 @@
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
+const PREFIX = 'ValueBar';
 
-const useStyles = makeStyles(() => ({
-    container: {
+const classes = {
+    container: `${PREFIX}-container`,
+    bar: `${PREFIX}-bar`
+};
+
+const Root = styled('div')(() => ({
+    [`&.${classes.container}`]: {
         width: '100%',
         transition: 'border-color 0.5s',
         height: '4px'
     },
-    bar: {
+
+    [`& .${classes.bar}`]: {
         display: 'block',
         width: ({ isVisible, value }) => (
             `${isVisible ? (value * 100): '0'}%`
@@ -21,11 +28,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ValueBar({ isVisible, index, value }) {
-    const classes = useStyles({ isVisible, index, value });
+
 
     return (
-        <div className={ classes.container }>
+        <Root className={ classes.container }>
             <div className={ classes.bar } />
-        </div>
+        </Root>
     );
 }

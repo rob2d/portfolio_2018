@@ -1,19 +1,31 @@
 import { useCallback } from 'react';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import { Icon } from '@mdi/react';
 import { mdiYoutube } from '@mdi/js';
 
-const useStyles = makeStyles(() => ({
-    reelThumbImg: {
+const PREFIX = 'ReelThumb';
+
+const classes = {
+    reelThumbImg: `${PREFIX}-reelThumbImg`,
+    reelThumbSelected: `${PREFIX}-reelThumbSelected`,
+    reelThumbContainer: `${PREFIX}-reelThumbContainer`,
+    thumbSelectedOverlay: `${PREFIX}-thumbSelectedOverlay`,
+    ytThumbIcon: `${PREFIX}-ytThumbIcon`
+};
+
+const Root = styled('div')(() => ({
+    [`& .${classes.reelThumbImg}`]: {
         display: 'block',
         boxSizing: 'border-box',
         width: '100%',
         height: p => `${((1/p.aspectRatio)*100).toFixed(2)}%`
     },
-    reelThumbSelected: {
+
+    [`& .${classes.reelThumbSelected}`]: {
         border: '2px solid rgb(0,175,200) !important'
     },
-    reelThumbContainer: {
+
+    [`& .${classes.reelThumbContainer}`]: {
         position: 'relative',
         left: 0,
         top: 0,
@@ -29,7 +41,8 @@ const useStyles = makeStyles(() => ({
         marginBottom: '4px',
         cursor: 'pointer'
     },
-    thumbSelectedOverlay: {
+
+    [`& .${classes.thumbSelectedOverlay}`]: {
         position: 'absolute',
         left: '0',
         top: '0',
@@ -39,7 +52,8 @@ const useStyles = makeStyles(() => ({
         backgroundColor: 'rgba(0,175,200,0.5)',
         zIndex: 1
     },
-    ytThumbIcon: {
+
+    [`& .${classes.ytThumbIcon}`]: {
         fill: '#D00',
         backgroundColor: '#FFF',
         fontSize: '28pt',
@@ -49,10 +63,10 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         justifyContent: 'center'
     }
-}), { name: 'ReelThumb' });
+}));
 
 export default function ReelThumb({ onClick, isSelected, thumbHeight, item }) {
-    const classes = useStyles({ thumbHeight });
+
     const onKeyDown = useCallback(e => {
         // handle enter key for accessibility
         if(e.keyCode === 13) {
@@ -61,7 +75,7 @@ export default function ReelThumb({ onClick, isSelected, thumbHeight, item }) {
     }, [onClick]);
 
     return (
-        <div
+        <Root
             className={
                 `${classes.reelThumbContainer} ${
                     isSelected ? classes.reelThumbSelected : ''}`
@@ -82,6 +96,6 @@ export default function ReelThumb({ onClick, isSelected, thumbHeight, item }) {
                 />
             )
             }
-        </div>
+        </Root>
     );
 }

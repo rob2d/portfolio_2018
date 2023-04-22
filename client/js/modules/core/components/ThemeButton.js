@@ -1,17 +1,19 @@
 import { useState, useMemo, useCallback, useContext } from 'react';
+import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
-import { makeStyles } from '@mui/styles';
 import DayNightSVGIcon from 'app-root/resources/svg-icons/DayNightSVGIcon';
 import { ThemeContext } from 'app-root/ThemeContextProvider';
 
-const themeTargets = {
-    'light': 'dark',
-    'dark': 'light'
+const PREFIX = 'ThemeButton';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    tooltip: `${PREFIX}-tooltip`
 };
 
-const useStyles = makeStyles(() => ({
-    container: {
+const StyledTooltip = styled(Tooltip)(() => ({
+    [`& .${classes.container}`]: {
         cursor: 'pointer',
         fontSize: '18pt',
         height: '48px',
@@ -20,19 +22,25 @@ const useStyles = makeStyles(() => ({
             height: '26px'
         }
     },
-    tooltip: {
+
+    [`& .${classes.tooltip}`]: {
         '& > div': {
             display: 'block'
         }
     }
-}), { name: 'ThemeButton' });
+}));
+
+const themeTargets = {
+    'light': 'dark',
+    'dark': 'light'
+};
 
 export default function ThemeButton() {
     const [isToggling, setIsToggling] = useState(false);
     const { setThemeType, themeType } = useContext(ThemeContext);
     const [themeState, setThemeState] = useState(() => themeType );
 
-    const classes = useStyles();
+
 
     /**
      * upon clicking, launch sequence to toggle
@@ -66,13 +74,13 @@ export default function ThemeButton() {
     [themeState, themeType, classes.tooltip]);
 
     return (
-        <Tooltip enterDelay={ 400 } title={ tooltip }>
+        <StyledTooltip enterDelay={ 400 } title={ tooltip }>
             <Button
                 onClick={ onClick }
                 className={ classes.container }
                 aria-label={ description }
             >   <DayNightSVGIcon selection={ themeState } />
             </Button>
-        </Tooltip>
+        </StyledTooltip>
     );
 }

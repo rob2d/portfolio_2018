@@ -1,10 +1,16 @@
 import { useRef, useLayoutEffect, useCallback } from 'react';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import useViewportSizes from 'use-viewport-sizes';
 import ReelThumb from './ReelThumb';
 
-const useStyles = makeStyles(() => ({
-    reelThumbs: {
+const PREFIX = 'ReelThumbs';
+
+const classes = {
+    reelThumbs: `${PREFIX}-reelThumbs`
+};
+
+const Root = styled('div')(() => ({
+    [`&.${classes.reelThumbs}`]: {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -18,13 +24,13 @@ const useStyles = makeStyles(() => ({
             display: 'none'
         }
     }
-}), { name: 'ReelThumbs' });
+}));
 
 export default function ReelThumbs({
     selectedIndex, media, thumbHeight, onThumbClicked
 }) {
     const [vpW, vpH] = useViewportSizes();
-    const classes = useStyles({ vpH });
+
     const containerElem = useRef(null);
 
     useLayoutEffect(() => {
@@ -34,7 +40,7 @@ export default function ReelThumbs({
     }, [selectedIndex]);
 
     return (
-        <div
+        <Root
             className={ classes.reelThumbs }
             ref={ containerElem }>
             { media.map((item, i) => (
@@ -47,6 +53,6 @@ export default function ReelThumbs({
                     media={ media }
                 />
             )) }
-        </div>
+        </Root>
     );
 }

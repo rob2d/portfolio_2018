@@ -1,8 +1,9 @@
 import 'react-pdf/dist/esm/Page/TextLayer.css';
+import { styled } from '@mui/material/styles';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 import { useCallback, useMemo, useState } from 'react';
-import { useTheme, makeStyles } from '@mui/styles';
+import { useTheme } from '@mui/styles';
 import useDebouncedMemo from '@sevenoutman/use-debounced-memo';
 import { BlobProvider } from '@react-pdf/renderer';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';
@@ -13,20 +14,30 @@ import {
     mdiPagePrevious
 } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette: { mode, text, common } }) => ({
-    prevPage: {
+const PREFIX = 'PDFView';
+
+const classes = {
+    prevPage: `${PREFIX}-prevPage`,
+    nextPage: `${PREFIX}-nextPage`
+};
+
+const StyledBlobProvider = styled(BlobProvider)(({
+    theme: { palette: { mode, text, common } }
+}) => ({
+    [`& .${classes.prevPage}`]: {
         position: 'absolute',
         top: '50%',
         left: 0,
         transform: 'translateY(-50%)'
     },
-    nextPage: {
+
+    [`& .${classes.nextPage}`]: {
         position: 'absolute',
         top: '50%',
         right: 0,
         transform: 'translateY(-50%)'
     }
-}), { name: 'PDFView' });
+}));
 
 /**
  * Wraps PDFViewer found in @react-pdf/renderer and supplements
@@ -48,7 +59,7 @@ export default function PDFView({
     ...viewerProps
 }) {
     const theme = useTheme();
-    const classes = useStyles();
+
 
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
@@ -70,7 +81,7 @@ export default function PDFView({
     ), [PDFDocComponent, theme]);
 
     const content = useDebouncedMemo(() => (
-        <BlobProvider document={ document }>
+        <StyledBlobProvider document={ document }>
             {({ blob, url, loading }) => loading ?
                 (<div>Loading</div>) :
                 (
@@ -111,7 +122,7 @@ export default function PDFView({
                         )}
                     </>
             ) }
-        </BlobProvider>
+        </StyledBlobProvider>
     ), [viewerProps, document], debounceMs);
 
     return content;

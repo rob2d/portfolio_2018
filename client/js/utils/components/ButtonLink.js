@@ -1,15 +1,25 @@
 import { useMemo, useCallback } from 'react';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import ButtonBase from '@mui/material/ButtonBase';
-import { makeStyles } from '@mui/styles';
 import appHistory from 'utils/appHistory';
 import Tooltip from '@mui/material/Tooltip';
 
-const useStyles = makeStyles(({ palette: { text } }) => ({
-    container: {
+const PREFIX = 'ButtonLink';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    touchRipple: `${PREFIX}-touchRipple`
+};
+
+const StyledTooltip = styled(Tooltip)(({
+    theme: { palette: { text } }
+}) => ({
+    [`& .${classes.container}`]: {
         cursor: 'pointer'
     },
-    touchRipple: {
+
+    [`& .${classes.touchRipple}`]: {
         color: p => p.rippleColor || text.primary
     }
 }));
@@ -19,7 +29,7 @@ export default function ButtonLink({
     delay=250, rippleColor, asButton=true,
     name=children
 }) {
-    const classes = useStyles({ rippleColor });
+
     const isAbsoluteURL = useMemo(() => url.indexOf('://') != -1, [url]);
     const onClick = useCallback( e => {
         e.persist();
@@ -37,7 +47,7 @@ export default function ButtonLink({
             focusRipple
             className={ clsx(classes.container, className) }
             onMouseDown={ onClick }
-            TouchRippleProps={{ classes: { ripple: classes.touchRipple } }}
+            TouchRippleProps={{ ripple: classes.touchRipple }}
             aria-label={ name }
         >{ children }
         </ButtonBase>
@@ -50,9 +60,7 @@ export default function ButtonLink({
     ), [children, classes, className, onClick]);
 
     if(title && title.length) {
-        return (
-            <Tooltip enterDelay={ 600 } title={ title }>{ ButtonContent }</Tooltip>
-        );
+        return <StyledTooltip enterDelay={ 600 } title={ title }>{ ButtonContent }</StyledTooltip>;
     }
     else return ButtonContent;
 }

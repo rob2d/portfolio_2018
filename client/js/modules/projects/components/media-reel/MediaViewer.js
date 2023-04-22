@@ -1,12 +1,25 @@
 import { PureComponent } from 'react';
-import { withStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import ButtonLink from 'utils/components/ButtonLink';
 import YouTube from 'react-youtube';
 
-const styles = ({ palette: { secondary, common } }) => ({
-    container: {
+const PREFIX = 'MediaViewer';
+
+const classes = {
+    container: `${PREFIX}-container`,
+    mediaContainerButton: `${PREFIX}-mediaContainerButton`,
+    image: `${PREFIX}-image`,
+    mediaContainer: `${PREFIX}-mediaContainer`,
+    caption: `${PREFIX}-caption`,
+    loader: `${PREFIX}-loader`
+};
+
+const Root = styled('div')(({
+    theme: { palette: { secondary, common } }
+}) => ({
+    [`&.${classes.container}`]: {
         display: 'flex',
         boxSizing: 'border-box',
         justifyContent: 'center',
@@ -18,7 +31,8 @@ const styles = ({ palette: { secondary, common } }) => ({
         margin: 0,
         padding: 0
     },
-    mediaContainerButton: {
+
+    [`& .${classes.mediaContainerButton}`]: {
         cursor: 'pointer',
         border: `2px solid ${secondary.dark}`,
         '&:hover': {
@@ -30,13 +44,15 @@ const styles = ({ palette: { secondary, common } }) => ({
         maxWidth: p => `${p.width}px`,
         width: p => `${p.width}px`
     },
-    image: {
+
+    [`& .${classes.image}`]: {
         maxWidth: p => `${p.width}px`,
         width: p => `${p.width}px`,
         height: p => `${(p.width / p.aspectRatio)}px`,
         transition: 'border-color 0.24s ease-in'
     },
-    mediaContainer: {
+
+    [`& .${classes.mediaContainer}`]: {
         maxWidth: p => `${p.width}px`,
         width: p => `${p.width}px`,
         height: p => (
@@ -49,7 +65,8 @@ const styles = ({ palette: { secondary, common } }) => ({
             height: '100%'
         }
     },
-    caption: {
+
+    [`& .${classes.caption}`]: {
         display: 'flex',
         minHeight: '48px',
         justifyContent: 'center',
@@ -59,7 +76,8 @@ const styles = ({ palette: { secondary, common } }) => ({
         bottom: '-48px',
         textAlign: 'center',
     },
-    loader: {
+
+    [`& .${classes.loader}`]: {
         position: 'absolute',
         display: 'flex',
         pointerEvents: 'none',
@@ -73,7 +91,7 @@ const styles = ({ palette: { secondary, common } }) => ({
         bottom: '0',
         zIndex: '1000'
     }
-});
+}));
 
 class MediaViewer extends PureComponent {
 
@@ -306,7 +324,7 @@ class MediaViewer extends PureComponent {
         }
 
         return (
-            <div className={ classes.container }>
+            <Root className={ classes.container }>
                 <div className={ classes.mediaContainer } style={ bgLoadingStyle }>
                     { mediaElement }
                 </div>
@@ -321,9 +339,9 @@ class MediaViewer extends PureComponent {
                 <Typography className={ classes.caption } variant={ 'caption' }>
                     { caption }
                 </Typography>
-            </div>
+            </Root>
         );
     }
 }
 
-export default withStyles(styles)(MediaViewer);
+export default (MediaViewer);

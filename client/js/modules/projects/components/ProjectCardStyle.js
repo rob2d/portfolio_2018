@@ -7,7 +7,7 @@ const getTopMargin = vpW => vpW > 800 ? 32: 16;
 // are broken down into different state-components
 // (vs all handled via this one mutating component)
 
-export default makeStyles(({ palette: { mode, text, common } }) => ({
+export default makeStyles(({ palette: { mode, text, common, type } }) => ({
     container: {
         position: p => p.hasAbsolutePosition ? 'absolute': 'relative',
         opacity: p => p.isShown ? 1 : 0,

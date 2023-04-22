@@ -1,9 +1,15 @@
 import clsx from 'clsx';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import useSkillOrbsScene from './useSkillOrbsScene';
 
-const useStyles = makeStyles(() => ({
-    canvas3d: {
+const PREFIX = 'SkillsVisualizer';
+
+const classes = {
+    canvas3d: `${PREFIX}-canvas3d`
+};
+
+const Root = styled('div\r\n')(() => ({
+    [`& .${classes.canvas3d}`]: {
         position: 'relative',
         display: 'flex',
         overflow: 'hidden',
@@ -13,11 +19,11 @@ const useStyles = makeStyles(() => ({
         transitionDuration: '0.75s',
         transitionTimingFunction: 'ease'
     }
-}), 'SkillsVisualizer');
+}));
 
 export default function SkillsVisualizer({ className }) {
     const [containerRef, isHighlighted] = useSkillOrbsScene();
-    const classes = useStyles({ isHighlighted });
+
 
     return (
         <div
