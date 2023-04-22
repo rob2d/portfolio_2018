@@ -143,16 +143,17 @@ module.exports = {
             patterns: [{
                 from: `./${SRC_ROOT}/**/*.*`,
                 to: ({ context, absoluteFilename }) => {
-
-                    // TODO: precalculate normalized SRC_ROOT, DEST_ROOT
-                    // so this op isn't repeated many times
-
                     const srcRoot = path.join(context, SRC_ROOT);
                     const destRoot = path.join(context, DEST_ROOT);
                     return path.normalize(absoluteFilename).replace(srcRoot, destRoot);
                 },
                 ...ignoredGlobPatternCopyOptions
             }, {
+                from: `./${SRC_ROOT}/favicon.ico`,
+                to: '',
+                ...ignoredGlobPatternCopyOptions
+            },
+            {
                 from: `./${SRC_ROOT}/manifest.json`,
                 to: '',
                 ...ignoredGlobPatternCopyOptions
