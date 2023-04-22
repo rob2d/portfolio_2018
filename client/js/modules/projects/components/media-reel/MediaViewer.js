@@ -203,11 +203,11 @@ class MediaViewer extends PureComponent {
                             <ButtonLink
                                 url={ resource.url }
                                 title={ 'Open full res image in new tab' }
-                                className={ props.classes.mediaContainerButton }
+                                className={ classes.mediaContainerButton }
                                 style={ newState.itemDimensionStyle }
                             > <img
                                 style={ newState.itemDimensionStyle }
-                                className={ props.classes.image }
+                                className={ classes.image }
                                 src={ props.src }
                             />
                             </ButtonLink>
@@ -231,8 +231,8 @@ class MediaViewer extends PureComponent {
                                 key={ itemKey }
                                 id={ itemKey }
                                 videoId={ videoId }
-                                containerClassName={ props.classes.mediaContainer }
-                                className={ props.classes.mediaContainer }
+                                containerClassName={ classes.mediaContainer }
+                                className={ classes.mediaContainer }
                                 opts={ newState.ytOpts }
                                 style={ newState.itemDimensionStyle }
                                 width={ newState.width }
@@ -277,7 +277,7 @@ class MediaViewer extends PureComponent {
 
         const {
             type, src, thumb, videoId,
-            caption, classes, vpW
+            caption, vpW
         } = this.props;
 
         const itemKey = MediaViewer.getItemKey(this.props);
