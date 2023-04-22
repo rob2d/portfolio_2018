@@ -1,5 +1,5 @@
 import { useState, useMemo, createContext } from 'react';
-import { ThemeProvider, StyledEngineProvider } from '@mui/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { getTheme } from './themeDefs';
 
 const DARK_THEME_Q = '(prefers-color-scheme: dark)';
