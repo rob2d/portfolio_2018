@@ -1,5 +1,5 @@
 import C from 'color';
-import { createTheme, adaptV4Theme } from '@mui/styles';
+import { createTheme, adaptV4Theme } from '@mui/material/styles';
 import deepMerge from 'utils/themer/deepMerge';
 import createDerivedTheme from 'utils/themer/createDerivedTheme';
 
