@@ -153,10 +153,16 @@ module.exports = {
                 },
                 ...ignoredGlobPatternCopyOptions
             }, {
-                from: `./${SRC_ROOT}/favicon.ico`,
+                from: `./${SRC_ROOT}/manifest.json`,
                 to: '',
                 ...ignoredGlobPatternCopyOptions
-            }, ...(process.env.NODE_ENV == 'production' ?
+            },
+            {
+                from: `./${SRC_ROOT}/`,
+                to: '',
+                ...ignoredGlobPatternCopyOptions
+            },
+            ...(process.env.NODE_ENV == 'production' ?
                 [
                     {
                         from: `./${SRC_ROOT}/robots.txt`,

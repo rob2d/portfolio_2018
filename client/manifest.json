@@ -1,0 +1,40 @@
+{
+    "short_name": "Robert Concepcion III's Portfolio Website",
+    "name": "Robert Concepcion III's Portfolio Website",
+    "id": "/?source=pwa",
+    "start_url": "/?source=pwa",
+    "background_color": "#C51162",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#C51162",
+    "shortcuts": [
+        {
+        "name": "About",
+        "short_name": "About",
+        "description": "About this portfolio",
+        "url": "/?source=pwa",
+        "icons": []
+        },
+        {
+            "name": "Projects",
+            "short_name": "Projects",
+            "description": "Small set of projects done on weekends or outside of work",
+            "url": "/projects?source=pwa",
+            "icons": []
+        },
+        {
+            "name": "Miscellaneous",
+            "short_name": "Misc",
+            "description": "Random things that might not be software dev projects",
+            "url": "/misc?source=pwa",
+            "icons": []
+        },
+        {
+            "name": "CV",
+            "short_name": "CV",
+            "description": "Resume/Professional experience",
+            "url": "/cv?source=pwa",
+            "icons": []
+        }
+    ]
+}
