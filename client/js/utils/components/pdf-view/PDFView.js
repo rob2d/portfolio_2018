@@ -21,9 +21,7 @@ const classes = {
     nextPage: `${PREFIX}-nextPage`
 };
 
-const StyledBlobProvider = styled(BlobProvider)(({
-    theme: { palette: { mode, text, common } }
-}) => ({
+const Styled = styled('div')({
     [`& .${classes.prevPage}`]: {
         position: 'absolute',
         top: '50%',
@@ -37,7 +35,7 @@ const StyledBlobProvider = styled(BlobProvider)(({
         right: 0,
         transform: 'translateY(-50%)'
     }
-}));
+});
 
 /**
  * Wraps PDFViewer found in @react-pdf/renderer and supplements
@@ -81,11 +79,11 @@ export default function PDFView({
     ), [PDFDocComponent, theme]);
 
     const content = useDebouncedMemo(() => (
-        <StyledBlobProvider document={ document }>
+        <BlobProvider document={ document }>
             {({ blob, url, loading }) => loading ?
                 (<div>Loading</div>) :
                 (
-                    <>
+                    <Styled>
                         <Document
                             file={ url }
                             renderMode={ 'canvas' }
@@ -98,7 +96,7 @@ export default function PDFView({
                             />
                         </Document>
 
-                        {pageNumber <= 1 ? undefined : (
+                        { pageNumber <= 1 ? undefined : (
                             <Tooltip enterDelay={ 400 } title={ 'View Previous Page' }>
                                 <Button className={ classes.prevPage } onClick={ onPrevPage }>
                                     <Icon
@@ -120,9 +118,9 @@ export default function PDFView({
                                 </Button>
                             </Tooltip>
                         )}
-                    </>
+                    </Styled>
             ) }
-        </StyledBlobProvider>
+        </BlobProvider>
     ), [viewerProps, document], debounceMs);
 
     return content;

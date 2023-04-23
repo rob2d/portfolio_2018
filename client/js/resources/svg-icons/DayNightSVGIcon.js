@@ -12,7 +12,7 @@ const useStyles = makeStyles(({ palette: { common } }) => {
         container: {
             cursor: 'pointer',
             fontSize: '18pt',
-            height: '48px',
+            height: '26px',
             '& svg ': {
                 width: '26px',
                 height: '26px'

@@ -13,9 +13,8 @@ const useStyles = makeStyles(({ palette: { common } }) => ({
         lineHeight: '24px',
         padding: '8px',
         minWidth: '60px',
-        '& > *': { // icon content
+        '& > *': {
             position: 'relative',
-            display: 'block',
             top: '2px',
         },
         '& svg': {
