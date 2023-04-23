@@ -154,7 +154,7 @@ export default function About() {
                 </div>
                 <div className={ clsx(classes.sphere, classes.avatar) }>
                     <Avatar>
-                        <OptimizedImg src={ 'img/about/me.jpg' } alt={ 'Rob' } />
+                        <OptimizedImg src={ 'img/about/me.png' } alt={ 'Rob' } />
                     </Avatar>
                 </div>
             </div>
