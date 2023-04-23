@@ -113,8 +113,8 @@ themeDefs.light.push({
 });
 
 themeDefs.dark.push({
-    type: 'dark',
     palette: {
+        mode: 'dark',
         primary: {
             main: '#30304b',
             dark: '#292938'

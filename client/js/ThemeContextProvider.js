@@ -17,12 +17,12 @@ export default function ThemeContextProvider({ children }) {
     }), [themeType, setThemeType]);
 
     return (
-        <ThemeContext.Provider value={ context }>
-            <StyledEngineProvider injectFirst>
+        <StyledEngineProvider injectFirst>
+            <ThemeContext.Provider value={ context }>
                 <ThemeProvider theme={ themeApplied }>
                     { children }
                 </ThemeProvider>
-            </StyledEngineProvider>
-        </ThemeContext.Provider>
+            </ThemeContext.Provider>
+        </StyledEngineProvider>
     );
 }

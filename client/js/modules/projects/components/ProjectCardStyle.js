@@ -7,7 +7,7 @@ const getTopMargin = vpW => vpW > 800 ? 32: 16;
 // are broken down into different state-components
 // (vs all handled via this one mutating component)
 
-export default makeStyles(({ palette: { mode, text, common, type } }) => ({
+export default makeStyles(({ palette: { mode, text, common } }) => ({
     container: {
         position: p => p.hasAbsolutePosition ? 'absolute': 'relative',
         opacity: p => p.isShown ? 1 : 0,
@@ -75,7 +75,7 @@ export default makeStyles(({ palette: { mode, text, common, type } }) => ({
         flexDirection: 'column !important',
         overflow: 'hidden !important',
         boxShadow: () => {
-            const l = type == 'light';
+            const l = mode == 'light';
             const rgb = l ? '0,0,0': '255,255,255';
             const shadowStrength = l ? 1: 2;
 

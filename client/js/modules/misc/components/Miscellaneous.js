@@ -16,7 +16,7 @@ import {
     useAutoFaderClass
 } from 'utils/hooks';
 
-const useStyles = makeStyles(({ palette: { common, secondary, mode, text, type } }) => ({
+const useStyles = makeStyles(({ palette: { common, secondary, mode, text } }) => ({
     mainContainer: {
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -52,7 +52,7 @@ const useStyles = makeStyles(({ palette: { common, secondary, mode, text, type }
         minHeight: '190px',
         margin: '0 auto',
         display: 'block',
-        filter: `invert(${(type == 'light') ? 0: 100}%)`,
+        filter: `invert(${(mode == 'light') ? 0: 100}%)`,
         transition: 'filter 0.32s'
     },
     blurbs: {

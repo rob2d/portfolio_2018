@@ -12,9 +12,7 @@ const classes = {
     value: `${PREFIX}-value`
 };
 
-const Root = styled('div')(({
-    theme: { palette: { text } }
-}) => ({
+const Root = styled('div')(({ theme: { palette: { text } } }) => ({
     [`& .${classes.container}`]: {
         position: 'absolute',
         bottom: '0',

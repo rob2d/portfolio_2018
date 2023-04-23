@@ -12,6 +12,9 @@ import ThemeButton from './ThemeButton';
 import HeaderSectionButton from './HeaderSectionButton';
 import SectionHighlighter from './SectionHighlighter';
 
+const { Sections, pathIndexLookup } = AppSections;
+const BUTTON_WIDTH_PX = 60;
+
 const PREFIX = 'AppHeader';
 
 const classes = {
@@ -56,9 +59,6 @@ const StyledAppBar = styled(AppBar)(({
     }
 }));
 
-const { Sections, pathIndexLookup } = AppSections;
-const BUTTON_WIDTH_PX = 60;
-
 /**
  * callback events corresponding to each section
  * in Sections list which navigate to desired
@@ -85,7 +85,6 @@ export default function AppHeader() {
 
     useLayoutEffect(() => { setInitialized(1) },[]);
 
-
     const buttonRefs = useRef(
         Array(Sections.length).fill(undefined)
     );
@@ -95,15 +94,13 @@ export default function AppHeader() {
             const buttons = buttonRefs.current;
             const buttonW = buttons[0] && buttons[0].offsetWidth;
             const appBar = buttons[0].parentNode.parentNode;
-            const appBarH = appBar && appBar.clientHeight;
+            const appBarHeight = appBar && appBar.clientHeight;
             const cStyle = window.getComputedStyle(appBar, null);
             const leftPadding = cStyle.getPropertyValue('padding-left');
-            const xPositions = buttons.map( b => (
-                b.offsetLeft + buttonW / 2
-            ));
+            const xPositions = buttons.map(b => b.offsetLeft + buttonW / 2 );
 
             return {
-                appBarH,
+                appBarHeight,
                 leftPadding,
                 xPositions,
                 buttonW
@@ -111,6 +108,8 @@ export default function AppHeader() {
         }
         else return {};
     }, [vpW, vpH, pathname, buttonRefs.current?.[0]]);
+
+    console.log('visualState ->', visualState);
 
     // set of callbacks to set individual refs
     // (to prevent 2x renders in SectionButtons)
@@ -120,7 +119,7 @@ export default function AppHeader() {
     [buttonRefs.current[0]]);
 
     const {
-        appBarH,
+        appBarHeight,
         buttonW,
         xPositions,
         leftPadding
@@ -135,7 +134,7 @@ export default function AppHeader() {
                 buttonXs={ xPositions }
                 leftPadding={ leftPadding }
                 buttonW={ buttonW }
-                appBarH={ appBarH } // needed for browser issues
+                appBarHeight={ appBarHeight } // needed for browser issues
             />
             <Toolbar className={ classes.toolbar }>
                 <div
