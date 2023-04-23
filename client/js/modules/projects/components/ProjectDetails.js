@@ -156,8 +156,7 @@ const useStyles = makeStyles(({ palette: { common, text, primary, secondary } })
 }), { name: 'ProjectDetails' });
 
 export default function ProjectDetails({ projectId }) {
-    const [vpW, _, updateVpSizes] = useViewportSizes();
-    useEffect(() => updateVpSizes(), []);
+    const [vpW, _] = useViewportSizes();
     const classes = useStyles({ projectId, vpW });
     const fadeContainerClass = useAutoFaderClass(undefined, 1000);
     const p = projects[projectId];

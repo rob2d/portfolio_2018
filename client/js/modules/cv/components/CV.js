@@ -76,8 +76,7 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
 export default function CV() {
     useDocumentTitle({ title: `${SITE_NAME} -- CV` });
 
-    const [vpW, vpH, updateVpSizes] = useViewportSizes();
-    useEffect(() => { updateVpSizes() }, []);
+    const [vpW, vpH] = useViewportSizes();
 
     const [width, height] = useMemo(() => {
         const aspectRatio = vpW / vpH;

@@ -109,10 +109,9 @@ const useStyles = makeStyles(({
 export default function About() {
     useDocumentTitle({ title: `${SITE_NAME} -- About` });
     const fadeContainerClass = useAutoFaderClass();
-    const [vpW, vpH, updateVpSizes] = useViewportSizes();
-    useEffect(() => updateVpSizes(), []);
+    const [vpW, vpH] = useViewportSizes();
 
-    const [negativeContentH, setNegativeContentH] = useState(() => 0 );
+    const [negativeContentH, setNegativeContentH] = useState(() => 0);
 
     // measure the header and footer to size the
     // remaining paragraph area

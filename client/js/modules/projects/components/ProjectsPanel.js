@@ -104,8 +104,7 @@ export default function ProjectsPanel() {
     const prevProjectId = usePrevious(projectId);
     useDocumentTitle({ title: !projectId && `${SITE_NAME} -- Projects` });
 
-    const [vpW, vpH, updateVpSizes] = useViewportSizes();
-    useEffect(() => updateVpSizes(), []);
+    const [vpW] = useViewportSizes({ dimension: 'w' });
     const classes = useStyles();
     const fadeContainerClass = useAutoFaderClass();
 

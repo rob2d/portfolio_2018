@@ -233,8 +233,7 @@ class MediaReel extends PureComponent {
 // and do not rely on requiring a container
 
 export default function MediaReelContainer(props) {
-    const [vpW, vpH, updateVpSizes] = useViewportSizes();
-    useEffect(() => updateVpSizes(), []);
+    const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ ...props, vpW, vpH });
 
     return (
