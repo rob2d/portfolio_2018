@@ -58,7 +58,6 @@ export default function PDFView({
 }) {
     const theme = useTheme();
 
-
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 

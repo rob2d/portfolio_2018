@@ -24,7 +24,6 @@ const Root = styled('div\r\n')(() => ({
 export default function SkillsVisualizer({ className }) {
     const [containerRef, isHighlighted] = useSkillOrbsScene();
 
-
     return (
         <div
             ref={ containerRef }

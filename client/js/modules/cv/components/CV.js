@@ -123,8 +123,6 @@ export default function CV() {
         ];
     }, [vpW, vpH]);
 
-
-
     return (
         <Root className={ classes.container }>
             <div className={ classes.pdfWrapper }>

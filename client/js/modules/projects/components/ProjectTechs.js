@@ -47,7 +47,6 @@ const StyledButtonLink = styled(ButtonLink)(({
 
 export default function ProjectTechs({ technologies }) {
 
-
     return technologies.map( tKey => {
         const { displayName, referenceUrl } = Technologies[tKey];
 

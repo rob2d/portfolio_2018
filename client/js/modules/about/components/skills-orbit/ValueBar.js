@@ -29,7 +29,6 @@ const Root = styled('div')(() => ({
 
 export default function ValueBar({ isVisible, index, value }) {
 
-
     return (
         <Root className={ classes.container }>
             <div className={ classes.bar } />

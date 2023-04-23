@@ -147,8 +147,6 @@ export default function About() {
         );
     }, [vpW, vpH]);
 
-
-
     const SkillsVisualizer = useLazyComponent(
         () => import( /* webpackChunkName: "skills-visualizer" */
             './skills-orbit/SkillsVisualizer')

@@ -25,7 +25,6 @@ const Root = styled('div')(() => ({
 
 export default function LoadingComponent({ error, size=64 }) {
 
-
     if(error) {
         console.error(error);
         return 'Error Loading!';

@@ -40,8 +40,6 @@ export default function ThemeButton() {
     const { setThemeType, themeType } = useContext(ThemeContext);
     const [themeState, setThemeState] = useState(() => themeType );
 
-
-
     /**
      * upon clicking, launch sequence to toggle
      * theme and provide some ample time
