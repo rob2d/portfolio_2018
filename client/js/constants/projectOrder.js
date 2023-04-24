@@ -1,10 +1,10 @@
 export default [
     'vpsizes',
+    'sonicphysics',
+    'colorshafted',
     'bw',
     'thanos',
     'smartwalk',
-    'colorshafted',
-    'sonicphysics',
     'chinesepoker',
     'greedux',
     'bamf',

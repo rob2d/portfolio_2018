@@ -76,14 +76,11 @@ const styles = ({ palette: { secondary, common } }) => ({
 });
 
 class MediaViewer extends PureComponent {
-
     constructor(props) {
         super(props);
 
         const { disableCache } = props;
-        this.state = {
-            cacheMap: disableCache ? undefined: new Map()
-        };
+        this.state = { cacheMap: disableCache ? undefined: new Map() };
     }
 
     /**
@@ -147,10 +144,6 @@ class MediaViewer extends PureComponent {
             if(cacheMap && cacheMap.has(itemKey)) {
                 switch (props.type) {
                     case 'video':
-                        // TODO: we should be saving
-                        //        video element so that
-                        //        it does not need to
-                        //        reload iFrame
                         if(props.updateCount == state.updateCount) {
                             cacheMap.get(itemKey).isMediaLoading = true;
                         }
@@ -238,6 +231,8 @@ class MediaViewer extends PureComponent {
                     resource,
                     isMediaLoading: true
                 });
+
+                newState.cacheMap = new Map(cacheMap);
             }
 
             return newState;
@@ -251,16 +246,12 @@ class MediaViewer extends PureComponent {
 
     render() {
         const { cacheMap } = this.state;
-
-        const {
-            type, src, thumb, videoId,
-            caption, classes, vpW
-        } = this.props;
+        const { type, caption, classes, vpW } = this.props;
 
         const itemKey = MediaViewer.getItemKey(this.props);
 
         const isMediaLoading = (cacheMap && cacheMap.get(itemKey)) ?
-            cacheMap.get(itemKey).isMediaLoading: true;
+            cacheMap.get(itemKey).isMediaLoading : true;
 
         const { resource } = cacheMap.get(itemKey);
 
@@ -277,12 +268,7 @@ class MediaViewer extends PureComponent {
 
         switch (type) {
             case 'image':
-                if(!isMediaLoading) {
-                    mediaElement = resource.domSegment;
-                }
-                else {
-                    mediaElement = undefined;
-                }
+                mediaElement = !isMediaLoading ? resource.domSegment : undefined;
                 break;
             case 'video':
                 if(!isMediaLoading) {

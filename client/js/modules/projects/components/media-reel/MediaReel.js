@@ -6,16 +6,7 @@ import { mdiSquare, mdiSquareOutline } from '@mdi/js';
 import MediaViewer from './MediaViewer';
 import ReelThumbs from './ReelThumbs';
 
-const REEL_ANIM_SPEED = 6500;
-
-/**
- * Retrieves the width for the entire media reel
- * (dependent on width, maxWidth props)
- */
-function getReelWidth(width, maxWidth) {
-    return maxWidth !== 'undefined' &&
-        ((width > maxWidth) ? maxWidth : width);
-}
+const REEL_ANIM_SPEED = 10000;
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -25,7 +16,7 @@ const useStyles = makeStyles(() => ({
         height: p => (
             // 25% diff to account for reel and status boxes
             `${Math.round(
-                (getReelWidth(p.width,p.maxWidth)/(p.aspectRatio)) * 0.75
+                (Math.min(p.width || 0, p.maxWidth || 0)/(p.aspectRatio)) * 0.75
             )}px`
         ),
         margin: '0 auto 56px'
@@ -122,6 +113,13 @@ function mediaReelReducer(state, action = undefined) {
                 isVideoPlaying: true
             };
         }
+
+        case 'mark-last-update': {
+            return {
+                ...state,
+                lastUpdated: new Date()
+            };
+        }
         default: {
             return state;
         }
@@ -149,6 +147,10 @@ function useMediaReel() {
         dispatch({ type: 'set-media-length', mediaLength: media.length });
     }, []);
 
+    const handleMediaUpdate = useCallback(() => {
+        dispatch({ type: 'mark-last-update' });
+    }, []);
+
     // set/reset autoplay interval
     useEffect(() => {
         autoplayInterval.current = setInterval(() => dispatch({ type: 'advance-selection' }), REEL_ANIM_SPEED);
@@ -160,7 +162,8 @@ function useMediaReel() {
         handleItemClick,
         handleVideoPlay,
         handleVideoStop,
-        handleMediaChange
+        handleMediaChange,
+        handleMediaUpdate
     ];
 }
 
@@ -170,7 +173,8 @@ export default function MediaReel({ media, width, maxWidth, aspectRatio, ...prop
         handleItemClick,
         handleVideoPlay,
         handleVideoStop,
-        handleMediaChange
+        handleMediaChange,
+        handleMediaUpdate
     ] = useMediaReel();
 
     useEffect(() => { handleMediaChange(media) }, [media]);
@@ -190,7 +194,7 @@ export default function MediaReel({ media, width, maxWidth, aspectRatio, ...prop
                 onVideoStop={ handleVideoStop }
                 onVideoPause={ undefined }
                 onVideoEnd={ handleVideoStop }
-                onUpdate={ () => {} }
+                onUpdate={ handleMediaUpdate }
             />
             <div className={ classes.reel }>
                 <div className={ classes.reelPadding } />
@@ -200,10 +204,10 @@ export default function MediaReel({ media, width, maxWidth, aspectRatio, ...prop
                             media={ media }
                             selectedIndex={ selectedIndex }
                             thumbHeight={
-                                Math.round((
-                                    getReelWidth(width, maxWidth)*0.25*0.75) /
-                                    aspectRatio
-                                )
+                                Math.round(
+                                    Math.min(width || 0, maxWidth || 0)*0.25*0.75
+                                ) / aspectRatio
+
                             }
                             onThumbClicked={ handleItemClick }
                             width={ width }
