@@ -16,7 +16,7 @@ export default {
             This project started from a bet between a co-worker among several of
             us that nobody was capable of creating a Gameboy ROM within a few
             days outside of work. It seemed like a great opportunity to get back in
-            touch with certain aspects of computer science that I don\'t normally
+            touch with certain aspects of computer science that I don't normally
             work with, so I jumped in!
         </span>),
 
