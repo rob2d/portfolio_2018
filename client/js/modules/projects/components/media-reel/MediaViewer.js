@@ -139,14 +139,12 @@ class MediaViewer extends PureComponent {
                 updateCount: props.updateCount,
                 height: props.width / props.aspectRatio,
                 ytOpts: { width: props.width, height: props.height },
-                itemDimensionStyle: { width: `${props.width}px`, height: `${props.height}px` }
             };
 
             const { cacheMap } = state;
             const itemKey = MediaViewer.getItemKey(props);
 
             if(cacheMap && cacheMap.has(itemKey)) {
-                const { resource, isMediaLoading } = cacheMap.get(itemKey);
                 switch (props.type) {
                     case 'video':
                         // TODO: we should be saving
@@ -186,9 +184,7 @@ class MediaViewer extends PureComponent {
                                 url={ resource.url }
                                 title={ 'Open full res image in new tab' }
                                 className={ props.classes.mediaContainerButton }
-                                style={ newState.itemDimensionStyle }
                             > <img
-                                style={ newState.itemDimensionStyle }
                                 className={ props.classes.image }
                                 src={ props.src }
                             />
