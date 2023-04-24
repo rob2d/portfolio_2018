@@ -1,4 +1,4 @@
-import { PureComponent, useEffect } from 'react';
+import { useEffect, useRef, useCallback, useReducer } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
@@ -6,7 +6,6 @@ import { mdiSquare, mdiSquareOutline } from '@mdi/js';
 import MediaViewer from './MediaViewer';
 import ReelThumbs from './ReelThumbs';
 
-// TODO : css related constants should be together
 const REEL_ANIM_SPEED = 6500;
 
 /**
@@ -90,158 +89,149 @@ const useStyles = makeStyles(() => ({
     }
 }), { name: 'MediaReel' });
 
-class MediaReel extends PureComponent {
+const initialState = {
+    selectedIndex: 0,
+    mediaLength: 0,
+    isVideoPlaying: false,
+    lastUpdated: new Date()
+};
 
-    state = {
-        selectedIndex: 0,
-        isVideoPlaying: false,
-        autoplayTimer: null,
-        updateCount: 0
-    };
-
-    componentDidMount() {
-        this.startReelAutoplay();
-    }
-
-    componentWillUnmount() {
-        const { autoplayTimer } = this.state;
-        clearInterval(autoplayTimer);
-    }
-
-    handleVideoPlay = () => {
-        this.setState({ isVideoPlaying: true });
-    };
-
-    handleVideoStop = () => {
-        this.setState({ isVideoPlaying: false });
-    };
-
-    handleItemClick = selectedIndex => {
-        // reset autoplay timer
-        // and bind new interval
-        this.startReelAutoplay();
-        this.setState({ selectedIndex });
-    };
-
-    /**
-     * increments update for easily handling media loading
-     * (this is somewhat hax; no time to re-write ownership
-     * of cache handler for viewer or break down component types)
-     */
-    handlePropUpdate = () => {
-        const { updateCount } = this.state;
-        this.setState({ updateCount: updateCount + 1 });
-    };
-
-    startReelAutoplay = () => {
-        const { autoplayTimer } = this.state;
-        clearInterval(autoplayTimer);
-        this.setState({
-            autoplayTimer: setInterval(() => this.autoplayToNextItem(), REEL_ANIM_SPEED),
-        });
-    };
-
-    autoplayToNextItem = () => {
-        const { isVideoPlaying, selectedIndex } = this.state;
-        const { media } = this.props;
-        if(!isVideoPlaying) {
-            this.setState({ selectedIndex: (selectedIndex + 1) % media.length });
+function mediaReelReducer(state, action = undefined) {
+    switch (action.type) {
+        case 'set-media-length': {
+            return {
+                ...state,
+                mediaLength: action.mediaLength
+            };
         }
-    };
-
-    render() {
-        const {
-            classes,
-            media,
-            width,
-            maxWidth,
-            aspectRatio,
-            vpW,
-            vpH
-        } = this.props;
-
-        const {
-            selectedIndex,
-            updateCount
-        } = this.state;
-
-        const highlightedMedia = media && media[selectedIndex];
-
-        return (
-            <div className={ classes.container }>
-                <MediaViewer
-                    { ...highlightedMedia }
-                    width={ Math.floor(width*0.7) }
-                    aspectRatio={ aspectRatio }
-                    vpW={ vpW }
-                    vpH={ vpH }
-                    onVideoPlay={ this.handleVideoPlay }
-                    onVideoStop={ this.handleVideoStop }
-                    onVideoPause={ undefined } //do not want reel to resume
-                    onVideoEnd={ this.handleVideoStop }
-                    onUpdate={ this.handlePropUpdate }
-                    updateCount={ updateCount }
-                />
-                <div className={ classes.reel }>
-                    <div className={ classes.reelPadding } />
-                    {
-                        vpW > 740 && (
-                            <ReelThumbs
-                                media={ media }
-                                selectedIndex={ selectedIndex }
-                                thumbHeight={
-                                    Math.round((
-                                        getReelWidth(width,maxWidth)*0.25*0.75) /
-                                        aspectRatio
-                                    )
-                                }
-                                onThumbClicked={ this.handleItemClick }
-                                width={ width }
-                                vpH={ vpH }
-                            />
-                    ) }
-                    <div className={ classes.reelPadding } />
-                    <div className={ classes.statusBoxes }>
-                        { media.map((item, i) => (
-                            <div
-                                key={ `mediaReelItem${i}` }
-                                className={ classes.statusBox }
-                                onKeyDown={ e => {
-                                    if(e.keyCode === 13) {
-                                        this.handleItemClick(i);
-                                    }
-                                } }
-                                onClick={ () => this.handleItemClick(i) }
-                            >
-                                <Icon
-                                    path={ ( i != selectedIndex ) ?
-                                        mdiSquareOutline : mdiSquare
-                                    }
-                                    className={ classes.statusBoxIcon }
-                                    size={ 0.5 }
-                                />
-                            </div>
-                        )) }
-                    </div>
-                </div>
-            </div>
-        );
+        case 'set-selection': {
+            return {
+                ...state,
+                selectedIndex: action.selectedIndex
+            };
+        }
+        case 'advance-selection': {
+            return {
+                ...state,
+                selectedIndex: (state.selectedIndex + 1) % state.mediaLength
+            };
+        }
+        case 'play-video': {
+            return {
+                ...state,
+                isVideoPlaying: true
+            };
+        }
+        default: {
+            return state;
+        }
     }
 }
 
-// TODO : convert MediaViewer to hooks implementation
-// and do not rely on requiring a container
+function useMediaReel() {
+    const [state, dispatch] = useReducer(mediaReelReducer, initialState);
 
-export default function MediaReelContainer(props) {
+    const autoplayInterval = useRef(() => null);
+
+    const handleVideoPlay = useCallback(() => {
+        dispatch({ type: 'play-video' });
+    }, []);
+
+    const handleVideoStop = useCallback(() => {
+        dispatch({ type: 'stop-video' });
+    }, []);
+
+    const handleItemClick = useCallback(selectedIndex => {
+        dispatch({ type: 'set-selection', selectedIndex });
+    }, []);
+
+    const handleMediaChange = useCallback(media => {
+        dispatch({ type: 'set-media-length', mediaLength: media.length });
+    }, []);
+
+    // set/reset autoplay interval
+    useEffect(() => {
+        autoplayInterval.current = setInterval(() => dispatch({ type: 'advance-selection' }), REEL_ANIM_SPEED);
+        return () => clearInterval(autoplayInterval.current);
+    }, []);
+
+    return [
+        state.selectedIndex,
+        handleItemClick,
+        handleVideoPlay,
+        handleVideoStop,
+        handleMediaChange
+    ];
+}
+
+export default function MediaReel({ media, width, maxWidth, aspectRatio, ...props }) {
+    const [
+        selectedIndex,
+        handleItemClick,
+        handleVideoPlay,
+        handleVideoStop,
+        handleMediaChange
+    ] = useMediaReel();
+
+    useEffect(() => { handleMediaChange(media) }, [media]);
+
     const [vpW, vpH] = useViewportSizes();
-    const classes = useStyles({ ...props, vpW, vpH });
+    const classes = useStyles({ vpW, vpH, width, maxWidth, aspectRatio, ...props });
 
     return (
-        <MediaReel
-            { ...props }
-            classes={ classes }
-            vpW={ vpW }
-            vpH={ vpH }
-        />
+        <div className={ classes.container }>
+            <MediaViewer
+                { ...media?.[selectedIndex] }
+                width={ Math.floor(width*0.7) }
+                aspectRatio={ aspectRatio }
+                vpW={ vpW }
+                vpH={ vpH }
+                onVideoPlay={ handleVideoPlay }
+                onVideoStop={ handleVideoStop }
+                onVideoPause={ undefined }
+                onVideoEnd={ handleVideoStop }
+                onUpdate={ () => {} }
+            />
+            <div className={ classes.reel }>
+                <div className={ classes.reelPadding } />
+                {
+                    vpW > 740 && (
+                        <ReelThumbs
+                            media={ media }
+                            selectedIndex={ selectedIndex }
+                            thumbHeight={
+                                Math.round((
+                                    getReelWidth(width, maxWidth)*0.25*0.75) /
+                                    aspectRatio
+                                )
+                            }
+                            onThumbClicked={ handleItemClick }
+                            width={ width }
+                            vpH={ vpH }
+                        />
+                ) }
+                <div className={ classes.reelPadding } />
+                <div className={ classes.statusBoxes }>
+                    { media.map((_, i) => (
+                        <div
+                            key={ `mediaReelItem${i}` }
+                            className={ classes.statusBox }
+                            onKeyDown={ e => {
+                                if(e.keyCode === 13) {
+                                    handleItemClick(i);
+                                }
+                            } }
+                            onClick={ () => handleItemClick(i) }
+                        >
+                            <Icon
+                                path={ (i != selectedIndex) ? mdiSquareOutline : mdiSquare }
+                                className={ classes.statusBoxIcon }
+                                size={ 0.5 }
+                            />
+                        </div>
+                    )) }
+                </div>
+            </div>
+        </div>
     );
 }

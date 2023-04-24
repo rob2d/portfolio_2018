@@ -216,7 +216,6 @@ class MediaViewer extends PureComponent {
                                 containerClassName={ props.classes.mediaContainer }
                                 className={ props.classes.mediaContainer }
                                 opts={ newState.ytOpts }
-                                style={ newState.itemDimensionStyle }
                                 width={ newState.width }
                                 height={ newState.height }
                                 onReady={ () => {
