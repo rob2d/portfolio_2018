@@ -1,4 +1,4 @@
-import { PureComponent, useEffect, useRef, useCallback, useReducer } from 'react';
+import { useEffect, useRef, useCallback, useReducer } from 'react';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
 import { Icon } from '@mdi/react';
@@ -173,26 +173,22 @@ export default function MediaReel({ media, width, maxWidth, aspectRatio, ...prop
         handleMediaChange
     ] = useMediaReel();
 
-    useEffect(() => {
-        handleMediaChange(media);
-    }, [media]);
+    useEffect(() => { handleMediaChange(media) }, [media]);
 
     const [vpW, vpH] = useViewportSizes();
     const classes = useStyles({ vpW, vpH, width, maxWidth, aspectRatio, ...props });
 
-    const highlightedMedia = media && media[selectedIndex];
-
     return (
         <div className={ classes.container }>
             <MediaViewer
-                { ...highlightedMedia }
+                { ...media?.[selectedIndex] }
                 width={ Math.floor(width*0.7) }
                 aspectRatio={ aspectRatio }
                 vpW={ vpW }
                 vpH={ vpH }
                 onVideoPlay={ handleVideoPlay }
                 onVideoStop={ handleVideoStop }
-                onVideoPause={ undefined } //do not want reel to resume
+                onVideoPause={ undefined }
                 onVideoEnd={ handleVideoStop }
                 onUpdate={ () => {} }
             />
@@ -216,7 +212,7 @@ export default function MediaReel({ media, width, maxWidth, aspectRatio, ...prop
                 ) }
                 <div className={ classes.reelPadding } />
                 <div className={ classes.statusBoxes }>
-                    { media.map((item, i) => (
+                    { media.map((_, i) => (
                         <div
                             key={ `mediaReelItem${i}` }
                             className={ classes.statusBox }
@@ -228,9 +224,7 @@ export default function MediaReel({ media, width, maxWidth, aspectRatio, ...prop
                             onClick={ () => handleItemClick(i) }
                         >
                             <Icon
-                                path={ ( i != selectedIndex ) ?
-                                    mdiSquareOutline : mdiSquare
-                                }
+                                path={ (i != selectedIndex) ? mdiSquareOutline : mdiSquare }
                                 className={ classes.statusBoxIcon }
                                 size={ 0.5 }
                             />

@@ -13,10 +13,10 @@ export default {
         'and used in several widely used frontend applications.'
     ],
     media: {
-        aspectRatio: 1.7777,
+        aspectRatio: 1.2944,
         items: [{
             type: 'image',
-            src: `/img/projects/vpsizes/vpsizes_doc_anim.gif`,
+            src: `/img/projects/vpsizes/vpsizes_doc_optimized.gif`,
             thumb: `/img/projects/vpsizes/vpsizes_doc_anim_thumb.png`,
             caption: 'Illustration created in Resolve for the README.md'
         }]
