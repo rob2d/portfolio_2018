@@ -6,9 +6,6 @@ Migrating to Github Issues now that that has improved quite a bit since this was
 ## Projects
 - Use vertical space a bit better in the Details layout on wide screens.
 
-## CV
-- use better library for rendering (separate from generation) now that resume creation is 100% code-generated.
-
 ## Misc
 - auto-generate sitemap.xml using react-router library.
 - generate meta data for content on serverside (possibly integrated with point right above).

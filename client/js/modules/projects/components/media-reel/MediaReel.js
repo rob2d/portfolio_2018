@@ -180,7 +180,14 @@ export default function MediaReel({ media, width, maxWidth, aspectRatio, ...prop
     useEffect(() => { handleMediaChange(media) }, [media]);
 
     const [vpW, vpH] = useViewportSizes();
-    const classes = useStyles({ vpW, vpH, width, maxWidth, aspectRatio, ...props });
+    const classes = useStyles({
+        vpW,
+        vpH,
+        width,
+        maxWidth,
+        aspectRatio,
+        ...props
+    });
 
     return (
         <div className={ classes.container }>
