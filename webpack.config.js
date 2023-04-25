@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const rootConfigPath = './config/webpack/webpack.config';
 
 // ==========================//
