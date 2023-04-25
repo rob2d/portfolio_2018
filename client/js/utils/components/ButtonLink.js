@@ -2,8 +2,8 @@ import { useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
-import appHistory from 'utils/appHistory';
 import Tooltip from '@material-ui/core/Tooltip';
+import { useNavigateTo } from 'utils';
 
 const useStyles = makeStyles(({ palette: { text } }) => ({
     container: {
@@ -19,15 +19,16 @@ export default function ButtonLink({
     delay=250, rippleColor, asButton=true,
     name=children
 }) {
+    const navigateTo = useNavigateTo();
     const classes = useStyles({ rippleColor });
     const isAbsoluteURL = useMemo(() => url.indexOf('://') != -1, [url]);
-    const onClick = useCallback( e => {
+    const onClick = useCallback(e => {
         e.persist();
 
         // provide a small timeout so
         // that animation can be seen
 
-        setTimeout(() => appHistory.goTo(url, e), delay);
+        setTimeout(() => navigateTo(url, e), delay);
     }, [url, delay]);
 
     title = title || (isAbsoluteURL?`${url}`:undefined);

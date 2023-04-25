@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useLazyComponent, useDocumentTitle } from 'utils/hooks';
 import LoadingComponent from 'utils/components/LoadingComponent';
 import { makeStyles } from '@material-ui/core/styles';
-import appHistory from 'utils/appHistory';
 import { AppHeader, AppFooter } from './modules/core';
 import ThemeContextProvider from './ThemeContextProvider';
 
@@ -85,27 +84,14 @@ function AppContent() {
         <div className={ classes.appWrapper }>
             <div className={ classes.routeViewWrapper } data-id={ 'page-content' }>
                 <AppHeader />
-                <Switch>
-                    <Route
-                        exact
-                        path={ '(/about|/)' }
-                        render={ () => <About /> }
-                    />
-                    <Route
-                        exact
-                        path={ '/cv' }
-                        render={ () => <CV /> }
-                    />
-                    <Route
-                        path={ '/projects/:projectId?' }
-                        render={ () => <ProjectsPanel /> }
-                    />
-                    <Route
-                        exact
-                        path={ '/misc' }
-                        render={ () => <Miscellaneous /> }
-                    />
-                </Switch>
+                <Routes>
+                    <Route exact path={ '/' } Component={ About } />
+                    <Route exact path={ 'about' } Component={ About } />
+                    <Route exact path={ 'cv' } Component={ CV } />
+                    <Route path={ 'projects/:projectId' } Component={ ProjectsPanel } />
+                    <Route path={ 'projects' } Component={ ProjectsPanel } />
+                    <Route exact path={ 'misc' } Component={ Miscellaneous } />
+                </Routes>
                 <AppFooter />
             </div>
         </div>
@@ -117,9 +103,9 @@ function RoutingApp() {
 
     return (
         <ThemeContextProvider>
-            <Router history={ appHistory }>
+            <BrowserRouter>
                 <AppContent />
-            </Router>
+            </BrowserRouter>
         </ThemeContextProvider>
     );
 }

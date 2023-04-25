@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppSections from 'constants/AppSections';
-import { appHistory } from 'utils';
+import { useNavigateTo } from 'utils';
 import { useAutoFaderClass } from 'utils/hooks';
 import ThemeButton from './ThemeButton';
 import HeaderSectionButton from './HeaderSectionButton';
@@ -45,16 +45,8 @@ const useStyles = makeStyles(({ palette: { common } }) => ({
     }
 }), { name: 'AppHeader' });
 
-/**
- * callback events corresponding to each section
- * in Sections list which navigate to desired
- * section
- */
-const SectionClickEvents = Sections.map( section => e =>
-    appHistory.goTo(section.basePath, e)
-);
-
 export default function AppHeader() {
+    const navigateTo = useNavigateTo();
     const fadeContainerClass = useAutoFaderClass();
     const location = useLocation();
     const { pathname } = location;
@@ -62,6 +54,15 @@ export default function AppHeader() {
         (typeof pathIndexLookup[pathname] !== 'undefined') ?
             pathIndexLookup[pathname] : -1,
     [pathname]);
+
+    /**
+     * callback events corresponding to each section
+     * in Sections list which navigate to desired
+     * section
+     */
+    const SectionClickEvents = useMemo(() => Sections.map(section => e =>
+        navigateTo(section.basePath, e)
+    ), [navigateTo]);
 
     const [vpW, vpH] = useViewportSizes();
     const [hasInitialized, setInitialized] = useState(undefined);

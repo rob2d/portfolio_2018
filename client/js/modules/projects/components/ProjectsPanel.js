@@ -2,7 +2,7 @@ import { useMemo, useEffect, useReducer } from 'react';
 import clsx from 'clsx';
 import useViewportSizes from 'use-viewport-sizes';
 import { makeStyles } from '@material-ui/core/styles';
-import { appHistory, wait } from 'utils';
+import { useNavigateTo, wait } from 'utils';
 import { useAutoFaderClass, useDocumentTitle, usePrevious } from 'utils/hooks';
 import * as projects from 'app-root/data/projects';
 import projectOrder from 'constants/projectOrder';
@@ -10,7 +10,6 @@ import ProjectCard from './ProjectCard';
 import ProjectDetails from './ProjectDetails';
 import {
     VIEW_ALL,
-    PROJECT_FADE_TO,
     OFFSET_CALC,
     AFTER_FADE_POSITIONING,
     PROJECT_SCROLL_UP,
@@ -100,6 +99,7 @@ const projectsReducer = (state, { type, payload }) => {
 };
 
 export default function ProjectsPanel() {
+    const navigateTo = useNavigateTo();
     const [projectId] = useProjectIdOfUrl();
     const prevProjectId = usePrevious(projectId);
     useDocumentTitle({ title: !projectId && `${SITE_NAME} -- Projects` });
@@ -123,7 +123,7 @@ export default function ProjectsPanel() {
     const projectSelectionCbs = useMemo(() => Object.fromEntries(
         projectOrder.map( id =>
             [id, e => {
-                appHistory.goTo(`/projects/${id}`, e);
+                navigateTo(`/projects/${id}`, e);
                 dispatch({ type: 'selectProjectViaUI', payload: id });
             }]
         )),
