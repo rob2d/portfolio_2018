@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -75,32 +75,32 @@ const styles = ({ palette: { secondary, common } }) => ({
     }
 });
 
-class MediaViewer extends PureComponent {
-    constructor(props) {
-        super(props);
+const map = new Map();
 
-        const { disableCache } = props;
-        this.state = { cacheMap: disableCache ? undefined: new Map() };
-    }
+function MediaViewer({
+    onVideoPlay,
+    onVideoEnd,
+    onVideoStop,
+    onVideoPause,
+    type,
+    src,
+    videoId,
+    thumb,
+    updateCount,
+    classes,
+    caption,
+    isMediaLoading,
+    onUpdate,
+    aspectRatio,
+    vpW,
+    vpH,
+    width,
+    height
+}) {
+    const cacheMap = useRef(map);
 
-    /**
-     * detects when youtube state changes
-     */
-    static onYTStateChange = (state, props) => {
-        if(state && state.data) {
-            switch (state.data) {
-                case 3: // 3: buffering; e.g. user clicked
-                    // YT vid but hasn't played yet
-                    props.onVideoPlay();
-                    break;
-            }
-        }
-    };
-
-    static getItemKey(props) {
-        const { type, src, videoId } = props;
-
-        switch (props.type) {
+    const getItemKey = useCallback(() => {
+        switch (type) {
             case 'image':
                 return `${type}_${src}`;
             case 'video':
@@ -108,203 +108,161 @@ class MediaViewer extends PureComponent {
             default:
                 throw new Error('Invalid Media Type');
         }
-    }
+    }, [type, src]);
 
-    static getDerivedStateFromProps(props, state) {
+    const onYTStateChange = useCallback(state => {
+        if(state && state.data) {
+            switch (state.data) {
+                case 3:
+                    // buffering; e.g. user clicked
+                    // YT vid but hasn't played yet
+                    onVideoPlay();
+                    break;
+            }
+        }
+    }, [type, src, onVideoPlay]);
 
-        // when a prop related to resources change,
-        // our isMediaLoading state should
-        // reset to true (and update trailing props
-        // which allow us to re-flag)
+    const ytState = useMemo(() => {
+        const nextState = {
+            type,
+            src,
+            thumb,
+            videoId,
+            vpW,
+            vpH,
+            updateCount,
+            height: width / aspectRatio,
+            ytOpts: { width, height },
+        };
 
-        if(((props.type != state.type) ||
-           (props.src != state.src) ||
-           (props.videoId != state.videoId) ||
-           (props.width != state.width) ||
-           (props.vpH != state.vpH) ||
-           (props.vpW != state.vpW) ||
-           (props.aspectRatio != state.aspectRatio)
-        )) {
+        const itemKey = getItemKey(nextState);
 
-            const newState = {
-                type: state.src,
-                src: props.src,
-                thumb: props.thumb,
-                videoId: props.videoId,
-                vpW: props.vpW,
-                vpH: props.vpH,
-                updateCount: props.updateCount,
-                height: props.width / props.aspectRatio,
-                ytOpts: { width: props.width, height: props.height },
+        if(cacheMap.current.has(itemKey)) {
+            switch (type) {
+                case 'video':
+                    // TODO: check if the updateTime changed
+                    cacheMap.current.get(itemKey).isMediaLoading = true;
+                    break;
+                default: {
+                    break;
+                }
+            }
+        }
+        else {
+            const resource = {
+                isMediaLoading: true,
+                domSegment: undefined // assigned below
             };
 
-            const { cacheMap } = state;
-            const itemKey = MediaViewer.getItemKey(props);
+            switch (type) {
+                case 'image': {
+                    resource.img = new Image();
+                    resource.img.src = src;
+                    resource.img.onload = () => {
+                        cacheMap.current.get(itemKey).isMediaLoading = false;
+                        onUpdate();
+                    };
 
-            if(cacheMap && cacheMap.has(itemKey)) {
-                switch (props.type) {
-                    case 'video':
-                        if(props.updateCount == state.updateCount) {
-                            cacheMap.get(itemKey).isMediaLoading = true;
-                        }
-                        break;
-                    default: {
-                        break;
-                    }
-                }
-            }
-            else {
-                const resource = {
-                    isMediaLoading: true,
-                    domSegment: undefined // assigned below
-                };
+                    resource.thumb = thumb;
 
-                switch (props.type) {
-                    case 'image': {
-                        resource.img = new Image();
-                        resource.img.src = props.src;
-                        resource.img.onload = () => {
-                            cacheMap.get(itemKey).isMediaLoading = false;
-                            props.onUpdate();
-                        };
-
-                        resource.thumb = props.thumb;
-
-                        const { protocol, host } = window.location;
-                        resource.url = `${protocol}//${host}${props.src}`;
-                        resource.domSegment = (
-                            <ButtonLink
-                                url={ resource.url }
-                                title={ 'Open full res image in new tab' }
-                                className={ props.classes.mediaContainerButton }
-                            > <img
-                                className={ props.classes.image }
-                                src={ props.src }
-                            />
-                            </ButtonLink>
-                        );
-                        break;
-                    }
-                    case 'video': {
-
-                        const {
-                            onVideoPlay,
-                            onVideoStop,
-                            onVideoPause,
-                            onVideoEnd,
-                            videoId
-                        } = props;
-
-                        resource.url = `https://youtube.com/watch?v=${videoId}`;
-                        resource.thumb = `https://img.youtube.com/vi/${videoId}/default.jpg`;
-                        resource.domSegment = (
-                            <YouTube
-                                key={ itemKey }
-                                id={ itemKey }
-                                videoId={ videoId }
-                                containerClassName={ props.classes.mediaContainer }
-                                className={ props.classes.mediaContainer }
-                                opts={ newState.ytOpts }
-                                width={ newState.width }
-                                height={ newState.height }
-                                onReady={ () => {
-                                    const thisItem = cacheMap.get(itemKey);
-                                    thisItem.isMediaLoading = false;
-                                    props.onUpdate();
-                                } }
-                                onPlay={ onVideoPlay }
-                                onStop={ onVideoStop }
-                                onEnd={ onVideoEnd }
-                                onPause={ onVideoPause }
-                                onStateChange={ state =>
-                                    MediaViewer.onYTStateChange(state, props)
-                                }
-                            />
-                        );
-                        break;
-                    }
-                    default:
-                        throw new Error('Invalid media type ->', props.type);
-                }
-
-                cacheMap.set(itemKey, {
-                    resource,
-                    isMediaLoading: true
-                });
-
-                newState.cacheMap = new Map(cacheMap);
-            }
-
-            return newState;
-        }
-        else if(state.updateCount != props.updateCount) {
-            return { updateCount: props.updateCount };
-        }
-
-        return state;
-    }
-
-    render() {
-        const { cacheMap } = this.state;
-        const { type, caption, classes, vpW } = this.props;
-
-        const itemKey = MediaViewer.getItemKey(this.props);
-
-        const isMediaLoading = (cacheMap && cacheMap.get(itemKey)) ?
-            cacheMap.get(itemKey).isMediaLoading : true;
-
-        const { resource } = cacheMap.get(itemKey);
-
-        const bgLoadingStyle= (isMediaLoading) ? {
-            backgroundImage: `url(${resource.thumb})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            filter: 'blur(5px) brightness(50%)',
-            transition: 'filter 0.35s, opacity 0.35s'
-        }: undefined;
-
-        let mediaElement;
-
-        switch (type) {
-            case 'image':
-                mediaElement = !isMediaLoading ? resource.domSegment : undefined;
-                break;
-            case 'video':
-                if(!isMediaLoading) {
-                    mediaElement = resource.domSegment;
-                }
-                else {
-                    mediaElement = (
+                    const { protocol, host } = window.location;
+                    resource.url = `${protocol}//${host}${src}`;
+                    resource.domSegment = (
                         <ButtonLink
                             url={ resource.url }
+                            title={ 'Open full res image in new tab' }
                             className={ classes.mediaContainerButton }
-                        >{ resource.domSegment }
+                        > <img className={ classes.image } src={ src } />
                         </ButtonLink>
                     );
+                    break;
                 }
-                break;
+                case 'video': {
+                    resource.url = `https://youtube.com/watch?v=${videoId}`;
+                    resource.thumb = `https://img.youtube.com/vi/${videoId}/default.jpg`;
+                    resource.domSegment = (
+                        <YouTube
+                            key={ itemKey }
+                            id={ itemKey }
+                            videoId={ videoId }
+                            containerClassName={ classes.mediaContainer }
+                            className={ classes.mediaContainer }
+                            opts={ nextState.ytOpts }
+                            width={ nextState.width }
+                            height={ nextState.height }
+                            onReady={ () => {
+                                const thisItem = cacheMap.current.get(itemKey);
+                                thisItem.isMediaLoading = false;
+                                onUpdate();
+                            } }
+                            onPlay={ onVideoPlay }
+                            onStop={ onVideoStop }
+                            onEnd={ onVideoEnd }
+                            onPause={ onVideoPause }
+                            onStateChange={ onYTStateChange }
+                        />
+                    );
+                    break;
+                }
+                default:
+                    throw new Error('Invalid media type ->', type);
+            }
+
+            cacheMap.current.set(itemKey, {
+                resource,
+                isMediaLoading: true
+            });
         }
 
-        return (
-            <div className={ classes.container }>
-                <div className={ classes.mediaContainer } style={ bgLoadingStyle }>
-                    { mediaElement }
-                </div>
-                { isMediaLoading && (
-                    <div className={ classes.loader }>
-                        <CircularProgress
-                            color={ 'secondary' }
-                            size={ (vpW <= 800) ? 40: 64 }
-                        />
-                    </div>
-                ) }
-                <Typography className={ classes.caption } variant={ 'caption' }>
-                    { caption }
-                </Typography>
+        return nextState;
+    },
+    [
+        type,
+        src,
+        thumb,
+        videoId,
+        vpW,
+        vpH,
+        width,
+        height,
+        aspectRatio,
+        cacheMap
+    ]);
+
+    const { resource } = cacheMap.current.get(getItemKey(ytState));
+
+    const bgLoadingStyle= (isMediaLoading) ? {
+        backgroundImage: `url(${resource.thumb})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        filter: 'blur(5px) brightness(50%)',
+        transition: 'filter 0.35s, opacity 0.35s'
+    }: undefined;
+
+    const mediaElement = !isMediaLoading ? resource.domSegment : (
+        <ButtonLink
+            url={ resource.url }
+            className={ classes.mediaContainerButton }
+        >{ resource.domSegment }
+        </ButtonLink>
+    );
+
+    return (
+        <div className={ classes.container }>
+            <div className={ classes.mediaContainer } style={ bgLoadingStyle }>
+                { mediaElement }
             </div>
-        );
-    }
+            { isMediaLoading && (
+                <div className={ classes.loader }>
+                    <CircularProgress color={ 'secondary' } size={ (vpW <= 800) ? 40: 64 } />
+                </div>
+            ) }
+            <Typography className={ classes.caption } variant={ 'caption' }>
+                { caption }
+            </Typography>
+        </div>
+    );
 }
 
 export default withStyles(styles)(MediaViewer);
