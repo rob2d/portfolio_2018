@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { useLocation, useRouteMatch } from 'react-router-dom';
+import { useLocation, useMatch } from 'react-router-dom';
 
 const SECTION_ROOT = '/projects';
 
 export default function useProjectIdOfUrl() {
     const location = useLocation();
-    const match = useRouteMatch('/projects(/:projectId)?');
+    const match = useMatch('/projects(/:projectId)?');
     const { pathname } = location;
 
     const result = useMemo(() => {

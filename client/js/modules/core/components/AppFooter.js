@@ -5,7 +5,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { Icon } from '@mdi/react';
 import { mdiGithubBox, mdiGmail, mdiLinkedinBox } from '@mdi/js';
 import { useAutoFaderClass } from 'utils/hooks';
-import { appHistory } from 'utils';
+import { useNavigateTo } from 'utils';
 import { rc3NpmBox } from 'utils/icon-paths';
 
 const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
@@ -37,12 +37,13 @@ const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
 }), { name: 'ContactButton' });
 
 export default function AppFooter() {
+    const navigateTo = useNavigateTo();
     const classes = useStyles();
     const fadeContainerClass = useAutoFaderClass();
 
     const ContactButton = useCallback(({ url, iconPath, tooltipContent, description }) => {
+        const onMouseDown = useCallback(e => navigateTo(url, e), [url]);
         ContactButton.displayMode = 'ContactButton';
-        const onMouseDown = useCallback( e => appHistory.goTo(url, e), [url]);
 
         return (
             <Tooltip enterDelay={ 350 } title={ tooltipContent }>
