@@ -1,17 +1,11 @@
 const skills = [{
     name: 'Engineering',
     items: [[
-        'ES 5/6/7+',
+        'ES 5 / 6 / 7+',
         'TypeScript'
     ], [
         'React',
-        'Rxjs',
-        'Angular',
-    ],
-    [
-        'Redux',
-        'NgRX',
-        'HTML5'
+        'React Native',
     ],
     [
         'Node',
@@ -26,11 +20,17 @@ const skills = [{
     [
         'Git',
         'Puppeteer',
-        'Java'
+        'Java',
     ],
     [
+        'HTML5',
         'CSS',
-        'Android SDK',
+        'RxJS'
+    ],
+    [
+        'Next.js',
+        'Redux',
+        'Signals',
     ]],
 },
 {

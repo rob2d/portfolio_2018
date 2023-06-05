@@ -5,18 +5,18 @@ const experience = [
         workplace: 'Lab 49 @ Ion Group',
         dates: 'September 2021 - April 2023',
         points: [
-            'Worked for a large enterprise client to deliver a next gen suite of apps running Angular + Springboot.',
-
             'Architected front-end for a customer data sourcing application and helped maintain standards within ' +
             'an Agile/Scrum environment, while also using Component Driven Development for two applications and over 80% ' +
             'unit test coverage.',
 
             'Took initiative to write scripts in Python and Puppeteer on occasion to automate tasks to help external teams ' +
-            'troubleshoot their WIP APIs and streamline some tedious client JIRA workflows for project managers on sprints.',
+            'troubleshoot their work-in-progress APIs and streamline some tedious client JIRA workflows for project managers ' +
+            'on sprints.',
 
             'Proactively worked with backend client facing systems and APIs and assisted with dev-ops tasks.',
 
-            'Provided training to client developers and helped see through two MVP releases with post-prod support.'
+            'Provided training to client developers and helped see through two MVP releases of applications in a task generalization ' +
+            'system with post-production support.'
         ]
     },
     {
@@ -100,8 +100,8 @@ const experience = [
         'simplfying form/modal logic, removing circular dependencies, ' +
         'and streamlining async state management',
 
-            'Implemented several features and fixed long-standing blockers.'
-        ]
+            'Implemented several features and fixed long-standing blockers.',
+        ],
     }, {
         title: 'Senior Web Application Developer',
         workplace: 'PMC Technology',
