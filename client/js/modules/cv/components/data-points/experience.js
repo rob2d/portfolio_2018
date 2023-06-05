@@ -40,40 +40,40 @@ const experience = [
     {
         title: 'UI Developer',
         context: 'Consultant',
-        workplace: `Chekhub`,
+        workplace: 'Chekhub',
         dates: 'November 2020 - February 2021',
         points: [
             'Streamlined a ticket assignment and asset-mapping app by introducing font ' +
-        'standardization, palette normalization, modeling asset ' +
-        'relationships more inutitively, and fuzzy filtering content ' +
-        'along several modules purely via client code.',
+            'standardization, palette normalization, modeling asset ' +
+            'relationships more inutitively, and fuzzy filtering content ' +
+            'along several modules purely via client code.',
 
             'Created a 60fps Google Maps ticket browsing and assignment UI ' +
             'for dynamic filtering. Included ' +
-        'drag-n-drop of items, panning, browsing, searching within, or assigning ' +
-        'tickets to technicians and clustered items and annotating data in-view in real time.'
+            'drag-n-drop of items, panning, browsing, searching within, or assigning ' +
+            'tickets to technicians and clustered items and annotating data in-view in real time.'
         ]
     }, {
         title: 'Frontend Engineer',
-        workplace: `Greystone & Co`,
+        workplace: 'Greystone & Co',
         dates: 'October 2019 - October 2020',
         points: [
             'Developed a greenfield clientside app faciliating borrowers to work through deals ' +
             'and manage documents while setting standards in codebase, mentoring/training of up and coming front-end devs.',
-            `Assisted with setting up CI/CD and architected the integration test pipeline.`
+            'Assisted with setting up CI/CD and architected the integration test pipeline.'
         ]
     }, {
         title: 'Lead UI Developer',
         context: 'Contract',
-        workplace: `Nomura`,
+        workplace: 'Nomura',
         dates: 'February 2019 - September 2019',
         points: [
-            `Designed a front-end build system to interchangeably deploy modules ` +
-        'within a new suite of apps for an initiative facilitating billions in ' +
-        'equities trading monthly, and deployed two apps to production.',
+            'Designed a front-end build system to interchangeably deploy modules ' +
+            'within a new suite of apps for an initiative facilitating billions in ' +
+            'equities trading monthly, and deployed two apps to production.',
 
-            `Created an in-house grid library rendering 100ks ` +
-        `of rows without pagination, updating real-time via sockets.`,
+            'Created an in-house grid library rendering 100ks ' +
+            'of rows without pagination, updating real-time via sockets.',
         ]
     }, {
         title: 'Software Engineer',
@@ -82,8 +82,8 @@ const experience = [
         dates: 'November 2017 - August 2018',
         points: [
             'Wrote a flagship RESTful API backend (RightsLogic) using NodeJS and MongoDB, and AWS Lamda ' +
-        'microservices API and S3 to lookup IP rights globally in real-time ' +
-        '-- under budget and on schedule.',
+            'microservices API and S3 to lookup IP rights globally in real-time ' +
+            '-- under budget and on schedule.',
 
             'Auto-generated API doc for front-end to reference as spec evolved.',
 
@@ -95,12 +95,17 @@ const experience = [
         dates: 'April 2017 - October 2017',
         points: [
             'Led an optimization/refactoring effort for a ' +
-        'client side VR tour app. Improvements introduced: ' +
-        'optimizing style system, adopting functional components, ' +
-        'simplfying form/modal logic, removing circular dependencies, ' +
-        'and streamlining async state management',
+            'client side VR tour app. Improvements introduced: ' +
+            'optimizing style system, adopting functional components, ' +
+            'simplfying form/modal logic, removing circular dependencies, ' +
+            'and streamlining async state management',
 
             'Implemented several features and fixed long-standing blockers.',
+            ' ',
+            ' ',
+            ' ',
+            ' ',
+            ' '
         ],
     }, {
         title: 'Senior Web Application Developer',
@@ -109,13 +114,10 @@ const experience = [
         points: [
             'Designed the backend, database and UI for a CMS app facilitating ' +
             'upkeep of critical infra used in power systems and facility ' +
-        'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL.' +
-        'Clients acquired relying on this included BlackRock, NYSE, ' +
-        'WTC One and JFK Airport.',
-
+            'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL.' +
+            'Clients acquired relying on this included BlackRock, NYSE, ' +
+            'WTC One and JFK Airport.',
             'Designed, iterated, and implemented on UI mockups for misc projects such as an expo website.',
-            ' ',
-            ' ',
         ]
     }, {
         title: 'Founder/Software Developer',
@@ -123,8 +125,8 @@ const experience = [
         dates: 'January 2011 - May 2013',
         points: [
             'Worked with an artist to launch a real-time interactive puzzle ' +
-        'game and a card game for the Android OS publicly including both native apps' +
-        ' and server-side for high scores running at 60fps on a custom game engine. '
+            'game and a card game for the Android OS publicly including both native apps ' +
+            'and server-side for high scores running at 60fps on a custom game engine. '
         ]
     }, {
         title: 'Information Management Officer',
