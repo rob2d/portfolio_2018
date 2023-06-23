@@ -67,7 +67,6 @@ const useStyles = makeStyles(({ palette: { common, secondary, type, text } }) =>
     },
     itemTitle: {
         display: 'flex',
-        direction: 'row',
         transition: 'color 0.2s',
         '&:hover $itemTitleText': {
             color: `${secondary.main} !important`

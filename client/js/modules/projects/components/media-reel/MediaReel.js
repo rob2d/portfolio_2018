@@ -43,12 +43,11 @@ const useStyles = makeStyles(() => ({
         backgroundColor: '#000000'
     },
     reel: {
+        display: 'flex',
         flexBasis: '25%',
         height: '100%',
         margin: 0,
         padding: 0,
-        display: 'flex',
-        flexDirection: 'row'
     },
     reelPadding: {
         flexBasis: '10%'

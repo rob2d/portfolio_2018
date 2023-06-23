@@ -30,7 +30,6 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
     },
     namespace: {
         display: 'flex',
-        flexDirection: 'row',
         width: '75%',
         justifyContent: 'flex-start',
         fontWeight: 300,
@@ -38,7 +37,6 @@ const useStyles = makeStyles(({ palette: { text } }) => ({
     },
     value: {
         display: 'flex',
-        flexDirection: 'row',
         width: '25%',
         justifyContent: 'flex-end',
         fontSize: '11pt'

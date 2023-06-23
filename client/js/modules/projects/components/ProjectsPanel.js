@@ -33,7 +33,6 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'row',
         flexWrap: 'wrap',
         position: 'relative',
         marginTop: '16px'
