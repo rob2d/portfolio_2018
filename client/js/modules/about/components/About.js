@@ -20,7 +20,7 @@ const useStyles = makeStyles(({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-evenly',
         boxSizing: 'border-box', // for padding in landscape
         lineHeight: '1.3rem',
         textAlign: 'left',
@@ -42,7 +42,6 @@ const useStyles = makeStyles(({
     },
     overview: {
         display: 'flex',
-        flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
         justifyContent: 'space-evenly',

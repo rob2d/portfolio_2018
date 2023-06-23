@@ -16,11 +16,11 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
         marginLeft: 'auto',
         marginRight: 'auto',
         width: '100%',
-        flexGrow: 1,
         display: 'flex',
+        flexGrow: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         overflowY: 'auto',
         boxSizing: 'border-box',
         maxHeight: '100%',
@@ -29,15 +29,11 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
     },
     pdfWrapper: {
         position: 'relative',
-        display: 'flex',
-        flexGrow: 1,
-        width: '100%',
-        justifyContent: 'center',
-        overflow: 'auto'
+        overflow: 'auto',
     },
     pdfView: {
-        width: p => p.width,
-        height: p => p.height,
+        width: '100%',
+        height: 'auto',
         overflowX: 'hidden',
         overflowY: 'scroll'
     },
@@ -108,53 +104,47 @@ export default function CV() {
     const classes = useStyles({ width, height });
 
     return (
-        <div className={ classes.container }>
-            <div className={ classes.pdfWrapper }>
-                <PDFView
+        <>
+            <div className={ classes.container }>
+                <div className={ classes.pdfWrapper }>
+                    <PDFView
                     className={ classes.pdfView }
                     width={ width }
                     height={ height }
                     PDFDocComponent={ ResumePDFView }
                 />
+                </div>
+                <Tooltip
+                id={ `resume-pdf-download-tooltip` }
+                enterDelay={ 400 }
+                title={ `Download this PDF` }
+            >
+                    <div className={ classes.downloadButtonContainer }>
+                        <PDFDownloadLink
+                        filename={ 'RobertConcepcionResume.pdf' }
+                        pdfContent={ (<ResumePDFView />) }
+                    >
+                            <Fab
+                            className={ classes.downloadButton }
+                            data-tip
+                            data-for={ `resume-pdf-download-tooltip` }
+                        >
+                                <Icon
+                                path={ mdiDownload }
+                                className={ classes.downloadIcon }
+                                size={ 1.25 }
+                            />
+                            </Fab>
+                        </PDFDownloadLink>
+                    </div>
+                </Tooltip>
             </div>
             <Typography
                 variant={ 'caption' }
                 className={ classes.portfolioNotice }
             >
-                Auto-generated via React by Rob --&nbsp;
-                <a href={
-                        'https://github.com/rob2d/portfolio_2018/blob/' +
-                        'master/client/js/modules/cv/components/' +
-                        'ResumePDFView.js'
-                    }
-                >
-                    See the source code
-                </a>
+                Auto-generated in React by Rob
             </Typography>
-            <Tooltip
-                id={ `resume-pdf-download-tooltip` }
-                enterDelay={ 400 }
-                title={ `Download this PDF` }
-            >
-                <div className={ classes.downloadButtonContainer }>
-                    <PDFDownloadLink
-                        filename={ 'RobertConcepcionResume.pdf' }
-                        pdfContent={ (<ResumePDFView />) }
-                    >
-                        <Fab
-                            className={ classes.downloadButton }
-                            data-tip
-                            data-for={ `resume-pdf-download-tooltip` }
-                        >
-                            <Icon
-                                path={ mdiDownload }
-                                className={ classes.downloadIcon }
-                                size={ 1.25 }
-                            />
-                        </Fab>
-                    </PDFDownloadLink>
-                </div>
-            </Tooltip>
-        </div>
+        </>
     );
 }
