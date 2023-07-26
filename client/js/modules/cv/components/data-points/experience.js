@@ -2,21 +2,24 @@ const experience = [
     {
         title: 'Web UI Engineer',
         context: 'Full Time',
-        workplace: 'Lab 49 @ Ion Group',
+        workplace: 'Lab 49',
         dates: 'September 2021 - April 2023',
         points: [
-            'Architected front-ends for a customer data sourcing application using Angular and NGRX for data flow, and helped ' +
-            'to establish and maintain standards within an Agile/Scrum environment.',
+            'Architected customer data sourcing front-end using Angular and NGRX for data flow, and helped ' +
+            'to establish and maintain standards within an Agile/Scrum environment for a Fortune 500 client.',
 
-            'Used component-driven development and Storybook to provide a scalable design system for the application, ' +
+            'Provided scalable design system for the application using CDD and Storybook, ' +
             'adhering to Figma wireframes while also discussing and proposing improvements or changes to designers along the way ' +
             'to deliver the best possible product under given circumstances.',
 
             'Took initiative to write scripts in Python and Puppeteer on occasion to automate tasks to help external teams ' +
-            'troubleshoot their work-in-progress APIs and streamline some tedious client JIRA workflows for project managers ' +
+            'troubleshoot their work-in-progress APIs and automate tedious client organizational JIRA workflows for project managers ' +
             'on sprints.',
 
-            'Proactively worked with backend client facing systems and APIs and assisted with dev-ops tasks.',
+            'Asisted with CI/CD using Jenkins on both front-end and backend workflows and quickly picked up reactive Java Spring to ' +
+            'help troubleshoot provide over 80% coverage for a release.',
+
+            'Proactively worked with backend client facing APIs and collaborated with backend developers.',
 
             'Provided training to client developers and helped see through two MVP releases of applications in a task generalization ' +
             'system with full post-production support.'
@@ -29,10 +32,9 @@ const experience = [
         dates: 'March 2021 - September 2021',
         points: [
             'Contributed to a greenfield open source enterprise UI framework ' +
-            'as it migrates towards using framework-agnostic/forward-facing native ' +
-            'Web Components that could also utilize React and Angular abstractions.',
+            'as it migrates towards framework-agnostic web components to be used in both React and Angular applications.',
 
-            'Wrote unit tests and integration tests and created new components with 100% code coverage.',
+            'Wrote unit tests and integration tests and created several components with 100% code coverage.',
 
             'Proposed ideas leveraged and actively participated in the streamlining of the architecture.',
 
@@ -104,8 +106,6 @@ const experience = [
             'and streamlining async state management',
 
             'Implemented several features and fixed long-standing blockers.',
-            ' ',
-            ' ',
             ' ',
         ],
     }, {
