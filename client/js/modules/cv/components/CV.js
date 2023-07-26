@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import C from 'color';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -35,7 +35,7 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common } }) => ({
         width: '100%',
         height: 'auto',
         overflowX: 'hidden',
-        overflowY: 'scroll'
+        overflowY: 'hidden'
     },
     downloadButtonContainer: {
         position: 'absolute',

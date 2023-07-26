@@ -5,9 +5,12 @@ const experience = [
         workplace: 'Lab 49 @ Ion Group',
         dates: 'September 2021 - April 2023',
         points: [
-            'Architected front-end for a customer data sourcing application and helped maintain standards within ' +
-            'an Agile/Scrum environment, while also using Component Driven Development for two applications and over 80% ' +
-            'unit test coverage.',
+            'Architected front-ends for a customer data sourcing application using Angular and NGRX for data flow, and helped ' +
+            'to establish and maintain standards within an Agile/Scrum environment.',
+
+            'Used component-driven development and Storybook to provide a scalable design system for the application, ' +
+            'adhering to Figma wireframes while also discussing and proposing improvements or changes to designers along the way ' +
+            'to deliver the best possible product under given circumstances.',
 
             'Took initiative to write scripts in Python and Puppeteer on occasion to automate tasks to help external teams ' +
             'troubleshoot their work-in-progress APIs and streamline some tedious client JIRA workflows for project managers ' +
@@ -16,7 +19,7 @@ const experience = [
             'Proactively worked with backend client facing systems and APIs and assisted with dev-ops tasks.',
 
             'Provided training to client developers and helped see through two MVP releases of applications in a task generalization ' +
-            'system with post-production support.'
+            'system with full post-production support.'
         ]
     },
     {
@@ -27,7 +30,7 @@ const experience = [
         points: [
             'Contributed to a greenfield open source enterprise UI framework ' +
             'as it migrates towards using framework-agnostic/forward-facing native ' +
-            'Web Components.',
+            'Web Components that could also utilize React and Angular abstractions.',
 
             'Wrote unit tests and integration tests and created new components with 100% code coverage.',
 
@@ -104,8 +107,6 @@ const experience = [
             ' ',
             ' ',
             ' ',
-            ' ',
-            ' '
         ],
     }, {
         title: 'Senior Web Application Developer',

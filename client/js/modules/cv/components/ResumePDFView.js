@@ -1,5 +1,6 @@
 import { useMemo, useCallback } from 'react';
 import { Font, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+
 import skills from './data-points/skills';
 import experience from './data-points/experience';
 

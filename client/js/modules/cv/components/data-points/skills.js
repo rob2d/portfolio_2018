@@ -4,8 +4,8 @@ const skills = [{
         'ES 5 / 6 / 7+',
         'TypeScript'
     ], [
-        'React',
-        'React Native',
+        'React + Hooks',
+        'Angular',
     ],
     [
         'Node',
