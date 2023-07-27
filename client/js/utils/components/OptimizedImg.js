@@ -10,7 +10,7 @@ const mimeTypeDict = {
     'svg': 'image/svg+xml'
 };
 
-const useStyles = makeStyles( theme => ({
+const useStyles = makeStyles(theme => ({
     container: {
         '& img, & source, & picture': {
             position: 'absolute',

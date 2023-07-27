@@ -165,6 +165,7 @@ export default makeStyles(({ palette: { type, text, common } }) => ({
         },
         verticalAlign: 'middle',
         margin: '0 auto',
+        maxWidth: p => !p.viewAsTitle ? '100%' : '',
         left: p => `${p.isHighlighted?-25:0}%`,
         top: '0%',
         opacity: p => (!p.viewAsTitle) ? 1: 0,
