@@ -1,7 +1,7 @@
 export default {
     id: 'vpsizes',
     displayName: 'use-viewport-sizes',
-    year: '2019-2021',
+    year: '2019, 2023',
     context: 'Independent',
     roles: 'Developer, Maintainer',
     technologies: ['js', 'react'],
