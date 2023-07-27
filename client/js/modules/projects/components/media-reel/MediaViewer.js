@@ -27,17 +27,20 @@ const styles = ({ palette: { secondary, common } }) => ({
         '&:active': {
             border: `2px solid ${common.active}`
         },
-        maxWidth: p => `${p.width}px`,
-        width: p => `${p.width}px`
+        maxWidth: p => `min(100%, ${p.width}px)`,
+        width: p => `min(100%, ${p.width}px)`,
+        '& img': {
+            maxWidth: p => `min(100%, ${p.width}px)`
+        }
     },
     image: {
-        maxWidth: p => `${p.width}px`,
+        maxWidth: p => `100%`,
         width: p => `${p.width}px`,
         height: p => `${(p.width / p.aspectRatio)}px`,
         transition: 'border-color 0.24s ease-in'
     },
     mediaContainer: {
-        maxWidth: p => `${p.width}px`,
+        maxWidth: p => `min(${p.width}px, 100%)`,
         width: p => `${p.width}px`,
         height: p => (
             `${(p.width / p.aspectRatio)}px`
@@ -47,6 +50,9 @@ const styles = ({ palette: { secondary, common } }) => ({
             width: p => `${p.width}px`,
             maxWidth: p => `${p.width}px`,
             height: '100%'
+        },
+        '& img': {
+            maxWidth: '100%'
         }
     },
     caption: {
