@@ -8,16 +8,16 @@ const experience = [
             'Architected customer data sourcing front-end using Angular and NGRX for data flow, and helped ' +
             'to establish and maintain standards within an Agile/Scrum environment for a Fortune 500 client.',
 
-            'Provided scalable design system for the application using CDD and Storybook, ' +
-            'adhering to Figma wireframes while also discussing and proposing improvements or changes to designers along the way ' +
-            'to deliver the best possible product under given circumstances.',
+            'Facilitated scalable design systems for the application using CDD and Storybook -- adhering implementations to Figma ' +
+            'wireframes while also being sure to raise any concerns along the way with the design team and product owners to ensure ' +
+            'solutions that are properly context-driven and viable.',
 
             'Took initiative to write scripts in Python and Puppeteer on occasion to automate tasks to help external teams ' +
             'troubleshoot their work-in-progress APIs and automate tedious client organizational JIRA workflows for project managers ' +
             'on sprints.',
 
-            'Asisted with CI/CD using Jenkins on both front-end and backend workflows and quickly picked up reactive Java Spring to ' +
-            'help troubleshoot provide over 80% coverage for a release.',
+            'Occasionally assisted with CI/CD using Jenkins on both front-end and backend workflows, and quickly picked up reactive Java Spring to ' +
+            'help troubleshoot and provide over 80% coverage for a release.',
 
             'Proactively worked with backend client facing APIs and collaborated with backend developers.',
 
