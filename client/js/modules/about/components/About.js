@@ -173,17 +173,17 @@ export default function About() {
                     <Tech url={ 'http://pm2.keymetrics.io/' }>PM2</Tech>.
                 </Typography>
                 <Typography variant={ 'body1' }>
-                    A little about me and why this page exists: I have always been a curious
-                    person, and grew up dabbling in hobbies related to software development.
-                    This has included creating websites, videogames, and apps. This is just a
-                    small subset of self-driven projects.
+                    I have always been a curious person, and grew up dabbling in hobbies related
+                    to software development.&nbsp;
+                    This has included creating websites, videogames, and apps. While&nbsp;
+                    things here may be outdated and less polished, this is just a small subset&nbsp;
+                    of self-driven projects (...that are not attached to NDAs).
                 </Typography>
                 <Typography>
-                    You probably won't find the most beautiful code on this
-                    portfolio since I spend most of my energy at work,
-                    on hobbies, or just being a human and doing those things
-                    that they do and am perpetually trying to improve my skills...
-                    but I do try to update here and there!
+                    I tend to spend most of my energy at work. And besides that,
+                    sometimes hobbies and also being a human. I am perpetually
+                    evolving my skillset, so it is tough not to be embarassed by
+                    code I wrote yesterday... but I do try to update here and there!
                 </Typography>
                 <Typography variant={ 'body1' }>
                     Intros aside, feel free to check out the other sections on
