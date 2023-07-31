@@ -121,9 +121,9 @@ export default function CV() {
             >
                     <div className={ classes.downloadButtonContainer }>
                         <PDFDownloadLink
-                        filename={ 'RobertConcepcionResume.pdf' }
-                        pdfContent={ (<ResumePDFView />) }
-                    >
+                            filename={ 'RobertConcepcionResume.pdf' }
+                            pdfContent={ (<ResumePDFView />) }
+                        >
                             <Fab
                             className={ classes.downloadButton }
                             data-tip

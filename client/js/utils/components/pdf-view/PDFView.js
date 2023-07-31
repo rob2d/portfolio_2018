@@ -15,15 +15,15 @@ import {
 
 const useStyles = makeStyles(({ palette: { type, text, common } }) => ({
     prevPage: {
-        position: 'absolute',
+        position: 'fixed',
         top: '50%',
-        left: 0,
+        left: '64px',
         transform: 'translateY(-50%)'
     },
     nextPage: {
-        position: 'absolute',
+        position: 'fixed',
         top: '50%',
-        right: 0,
+        right: '64px',
         transform: 'translateY(-50%)'
     }
 }), { name: 'PDFView' });
@@ -92,7 +92,7 @@ export default function PDFView({
                                 <Button className={ classes.prevPage } onClick={ onPrevPage }>
                                     <Icon
                                         path={ mdiPagePrevious }
-                                        size={ 1 }
+                                        size={ 2 }
                                         color={ theme.palette.secondary.main }
                                     />
                                 </Button>
@@ -103,7 +103,7 @@ export default function PDFView({
                                 <Button className={ classes.nextPage } onClick={ onNextPage }>
                                     <Icon
                                         path={ mdiPageNext }
-                                        size={ 1 }
+                                        size={ 2 }
                                         color={ theme.palette.secondary.main }
                                 />
                                 </Button>
