@@ -44,7 +44,7 @@ const createStyles = theme => StyleSheet.create({
     },
     panel: {
         paddingTop: '22pt',
-        paddingBottom: '22pt'
+        paddingBottom: '0pt'
     },
     rightPanel: {
         width: '69%',
@@ -391,7 +391,7 @@ export default function ResumePDFView({ theme }) {
                     <View style={ styles.sectionDivider } />
                     <View style={ styles.section }>
                         <Text style={{ ...styles.sectionTitle, ...styles.sectionTitleInline }}>
-                            Personal Projects
+                            Projects
                         </Text>
                         <View style={ styles.sectionBody }>
                             { projects.map((entry, i) => (
