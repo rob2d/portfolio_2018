@@ -3,6 +3,7 @@ import { Font, Page, Text, View, Document, StyleSheet } from '@react-pdf/rendere
 
 import skills from './data-points/skills';
 import experience from './data-points/experience';
+import projects from './data-points/projects';
 
 Font.register({
     family: 'Barlow',
@@ -114,6 +115,11 @@ const createStyles = theme => StyleSheet.create({
         letterSpacing: '0pt',
         textAlign: 'left'
     },
+    sectionDivider: {
+        borderBottomWidth: '1pt',
+        borderBottomColor: '#000',
+        margin: '18pt 0pt'
+    },
     sectionMarginBottom: {
         marginBottom: '18pt'
     },
@@ -167,6 +173,11 @@ const createStyles = theme => StyleSheet.create({
         textTransform: 'uppercase',
         marginBottom: '8pt',
         letterSpacing: '1.36pt'
+    },
+    sectionTitleInline: {
+        fontWeight: 600,
+        marginBottom: '12pt',
+        fontSize: '12pt',
     },
     subtitleText: {
         fontFamily: 'Barlow',
@@ -270,6 +281,40 @@ export default function ResumePDFView({ theme }) {
         </View>
     ), [styles]);
 
+    const PersonalProjectEntry = useCallback(({
+        title, techs, workplace, dates, points, isLast, years
+    }) => (
+        <View style={ !isLast ? styles.sectionEntryBottomPadding: undefined }>
+            <View style={ styles.sectionEntryTitle }>
+                <Text style={ styles.sectionTitleText }>{ title } </Text>
+
+            </View>
+            <View style={ styles.sectionEntrySubtitle }>
+                <Text style={ styles.subtitleText }>
+                    { years } { !techs ? undefined : (
+                        <Text style={ styles.sectionEntryContext }>
+                        &nbsp;({ techs.join(', ') })
+                        </Text>
+                ) }
+                </Text>
+            </View>
+            <View stye={ styles.sectionEntryBody }>
+                { !points ? undefined: points.map((p, i) => (
+                    <Text
+                        key={ `${i+1}` }
+                        style={{
+                        ...(i < (points.length - 1) ?
+                            styles.sectionBodyPBottomPadding :
+                            undefined
+                        ),
+                        ...styles.sectionBodyP
+                    }}>{ p }
+                    </Text>
+                )) }
+            </View>
+        </View>
+    ), [styles]);
+
     return (
         <Document style={ styles.document }>
             <Page size={ 'Letter' } style={ styles.page }>
@@ -336,6 +381,21 @@ export default function ResumePDFView({ theme }) {
                         <View style={ styles.sectionBody }>
                             { experience.map((entry, i) => (
                                 <ResumeExperienceEntry
+                                    key={ `_${i+1}` }
+                                    isLast={ i == (experience.length -1) }
+                                    { ...entry }
+                                />
+                            )) }
+                        </View>
+                    </View>
+                    <View style={ styles.sectionDivider } />
+                    <View style={ styles.section }>
+                        <Text style={{ ...styles.sectionTitle, ...styles.sectionTitleInline }}>
+                            Personal Projects
+                        </Text>
+                        <View style={ styles.sectionBody }>
+                            { projects.map((entry, i) => (
+                                <PersonalProjectEntry
                                     key={ `_${i+1}` }
                                     isLast={ i == (experience.length -1) }
                                     { ...entry }

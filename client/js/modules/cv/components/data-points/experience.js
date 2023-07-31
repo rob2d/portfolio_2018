@@ -5,8 +5,10 @@ const experience = [
         workplace: 'Lab 49',
         dates: 'September 2021 - April 2023',
         points: [
-            'Architected customer data sourcing front-end using Angular and NGRX for data flow, and helped ' +
-            'to establish and maintain standards within an Agile/Scrum environment for a Fortune 500 client.',
+            'Architected customer data sourcing Bootstrap based front-end using Angular and NGRX for single-directional data flow, ' +
+            'and redux-like state management.',
+
+            'Helped to establish and maintain front-end standards within an Agile/Scrum environment for a Fortune 500 client.',
 
             'Facilitated scalable design systems for the application using CDD and Storybook -- adhering implementations to Figma ' +
             'wireframes while also being sure to raise any concerns along the way with the design team and product owners to ensure ' +
@@ -21,8 +23,8 @@ const experience = [
 
             'Proactively worked with backend client facing APIs and collaborated with backend developers.',
 
-            'Provided training to client developers and helped see through two MVP releases of applications in a task generalization ' +
-            'system with full post-production support.'
+            'Provided training to client developers through pair programming and code reviews, and helped see through two MVP releases of applications ' +
+            'in a task generalization system with full post-production support.'
         ]
     },
     {
@@ -79,6 +81,9 @@ const experience = [
 
             'Created an in-house grid library rendering 100ks ' +
             'of rows without pagination, updating real-time via sockets.',
+
+            'Used Material-UI as well as various charting libraries to provide functionality; occasionally ' +
+            'expanding on those with custom in-house components.'
         ]
     }, {
         title: 'Software Engineer',
@@ -92,7 +97,11 @@ const experience = [
 
             'Auto-generated API doc for front-end to reference as spec evolved.',
 
-            'Assisted with data migration scripts, as well as deployment dev ops as needed.'
+            'Assisted with data migration scripts, as well as deployment dev ops as needed.',
+
+            ' ',
+            ' ',
+            ' ',
         ]
     }, {
         title: 'Fullstack Engineer',
@@ -106,7 +115,6 @@ const experience = [
             'and streamlining async state management',
 
             'Implemented several features and fixed long-standing blockers.',
-            ' ',
         ],
     }, {
         title: 'Senior Web Application Developer',
@@ -134,8 +142,7 @@ const experience = [
         workplace: 'US Navy (Deployment)',
         dates: 'June 2009 - April 2010',
         points: [
-            'Contributed to the design, development and management of a command-wide Sharepoint ' +
-        'portal using HTML/CSS/JS.'
+            'Contributed to the design, development and management of a command-wide Sharepoint portal using HTML/CSS/JS.'
         ]
     }];
 
