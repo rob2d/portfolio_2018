@@ -9,22 +9,33 @@ import { Document, Page } from 'react-pdf/dist/esm/entry.webpack5';
 import { Button, Tooltip } from '@material-ui/core';
 import { Icon } from '@mdi/react';
 import {
+    mdiPageFirst,
+    mdiPageLast,
     mdiPageNext,
     mdiPagePrevious
 } from '@mdi/js';
 
-const useStyles = makeStyles(({ palette: { type, text, common } }) => ({
+const useStyles = makeStyles(({ palette }) => ({
     prevPage: {
         position: 'fixed',
         top: '50%',
-        left: '64px',
-        transform: 'translateY(-50%)'
+        left: '48px',
+        transform: 'translateY(-50%)',
+
     },
     nextPage: {
         position: 'fixed',
         top: '50%',
-        right: '64px',
+        right: '48px',
         transform: 'translateY(-50%)'
+    },
+    '@media (max-width: 900px)': {
+        prevPage: {
+            left: '16px'
+        },
+        nextPage: {
+            right: '16px'
+        }
     }
 }), { name: 'PDFView' });
 
@@ -92,7 +103,7 @@ export default function PDFView({
                                 <Button className={ classes.prevPage } onClick={ onPrevPage }>
                                     <Icon
                                         path={ mdiPagePrevious }
-                                        size={ 2 }
+                                        size={ 1.5 }
                                         color={ theme.palette.secondary.main }
                                     />
                                 </Button>
@@ -103,7 +114,7 @@ export default function PDFView({
                                 <Button className={ classes.nextPage } onClick={ onNextPage }>
                                     <Icon
                                         path={ mdiPageNext }
-                                        size={ 2 }
+                                        size={ 1.5 }
                                         color={ theme.palette.secondary.main }
                                 />
                                 </Button>
