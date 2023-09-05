@@ -104,7 +104,7 @@ const createStyles = theme => StyleSheet.create({
     leftPanelEndPadding: {
         display: 'flex',
         width: '100%',
-        height: '273pt'
+        height: '310.5pt'
     },
     contact: {
         display: 'flex',
@@ -115,9 +115,7 @@ const createStyles = theme => StyleSheet.create({
         letterSpacing: '0pt',
         textAlign: 'left'
     },
-    sectionDivider: {
-        borderBottomWidth: '1pt',
-        borderBottomColor: '#000',
+    sectionPadding: {
         margin: '18pt 0pt'
     },
     sectionMarginBottom: {
@@ -223,13 +221,8 @@ const createStyles = theme => StyleSheet.create({
 export default function ResumePDFView({ theme }) {
     const styles = useMemo(() => createStyles(theme), [theme]);
 
-    const ResumeSkillsGroup = useCallback(({ name, items, isLast }) => (
-        <View style={ !isLast ? styles.sectionEntryBottomPadding: undefined } key={ name }>
-            <View style={ styles.sectionEntryTitle }>
-                <Text style={ styles.sectionTitleText }>
-                    { name }
-                </Text>
-            </View>
+    const ResumeSkills = useCallback(({ items }) => (
+        <View style={ styles.sectionEntryBottomPadding }>
             <View style={{ ...styles.fullWidth, ...styles.indent }}>
                 { items.map( (g, i) => (
                     <Text key={ `_${i+1}` } style={ styles.technologyGroup }>{
@@ -329,9 +322,7 @@ export default function ResumePDFView({ theme }) {
                     </View>
                     <View style={{ ...styles.section, ...styles.sectionMarginBottom }}>
                         <Text style={ styles.sectionTitle }>Technologies</Text>
-                        { skills.map( (section, i) => (
-                            <ResumeSkillsGroup { ...section } key={ section.name } />
-                        )) }
+                        <ResumeSkills items={ skills } />
                     </View>
                     <View style={ styles.section }>
                         <Text style={ styles.sectionTitle }>
@@ -388,8 +379,8 @@ export default function ResumePDFView({ theme }) {
                             )) }
                         </View>
                     </View>
-                    <View style={ styles.sectionDivider } />
-                    <View style={ styles.section }>
+                    <View style={{ ...styles.sectionPadding }} />
+                    <View style={{ ...styles.section }}>
                         <Text style={{ ...styles.sectionTitle, ...styles.sectionTitleInline }}>
                             Projects
                         </Text>

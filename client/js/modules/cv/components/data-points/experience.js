@@ -128,22 +128,6 @@ const experience = [
             'WTC One and JFK Airport.',
             'Designed, iterated, and implemented on UI mockups for misc projects such as an expo website.',
         ]
-    }, {
-        title: 'Founder/Software Developer',
-        workplace: 'Whateversoft',
-        dates: 'January 2011 - May 2013',
-        points: [
-            'Worked with an artist to launch a real-time interactive puzzle ' +
-            'game and a card game for the Android OS publicly including both native apps ' +
-            'and server-side for high scores running at 60fps on a custom game engine. '
-        ]
-    }, {
-        title: 'Information Management Officer',
-        workplace: 'US Navy (Deployment)',
-        dates: 'June 2009 - April 2010',
-        points: [
-            'Contributed to the design, development and management of a command-wide Sharepoint portal using HTML/CSS/JS.'
-        ]
     }];
 
 export default experience;
