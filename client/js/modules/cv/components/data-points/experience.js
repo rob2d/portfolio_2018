@@ -10,12 +10,12 @@ const experience = [
 
             'Helped to establish and maintain front-end standards within an Agile/Scrum environment for a Fortune 500 client.',
 
-            'Facilitated scalable design systems for the application using CDD and Storybook -- adhering implementations to Figma ' +
+            'Facilitated scalable design systems by using CDD and Storybook -- adhering implementations to Figma ' +
             'wireframes while also being sure to raise any concerns along the way with the design team and product owners to ensure ' +
             'solutions that are properly context-driven and viable.',
 
-            'Took initiative to write scripts in Python and Puppeteer on occasion to automate tasks to help external teams ' +
-            'troubleshoot their work-in-progress APIs and automate tedious client organizational JIRA workflows for project managers ' +
+            'Took initiative to automate tasks in Python on occasion to automate tasks to help client teams troubleshoot ' +
+            'their work-in-progress APIs and automate tedious client organizational JIRA workflows for project managers ' +
             'on sprints.',
 
             'Occasionally assisted with CI/CD using Jenkins on both front-end and backend workflows, and quickly picked up reactive Java Spring to ' +
