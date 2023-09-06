@@ -5,18 +5,15 @@ const experience = [
         workplace: 'Lab 49',
         dates: 'September 2021 - April 2023',
         points: [
-            'Architected customer data sourcing Bootstrap based front-end using Angular and NGRX for single-directional data flow, ' +
-            'and redux-like state management.',
-
-            'Helped to establish and maintain front-end standards within an Agile/Scrum environment for a Fortune 500 client.',
-
+            'Helped to establish and maintain front end standards within a Bootstrap based front-end using Angular and NGRX ' +
+            'for single-directional data flow, and redux-like state management in an Agile/Scrum environment for a Fortune 500 client.',
             'Facilitated scalable design systems by using CDD and Storybook -- adhering implementations to Figma ' +
             'wireframes while also being sure to raise any concerns along the way with the design team and product owners to ensure ' +
             'solutions that are properly context-driven and viable.',
 
-            'Took initiative to automate tasks in Python on occasion to automate tasks to help client teams troubleshoot ' +
-            'their work-in-progress APIs and automate tedious client organizational JIRA workflows for project managers ' +
-            'on sprints.',
+            'Took initiative to automate tasks in Python on occasion to help client teams troubleshoot ' +
+            'their work-in-progress APIs and streamline tedious JIRA workflows for project managers ' +
+            'on sprints, allowing for more time and holistic focus on requirements gathering.',
 
             'Occasionally assisted with CI/CD using Jenkins on both front-end and backend workflows, and quickly picked up reactive Java Spring to ' +
             'help troubleshoot and provide over 80% coverage for a release.',
@@ -63,6 +60,7 @@ const experience = [
     }, {
         title: 'Frontend Engineer',
         workplace: 'Greystone & Co',
+        context: 'Full Time',
         dates: 'October 2019 - October 2020',
         points: [
             'Developed a greenfield clientside app faciliating borrowers to work through deals ' +
@@ -102,6 +100,7 @@ const experience = [
             ' ',
             ' ',
             ' ',
+            ' ',
         ]
     }, {
         title: 'Fullstack Engineer',
@@ -123,7 +122,7 @@ const experience = [
         points: [
             'Designed the backend, database and UI for a CMS app facilitating ' +
             'upkeep of critical infra used in power systems and facility ' +
-            'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL.' +
+            'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL. ' +
             'Clients acquired relying on this included BlackRock, NYSE, ' +
             'WTC One and JFK Airport.',
             'Designed, iterated, and implemented on UI mockups for misc projects such as an expo website.',

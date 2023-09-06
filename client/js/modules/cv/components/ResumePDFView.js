@@ -152,7 +152,7 @@ const createStyles = theme => StyleSheet.create({
     },
     sectionEntryContext: {
         fontFamily: 'Lato',
-        fontWeight: 800,
+        fontWeight: 700,
         fontSize: '11pt',
         letterSpacing: '1.25pt'
     },
