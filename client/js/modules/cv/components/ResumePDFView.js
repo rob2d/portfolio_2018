@@ -6,25 +6,25 @@ import experience from './data-points/experience';
 import projects from './data-points/projects';
 
 Font.register({
-    family: 'Barlow',
+    family: 'Lato',
     fonts: [
         {
             fontWeight: 600,
             fontStyle: 'normal',
-            src: '/fonts/barlow/Barlow-SemiBold.ttf'
+            src: '/fonts/lato/Lato-Regular.ttf'
         },
         {
             fontWeight: 700,
             fontStyle: 'normal',
-            src: '/fonts/barlow/Barlow-Bold.ttf'
+            src: '/fonts/lato/Lato-Bold.ttf'
         }, {
             fontWeight: 800,
             fontStyle: 'normal',
-            src: '/fonts/barlow/Barlow-Black.ttf'
+            src: '/fonts/lato/Lato-Black.ttf'
         }, {
             fontWeight: 400,
             fontStyle: 'normal',
-            src: '/fonts/barlow/Barlow-Regular.ttf'
+            src: '/fonts/lato/Lato-Regular.ttf'
         }
     ]
 });
@@ -36,7 +36,7 @@ Font.registerHyphenationCallback(word => [word]);
 const createStyles = theme => StyleSheet.create({
     document: {
         backgroundColor: '#FFF',
-        fontFamily: 'Barlow'
+        fontFamily: 'Lato'
     },
     page: {
         flexDirection: 'row',
@@ -73,9 +73,9 @@ const createStyles = theme => StyleSheet.create({
         borderBottom: `10pt solid ${theme.palette.secondary.dark}`
     },
     name: {
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 700,
-        fontSize: '24pt',
+        fontSize: '21.5pt',
         textTransform: 'uppercase',
         letterSpacing: '0',
         lineHeight: '1.4pt',
@@ -83,7 +83,7 @@ const createStyles = theme => StyleSheet.create({
         marginBottom: '2pt',
     },
     career: {
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 700,
         fontSize: '13pt',
         textTransform: 'uppercase',
@@ -92,7 +92,7 @@ const createStyles = theme => StyleSheet.create({
         marginBottom: '2pt'
     },
     website: {
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 400,
         fontSize: '12pt',
         textAlign: 'left'
@@ -104,11 +104,11 @@ const createStyles = theme => StyleSheet.create({
     leftPanelEndPadding: {
         display: 'flex',
         width: '100%',
-        height: '310.5pt'
+        height: '334pt'
     },
     contact: {
         display: 'flex',
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 600,
         fontSize: '10pt',
         width: '100%',
@@ -138,21 +138,21 @@ const createStyles = theme => StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: 'Barlow',
-        fontWeight: 700,
+        fontFamily: 'Lato',
+        fontWeight: 800,
         fontSize: '10.5pt',
-        letterSpacing: '1.25pt'
+        letterSpacing: '0.5pt'
     },
     educationResult: {
         fontSize: '11pt',
         fontWeight: 700,
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         letterSpacing: '1.25pt',
         color: theme.palette.secondary.dark
     },
     sectionEntryContext: {
-        fontFamily: 'Barlow',
-        fontWeight: 400,
+        fontFamily: 'Lato',
+        fontWeight: 800,
         fontSize: '11pt',
         letterSpacing: '1.25pt'
     },
@@ -165,7 +165,7 @@ const createStyles = theme => StyleSheet.create({
         display: 'block'
     },
     sectionTitle: {
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 800,
         fontSize: '14pt',
         textTransform: 'uppercase',
@@ -178,25 +178,25 @@ const createStyles = theme => StyleSheet.create({
         fontSize: '12pt',
     },
     subtitleText: {
-        fontFamily: 'Barlow',
-        fontWeight: 600,
+        fontFamily: 'Lato',
+        fontWeight: 800,
         fontSize: '10pt',
         marginRight: '4pt',
-        letterSpacing: '1pt'
+        letterSpacing: '0.4pt'
     },
     subtitleText2: {
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 700,
         fontSize: '11pt',
         marginRight: '4pt',
         letterSpacing: '1.1pt'
     },
     sectionBodyP: {
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 400,
         fontSize: '8pt',
         lineHeight: '1.24pt',
-        letterSpacing: '0.4pt',
+        letterSpacing: '0.24pt',
         textAlign: 'left'
     },
     sectionBodyPBottomPadding: {
@@ -207,7 +207,7 @@ const createStyles = theme => StyleSheet.create({
     },
     technologyGroup: {
         display: 'block',
-        fontFamily: 'Barlow',
+        fontFamily: 'Lato',
         fontWeight: 600,
         fontSize: '11pt'
     },

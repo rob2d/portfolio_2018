@@ -1,6 +1,6 @@
 const projects = [{
     title: '3D SEGA Dreamcast Model Viewer and Texture Editor',
-    techs: ['React', 'Redux', 'THREE.js', 'Typescript', 'Next.js'],
+    techs: ['React', 'Redux', 'THREE.js', 'Next.js'],
     years: 'May 2023 - Present',
     points: [
         'Designed and developed a browser based application which takes user-selected SEGA Dreamcast/Naomi ' +
