@@ -11,14 +11,12 @@ const experience = [
             'wireframes while also being sure to raise any concerns along the way with the design team and product owners to ensure ' +
             'solutions that are properly context-driven and viable.',
 
-            'Took initiative to automate tasks in Python on occasion to help client teams troubleshoot ' +
-            'their work-in-progress APIs and streamline tedious JIRA workflows for project managers ' +
+            'Automated tasks in Python on occasion to help client teams troubleshoot ' +
+            'their work-in-progress APIs and streamlined tedious JIRA workflows for project managers using Puppeteer ' +
             'on sprints, allowing for more time and holistic focus on requirements gathering.',
 
-            'Occasionally assisted with CI/CD using Jenkins on both front-end and backend workflows, and quickly picked up reactive Java Spring to ' +
-            'help troubleshoot and provide over 80% coverage for a release.',
-
-            'Proactively worked with backend client facing APIs and collaborated with backend developers.',
+            'Assisted with setting up CI/CD pipelines using Jenkins and dev-ops for both front-end and backend, helped provision AWS servers, ' +
+            'and picked up Java Spring (reactive) and contributed to get over 80% test coverage on an API gateway server to meet a release deadline.',
 
             'Provided training to client developers through pair programming and code reviews, and helped see through two MVP releases of applications ' +
             'in a task generalization system with full post-production support.'
@@ -35,9 +33,9 @@ const experience = [
 
             'Wrote unit tests and integration tests and created several components with 100% code coverage.',
 
-            'Proposed ideas leveraged and actively participated in the streamlining of the architecture.',
+            'Proposed ideas that were leveraged and participated in weekly meetings to discuss the streamlining of the architecture.',
 
-            'Assisted with maintaining legacy component framework, solving bug tickets and migrating new features ' +
+            'Assisted with maintaining legacy framework: solving bug tickets and migrating new features ' +
             'for components in development.'
         ]
     },
@@ -80,7 +78,7 @@ const experience = [
             'Created an in-house grid library rendering 100ks ' +
             'of rows without pagination, updating real-time via sockets.',
 
-            'Used Material-UI as well as various charting libraries to provide functionality; occasionally ' +
+            'Leveraged Material-UI as well as various charting libraries to provide functionality; occasionally ' +
             'expanding on those with custom in-house components.'
         ]
     }, {
@@ -125,6 +123,8 @@ const experience = [
             'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL. ' +
             'Clients acquired relying on this included BlackRock, NYSE, ' +
             'WTC One and JFK Airport.',
+            'Built application to comply with OWASP Level 3 security standards to ' +
+            'be able to operate software within government aerospace and healthcare industries.',
             'Designed, iterated, and implemented on UI mockups for misc projects such as an expo website.',
         ]
     }];
