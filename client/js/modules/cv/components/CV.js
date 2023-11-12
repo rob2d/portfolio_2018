@@ -143,7 +143,7 @@ export default function CV() {
                 variant={ 'caption' }
                 className={ classes.portfolioNotice }
             >
-                Auto-generated in React by Rob
+                [PDF auto-generated/Rendered on the fly in this page's source code]
             </Typography>
         </>
     );
