@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { Icon } from '@mdi/react';
 import { mdiInformationOutline } from '@mdi/js';
 import { OptimizedImg } from 'utils/components';
@@ -193,6 +194,8 @@ export default function ProjectCardLayout(props) {
         }
     }, [isSelected, displayState]);
 
+    const isMain = displayState === VIEW_ALL || isSelected;
+
     return (
         <div ref={ container } className={ classes.container }>
             <Card
@@ -203,34 +206,38 @@ export default function ProjectCardLayout(props) {
                 ) }
                 onMouseDown={ displayState === VIEW_ALL ? onClick : undefined }
             >
-                <div className={ classes.cardMediaContent }>
-                    <OptimizedImg
+                { !isMain ? <Skeleton className={ classes.cardMediaContent } /> : (
+                    <div className={ classes.cardMediaContent }>
+                        <OptimizedImg
                         src={ `/img/projects/${id}/${id}_thumb.png` }
                         className={ classes.cardMediaImg }
                         alt={ '' }
                     />
-                    <div className={ classes.titleOverlay }>
-                        <Typography
+                        <div className={ classes.titleOverlay }>
+                            <Typography
                             className={ classes.displayName }
                             variant={ 'subtitle1' }
-                        >{ displayName }
-                        </Typography>
-                        <Typography
+                        >{displayName}
+                            </Typography>
+                            <Typography
                             className={ classes.subtitle }
                             variant={ 'subtitle2' }
                         >{ context } ({ pData.year })
-                        </Typography>
-                        <Icon
+                            </Typography>
+                            <Icon
                             path={ mdiInformationOutline }
                             className={ classes.moreInfoButton }
                             size={ 1.4 }
                         />
+                        </div>
                     </div>
-                </div>
+) }
                 <CardContent className={ classes.cardContent }>
-                    <Typography variant={ 'body1' }>
-                        { shortDescription }
-                    </Typography>
+                    { isMain ?
+                        <Typography variant={ 'body1' }>{ shortDescription }</Typography> :
+                        <><Skeleton /><Skeleton /></>
+                    }
+
                 </CardContent>
             </Card>
         </div>
