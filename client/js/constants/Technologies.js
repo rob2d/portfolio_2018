@@ -15,6 +15,10 @@ export default {
         displayName: 'jQuery',
         referenceUrl: 'https://jquery.com'
     },
+    'jest': {
+        displayName: 'Jest',
+        referenceUrl: 'https://jestjs.io'
+    },
     'js': {
         displayName: 'JavaScript',
         referenceUrl: 'https://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742'
@@ -74,6 +78,10 @@ export default {
     'threejs': {
         displayName: 'Three.JS',
         referenceUrl: 'https://threejs.org/'
+    },
+    'ts': {
+        displayName: 'TypeScript',
+        referenceUrl: 'https://www.typescriptlang.org/'
     },
     'yeoman': {
         displayName: 'Yeoman',
