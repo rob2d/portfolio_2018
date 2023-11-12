@@ -1,4 +1,5 @@
 export default [
+    'modnao',
     'vpsizes',
     'colorshafted',
     'bw',
