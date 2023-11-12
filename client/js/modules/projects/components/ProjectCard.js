@@ -201,7 +201,7 @@ export default function ProjectCardLayout(props) {
                     classes.cardContainerAsTitle,
                     classes.cardContainerBase
                 ) }
-                onMouseDown={ onClick }
+                onMouseDown={ displayState === VIEW_ALL ? onClick : undefined }
             >
                 <div className={ classes.cardMediaContent }>
                     <OptimizedImg
