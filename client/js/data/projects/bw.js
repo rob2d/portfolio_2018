@@ -5,7 +5,7 @@ export default {
     displayName: 'Build & Watch',
     year: '2018',
     context: 'Independent',
-    roles: 'Maintainer, Designer, Developer',
+    roles: 'Designer, Developer',
     technologies: ['js', 'nodejs', 'c'],
     shortDescription: (
         'A simple retro-Gameboy ROM development workflow tool ' +
@@ -28,7 +28,7 @@ export default {
             time to worry about building games, and ended up so fascinated by the
             technology/process (and noticing how painful it was for him), that I
             created this tool. Using his colorful feedback as he built a large scale
-            game, I improved upon this build system over a few weekends and it
+            game, I experimented with this for a few weekends here and there as it
             became a little bit of a side hobby between us.
         </span>),
 
@@ -41,6 +41,12 @@ export default {
             let me experiment with some ideas in NodeJS in regards to process
             management and libraries that synergistically became extremely
             useful for my primary work at the time.
+        </span>),
+
+        (<span>
+            Nowadays, I would probably use VSCode folder settings to automate what is going on
+            here and have learned a lot of better ways to do some of the automation since...
+            But it was fun at the time.
         </span>)
     ],
     links: [

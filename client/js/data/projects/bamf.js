@@ -4,7 +4,7 @@ export default {
     id: 'bamf',
     displayName: 'BAMF Web Framework',
     year: '2012',
-    context: 'Graduate Thesis',
+    context: 'College Project',
     roles: 'Design, Development & Planning',
     technologies: ['html','js','threejs','yui3'],
     platforms: ['web'],
