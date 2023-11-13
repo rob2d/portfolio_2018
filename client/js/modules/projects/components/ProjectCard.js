@@ -204,7 +204,7 @@ export default function ProjectCardLayout(props) {
                     classes.cardContainerAsTitle,
                     classes.cardContainerBase
                 ) }
-                onMouseDown={ displayState === VIEW_ALL ? onClick : undefined }
+                onClick={ displayState === VIEW_ALL ? onClick : undefined }
             >
                 { !isMain ? <Skeleton className={ classes.cardMediaContent } /> : (
                     <div className={ classes.cardMediaContent }>
