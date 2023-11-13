@@ -15,10 +15,7 @@ export default {
         'which features live reloading, JSS, cache-busting, optimization/compression, instantaneous ' +
         'and flexible production-level deployment and a few other neat things or what you would otherwise ' +
         'expect in your web build systems. ' +
-        'Well documented and simple installation, and then you\'re good to go. No need to fiddle with webpack ' +
-        'or other technologies when you have little time -- it just relies on Gulp and Babel and the ' +
-        'code is all very transparent and simple to read/modify (caveat: I have recently massively refactored the build ' +
-        'code on recent projects such as this portfolio and this is not quite yet in the repo 😅). ',
+        'It just relies on Gulp and Babel and the code is all very transparent and simple to read/modify). ',
 
         'I developed this as a need to scratch my own itch as it is always a hassle to keep all of your ' +
         'installation parts up to date for React/Redux apps. I also tend to have used Gulp a lot for other ' +
@@ -37,6 +34,13 @@ export default {
                 http://www.stuyspec.com</a>). It was also used
             to spin up much less
             high profile/ground-shaking projects -- such as this portfolio!
+        </span>),
+
+        (<span>
+            Note that I don't actually still use this for my own projects anymore, as build tools
+            beginning around Webpack 4 have finally begun to include lots of features that make this
+            irrelevant. Beyond that some things I do such as writing tests, using Typescript, etc
+            which go beyond the scope of what I was doing when I began using it.
         </span>)
     ],
     links: [{
