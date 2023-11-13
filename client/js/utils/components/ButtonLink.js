@@ -1,9 +1,9 @@
-import { useMemo, useCallback } from 'react';
 import clsx from 'clsx';
+import { useMemo, useCallback } from 'react';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import { useNavigateTo } from 'utils';
+import { useNavigateTo } from 'utils/hooks';
 
 const useStyles = makeStyles(({ palette: { text } }) => ({
     container: {

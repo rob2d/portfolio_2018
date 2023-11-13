@@ -10,9 +10,7 @@ export default function useNavigateTo() {
     const navigate = useNavigate();
 
     const navigateTo = useCallback((url, e) => {
-
         // extract actual event from React API
-
         const event = e.nativeEvent;
         const isAbsoluteUrl = (
             (url.indexOf('https://') != -1) ||

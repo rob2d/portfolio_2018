@@ -4,8 +4,7 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Icon } from '@mdi/react';
 import { mdiGithubBox, mdiGmail, mdiLinkedinBox } from '@mdi/js';
-import { useAutoFaderClass } from 'utils/hooks';
-import { useNavigateTo } from 'utils';
+import { useAutoFaderClass, useNavigateTo } from 'utils/hooks';
 import { rc3NpmBox } from 'utils/icon-paths';
 
 const useStyles = makeStyles(({ palette: { secondary, common, text } }) => ({
