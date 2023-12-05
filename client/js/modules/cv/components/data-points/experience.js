@@ -54,7 +54,7 @@ const experience = [
             'tickets to technicians and clustering and annotating data within-view in real time.',
             'Streamlined a ticket assignment and asset-mapping app by introducing font ' +
             'standardization, palette normalization, modeling asset ' +
-            'relationships more inutitively, and fuzzy filtering content ' +
+            'relationships more intuitively, and fuzzy filtering content ' +
             'along several modules purely via client code.'
         ]
     }, {
