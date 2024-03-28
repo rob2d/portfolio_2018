@@ -83,7 +83,7 @@
     "colors": "^1.4.0",
     "cors": "^2.8.4",
     "envify": "^4.0.0",
-    "express": "^4.17.3",
+    "express": "^4.19.2",
     "react-refresh": "^0.14.0"
   },
   "optionalDependencies": {
