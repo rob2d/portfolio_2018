@@ -104,7 +104,7 @@ const createStyles = theme => StyleSheet.create({
     leftPanelEndPadding: {
         display: 'flex',
         width: '100%',
-        height: '334pt'
+        height: '186pt'
     },
     contact: {
         display: 'flex',
@@ -324,7 +324,7 @@ export default function ResumePDFView({ theme }) {
                         <Text style={ styles.sectionTitle }>Technologies</Text>
                         <ResumeSkills items={ skills } />
                     </View>
-                    <View style={ styles.section }>
+                    <View style={{ ...styles.section, ...styles.sectionMarginBottom }}>
                         <Text style={ styles.sectionTitle }>
                             Education
                         </Text>
@@ -352,6 +352,38 @@ export default function ResumePDFView({ theme }) {
                             <View style={ styles.sectionEntrySubtitle }>
                                 <Text style={ styles.subtitleText }>
                                     August 2012
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ ...styles.section }}>
+                        <Text style={ styles.sectionTitle }>
+                            Certifications
+                        </Text>
+                        <View style={ styles.educationLocation }>
+                            <Text style={ styles.subtitleText2 }>
+                                DeepLearning.ai
+                            </Text>
+                        </View>
+                        <View style={ styles.sectionEntry }>
+                            <View style={ styles.sectionEntryTitle }>
+                                <Text style={ styles.educationResult }>
+                                    Machine Learning Specialist
+                                </Text>
+                            </View>
+                            <View style={ styles.sectionEntrySubtitle }>
+                                <Text style={ styles.subtitleText }>
+                                    May 2024
+                                </Text>
+                            </View>
+                            <View style={ styles.sectionEntryTitle }>
+                                <Text style={ styles.educationResult }>
+                                    Deep Learning Specialist
+                                </Text>
+                            </View>
+                            <View style={ styles.sectionEntrySubtitle }>
+                                <Text style={ styles.subtitleText }>
+                                    January 2025 - (WIP)
                                 </Text>
                             </View>
                         </View>

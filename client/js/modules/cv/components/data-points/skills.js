@@ -1,14 +1,15 @@
 const skills = [[
-    'ES 5 / 6 / 7+',
-    'TypeScript'
-], [
-    'React + Hooks',
-    'Angular',
+    'TypeScript', 'ES 5/6/7+'
 ],
 [
+    'Java', 'Python', 'C'
+], [
+    'React', 'Three', 'WebGL'
+],
+[
+    'Angular',
     'Node',
-    'Webpack',
-    'Mongo'
+    'Webpack'
 ],
 [
     'CircleCI',
@@ -17,8 +18,8 @@ const skills = [[
 ],
 [
     'Git',
-    'Puppeteer',
-    'Java',
+    'Jest',
+    'Puppeteer'
 ],
 [
     'HTML5',

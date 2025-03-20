@@ -1,11 +1,38 @@
 const experience = [
     {
+        title: 'Senior Software Engineer II',
+        context: 'Full Time',
+        workplace: 'Fiserv',
+        dates: 'January 2024 - Present',
+        points: [
+            'Led front-end development for a modern multi-rate commercial lending application used by banks and credit unions.',
+
+            'Designed and implemented key features, including a multi-factor authentication flow, split/paginated loan views for ' +
+            'different type of loans in a core welcome page, and a reusable history log view with persistent filters.',
+
+            'Standardized Redux-esque NGRX and RxJS patterns and simplified dependency management by educating the team on NPM',
+
+            'Cut long-standing backlog bugs by 75% and contributed to the first three consecutive quarterly releases ' +
+            'without cancellations in the project\'s four-year history.',
+
+            'Enhanced visual fidelity by enforcing a unified design system, ensuring consistent typography, spacing, and ' +
+            'UI patterns. ',
+
+            'Actively collaborated with designers to refine components in Figma, addressing inconsistencies before implementation. ' +
+            'Introduced reusable design tokens and standardized component styles, reducing UI drift and improving long-term maintainability. Several refinements were adopted into a ' +
+            'department-wide design framework.',
+
+            'Mentored junior developers as well as backend developers contributing to the front end stack both in the ' +
+            'USA and in India.',
+        ]
+    },
+    {
         title: 'Web UI Engineer',
         context: 'Full Time',
         workplace: 'Fidelity / Lab49',
         dates: 'September 2021 - April 2023',
         points: [
-            'Helped to establish and maintain front end standards within a Bootstrap based front-end designed to ' +
+            'Helped to establish and maintain front end standards within a greenfield Bootstrap based front-end designed to ' +
             'generalize tasks for associates while also utilizing new ML model system output using Angular and NGRX ' +
             'in an Agile/Scrum environment.',
 
@@ -55,7 +82,8 @@ const experience = [
             'Streamlined a ticket assignment and asset-mapping app by introducing font ' +
             'standardization, palette normalization, modeling asset ' +
             'relationships more intuitively, and fuzzy filtering content ' +
-            'along several modules purely via client code.'
+            'along several modules purely via client code.',
+            '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''
         ]
     }, {
         title: 'Frontend Engineer',
@@ -96,10 +124,6 @@ const experience = [
             'Auto-generated API doc for front-end to reference as spec evolved.',
 
             'Assisted with data migration scripts, as well as deployment dev ops as needed.',
-
-            ' ',
-            ' ',
-            ' '
         ]
     }, {
         title: 'Fullstack Engineer',
