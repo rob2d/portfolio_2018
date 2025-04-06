@@ -16,7 +16,7 @@ jobs:
             nvm ls-remote && nvm install 16.20.0 && nvm use 16.20.0 && nvm alias default 16.20.0
       - checkout
       - node/install-packages:
-          override-ci-command: "npm ci --force"
+          override-ci-command: "npm ci --legacy-peer-deps"
       - run:
           name: Run Linting Checks
           command: npm run lint
