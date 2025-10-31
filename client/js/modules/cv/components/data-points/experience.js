@@ -5,25 +5,25 @@ const experience = [
         workplace: 'Fiserv',
         dates: 'January 2024 - Present',
         points: [
-            'Led front-end development for a modern multi-rate commercial lending application used by banks and credit unions.',
+            'Architected a greenfield front-end React/TypeScript/Redux/RTK Query/MUI/Vitest application to unify and ' +
+            'replace 5 legacy applications. This integrated an inhouse no-code task solution and data management for core banking clients.',
 
-            'Designed and implemented key features, including a multi-factor authentication flow, split/paginated loan views for ' +
-            'different type of loans in a core welcome page, and a reusable history log view with persistent filters.',
+            'Set up vitest and wrote the majority of unit tests. Collaborated and trained new developers to maintain over 90% coverage on CI/CD.',
 
-            'Standardized Redux-esque NGRX and RxJS patterns and simplified dependency management by educating the team on NPM',
+            'Led front-end development for another existing multi-rate commercial lending app used by banks, integrating a microservice-based API ' +
+            'prior to work on a greenfield application; Cut long-standing backlog bugs by over 75% while contributing to the first three consecutive quarterly releases ' +
+            'without cancellations in four years.',
 
-            'Cut long-standing backlog bugs by 75% and contributed to the first three consecutive quarterly releases ' +
-            'without cancellations in the project\'s four-year history.',
+            'Implemented several new features from conception to delivery on UI: e.g. MFA, new loan views/orientations, custom base components for querying interactively to be consumed ' +
+            'across different views, with accessibility and performance in mind.',
 
-            'Enhanced visual fidelity by enforcing a unified design system, ensuring consistent typography, spacing, and ' +
-            'UI patterns. ',
+            'Standardized NGRX and RxJS patterns, simplified dependency management, and provided KT on NPM best practices to streamline updates ' +
+            'while respecting industry security requirements.',
 
-            'Actively collaborated with designers to refine components in Figma, addressing inconsistencies before implementation. ' +
-            'Introduced reusable design tokens and standardized component styles, reducing UI drift and improving long-term maintainability. Several refinements were adopted into a ' +
-            'department-wide design framework.',
+            'Improved visual consistency, demoed UX improvements that were adopted department-wide.',
 
-            'Mentored junior developers as well as backend developers contributing to the front end stack both in the ' +
-            'USA and in India.',
+            'Mentored developers on a global team, including junior and backend developers contributing to the front-end stack. Fostered knowledge sharing, ' +
+            'and a culture of technological innovation and openness wherever possible.',
         ]
     },
     {
@@ -32,24 +32,15 @@ const experience = [
         workplace: 'Fidelity / Lab49',
         dates: 'September 2021 - April 2023',
         points: [
-            'Helped to establish and maintain front end standards within a greenfield Bootstrap based front-end designed to ' +
-            'generalize tasks for associates while also utilizing new ML model system output using Angular and NGRX ' +
-            'in an Agile/Scrum environment.',
+            'Helped establish and maintain front-end standards for a greenfield Bootstrap/NGRX app in Agile/Scrum.',
 
-            'Facilitated scalable design systems by using CDD and Storybook -- adhering implementations to Figma ' +
-            'wireframes while also being sure to raise any concerns along the way with the design team and product owners to ensure ' +
-            'solutions that are properly context-driven and viable.',
+            'Facilitated a scalable design systems using CDD, Storybook, and Figma; ensureing context-driven, viable solutions in collaboration with stakeholders.',
 
-            'Automated tasks in Python on occasion to help client teams troubleshoot their work-in-progress APIs ' +
-           'and streamlined tedious JIRA workflows for project managers using Puppeteer on sprints, allowing for ' +
-            'more time and holistic focus on requirements gathering.',
+            'Automated Python tasks on occasion to help clients stress test WIP APIs and streamlined mandated JIRA workflows with Puppeteer, improving requirements focus.',
 
-            'Assisted with setting up CI/CD pipelines using Jenkins and dev-ops for both front-end and backend, ' +
-            'helped provision AWS servers, and picked up Java Spring (reactive) and contributed to getting over 80% test ' +
-            'coverage on an API gateway server to meet a release deadline.',
+            'Set up CI/CD pipelines with Jenkins and AWS; Picked up and contributed to 80%+ test coverage on a Java Spring API gateway to meet release goals.',
 
-            'Provided training to client developers through pair programming and code reviews, and helped see through two MVP releases of applications ' +
-            'with full post-production support.'
+            'Provided extensive training and code reviews, supporting two MVP releases with full post-production support.'
         ]
     },
     {
@@ -58,8 +49,7 @@ const experience = [
         workplace: 'Infor / Motion Recruitment',
         dates: 'March 2021 - September 2021',
         points: [
-            'Contributed to a greenfield open-source enterprise UI framework as it migrates towards framework-agnostic web components to be used ' +
-            'in both React and Angular applications.',
+            'Contributed to a greenfield open-source enterprise UI framework-agnostic web components to be used in both React and Angular applications.',
 
             'Wrote several HTML5 web-components with 100% code coverage and full WCAG-compliance using axe that were merged into the code base.',
 
@@ -76,14 +66,11 @@ const experience = [
         dates: 'November 2020 - February 2021',
         points: [
             'Architected and coded a 60fps Google Maps ticket browsing and assignment UI ' +
-            'for dynamic filtering which was used to directly secure a multi-million dollar client contract. Included ' +
-            'drag-n-drop of items, panning, browsing, searching within, or assigning ' +
-            'tickets to technicians and clustering and annotating data within-view in real time.',
-            'Streamlined a ticket assignment and asset-mapping app by introducing font ' +
-            'standardization, palette normalization, modeling asset ' +
-            'relationships more intuitively, and fuzzy filtering content ' +
-            'along several modules purely via client code.',
-            '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''
+            'for dynamic filtering which was used to directly secure a multi-million dollar client contract. Included drag-n-drop of items, ' +
+            'panning, browsing, searching within, or assigning tickets to technicians and clustering and annotating data within-view in real time.',
+
+            'Streamlined a ticket assignment and asset-mapping app by introducing font standardization, palette normalization, modeling asset ' +
+            'relationships more intuitively, and fuzzy filtering content along several modules purely via client code.'
         ]
     }, {
         title: 'Frontend Engineer',
@@ -91,9 +78,9 @@ const experience = [
         context: 'Full Time',
         dates: 'October 2019 - October 2020',
         points: [
-            'Developed a greenfield client-side app facilitating borrowers to work through deals ' +
-            'and manage documents while setting standards in codebase, mentoring/training of up and coming front-end devs.',
-            'Assisted with setting up CI/CD and architected the integration test pipeline.'
+            'Developed a greenfield client-side app for deal management and document workflows; mentored junior front-end devs and set code standards.',
+            'Architected CI/CD and integration test pipelines to facilitate development workflows.',
+            '', '', '', '', '', '', '', '', ''
         ]
     }, {
         title: 'Lead UI Developer',
@@ -101,15 +88,12 @@ const experience = [
         workplace: 'Nomura',
         dates: 'February 2019 - September 2019',
         points: [
-            'Designed a front-end build system to interchangeably deploy modules ' +
-            'within a new suite of apps for an initiative facilitating billions in ' +
-            'equities trading monthly, and deployed two apps to production.',
+            'Designed modular front-end build system and deployed two apps to production.',
 
-            'Created an in-house grid library rendering 100ks ' +
-            'of rows without pagination, updating real-time via sockets.',
+            'Built high-performance grid library for real-time equities data.',
 
-            'Leveraged Material-UI as well as various charting libraries to provide functionality; occasionally ' +
-            'expanding on those with custom in-house components.'
+            'Created an in-house grid library rendering 100ks of rows via virtualization, updated real-time via sockets.',
+            'Leveraged MUI as well as charting libraries to provide functionality; occasionally expanding on them with custom in-house components.'
         ]
     }, {
         title: 'Software Engineer',
@@ -130,11 +114,9 @@ const experience = [
         workplace: 'YouVisit',
         dates: 'April 2017 - October 2017',
         points: [
-            'Led an optimization/refactoring effort for a ' +
-            'client side VR tour app. Improvements introduced: ' +
-            'optimizing style system, adopting functional components, ' +
-            'simplifying form/modal logic, removing circular dependencies, ' +
-            'and streamlining async state management',
+            'Led an optimization/refactoring effort for a client side VR tour app. Improvements introduced: ' +
+            'optimizing style system, adopting functional components, simplifying form/modal logic, removing ' +
+            'circular dependencies, and streamlining async state management',
 
             'Implemented several features and fixed long-standing blockers.',
         ],
@@ -143,15 +125,15 @@ const experience = [
         workplace: 'PMC Technology',
         dates: 'April 2014 - March 2017',
         points: [
-            'Designed the backend, database and UI for a CMS app facilitating ' +
-            'upkeep of critical infra used in power systems and facility ' +
-            'mappings in skyscrapers using NodeJS, Flux (FB) and MySQL. ' +
-            'Clients acquired relying on this included BlackRock, NYSE, ' +
-            'WTC One and JFK Airport.',
-            'Built application to comply with O.W.A.S.P. Level 3 security standards to ' +
-            'be able to operate software within government aerospace and healthcare industries.',
+            'Designed a greenfield backend, database and UI for a CMS app facilitating upkeep of critical infra used in ' +
+            'power systems and facility mappings in skyscrapers using NodeJS, Flux (FB) and MySQL. Clients acquired ' +
+            'included BlackRock, NYSE, WTC One and JFK Airport.',
+
+            'Application was built to comply with OWASP 3 security standards to get clearance to operate within government ' +
+            'aerospace and healthcare industries.',
+
             'Designed, iterated, and implemented on UI mockups for misc projects such as a promotional website for ' +
-            'an expo show.',
+            'a relevant industry expo event.',
         ]
     }];
 

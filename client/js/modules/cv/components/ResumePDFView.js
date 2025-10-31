@@ -78,7 +78,7 @@ const createStyles = theme => StyleSheet.create({
         fontSize: '21.5pt',
         textTransform: 'uppercase',
         letterSpacing: '0',
-        lineHeight: '1.4pt',
+        lineHeight: '1.3pt',
         textAlign: 'left',
         marginBottom: '2pt',
     },
@@ -100,11 +100,6 @@ const createStyles = theme => StyleSheet.create({
     educationLocation: {
         position: 'relative',
         paddingBottom: '8pt',
-    },
-    leftPanelEndPadding: {
-        display: 'flex',
-        width: '100%',
-        height: '186pt'
     },
     contact: {
         display: 'flex',
@@ -153,8 +148,8 @@ const createStyles = theme => StyleSheet.create({
     sectionEntryContext: {
         fontFamily: 'Lato',
         fontWeight: 700,
-        fontSize: '11pt',
-        letterSpacing: '1.25pt'
+        fontSize: '10pt',
+        letterSpacing: '1.12pt'
     },
     sectionEntrySubtitle: {
         display: 'flex',
@@ -383,21 +378,11 @@ export default function ResumePDFView({ theme }) {
                             </View>
                             <View style={ styles.sectionEntrySubtitle }>
                                 <Text style={ styles.subtitleText }>
-                                    January 2025 - (WIP)
+                                    ETA Q4 2025
                                 </Text>
                             </View>
                         </View>
                     </View>
-                    <View style={ styles.leftPanelEndPadding } />
-                    <Text style={ styles.contact }>
-                        robert.concepcion.iii@gmail.com
-                    </Text>
-                    <Text style={ styles.contact }>
-                        Phone: (646) 719 - 3800
-                    </Text>
-                    <Text style={ styles.contact }>
-                        https://robertconcepcion.com
-                    </Text>
                 </View>
                 <View style={{ ...styles.rightPanel, ...styles.panel }}>
                     <View style={ styles.section }>
@@ -414,7 +399,7 @@ export default function ResumePDFView({ theme }) {
                     <View style={{ ...styles.sectionPadding }} />
                     <View style={{ ...styles.section }}>
                         <Text style={{ ...styles.sectionTitle, ...styles.sectionTitleInline }}>
-                            Projects
+                            Personal Projects
                         </Text>
                         <View style={ styles.sectionBody }>
                             { projects.map((entry, i) => (

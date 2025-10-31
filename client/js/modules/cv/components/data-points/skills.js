@@ -2,14 +2,10 @@ const skills = [[
     'TypeScript', 'ES 5/6/7+'
 ],
 [
-    'Java', 'Python', 'C'
-], [
     'React', 'Three', 'WebGL'
 ],
 [
-    'Angular',
-    'Node',
-    'Webpack'
+    'Node', 'Redux', 'RTK + Query'
 ],
 [
     'CircleCI',
@@ -18,18 +14,13 @@ const skills = [[
 ],
 [
     'Git',
-    'Jest',
-    'Puppeteer'
+    'Vite',
+    'Vitest'
 ],
 [
     'HTML5',
     'CSS',
     'RxJS'
-],
-[
-    'Next.js',
-    'Redux',
-    'Signals',
 ]];
 
 export default skills;
