@@ -378,7 +378,7 @@ export default function ResumePDFView({ theme }) {
                             </View>
                             <View style={ styles.sectionEntrySubtitle }>
                                 <Text style={ styles.subtitleText }>
-                                    ETA Q4 2025
+                                    Expected January 2026
                                 </Text>
                             </View>
                         </View>

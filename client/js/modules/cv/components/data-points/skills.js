@@ -2,7 +2,7 @@ const skills = [[
     'TypeScript', 'ES 5/6/7+'
 ],
 [
-    'React', 'Three', 'WebGL'
+    'React', 'CSS', 'WCAG'
 ],
 [
     'Node', 'Redux', 'RTK + Query'
@@ -19,7 +19,6 @@ const skills = [[
 ],
 [
     'HTML5',
-    'CSS',
     'RxJS'
 ]];
 

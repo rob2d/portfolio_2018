@@ -8,19 +8,18 @@ const experience = [
             'Architected a greenfield front-end React/TypeScript/Redux/RTK Query/MUI/Vitest application to unify and ' +
             'replace 5 legacy applications. This integrated an inhouse no-code task solution and data management for core banking clients.',
 
-            'Set up vitest and wrote the majority of unit tests. Collaborated and trained new developers to maintain over 90% coverage on CI/CD.',
+            'Set up vitest and wrote the majority of unit tests, as well as a workflow for visual regression tests with Playwright. Collaborated and trained new developers to maintain over 90% coverage on CI/CD.',
 
             'Led front-end development for another existing multi-rate commercial lending app used by banks, integrating a microservice-based API ' +
             'prior to work on a greenfield application; Cut long-standing backlog bugs by over 75% while contributing to the first three consecutive quarterly releases ' +
             'without cancellations in four years.',
 
-            'Implemented several new features from conception to delivery on UI: e.g. MFA, new loan views/orientations, custom base components for querying interactively to be consumed ' +
-            'across different views, with accessibility and performance in mind.',
+            'Implemented MFA, new loan views, and reusable query components across the app, with accessibility and performance in mind.',
 
             'Standardized NGRX and RxJS patterns, simplified dependency management, and provided KT on NPM best practices to streamline updates ' +
             'while respecting industry security requirements.',
 
-            'Improved visual consistency, demoed UX improvements that were adopted department-wide.',
+            'Improved visual consistency, helped modernize UI practices, and demoed UX improvements that were adopted department-wide.',
 
             'Mentored developers on a global team, including junior and backend developers contributing to the front-end stack. Fostered knowledge sharing, ' +
             'and a culture of technological innovation and openness wherever possible.',
@@ -32,7 +31,7 @@ const experience = [
         workplace: 'Fidelity / Lab49',
         dates: 'September 2021 - April 2023',
         points: [
-            'Helped establish and maintain front-end standards for a greenfield Bootstrap/NGRX app in Agile/Scrum.',
+            'Establish and maintain front-end standards for a greenfield Bootstrap/NGRX app.',
 
             'Facilitated a scalable design systems using CDD, Storybook, and Figma; ensureing context-driven, viable solutions in collaboration with stakeholders.',
 
@@ -65,8 +64,7 @@ const experience = [
         workplace: 'Chekhub',
         dates: 'November 2020 - February 2021',
         points: [
-            'Architected and coded a 60fps Google Maps ticket browsing and assignment UI ' +
-            'for dynamic filtering which was used to directly secure a multi-million dollar client contract. Included drag-n-drop of items, ' +
+            'Architected a 60fps Google Maps ticket browsing and assignment UI which directly secured a multi-million dollar client contract. Included drag-n-drop of items, ' +
             'panning, browsing, searching within, or assigning tickets to technicians and clustering and annotating data within-view in real time.',
 
             'Streamlined a ticket assignment and asset-mapping app by introducing font standardization, palette normalization, modeling asset ' +
@@ -80,7 +78,7 @@ const experience = [
         points: [
             'Developed a greenfield client-side app for deal management and document workflows; mentored junior front-end devs and set code standards.',
             'Architected CI/CD and integration test pipelines to facilitate development workflows.',
-            '', '', '', '', '', '', '', '', ''
+            '', '', '', '', '', '', '', '', '', ''
         ]
     }, {
         title: 'Lead UI Developer',
