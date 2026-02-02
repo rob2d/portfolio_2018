@@ -363,22 +363,22 @@ export default function ResumePDFView({ theme }) {
                         <View style={ styles.sectionEntry }>
                             <View style={ styles.sectionEntryTitle }>
                                 <Text style={ styles.educationResult }>
+                                    Deep Learning Specialist
+                                </Text>
+                            </View>
+                            <View style={ styles.sectionEntrySubtitle }>
+                                <Text style={ styles.subtitleText }>
+                                    February 2026
+                                </Text>
+                            </View>
+                            <View style={ styles.sectionEntryTitle }>
+                                <Text style={ styles.educationResult }>
                                     Machine Learning Specialist
                                 </Text>
                             </View>
                             <View style={ styles.sectionEntrySubtitle }>
                                 <Text style={ styles.subtitleText }>
                                     May 2024
-                                </Text>
-                            </View>
-                            <View style={ styles.sectionEntryTitle }>
-                                <Text style={ styles.educationResult }>
-                                    Deep Learning Specialist
-                                </Text>
-                            </View>
-                            <View style={ styles.sectionEntrySubtitle }>
-                                <Text style={ styles.subtitleText }>
-                                    Expected January 2026
                                 </Text>
                             </View>
                         </View>
